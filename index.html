@@ -4,7 +4,7 @@
   
   <meta charset="UTF-8">
   <meta name="description" content="LispBM: a lisp for microcontrollers ">
-  <meta name="keywords" content="lisp, scheme, lispbm, microcontrollers, stm32, esp32, microcontroller lisp, lisp for microcontrollers">
+  <meta name="keywords" content="lisp, scheme, lispbm, script, scripting microcontrollers, stm32, esp32, microcontroller lisp, lisp for microcontrollers">
   <meta name="author" content="Bo Joel Svensson">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -63,7 +63,7 @@
 <p>VESC-Tool gives you access to a very capable <a href="https://vesc-project.com/sites/default/files/lisp%20overview.png">IDE</a> for lisp programming on embedded systems and the VESC Express firmware provides built in functionality to interface with CAN, WIFI, BLE and UART as well as GPIO and display drivers.</p>
 <p>If you are looking for a more bare-bones way to add scripting capabilities to your embedded system, LispBM is quite platform independent and can be compiled for many different MCUs and systems. LispBM can tie into the rest of your application via what we call “extensions” which are C functions that can be called from your LispBM scripts.</p>
 
-<h3 id="documentation">Documentation</h3>
+<h2 id="documentation">Documentation</h3>
 <ul>
 <li>Work in progress <a href="./doc/lbmref.md">LispBM language reference</a>.</li>
 <li>Work in prograss <a href="./doc/displayref.md">LispBM display library reference</a>.</li>
@@ -90,13 +90,44 @@
 <code>sudo apt-get install gcc-multilib libreadline-dev lib32readline-dev libpng-dev libpng-dev:i386</code></p>
 
 <p>Then issue command <code>make</code> in the repl directory.</p>
-<h3 id="editor-support">Editor support</h3>
+<h2 id="editor-support">Editor support</h3>
 <ul>
 <li><a href="https://vesc-project.com/vesc_tool">vesc_tool</a></li>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=rasmus-soderhielm.lispbm-language-support">vscode support</a></li>
 </ul>
 
+<h2>LispBM Performance Evolution</h2>
 
+<p>The performance of the LispBM implementation continuously evolves as we introduce new features and engage in optimization efforts. We work to enhance its efficiency for microcontrollers, such as the STM32F4 running at 168MHz.</p>
+
+<p>Below, you can find performance charts illustrating LispBM's performance on a set of benchmarks:</p>
+
+<img src="./images/benchresults.png" alt="Performance on a small set of benchmarks." />
+<img src="./images/benchresults_log.png" alt="Performance (log scale) on a small set of benchmarks." />
+
+<p>If you're interested in the technical details and benchmarks, you can explore our benchmark code here:</p>
+
+<p><a href="./code/lbm_benchmarks_2022_02_27/index.html">Benchmarks 2022_02_27</a></p>
+
+<h2>Other Lisp-Like Languages for Microcontrollers</h2>
+
+<p>Explore a range of Lisp-like programming languages that are tailored for microcontroller development. These languages are designed to thrive in resource-constrained environments, making them ideal choices for embedded systems. Whether you're looking for a lightweight solution or a minimalist Lisp dialect, these languages offer unique approaches to microcontroller programming.</p>
+
+<ul>
+  <li>
+    <strong>uLisp:</strong> A Lisp dialect specifically designed for microcontrollers. <a href="http://www.ulisp.com/">Learn more</a>
+  </li>
+  <li>
+    <strong>FemtoLisp:</strong> A minimalistic Lisp designed for resource-constrained environments. <a href="https://github.com/JeffBezanson/femtolisp">Learn more</a>
+  </li>
+  <li>
+    <strong>PicoLisp:</strong> A lightweight and minimalistic Lisp dialect for both server-side and embedded programming. <a href="https://picolisp.com/">Learn more</a>
+  </li>
+</ul>
+
+<p>Is your favourite microcontroller lisp missing from this list? Please send the details in an email <a href="mailto:blog.joel.svensson@gmail.com">blog.joel.svensson@gmail.com</a>.</p>
+<br>
+<hr>
 
 </BODY>
 </HTML>
