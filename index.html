@@ -37,6 +37,9 @@
       margin: auto;
   }
 
+  table, th, td {
+      border: 1px solid;
+  }
   
 </style>
 
@@ -122,10 +125,46 @@
 
 <h2 id="testlogs">Testing of LispBM</h2>
 
-<li> <a href="testlogs\html\version_0.23.0\index.html">0.23.0</a> </li>
-<li> <a href="testlogs\html\version_0.24.0\index.html">0.24.0</a> </li>
-<li> <a href="testlogs\html\version_0.25.0\index.html">0.25.0</a> </li>
-<li> <a href="testlogs\html\version_0.26.0\index.html">0.26.0</a> </li>
+<p> The table below contains test reports for the recent numbered releases of LispBM.
+  The test reports applies to the tagged states with the same numbering on Github.
+</p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Testlog</th>
+            <th>Tagged version</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td><a href="testlogs\html\version_0.26.0\index.html">0.26.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.26.0"> tag 0.26.0 </a> </td>
+        </tr>
+        <tr>
+            <td><a href="testlogs\html\version_0.25.0\index.html">0.25.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.25.0"> tag 0.25.0 </a></td>
+        </tr>
+        <tr>
+            <td><a href="testlogs\html\version_0.24.0\index.html">0.24.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.24.0"> tag 0.24.0 </a></td>
+        </tr>
+        <tr>
+            <td><a href="testlogs\html\version_0.23.0\index.html">0.23.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.23.0"> tag 0.23.0 </a></td>
+        </tr>
+    </tbody>
+</table>
+
+<p>We expand on our testing from time to time but currently apply the following testing methods </p>
+<ul>
+<li> Unit tests. </li>
+<li> Static analysis using <a href="https://clang-analyzer.llvm.org/scan-build.html"> CLANG scan-build </a>. </li>
+<li> Static analysis using <a href="https://github.com/facebook/infer"> Infer </a>. </li>
+<li> Work in progress - Property based testing using <a href="https://www.cse.chalmers.se/~rjmh/QuickCheck/manual.html"> Haskell QuickCheck </a>. </li>
+<li> Test coverage is checked with gcov and <a href="https://gcovr.com/en/stable/"> gcovr </a>. </li>
+</ul>
+
 
 <h3>Implement a lisp for microcontrollers</h3>
 
