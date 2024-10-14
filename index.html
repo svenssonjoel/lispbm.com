@@ -28,12 +28,6 @@
       margin-right: 5%;
   }
 
-  div.topnav {
-      overflow: auto;
-      white-space: nowrap;
-      background-color: #333;
-  }
-
   img {
       max-width: 100%;
       max-height: 100vh;
@@ -65,8 +59,43 @@
       transform: translate(-50%, -50%);
       color: gray;
   }
+
+  #toc {
+      position: fixed;
+      right: 0em;
+      top: 0em;
+      border:1px solid black;
+      background-color:#FFF;
+    
+  }
   
+  #toc #full { display: none; } /* Hide the full TOC by default */
+
+  #toc:hover #full{
+      display: block; /* Show it on hover */
+  }
+
 </style>
+
+<div id="toc">
+  <h2>Table of contents</h2>
+  <div id="full">
+    <ul>
+      <li> <a href="#lispbm-lbm"> Top </a> </li>
+      <li> <a href="#want-to-get-involved-and-help-out"> Help Wanted </a> </li>
+      <li> <a href="#getting-started-easy"> Getting started on Embedded: easy </a> </li>
+      <li> <a href="#getting-started-hard"> Getting started on Embedded: hard </a> </li>
+      <li> <a href="#the-lbm-repl"> Getting started on Linux </a> </li>
+      <li> <a href="#documentation"> Documentation </a> </li>
+      <li> <a href="#editor-support"> Editor support </a> </li>
+      <li> <a href="#testlogs"> Testing approach </a> </li>
+      <li> <a href="#implementation"> Implement a lisp for microcontrollers </a> </li>
+      <li> <a href="#performance"> LispBM performance over time </a> </li>
+      <li> <a href="#other-lisps"> Other Lisp-like languages for microcontrollers </a> </li>
+    </ul>
+  </div>
+</div>
+
 
 <BODY bgcolor=#C0C0C0>
 
@@ -114,18 +143,18 @@
 <li>…</li>
 </ol>
 
-<h2 id="getting-started">Getting started on embedded: easy</h2>
+<h2 id="getting-started-easy">Getting started on embedded: easy</h2>
 <p>The easiest way to get started with LispBM programming is to use <a href="https://vesc-project.com/vesc_tool">VESC-Tool</a> together with the <a href="https://github.com/vedderb/vesc_express">VESC EXPRESS Firmware</a> on an <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html">esp32c3</a>.</p>
 <p>VESC-Tool gives you access to a very capable <a href="https://vesc-project.com/sites/default/files/lisp%20overview.png">IDE</a> for lisp programming on embedded systems and the VESC Express firmware provides built in functionality to interface with CAN, WIFI, BLE and UART as well as GPIO and display drivers.</p>
 <p>If you are looking for a more bare-bones way to add scripting capabilities to your embedded system, LispBM is quite platform independent and can be compiled for many different MCUs and systems. LispBM can tie into the rest of your application via what we call “extensions” which are C functions that can be called from your LispBM scripts.</p>
 
-<h2 id="getting-started">Getting started on embedded: hard</h2>
+<h2 id="getting-started-hard">Getting started on embedded: hard</h2>
 <p>If you want to build your own lisp environment based on LispBM on top of ChibiOS, Zephyr, FreeRTOS or bare-metal then
   this is quite possible! I am sorry, though, that there is currently not very much documentation about how to get going with that.
   Looking at how the vesc_express integration works is one starting point as well as the x86 REPL mentioned below.</p>
 
 
-<h2 id="the-lbm-repl">Getting started on linux</h2>
+<h2 id="the-lbm-repl">Getting started on Linux</h2>
 <p>There is an example REPL implementation that runs on X86 32 or 64bit in the <code>repl</code> directory. The REPL depends on libreadline.</p>
 <p><strong>REPL Dependencies for 32Bit executable on 64Bit linux:</strong>
   <ul>
@@ -201,7 +230,7 @@
 </ul>
 
 
-<h2>Implement a lisp for microcontrollers</h2>
+<h2 id="implementation">Implement a lisp for microcontrollers</h2>
 
 <p>The pages below outline steps of development that LispBM went through during 2020 - 2022.
   The information is quite outdated in relation to what LispBM has become since then but perhaps
@@ -228,7 +257,7 @@
   <li> <a href="./pages/lispbm_current_status/index.html"> Another lisp for microcontrollers (lispBM) </a> <br>
 </ul>
 
-<h2>LispBM Performance Evolution</h2>
+<h2 id="performance">LispBM Performance Evolution</h2>
 
 <p>The performance of the LispBM implementation continuously evolves as we introduce new features and engage in optimization efforts. We work to enhance its efficiency for microcontrollers, such as the STM32F4 running at 168MHz.</p>
 
@@ -241,7 +270,7 @@
 
 <p><a href="./code/lbm_benchmarks_2022_02_27/index.html">Benchmarks 2022_02_27</a></p>
 
-<h2>Other Lisp-Like Languages for Microcontrollers</h2>
+<h2 id="other-lisps">Other Lisp-Like Languages for Microcontrollers</h2>
 
 <p>Explore a range of Lisp-like programming languages that are tailored for microcontroller development. These languages are designed to thrive in resource-constrained environments, making them ideal choices for embedded systems. Whether you're looking for a lightweight solution or a minimalist Lisp dialect, these languages offer unique approaches to microcontroller programming.</p>
 
