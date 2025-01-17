@@ -77,15 +77,18 @@ $(function() {
 <div class="textblock"><code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;stdbool.h&gt;</code><br />
 <code>#include &lt;platform_mutex.h&gt;</code><br />
+<code>#include &lt;<a class="el" href="lbm__types_8h_source.html">lbm_types.h</a>&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for lbm_channel.h:</div>
 <div class="dyncontent">
 <div class="center"><img src="lbm__channel_8h__incl.png" border="0" usemap="#lbm__channel_8h" alt=""/></div>
 <map name="lbm__channel_8h" id="lbm__channel_8h">
-<area shape="rect" title=" " alt="" coords="79,5,186,32"/>
-<area shape="rect" title=" " alt="" coords="5,80,71,107"/>
-<area shape="rect" title=" " alt="" coords="95,80,170,107"/>
-<area shape="rect" title=" " alt="" coords="194,80,317,107"/>
+<area shape="rect" title=" " alt="" coords="122,5,229,32"/>
+<area shape="rect" title=" " alt="" coords="5,155,71,181"/>
+<area shape="rect" title=" " alt="" coords="198,155,273,181"/>
+<area shape="rect" title=" " alt="" coords="255,80,378,107"/>
+<area shape="rect" href="lbm__types_8h.html" title=" " alt="" coords="87,80,181,107"/>
+<area shape="rect" title=" " alt="" coords="95,155,173,181"/>
 </map>
 </div>
 </div><div class="textblock"><div class="dynheader">
@@ -192,6 +195,8 @@ Functions</h2></td></tr>
 <tr class="separator:a6da1096743045241240322aae1defa28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abec4020a271a86c1b62e20272ee452c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__channel_8h.html#abec4020a271a86c1b62e20272ee452c8">lbm_create_buffered_char_channel</a> (<a class="el" href="structlbm__buffered__channel__state__t.html">lbm_buffered_channel_state_t</a> *st, <a class="el" href="lbm__channel_8h.html#a626a49bb68281ff070092d656077028a">lbm_char_channel_t</a> *chan)</td></tr>
 <tr class="separator:abec4020a271a86c1b62e20272ee452c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6997c9c0fc2bb830b37df2a8bff03911"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__channel_8h.html#a6997c9c0fc2bb830b37df2a8bff03911">lbm_char_channel_set_dependency</a> (<a class="el" href="lbm__channel_8h.html#a626a49bb68281ff070092d656077028a">lbm_char_channel_t</a> *chan, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> dep)</td></tr>
+<tr class="separator:a6997c9c0fc2bb830b37df2a8bff03911"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a65b6d5e361b794ab2fa2e6c65d5b7d1e"></a>
@@ -724,6 +729,41 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Close the writer side of a channel. \ param chan The channel to close the writer side of. </p>
+
+</div>
+</div>
+<a id="a6997c9c0fc2bb830b37df2a8bff03911"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6997c9c0fc2bb830b37df2a8bff03911">&#9670;&nbsp;</a></span>lbm_char_channel_set_dependency()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lbm_char_channel_set_dependency </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lbm__channel_8h.html#a626a49bb68281ff070092d656077028a">lbm_char_channel_t</a> *&#160;</td>
+          <td class="paramname"><em>chan</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
+          <td class="paramname"><em>dep</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the dependency field of a channel. Garbage collection will ensure that the dependency is alive for at least as long as the channel itself. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">chan</td><td>pointer to channel to set dependency in. </td></tr>
+    <tr><td class="paramname">dep</td><td>dependency to associate with the channel. </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>

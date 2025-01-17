@@ -65,7 +65,25 @@ $(function() {
 <div class="title">Changelog </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>AUG 6 2024: Version 0.26.0</p><ul>
+<div class="textblock"><p>DEC 26 2024: Version 0.29.0</p><ul>
+<li>Identity operation added</li>
+<li>Bugfix in recv-to.</li>
+<li>bugfix in is_printable_string.</li>
+</ul>
+<p>DEC 5 2024: Version 0.28.0</p><ul>
+<li>Fixes bugs in recv-to (receive with timeout).</li>
+<li>Fixes crash when trying to read an empty buffer.</li>
+<li>Error message improvements.</li>
+<li>Display library character spacing when rendering upwards or downwards text (thanks r3n33).</li>
+<li>Changes to how memory usage statistics is collected.</li>
+<li>Pointer reversal GC now compatible with recent language additions.</li>
+</ul>
+<p>NOV 5 2024: Version 0.27.0</p><ul>
+<li>A number of important bugfixes. A write out of bounds among the most important.</li>
+<li>Addition of integer division operation (By Rasmus S)</li>
+<li>A lot of refactoring for readability of code and reduce code complexity.</li>
+<li>A defragmentable memory (compactible memory area).</li>
+<li>Vesc interfacing in the LBM REPL. AUG 6 2024: Version 0.26.0</li>
 <li>Bugfix related to restargs.</li>
 <li>coverage report in relation to the unit tests. JUL 23 2024: Version 0.25.0</li>
 <li>Multiple bugfixes.</li>
