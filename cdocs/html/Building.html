@@ -66,7 +66,7 @@ $(function() {
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><h2>About building LispBM</h2>
-<p>LispBM is intended to be integrated into a larger application and then building LispBM is a part of building that larger application. Currently there are no detailed instructions on how to set that up other than the examples that exists in <a href="https://https://github.com/vedderb/vesc_express">https://https://github.com/vedderb/vesc_express</a> and <a href="https://https://github.com/vedderb/BLDC">https://https://github.com/vedderb/BLDC</a>. </p>
+<p>LispBM is intended to be integrated into a larger application and then building LispBM is a part of building that larger application. Currently there are no detailed instructions on how to set that up other than the examples that exists in <a href="https://github.com/vedderb/vesc_express">vesc_express</a>, <a href="https://github.com/vedderb/BLDC">BLDC</a>. and in the <a href="https://github.com/svenssonjoel/lispBM/tree/master/repl">LispBM REPL</a>.</p>
 <h2 id="cond_build">Conditional building of features </h2>
 <p>The following flags can be used when building LispBM to turn features on or off. These should be added as a -D... flag to the C compiler for the LispBM compilation units.</p>
 <ul>
@@ -81,56 +81,49 @@ LBM_NO_DYN_MACRO - Does not add any of the macros in the library of dynamically 
 </ul>
 <h2>Build on Linux</h2>
 <p>Start by cloning the LispBM repository. Open a terminal and issue command</p>
-<pre>
-git clone <a href="https://github.com/svenssonjoel/lispBM.git">https://github.com/svenssonjoel/lispBM.git</a>
-</pre><p>You should now have a directory called lispBM. Go into it and into the <code>repl</code> subdirectory. </p>
-<pre>
-cd lispBM
-cd repl
-</pre><p>Now, you have multiple choices on how to build the REPL. To build the 32bit version (which is most similar to what you will run on a microcontroller) issue the <code>make</code> command. </p>
-<pre>
-make
-</pre><p>If the make command above fails, it is most likely because there are some missing dependencies. </p>
+<div class="fragment"><div class="line">git clone https:<span class="comment">//github.com/svenssonjoel/lispBM.git</span></div>
+</div><!-- fragment --><p>You should now have a directory called lispBM. Go into it and into the <code>repl</code> subdirectory. </p>
+<div class="fragment"><div class="line">cd lispBM</div>
+<div class="line">cd repl</div>
+</div><!-- fragment --><p>Now, you have multiple choices on how to build the REPL. To build the 32bit version (which is most similar to what you will run on a microcontroller) issue the <code>make</code> command. </p>
+<div class="fragment"><div class="line">make</div>
+</div><!-- fragment --><p>If the make command above fails, it is most likely because there are some missing dependencies. </p>
 <p>Building the 32bit version of the repl requires 32bit libraries. If you are on an Ubuntu platform you get 32bit standard libraries by installing <code>gcc-multilib</code>. </p>
 <p>In addition to <code>gcc-multilib</code> the REPL requires libreadline andlibpng. You need to get the 32bit versions of these libraries. On Ubuntu you can run the following commands. </p>
-<pre>
-sudo apt install gcc-multilib libreadline-dev:i386 libpng-dev:i386
-</pre><p>If you were unable to install the 32bit dependencies with the command above, you may need to instruct the package manager that you are interested in 32bit packages as well.</p>
-<pre>
-sudo dpkg --add-architecture i386
-</pre><p>Then retry the previous step to install the dependencies. </p>
+<div class="fragment"><div class="line">sudo apt install gcc-multilib libreadline-dev:i386 libpng-dev:i386</div>
+</div><!-- fragment --><p>If you were unable to install the 32bit dependencies with the command above, you may need to instruct the package manager that you are interested in 32bit packages as well.</p>
+<div class="fragment"><div class="line">sudo dpkg --add-architecture i386</div>
+</div><!-- fragment --><p>Then retry the previous step to install the dependencies. </p>
 <p>If installing the dependencies finished successfully, <code>make</code> should now work and the repl executable should be built. </p>
 <p>Start the REPL and explore! </p>
-<pre>
-./repl
-</pre><p>You should now be greeted by the LispBM REPL in a way similar to what is shown below.</p>
-<pre>
-Lisp REPL started! (LBM Version: 0.27.1)
-Type :quit to exit.
-     :info for statistics.
-     :load [filename] to load lisp source.
-#
-</pre><p>Try to evaluate some expressions. Type <code>(+ 1 2)</code> and press enter. </p>
-<pre>
-Lisp REPL started! (LBM Version: 0.27.1)
-Type :quit to exit.
-     :info for statistics.
-     :load [filename] to load lisp source.
-# (+ 1 2)
-&gt; 3
-# 
-</pre><p>When you input code at the <code>#</code> prompt, LispBM answers on a new line starting with <code>&gt;</code>.</p>
+<div class="fragment"><div class="line">./repl</div>
+</div><!-- fragment --><p>You should now be greeted by the LispBM REPL in a way similar to what is shown below.</p>
+<div class="fragment"><div class="line">Lisp REPL started! (LBM Version: 0.27.1)</div>
+<div class="line">Type :quit to exit.</div>
+<div class="line">     :info <span class="keywordflow">for</span> statistics.</div>
+<div class="line">     :load [filename] to load lisp source.</div>
+<div class="line">#</div>
+<div class="line">&lt;/pre&gt;</div>
+<div class="line">    </div>
+<div class="line">&lt;p&gt; Try to evaluate some expressions. Type &lt;code&gt;(+ 1 2)&lt;/code&gt; and press enter. &lt;/p&gt;</div>
+<div class="line"> </div>
+<div class="line">&lt;pre&gt;</div>
+<div class="line">Lisp REPL started! (LBM Version: 0.27.1)</div>
+<div class="line">Type :quit to exit.</div>
+<div class="line">     :info <span class="keywordflow">for</span> statistics.</div>
+<div class="line">     :load [filename] to load lisp source.</div>
+<div class="line"># (+ 1 2)</div>
+<div class="line">&gt; 3</div>
+<div class="line"><span class="preprocessor"># </span></div>
+</div><!-- fragment --><p>When you input code at the <code>#</code> prompt, LispBM answers on a new line starting with <code>&gt;</code>.</p>
 <p>Alternatively the REPL can be built as a 64bit binary. Building the 64bit binary requires 64bit versions of the readline and png libraries. </p>
 <p>On Ubuntu you get the dependcies by doing <code>sudo apt install libreadline-dev libpng-dev</code>. Then to build the executable you issue the following command.</p>
-<pre>
-make all64
-</pre><p>Lastly, the REPL can be build with <a href="https://www.libsdl.org/">SDL (Simple Directmedia Layer)</a> for graphical output. This is done by issueing the following command.</p>
-<pre>
-make sdl64 
-</pre><p>Or for 32bit.</p>
-<pre>
-make sdl
-</pre><p>The REPL with SDL requires <code>libsdl2-dev</code> and <code>libsdl2-image-dev</code> libraries or the 32 bit versions (for 32bit repl binary) <code>libsdl2-dev:i386</code> and <code>libsdl2-image-dev:i386</code>.</p>
+<div class="fragment"><div class="line">make all64</div>
+</div><!-- fragment --><p>Lastly, the REPL can be build with <a href="https://www.libsdl.org/">SDL (Simple Directmedia Layer)</a> for graphical output. This is done by issueing the following command.</p>
+<div class="fragment"><div class="line">make sdl64 </div>
+</div><!-- fragment --><p>Or for 32bit.</p>
+<div class="fragment"><div class="line">make sdl</div>
+</div><!-- fragment --><p>The REPL with SDL requires <code>libsdl2-dev</code> and <code>libsdl2-image-dev</code> libraries or the 32 bit versions (for 32bit repl binary) <code>libsdl2-dev:i386</code> and <code>libsdl2-image-dev:i386</code>.</p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->
