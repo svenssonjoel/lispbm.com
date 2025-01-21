@@ -65,7 +65,17 @@ $(function() {
 <div class="title">Changelog </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p>DEC 26 2024: Version 0.29.0</p><ul>
+<div class="textblock"><p>JAN 19 2025: Version 0.30.0</p><ul>
+<li>Loop macros and defun, defunret are part of LBM now.</li>
+<li>Added "unsafe" variant of callcc for efficiency in cases where it can be used.</li>
+<li>lbm_get_global_env_size function added.</li>
+<li>Error printing then "trapped" can be toggled.</li>
+<li>Added a defstruct functionality.</li>
+<li>Custom types are being phased out where not absolutely needed.</li>
+<li>Added mutex extensions.</li>
+<li>Bugfixes and refactorings for making static analysis happy.</li>
+</ul>
+<p>DEC 26 2024: Version 0.29.0</p><ul>
 <li>Identity operation added</li>
 <li>Bugfix in recv-to.</li>
 <li>bugfix in is_printable_string.</li>
