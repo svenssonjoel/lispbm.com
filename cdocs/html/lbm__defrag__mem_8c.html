@@ -105,7 +105,7 @@ Include dependency graph for lbm_defrag_mem.c:</div>
 Macros</h2></td></tr>
 <tr class="memitem:a60b760da391a1caae259da11e37e1783"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#a60b760da391a1caae259da11e37e1783">DEFRAG_MEM_HEADER_SIZE</a>&#160;&#160;&#160;2</td></tr>
 <tr class="separator:a60b760da391a1caae259da11e37e1783"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a52d292fec757949b5a026793dbe817f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#a52d292fec757949b5a026793dbe817f5">DEFRAG_MEM_HEADER_BYTES</a>&#160;&#160;&#160;(2*sizeof(<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>))</td></tr>
+<tr class="memitem:a52d292fec757949b5a026793dbe817f5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#a52d292fec757949b5a026793dbe817f5">DEFRAG_MEM_HEADER_BYTES</a>&#160;&#160;&#160;(<a class="el" href="lbm__defrag__mem_8c.html#a60b760da391a1caae259da11e37e1783">DEFRAG_MEM_HEADER_SIZE</a>*sizeof(<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>))</td></tr>
 <tr class="separator:a52d292fec757949b5a026793dbe817f5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a09c12c0a22703225e317b6fd13d3e313"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#a09c12c0a22703225e317b6fd13d3e313">DEFRAG_MEM_DATA</a>(X)&#160;&#160;&#160;&amp;(X)[<a class="el" href="lbm__defrag__mem_8c.html#a60b760da391a1caae259da11e37e1783">DEFRAG_MEM_HEADER_SIZE</a>];</td></tr>
 <tr class="separator:a09c12c0a22703225e317b6fd13d3e313"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -117,8 +117,12 @@ Macros</h2></td></tr>
 <tr class="separator:a6c786bc46c8c32d01e80ee19e9f63512"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a52a35ab29145059126b627b434893bcc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#a52a35ab29145059126b627b434893bcc">DEFRAG_ALLOC_DATA</a>(X)&#160;&#160;&#160;X[1]</td></tr>
 <tr class="separator:a52a35ab29145059126b627b434893bcc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad02e7bac9194ee8d51e2cd89d7785c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#aad02e7bac9194ee8d51e2cd89d7785c4">DEFRAG_ALLOC_CELLPTR</a>(X)&#160;&#160;&#160;X[2]</td></tr>
+<tr class="memitem:afa35045b2430e0102cdebbb7166a3d5f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#afa35045b2430e0102cdebbb7166a3d5f">DEFRAG_ALLOC_INDEX</a>(X)&#160;&#160;&#160;X[2]</td></tr>
+<tr class="separator:afa35045b2430e0102cdebbb7166a3d5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad02e7bac9194ee8d51e2cd89d7785c4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#aad02e7bac9194ee8d51e2cd89d7785c4">DEFRAG_ALLOC_CELLPTR</a>(X)&#160;&#160;&#160;X[3]</td></tr>
 <tr class="separator:aad02e7bac9194ee8d51e2cd89d7785c4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb6133ca85dfeee8b1affa1bcea659d8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#acb6133ca85dfeee8b1affa1bcea659d8">DEFRAG_ALLOC_ARRAY_HEADER_SIZE</a>&#160;&#160;&#160;4</td></tr>
+<tr class="separator:acb6133ca85dfeee8b1affa1bcea659d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5889105dcd019008c9448dff61323f6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#ab5889105dcd019008c9448dff61323f6">INIT</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:ab5889105dcd019008c9448dff61323f6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaf963b6d9ae058ed1552ed90a72bf2ac"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#aaf963b6d9ae058ed1552ed90a72bf2ac">FREE_LEN</a>&#160;&#160;&#160;1</td></tr>
@@ -136,14 +140,30 @@ Functions</h2></td></tr>
 <tr class="separator:aea2e9336739f0b84cccdc4713923e9b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afd70892909293a12927739bc01612e51"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#afd70892909293a12927739bc01612e51">lbm_defrag_mem_defrag</a> (<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> *defrag_mem, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> bytes)</td></tr>
 <tr class="separator:afd70892909293a12927739bc01612e51"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb342076861e31ceda3d3971d8a8d6b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#acb342076861e31ceda3d3971d8a8d6b9">lbm_defrag_mem_alloc_internal</a> (<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> *defrag_mem, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> bytes)</td></tr>
-<tr class="separator:acb342076861e31ceda3d3971d8a8d6b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abc2ae4d7d203e5d54d42f85b373b4f4d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#abc2ae4d7d203e5d54d42f85b373b4f4d">lbm_defrag_mem_alloc_internal</a> (<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> *defrag_mem, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> bytes, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> type)</td></tr>
+<tr class="separator:abc2ae4d7d203e5d54d42f85b373b4f4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a327caf793163e63d6580fdca946b2db3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#a327caf793163e63d6580fdca946b2db3">lbm_defrag_mem_alloc</a> (<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> *defrag_mem, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> bytes)</td></tr>
 <tr class="separator:a327caf793163e63d6580fdca946b2db3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6cfee6ed9ccdd44afff1b67c91d57015"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#a6cfee6ed9ccdd44afff1b67c91d57015">lbm_defrag_mem_alloc_lisparray</a> (<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> *defrag_mem, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> elts)</td></tr>
+<tr class="separator:a6cfee6ed9ccdd44afff1b67c91d57015"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7c93b368962207536b473f279a2f04e3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__defrag__mem_8c.html#a7c93b368962207536b473f279a2f04e3">lbm_defrag_mem_free</a> (<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> *data)</td></tr>
 <tr class="separator:a7c93b368962207536b473f279a2f04e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="acb6133ca85dfeee8b1affa1bcea659d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb6133ca85dfeee8b1affa1bcea659d8">&#9670;&nbsp;</a></span>DEFRAG_ALLOC_ARRAY_HEADER_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEFRAG_ALLOC_ARRAY_HEADER_SIZE&#160;&#160;&#160;4</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="aad02e7bac9194ee8d51e2cd89d7785c4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aad02e7bac9194ee8d51e2cd89d7785c4">&#9670;&nbsp;</a></span>DEFRAG_ALLOC_CELLPTR</h2>
 
@@ -155,7 +175,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">X</td><td>)</td>
-          <td>&#160;&#160;&#160;X[2]</td>
+          <td>&#160;&#160;&#160;X[3]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -174,6 +194,24 @@ Functions</h2></td></tr>
           <td class="paramtype">&#160;</td>
           <td class="paramname">X</td><td>)</td>
           <td>&#160;&#160;&#160;X[1]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="afa35045b2430e0102cdebbb7166a3d5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afa35045b2430e0102cdebbb7166a3d5f">&#9670;&nbsp;</a></span>DEFRAG_ALLOC_INDEX</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define DEFRAG_ALLOC_INDEX</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td>&#160;&#160;&#160;X[2]</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -241,7 +279,7 @@ Functions</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define DEFRAG_MEM_HEADER_BYTES&#160;&#160;&#160;(2*sizeof(<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>))</td>
+          <td class="memname">#define DEFRAG_MEM_HEADER_BYTES&#160;&#160;&#160;(<a class="el" href="lbm__defrag__mem_8c.html#a60b760da391a1caae259da11e37e1783">DEFRAG_MEM_HEADER_SIZE</a>*sizeof(<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -389,8 +427,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="acb342076861e31ceda3d3971d8a8d6b9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb342076861e31ceda3d3971d8a8d6b9">&#9670;&nbsp;</a></span>lbm_defrag_mem_alloc_internal()</h2>
+<a id="abc2ae4d7d203e5d54d42f85b373b4f4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abc2ae4d7d203e5d54d42f85b373b4f4d">&#9670;&nbsp;</a></span>lbm_defrag_mem_alloc_internal()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -405,7 +443,41 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>&#160;</td>
-          <td class="paramname"><em>bytes</em>&#160;</td>
+          <td class="paramname"><em>bytes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>&#160;</td>
+          <td class="paramname"><em>type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a6cfee6ed9ccdd44afff1b67c91d57015"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6cfee6ed9ccdd44afff1b67c91d57015">&#9670;&nbsp;</a></span>lbm_defrag_mem_alloc_lisparray()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> lbm_defrag_mem_alloc_lisparray </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> *&#160;</td>
+          <td class="paramname"><em>defrag_mem</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>&#160;</td>
+          <td class="paramname"><em>elts</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
