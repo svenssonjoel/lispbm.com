@@ -38,5 +38,7 @@ var searchData=
   ['buffered_5fset_5fcomment_84',['buffered_set_comment',['../lbm__channel_8c.html#a5ad1257bc4a47cb9693411f30e9ce126',1,'lbm_channel.c']]],
   ['buffered_5fwrite_85',['buffered_write',['../lbm__channel_8c.html#a887ec9db629c41ac5a6e7625205dd0aa',1,'lbm_channel.c']]],
   ['buffered_5fwriter_5fclose_86',['buffered_writer_close',['../lbm__channel_8c.html#a11f84b882db7c33c2727bd6d1a6486b0',1,'lbm_channel.c']]],
-  ['bytearray_5fequality_87',['bytearray_equality',['../fundamental_8c.html#a16ffa0dd049166dee585150e9c7b200f',1,'fundamental.c']]]
+  ['building_20lispbm_87',['Building LispBM',['../Building.html',1,'']]],
+  ['building_2edox_88',['building.dox',['../building_8dox.html',1,'']]],
+  ['bytearray_5fequality_89',['bytearray_equality',['../fundamental_8c.html#a16ffa0dd049166dee585150e9c7b200f',1,'fundamental.c']]]
 ];

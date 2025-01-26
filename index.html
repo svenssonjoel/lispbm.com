@@ -1,4 +1,4 @@
-<HTML>
+<HTML lang="en">
 
 <HEAD>  
   
@@ -19,7 +19,7 @@
   
 </HEAD> 
 
-<TITLE>LispBM: A Lisp for Microcontrollers</TITLE>
+<TITLE>LispBM: A Lisp for Microcontrollers with Concurrency and Message Passing</TITLE>
 
 <style type="text/css">
   body, html {
@@ -74,6 +74,21 @@
       display: block; /* Show it on hover */
   }
 
+  pre {
+      overflow-x: auto;
+      border-radius: 5px;
+      background: #414449;
+      color: #b3bccc;
+      padding: 15px;
+      font-size: 13pt;
+      tab-size: 4;
+      -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
+      box-shadow: 0 0 8px 0 rgba(0, 0, 0, .75);
+  }
+
+
+  
 </style>
 
 <div id="toc">
@@ -82,6 +97,7 @@
     <ul>
       <li> <a href="#lispbm-lbm"> Top </a> </li>
       <li> <a href="#want-to-get-involved-and-help-out"> Help Wanted </a> </li>
+      <li> <a href="#getting-started"> Getting started with LispBM </a></li>
       <li> <a href="#getting-started-easy"> Getting started on Embedded: easy </a> </li>
       <li> <a href="#getting-started-hard"> Getting started on Embedded: hard </a> </li>
       <li> <a href="#the-lbm-repl"> Getting started on Linux </a> </li>
@@ -111,20 +127,13 @@
 <p> Who wouldn't want a REPL (read eval print loop) on their embedded platform? This is what LispBM is for!
   </p>
 
-
-<img src="./images/lispbm_llama_small.png" alt="LispBM mascot" />
-
-
-<p>The LispBM mascot, Lispy the llama, was created by <a href="https://www.instagram.com/pixiladyart/">PixiLadyArt</a>. Thank you, Pixi!</p>
-
 <h2 id="want-to-get-involved-and-help-out">Want to get involved and help out?</h2>
 <p>There are lots of interesting things to code on in and around the LispBM runtime system. I would love to interact with people who are interested in high-level programming languages on microcontrollers (or elsewhere) so please do not be shy to make contact. Together we can make great stuff happen ;)</p>
 <ol type="1">
 <li>Are you interested in microcontrollers and programming languages?</li>
 <li>Do you like both imperative and functional programming?</li>
 <li>Clone the <a href="https://www.github.com/svenssonjoel/lispbm">repository</a> and join the fun!</li>
-<li>Poke me by mail bo(dot)joel(dot)svensson(whirly-a)gmail(dot)com.</li>
-<li>Join a small (but growing) community of (very active) users and developers!</li>
+<li>Join the <a href="https://discord.gg/urtJUUMnwQ">discord server</a>
 </ol>
 <p>There are areas where insights and help would matter greatly. Some I can think of are:</p>
 <ol type="1">
@@ -145,40 +154,119 @@
 <li>…</li>
 </ol>
 
-<h2 id="getting-started-easy">Getting started on embedded: easy</h2>
+<h2 id="getting-started">Getting started with LispBM</h2>
+
+The LispBM source code is available on <a href="https://www.github.com/svenssonjoel/lispbm"> github </a>.
+
+<h3 id="getting-started-easy">Getting started on embedded: easy</h3>
 <p>The easiest way to get started with LispBM programming is to use <a href="https://vesc-project.com/vesc_tool">VESC-Tool</a> together with the <a href="https://github.com/vedderb/vesc_express">VESC EXPRESS Firmware</a> on an <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html">esp32c3</a>.</p>
 <p>VESC-Tool gives you access to a very capable <a href="https://vesc-project.com/sites/default/files/lisp%20overview.png">IDE</a> for lisp programming on embedded systems and the VESC Express firmware provides built in functionality to interface with CAN, WIFI, BLE and UART as well as GPIO and display drivers.</p>
 <p>If you are looking for a more bare-bones way to add scripting capabilities to your embedded system, LispBM is quite platform independent and can be compiled for many different MCUs and systems. LispBM can tie into the rest of your application via what we call “extensions” which are C functions that can be called from your LispBM scripts.</p>
 
-<h2 id="getting-started-hard">Getting started on embedded: hard</h2>
+<h3 id="getting-started-hard">Getting started on embedded: hard</h3>
 <p>If you want to build your own lisp environment based on LispBM on top of ChibiOS, Zephyr, FreeRTOS or bare-metal then
   this is quite possible! I am sorry, though, that there is currently not very much documentation about how to get going with that.
   Looking at how the vesc_express integration works is one starting point as well as the x86 REPL mentioned below.</p>
 
 
-<h2 id="the-lbm-repl">Getting started on Linux</h2>
-<p>There is an example REPL implementation that runs on X86 32 or 64bit in the <code>repl</code> directory. The REPL depends on libreadline.</p>
-<p><strong>REPL Dependencies for 32Bit executable on 64Bit linux:</strong>
-  <ul>
-    <li> libreadline </li>
-    <li> lib32readline </li>
-    <li> gcc-multilib </li>
-    <li> libpng </li>
-  </ul>
-      
-<p>On Ubunty you can obtain the depencies by:
-<br><br>
-<code>sudo apt-get install gcc-multilib libreadline-dev lib32readline-dev libpng-dev libpng-dev:i386</code></p>
+<h3 id="the-lbm-repl">Getting started on Linux</h3>
 
-<p>Then issue command <code>make</code> in the repl directory.</p>
+<p> Start by cloning the LispBM repository. Open a terminal and issue command</p>
 
+<pre>
+git clone https://github.com/svenssonjoel/lispBM.git
+</pre>
+
+<p> You should now have a directory called lispBM. Go into it and into the <code>repl</code> subdirectory. </p>
+    
+<pre>
+cd lispBM
+cd repl
+</pre>
+
+<p> Now, you have multiple choices on how to build the REPL. To build the 32bit version (which is most similar to what you will run on a microcontroller) issue the <code>make</code> command. </p>
+<pre>
+make
+</pre>
+
+<p> If the make command above fails, it is most likely because there are some missing dependencies. </p>
+<p> Building the 32bit version of the repl requires 32bit libraries. If you are on an Ubuntu platform you get 32bit standard libraries by installing <code>gcc-multilib</code>. </p>
+<p> In addition to <code>gcc-multilib</code> the REPL requires libreadline andlibpng. You need to get the 32bit versions of these libraries. On Ubuntu you can run the following commands. </p>
+
+<pre>
+sudo apt install gcc-multilib libreadline-dev:i386 libpng-dev:i386
+</pre>
+
+<p> If you were unable to install the 32bit dependencies with the command above, you may need to instruct the package manager that you are interested in 32bit packages as well.</p>
+    
+<pre>
+sudo dpkg --add-architecture i386
+</pre>
+
+<p> Then retry the previous step to install the dependencies. </p>
+
+<p> If installing the dependencies finished successfully, <code>make</code> should now work and the repl executable should be built. </p>
+
+<p> Start the REPL and explore! </p>
+
+<pre>
+./repl
+</pre> 
+
+<p> You should now be greeted by the LispBM REPL in a way similar to what is shown below.</p>
+
+<pre>
+Lisp REPL started! (LBM Version: 0.27.1)
+Type :quit to exit.
+     :info for statistics.
+     :load [filename] to load lisp source.
+#
+</pre>
+    
+<p> Try to evaluate some expressions. Type <code>(+ 1 2)</code> and press enter. </p>
+
+<pre>
+Lisp REPL started! (LBM Version: 0.27.1)
+Type :quit to exit.
+     :info for statistics.
+     :load [filename] to load lisp source.
+# (+ 1 2)
+> 3
+# 
+</pre>
+
+<p> When you input code at the <code>#</code> prompt, LispBM answers on a new line starting with <code>></code>.</p>
+
+<p> Alternatively the REPL can be built as a 64bit binary. Building the 64bit binary requires 64bit versions of the readline and png libraries. </p>
+<p> On Ubuntu you get the dependcies by doing <code>sudo apt install libreadline-dev libpng-dev</code>. Then to build the executable you issue the following command.</p>
+
+<pre>
+make all64
+</pre>
+
+<p> Lastly, the REPL can be build with <a href="https://www.libsdl.org/">SDL (Simple Directmedia Layer)</a> for graphical output.
+This is done by issueing the following command.</p>
+
+<pre>
+make sdl64 
+</pre>
+
+<p> Or for 32bit.</p>
+
+<pre>
+make sdl
+</pre>
+
+<p>The REPL with SDL requires <code>libsdl2-dev</code> and <code>libsdl2-image-dev</code> libraries or
+the 32 bit versions (for 32bit repl binary) <code>libsdl2-dev:i386</code> and <code>libsdl2-image-dev:i386</code>.</p>
+     
 <h2 id="documentation">Documentation</h2>
 <ul>
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/lbmref.md">LispBM language reference</a>.</li>
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/displayref.md">LispBM display library reference</a>.</li>
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/runtimeref.md">LispBM runtime system library reference</a>.</li>
+<li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/dynref.md">LispBM library of dynamically loadable functionality</a>.</li>
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/gotchas.md">Gotchas and caveats</a>.</li>
-<li>!OUTDATED! <a href="https://github.com/svenssonjoel/lispBM/tree/master/doc/manual">LispBM programming manual</a>.</li>
 <li><a href="./cdocs/html/index.html">Implementation C code documents</a>.</li>
 <li>There are <a href="https://youtube.com/playlist?list=PLtf_3TaqZoDOQqZcB9Yj-R1zS2DWDZ9q9">demonstrations on YouTube</a>.</li>
 </ul>
@@ -193,7 +281,24 @@
 
 <p> The table below contains test reports for the recent numbered releases of LispBM.
   The test reports applies to the tagged states with the same numbering on Github.
+  Note that only versions <code>X.Y.0</code> gets a tag and a full run of all tests.
+  Versions <code>X.Y.Z</code> for non-zero <code>Z</code> are experimental and in development,
+  and are sporadically tested as part of development but not given a full testing log treatment.
+  If you want to use LispBM for something serious, please use a <code>X.Y.0</code> version
+  and keep in mind that testing is never exhaustive and in no way a quarantee of correctness
+  or suitability for any given purpose. A thorough safety and reliability analysis should be
+  performed on the software system where lispbm is integrated as a whole.
 </p>
+
+<p> The table of test-results is provided for traceability purposes and gives a snapshot of known problems
+  with a given version of LispBM.
+</p>
+
+<p> That said, we are very serious about our testing and we do want to make it possible to use LispBM
+  as a scripting language integrated into <em>any</em> application. This is an on going effort and
+  collaboration is most appreciated.</p>
+
+<p>Please report bugs via the issues tracker on <a href="https://github.com/svenssonjoel/lispBM/issues">github</a>.</p>
 
 <table>
     <thead>
@@ -203,36 +308,56 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <td><a href="testlogs\html\version_0.26.0\index.html">0.26.0</a></td>
-            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.26.0"> tag 0.26.0 </a> </td>
-        </tr>
-        <tr>
-            <td><a href="testlogs\html\version_0.25.0\index.html">0.25.0</a></td>
-            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.25.0"> tag 0.25.0 </a></td>
-        </tr>
-        <tr>
-            <td><a href="testlogs\html\version_0.24.0\index.html">0.24.0</a></td>
-            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.24.0"> tag 0.24.0 </a></td>
-        </tr>
-        <tr>
-            <td><a href="testlogs\html\version_0.23.0\index.html">0.23.0</a></td>
-            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.23.0"> tag 0.23.0 </a></td>
-        </tr>
+      <tr>
+        <td><a href="testlogs\html\version_0.30.0\index.html">0.30.0</a></td>
+        <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.30.0"> tag 0.30.0 </a> </td>
+      </tr>
+      <tr>
+        <td><a href="testlogs\html\version_0.29.0\index.html">0.29.0</a></td>
+        <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.29.0"> tag 0.29.0 </a> </td>
+      </tr>
+      <tr>
+        <td><a href="testlogs\html\version_0.28.0\index.html">0.28.0</a></td>
+        <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.28.0"> tag 0.28.0 </a> </td>
+      </tr>
+      <tr>
+        <td><a href="testlogs\html\version_0.27.0\index.html">0.27.0</a></td>
+        <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.27.0"> tag 0.27.0 </a> </td>
+      </tr>
+      <tr>
+        <td><a href="testlogs\html\version_0.26.0\index.html">0.26.0</a></td>
+        <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.26.0"> tag 0.26.0 </a> </td>
+      </tr>
+      <tr>
+        <td><a href="testlogs\html\version_0.25.0\index.html">0.25.0</a></td>
+        <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.25.0"> tag 0.25.0 </a></td>
+      </tr>
+      <tr>
+        <td><a href="testlogs\html\version_0.24.0\index.html">0.24.0</a></td>
+        <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.24.0"> tag 0.24.0 </a></td>
+      </tr>
+      <tr>
+        <td><a href="testlogs\html\version_0.23.0\index.html">0.23.0</a></td>
+        <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.23.0"> tag 0.23.0 </a></td>
+      </tr>
     </tbody>
 </table>
 
+<p><strong>NOTE:</strong> The scan-build directory is empty if the scan-build tool finds no issues with the code. </p>
+<p><strong>NOTE:</strong> The Infer result file <code>infer_x.y.z.txt</code> is empty if Infer finds no issues.</p>    
+<br>
 <p>We expand on our testing from time to time but currently apply the following testing methods </p>
 <ul>
 <li> Unit tests. </li>
 <li> Static analysis using <a href="https://clang-analyzer.llvm.org/scan-build.html"> CLANG scan-build </a>. </li>
 <li> Static analysis using <a href="https://github.com/facebook/infer"> Infer </a>. </li>
+<li> Static analysis using <a href="https://cppcheck.sourceforge.io/"> cppcheck </a>. </li>
 <li> Work in progress - Property based testing using <a href="https://www.cse.chalmers.se/~rjmh/QuickCheck/manual.html"> Haskell QuickCheck </a>. </li>
 <li> Test coverage is checked with gcov and <a href="https://gcovr.com/en/stable/"> gcovr </a>. </li>
 </ul>
 
 
-<h2 id="implementation">Implement a lisp for microcontrollers</h2>
+<h2 id="implementation">Lisp Implementation</h2>
 
 <p>The pages below outline steps of development that LispBM went through during 2020 - 2022.
   The information is quite outdated in relation to what LispBM has become since then but perhaps
@@ -272,7 +397,7 @@
 
 <p><a href="./code/lbm_benchmarks_2022_02_27/index.html">Benchmarks 2022_02_27</a></p>
 
-<h2 id="other-lisps">Other Lisp-Like Languages for Microcontrollers</h2>
+<h2 id="other-lisps">Other Lisp based Languages for Microcontrollers</h2>
 
 <p>Explore a range of Lisp-like programming languages that are tailored for microcontroller development. These languages are designed to thrive in resource-constrained environments, making them ideal choices for embedded systems. Whether you're looking for a lightweight solution or a minimalist Lisp dialect, these languages offer unique approaches to microcontroller programming.</p>
 
@@ -293,6 +418,8 @@
 <hr>
   
 <h2 id="stickers">LispBM stickers: Lispy the llama</h2>
+
+<p>The LispBM mascot, Lispy the llama, was created by <a href="https://www.instagram.com/pixiladyart/">PixiLadyArt</a>. Thank you, Pixi!</p>
 
 <div>
 <img src="./images/sticker1.jpg" alt="Lispy the llama" style="transform:rotate(-90deg);width:20%;margin: 5%;max-width:100%"/>
