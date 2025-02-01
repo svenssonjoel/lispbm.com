@@ -1,4 +1,6 @@
 <map id="eval_context_s" name="eval_context_s">
-<area shape="rect" id="node1" title=" " alt="" coords="5,96,116,123"/>
-<area shape="rect" id="node2" href="$structlbm__stack__t.html" title=" " alt="" coords="14,5,107,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,95,125,121"/>
+<area shape="poly" id="edge2_Node000001_Node000001" title=" " alt="" coords="140,99,152,108,144,116,126,119,125,114,141,111,147,108,138,104"/>
+<area shape="rect" id="Node000002" href="$structlbm__stack__t.html" title=" " alt="" coords="15,5,116,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="68,44,68,95,63,95,63,44"/>
 </map>

@@ -1,6 +1,9 @@
 <map id="lbm_utils.h" name="lbm_utils.h">
-<area shape="rect" id="node1" title=" " alt="" coords="135,5,220,32"/>
-<area shape="rect" id="node2" href="$extensions_8c.html" title=" " alt="" coords="5,80,101,107"/>
-<area shape="rect" id="node3" href="$fundamental_8c.html" title=" " alt="" coords="125,80,229,107"/>
-<area shape="rect" id="node4" href="$symrepr_8c.html" title=" " alt="" coords="254,80,333,107"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="145,5,239,31"/>
+<area shape="rect" id="Node000002" href="$extensions_8c.html" title=" " alt="" coords="5,79,109,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="160,39,81,81,78,76,157,35"/>
+<area shape="rect" id="Node000003" href="$fundamental_8c.html" title=" " alt="" coords="134,79,250,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,44,195,79,189,79,189,44"/>
+<area shape="rect" id="Node000004" href="$symrepr_8c.html" title=" " alt="" coords="274,79,361,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="225,35,298,76,296,81,223,40"/>
 </map>
