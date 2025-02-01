@@ -1,8 +1,15 @@
 <map id="symrepr.h" name="symrepr.h">
-<area shape="rect" id="node1" title=" " alt="" coords="136,5,215,32"/>
-<area shape="rect" id="node2" title=" " alt="" coords="5,155,71,181"/>
-<area shape="rect" id="node3" title=" " alt="" coords="198,155,273,181"/>
-<area shape="rect" id="node4" href="$lbm__types_8h.html" title=" " alt="" coords="87,80,181,107"/>
-<area shape="rect" id="node6" href="$lbm__defines_8h.html" title=" " alt="" coords="256,80,359,107"/>
-<area shape="rect" id="node5" title=" " alt="" coords="95,155,173,181"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="144,5,231,31"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="5,152,76,177"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="156,33,118,52,81,80,62,109,50,140,45,138,57,107,77,77,115,48,154,28"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="211,152,294,177"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="195,30,244,138,239,141,190,32"/>
+<area shape="rect" id="Node000004" href="$lbm__types_8h.html" title=" " alt="" coords="92,79,195,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="182,32,160,68,155,66,178,30"/>
+<area shape="rect" id="Node000006" href="$lbm__defines_8h.html" title=" " alt="" coords="271,79,384,104"/>
+<area shape="poly" id="edge7_Node000001_Node000006" title=" " alt="" coords="211,28,294,70,291,75,209,33"/>
+<area shape="poly" id="edge4_Node000004_Node000002" title=" " alt="" coords="128,106,70,146,67,142,125,102"/>
+<area shape="poly" id="edge5_Node000004_Node000003" title=" " alt="" coords="162,102,225,142,222,147,159,106"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="100,152,187,177"/>
+<area shape="poly" id="edge6_Node000004_Node000005" title=" " alt="" coords="146,104,146,138,141,138,141,104"/>
 </map>

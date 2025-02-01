@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['matcher_1709',['matcher',['../structmatcher.html',1,'']]]
+  ['matcher_0',['matcher',['../structmatcher.html',1,'']]]
 ];
