@@ -312,8 +312,8 @@ Functions</h2></td></tr>
 <tr class="separator:adb6045dec6287eefaf0d2d02aeb3d5fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a811c2b66347ca804838f0a80def3359f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="heap_8h.html#a199a56e7cda7ee37992087293f1d4f8b">lbm_flash_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#a811c2b66347ca804838f0a80def3359f">request_flash_storage_cell</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> val, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *res)</td></tr>
 <tr class="separator:a811c2b66347ca804838f0a80def3359f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad451b7f53a316ca551aa473f27371c94"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#ad451b7f53a316ca551aa473f27371c94">lbm_find_receiver_and_send</a> (<a class="el" href="lbm__types_8h.html#a0a6887c6ce9caa08cbb9a7e60d817865">lbm_cid</a> cid, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> msg)</td></tr>
-<tr class="separator:ad451b7f53a316ca551aa473f27371c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55dcf63b06534a2a4f37eba0df52974b"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#a55dcf63b06534a2a4f37eba0df52974b">lbm_find_receiver_and_send</a> (<a class="el" href="lbm__types_8h.html#a0a6887c6ce9caa08cbb9a7e60d817865">lbm_cid</a> cid, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> msg)</td></tr>
+<tr class="separator:a55dcf63b06534a2a4f37eba0df52974b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a27657f87b34ca03ac8a6d75bb38113c0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#a27657f87b34ca03ac8a6d75bb38113c0">lbm_perform_gc</a> (void)</td></tr>
 <tr class="separator:a27657f87b34ca03ac8a6d75bb38113c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24b5f65176da74cfa2c2f8d840df5694"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#a24b5f65176da74cfa2c2f8d840df5694">lbm_request_gc</a> (void)</td></tr>
@@ -1298,14 +1298,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ad451b7f53a316ca551aa473f27371c94"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad451b7f53a316ca551aa473f27371c94">&#9670;&nbsp;</a></span>lbm_find_receiver_and_send()</h2>
+<a id="a55dcf63b06534a2a4f37eba0df52974b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55dcf63b06534a2a4f37eba0df52974b">&#9670;&nbsp;</a></span>lbm_find_receiver_and_send()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int lbm_find_receiver_and_send </td>
+          <td class="memname">bool lbm_find_receiver_and_send </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#a0a6887c6ce9caa08cbb9a7e60d817865">lbm_cid</a>&#160;</td>
           <td class="paramname"><em>cid</em>, </td>
@@ -1331,7 +1331,7 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>0 on success negative value on error. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>true on success false on failure. </dd></dl>
 
 </div>
 </div>
