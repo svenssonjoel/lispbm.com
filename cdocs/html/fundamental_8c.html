@@ -84,6 +84,7 @@ $(function() {
 <code>#include &quot;<a class="el" href="lbm__constants_8h_source.html">lbm_constants.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="fundamental_8h_source.html">fundamental.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="lbm__defrag__mem_8h_source.html">lbm_defrag_mem.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="print_8h_source.html">print.h</a>&quot;</code><br />
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;math.h&gt;</code><br />
 </div><div class="textblock"><div class="dynheader">
@@ -91,32 +92,33 @@ Include dependency graph for fundamental.c:</div>
 <div class="dyncontent">
 <div class="center"><img src="fundamental_8c__incl.png" border="0" usemap="#fundamental_8c" alt=""/></div>
 <map name="fundamental_8c" id="fundamental_8c">
-<area shape="rect" title=" " alt="" coords="663,5,767,32"/>
-<area shape="rect" href="lbm__types_8h.html" title=" " alt="" coords="667,453,760,480"/>
-<area shape="rect" href="symrepr_8h.html" title=" " alt="" coords="971,379,1050,405"/>
-<area shape="rect" href="stack_8h.html" title=" " alt="" coords="182,379,247,405"/>
-<area shape="rect" title=" " alt="" coords="93,453,155,480"/>
-<area shape="rect" href="heap_8h.html" title=" " alt="" coords="597,304,659,331"/>
-<area shape="rect" href="eval__cps_8h.html" title=" " alt="" coords="385,155,471,181"/>
-<area shape="rect" href="env_8h.html" title=" " alt="" coords="743,155,795,181"/>
-<area shape="rect" href="lbm__utils_8h.html" title=" " alt="" coords="752,80,837,107"/>
-<area shape="rect" href="lbm__custom__type_8h.html" title=" " alt="" coords="1015,229,1151,256"/>
-<area shape="rect" href="lbm__constants_8h.html" title=" " alt="" coords="921,80,1039,107"/>
-<area shape="rect" href="fundamental_8h.html" title=" " alt="" coords="479,80,583,107"/>
-<area shape="rect" href="lbm__defrag__mem_8h.html" title=" " alt="" coords="148,229,281,256"/>
-<area shape="rect" title=" " alt="" coords="1227,80,1290,107"/>
-<area shape="rect" title=" " alt="" coords="442,528,507,555"/>
-<area shape="rect" title=" " alt="" coords="625,528,700,555"/>
-<area shape="rect" title=" " alt="" coords="725,528,803,555"/>
-<area shape="rect" href="lbm__defines_8h.html" title=" " alt="" coords="1087,453,1190,480"/>
-<area shape="rect" title=" " alt="" coords="179,453,243,480"/>
-<area shape="rect" title=" " alt="" coords="729,379,794,405"/>
-<area shape="rect" title=" " alt="" coords="635,379,704,405"/>
-<area shape="rect" href="lbm__memory_8h.html" title=" " alt="" coords="453,379,560,405"/>
-<area shape="rect" href="lbm__channel_8h.html" title=" " alt="" coords="272,379,379,405"/>
-<area shape="rect" title=" " alt="" coords="980,453,1049,480"/>
-<area shape="rect" title=" " alt="" coords="419,453,541,480"/>
-<area shape="rect" href="lbm__flat__value_8h.html" title=" " alt="" coords="472,229,589,256"/>
+<area shape="rect" title=" " alt="" coords="915,5,1019,32"/>
+<area shape="rect" href="lbm__types_8h.html" title=" " alt="" coords="608,453,701,480"/>
+<area shape="rect" href="symrepr_8h.html" title=" " alt="" coords="179,379,258,405"/>
+<area shape="rect" href="stack_8h.html" title=" " alt="" coords="1065,379,1130,405"/>
+<area shape="rect" title=" " alt="" coords="1213,453,1275,480"/>
+<area shape="rect" href="heap_8h.html" title=" " alt="" coords="487,304,548,331"/>
+<area shape="rect" href="eval__cps_8h.html" title=" " alt="" coords="839,155,924,181"/>
+<area shape="rect" href="env_8h.html" title=" " alt="" coords="673,155,725,181"/>
+<area shape="rect" href="lbm__utils_8h.html" title=" " alt="" coords="1269,80,1355,107"/>
+<area shape="rect" href="lbm__custom__type_8h.html" title=" " alt="" coords="21,229,157,256"/>
+<area shape="rect" href="lbm__constants_8h.html" title=" " alt="" coords="1379,80,1498,107"/>
+<area shape="rect" href="fundamental_8h.html" title=" " alt="" coords="800,80,904,107"/>
+<area shape="rect" href="lbm__defrag__mem_8h.html" title=" " alt="" coords="1011,229,1144,256"/>
+<area shape="rect" href="print_8h.html" title=" " alt="" coords="851,379,909,405"/>
+<area shape="rect" title=" " alt="" coords="1522,80,1585,107"/>
+<area shape="rect" title=" " alt="" coords="757,528,822,555"/>
+<area shape="rect" title=" " alt="" coords="536,528,611,555"/>
+<area shape="rect" title=" " alt="" coords="635,528,714,555"/>
+<area shape="rect" href="lbm__defines_8h.html" title=" " alt="" coords="39,453,142,480"/>
+<area shape="rect" title=" " alt="" coords="1125,453,1189,480"/>
+<area shape="rect" title=" " alt="" coords="427,379,493,405"/>
+<area shape="rect" title=" " alt="" coords="333,379,403,405"/>
+<area shape="rect" href="lbm__memory_8h.html" title=" " alt="" coords="517,379,624,405"/>
+<area shape="rect" href="lbm__channel_8h.html" title=" " alt="" coords="933,379,1040,405"/>
+<area shape="rect" title=" " alt="" coords="444,453,513,480"/>
+<area shape="rect" title=" " alt="" coords="827,453,949,480"/>
+<area shape="rect" href="lbm__flat__value_8h.html" title=" " alt="" coords="541,229,659,256"/>
 </map>
 </div>
 </div><table class="memberdecls">
@@ -283,6 +285,8 @@ Functions</h2></td></tr>
 <tr class="separator:a2b0bd9d72423ed0eb2cf5579bc2ae6d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5b7e2ffa6782e0424ce79c4c7b14e33"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fundamental_8c.html#ae5b7e2ffa6782e0424ce79c4c7b14e33">fundamental_identity</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *args, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> argn, <a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
 <tr class="separator:ae5b7e2ffa6782e0424ce79c4c7b14e33"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af4ac3cc1a0f4595363c69a9d9d816394"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="fundamental_8c.html#af4ac3cc1a0f4595363c69a9d9d816394">fundamental_is_string</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *args, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> argn, <a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
+<tr class="separator:af4ac3cc1a0f4595363c69a9d9d816394"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
 Variables</h2></td></tr>
@@ -1703,6 +1707,48 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">static <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> fundamental_is_number </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>&#160;</td>
+          <td class="paramname"><em>argn</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="af4ac3cc1a0f4595363c69a9d9d816394"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af4ac3cc1a0f4595363c69a9d9d816394">&#9670;&nbsp;</a></span>fundamental_is_string()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> fundamental_is_string </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *&#160;</td>
           <td class="paramname"><em>args</em>, </td>
