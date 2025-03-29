@@ -1,11 +1,22 @@
 <map id="env.h" name="env.h">
-<area shape="rect" id="node1" title=" " alt="" coords="264,5,316,32"/>
-<area shape="rect" id="node2" href="$lbm__c__interop_8h.html" title=" " alt="" coords="78,80,193,107"/>
-<area shape="rect" id="node3" href="$lispbm_8h.html" title=" " alt="" coords="5,155,76,181"/>
-<area shape="rect" id="node6" href="$env_8c.html" title=" " alt="" coords="217,80,269,107"/>
-<area shape="rect" id="node7" href="$eval__cps_8c.html" title=" " alt="" coords="294,80,379,107"/>
-<area shape="rect" id="node8" href="$fundamental_8c.html" title=" " alt="" coords="403,80,507,107"/>
-<area shape="rect" id="node9" href="$tokpar_8c.html" title=" " alt="" coords="532,80,600,107"/>
-<area shape="rect" id="node5" href="$lbm__c__interop_8c.html" title=" " alt="" coords="101,155,215,181"/>
-<area shape="rect" id="node4" href="$lispbm_8c.html" title=" " alt="" coords="5,229,76,256"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="375,5,433,31"/>
+<area shape="rect" id="Node000002" href="$env_8c.html" title=" " alt="" coords="5,79,61,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="362,28,233,49,74,81,62,84,61,79,73,76,232,44,361,23"/>
+<area shape="rect" id="Node000003" href="$eval__cps_8c.html" title=" " alt="" coords="85,79,176,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="363,33,175,81,174,76,361,28"/>
+<area shape="rect" id="Node000004" href="$fundamental_8c.html" title=" " alt="" coords="201,79,317,104"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="370,39,284,81,281,76,367,34"/>
+<area shape="rect" id="Node000005" href="$lbm__c__interop_8h.html" title=" " alt="" coords="341,79,467,104"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="407,44,407,79,401,79,401,44"/>
+<area shape="rect" id="Node000007" href="$lispbm_8h.html" title=" " alt="" coords="466,152,545,177"/>
+<area shape="poly" id="edge9_Node000001_Node000007" title=" " alt="" coords="437,36,460,54,481,77,499,117,507,151,501,153,494,118,476,80,457,58,434,40"/>
+<area shape="rect" id="Node000009" href="$lbm__image_8c.html" title=" " alt="" coords="543,79,649,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="447,32,566,76,564,81,445,37"/>
+<area shape="rect" id="Node000010" href="$tokpar_8c.html" title=" " alt="" coords="673,79,748,104"/>
+<area shape="poly" id="edge10_Node000001_Node000010" title=" " alt="" coords="447,26,674,79,673,84,445,32"/>
+<area shape="rect" id="Node000006" href="$lbm__c__interop_8c.html" title=" " alt="" coords="316,152,441,177"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="398,118,385,153,380,151,393,116"/>
+<area shape="poly" id="edge6_Node000005_Node000007" title=" " alt="" coords="433,110,490,150,487,154,430,114"/>
+<area shape="rect" id="Node000008" href="$lispbm_8c.html" title=" " alt="" coords="467,225,544,251"/>
+<area shape="poly" id="edge7_Node000007_Node000008" title=" " alt="" coords="508,191,508,225,503,225,503,191"/>
 </map>
