@@ -1,7 +1,11 @@
 <map id="env.h" name="env.h">
-<area shape="rect" id="node1" title=" " alt="" coords="107,5,159,32"/>
-<area shape="rect" id="node2" href="$lbm__types_8h.html" title=" " alt="" coords="86,80,179,107"/>
-<area shape="rect" id="node3" title=" " alt="" coords="5,155,71,181"/>
-<area shape="rect" id="node4" title=" " alt="" coords="95,155,170,181"/>
-<area shape="rect" id="node5" title=" " alt="" coords="195,155,273,181"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="113,5,171,31"/>
+<area shape="rect" id="Node000002" href="$lbm__types_8h.html" title=" " alt="" coords="91,79,193,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="145,31,145,65,139,65,139,31"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="5,152,76,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="127,106,70,146,67,142,124,102"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="101,152,183,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="145,104,145,138,139,138,139,104"/>
+<area shape="rect" id="Node000005" title=" " alt="" coords="208,152,295,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="161,102,223,142,220,147,158,106"/>
 </map>

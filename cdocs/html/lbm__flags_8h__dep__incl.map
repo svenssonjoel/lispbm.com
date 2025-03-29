@@ -1,5 +1,7 @@
 <map id="lbm_flags.h" name="lbm_flags.h">
-<area shape="rect" id="node1" title=" " alt="" coords="59,5,149,32"/>
-<area shape="rect" id="node2" href="$eval__cps_8c.html" title=" " alt="" coords="5,80,91,107"/>
-<area shape="rect" id="node3" href="$lbm__flags_8c.html" title=" " alt="" coords="115,80,205,107"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="61,5,158,31"/>
+<area shape="rect" id="Node000002" href="$eval__cps_8c.html" title=" " alt="" coords="5,79,96,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="93,43,62,80,58,77,89,40"/>
+<area shape="rect" id="Node000003" href="$lbm__flags_8c.html" title=" " alt="" coords="120,79,216,104"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="130,40,161,77,156,80,126,43"/>
 </map>

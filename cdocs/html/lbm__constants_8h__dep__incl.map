@@ -1,10 +1,19 @@
 <map id="lbm_constants.h" name="lbm_constants.h">
-<area shape="rect" id="node1" title=" " alt="" coords="203,5,321,32"/>
-<area shape="rect" id="node2" href="$extensions_8h.html" title=" " alt="" coords="153,80,249,107"/>
-<area shape="rect" id="node8" href="$fundamental_8c.html" title=" " alt="" coords="273,80,377,107"/>
-<area shape="rect" id="node3" href="$lispbm_8h.html" title=" " alt="" coords="5,155,76,181"/>
-<area shape="rect" id="node5" href="$eval__cps_8c.html" title=" " alt="" coords="101,155,186,181"/>
-<area shape="rect" id="node6" href="$extensions_8c.html" title=" " alt="" coords="210,155,306,181"/>
-<area shape="rect" id="node7" href="$symrepr_8c.html" title=" " alt="" coords="331,155,409,181"/>
-<area shape="rect" id="node4" href="$lispbm_8c.html" title=" " alt="" coords="5,229,76,256"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="303,5,433,31"/>
+<area shape="rect" id="Node000002" href="$extensions_8h.html" title=" " alt="" coords="249,79,354,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="349,43,314,80,310,77,346,39"/>
+<area shape="rect" id="Node000009" href="$fundamental_8c.html" title=" " alt="" coords="378,79,494,104"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="390,39,427,77,423,80,387,42"/>
+<area shape="rect" id="Node000003" href="$eval__cps_8c.html" title=" " alt="" coords="5,152,96,177"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="249,110,92,154,91,149,247,105"/>
+<area shape="rect" id="Node000004" href="$extensions_8c.html" title=" " alt="" coords="120,152,224,177"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="270,113,194,154,192,149,267,108"/>
+<area shape="rect" id="Node000005" href="$lbm__image_8c.html" title=" " alt="" coords="248,152,355,177"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="304,118,304,152,299,152,299,118"/>
+<area shape="rect" id="Node000006" href="$lispbm_8h.html" title=" " alt="" coords="379,152,458,177"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="333,109,401,149,398,154,331,113"/>
+<area shape="rect" id="Node000008" href="$symrepr_8c.html" title=" " alt="" coords="482,152,569,177"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="351,106,490,149,488,154,349,111"/>
+<area shape="rect" id="Node000007" href="$lispbm_8c.html" title=" " alt="" coords="380,225,457,251"/>
+<area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="421,191,421,225,416,225,416,191"/>
 </map>
