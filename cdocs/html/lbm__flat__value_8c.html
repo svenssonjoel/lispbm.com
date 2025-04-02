@@ -217,8 +217,10 @@ Functions</h2></td></tr>
 <tr class="separator:a112e08f8fe69ea24cd3b51fab5562125"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafdaabebeaf233a2365ddab9c5f4dfc5" id="r_aafdaabebeaf233a2365ddab9c5f4dfc5"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__flat__value_8c.html#aafdaabebeaf233a2365ddab9c5f4dfc5">extract_dword</a> (<a class="el" href="structlbm__flat__value__t.html">lbm_flat_value_t</a> *v, uint64_t *r)</td></tr>
 <tr class="separator:aafdaabebeaf233a2365ddab9c5f4dfc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afcdbb9c29fa9faf17df5304345da9a72" id="r_afcdbb9c29fa9faf17df5304345da9a72"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__flat__value_8c.html#afcdbb9c29fa9faf17df5304345da9a72">lbm_unflatten_value_internal</a> (<a class="el" href="structlbm__flat__value__t.html">lbm_flat_value_t</a> *v, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *res)</td></tr>
-<tr class="separator:afcdbb9c29fa9faf17df5304345da9a72"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4fa5bf1832b846571ecf6149338cce41" id="r_a4fa5bf1832b846571ecf6149338cce41"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__flat__value_8c.html#a4fa5bf1832b846571ecf6149338cce41">lbm_unflatten_value_atom</a> (<a class="el" href="structlbm__flat__value__t.html">lbm_flat_value_t</a> *v, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *res)</td></tr>
+<tr class="separator:a4fa5bf1832b846571ecf6149338cce41"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aede683462cf5ba8498655e1d09cd829b" id="r_aede683462cf5ba8498655e1d09cd829b"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__flat__value_8c.html#aede683462cf5ba8498655e1d09cd829b">lbm_unflatten_value_nostack</a> (<a class="el" href="structlbm__flat__value__t.html">lbm_flat_value_t</a> *v, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *res)</td></tr>
+<tr class="separator:aede683462cf5ba8498655e1d09cd829b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5c8a0709e94d0fdc181f96af2fd1c979" id="r_a5c8a0709e94d0fdc181f96af2fd1c979"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__flat__value_8c.html#a5c8a0709e94d0fdc181f96af2fd1c979">lbm_unflatten_value</a> (<a class="el" href="structlbm__flat__value__t.html">lbm_flat_value_t</a> *v, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *res)</td></tr>
 <tr class="separator:a5c8a0709e94d0fdc181f96af2fd1c979"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -1041,8 +1043,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="afcdbb9c29fa9faf17df5304345da9a72" name="afcdbb9c29fa9faf17df5304345da9a72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afcdbb9c29fa9faf17df5304345da9a72">&#9670;&#160;</a></span>lbm_unflatten_value_internal()</h2>
+<a id="a4fa5bf1832b846571ecf6149338cce41" name="a4fa5bf1832b846571ecf6149338cce41"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4fa5bf1832b846571ecf6149338cce41">&#9670;&#160;</a></span>lbm_unflatten_value_atom()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1051,7 +1053,43 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static int lbm_unflatten_value_internal </td>
+          <td class="memname">static int lbm_unflatten_value_atom </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structlbm__flat__value__t.html">lbm_flat_value_t</a> *&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *&#160;</td>
+          <td class="paramname"><em>res</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aede683462cf5ba8498655e1d09cd829b" name="aede683462cf5ba8498655e1d09cd829b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aede683462cf5ba8498655e1d09cd829b">&#9670;&#160;</a></span>lbm_unflatten_value_nostack()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static int lbm_unflatten_value_nostack </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="structlbm__flat__value__t.html">lbm_flat_value_t</a> *&#160;</td>
           <td class="paramname"><em>v</em>, </td>
