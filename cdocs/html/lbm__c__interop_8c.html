@@ -185,10 +185,10 @@ Functions</h2></td></tr>
 <tr class="separator:aa8b6bfe9ea6f728e4a223e13ebbae766"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a66891db5fe7596bcccd0cf9c0253197d" id="r_a66891db5fe7596bcccd0cf9c0253197d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__c__interop_8c.html#a66891db5fe7596bcccd0cf9c0253197d">lbm_share_array</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *value, char *data, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> num_elt)</td></tr>
 <tr class="separator:a66891db5fe7596bcccd0cf9c0253197d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d47735347a128debefd7c6349632032" id="r_a2d47735347a128debefd7c6349632032"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__c__interop_8c.html#a2d47735347a128debefd7c6349632032">share_const_array</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> flash_cell, char *data, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> num_elt)</td></tr>
-<tr class="separator:a2d47735347a128debefd7c6349632032"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5057e83442163b4ac0d6ebaea9630190" id="r_a5057e83442163b4ac0d6ebaea9630190"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__c__interop_8c.html#a5057e83442163b4ac0d6ebaea9630190">lbm_share_const_array</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *res, char *flash_ptr, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> num_elt)</td></tr>
-<tr class="separator:a5057e83442163b4ac0d6ebaea9630190"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2b7f7717862833259e0b2304dcf35dbd" id="r_a2b7f7717862833259e0b2304dcf35dbd"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__c__interop_8c.html#a2b7f7717862833259e0b2304dcf35dbd">share_array_const</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> flash_cell, char *data, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> num_elt)</td></tr>
+<tr class="separator:a2b7f7717862833259e0b2304dcf35dbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0aab32c16e425690016eeeddedeec360" id="r_a0aab32c16e425690016eeeddedeec360"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__c__interop_8c.html#a0aab32c16e425690016eeeddedeec360">lbm_share_array_const</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *res, char *flash_ptr, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> num_elt)</td></tr>
+<tr class="separator:a0aab32c16e425690016eeeddedeec360"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a515b33180a8c4dfeaea9810450344b11" id="r_a515b33180a8c4dfeaea9810450344b11"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__c__interop_8c.html#a515b33180a8c4dfeaea9810450344b11">lbm_create_array</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *value, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> num_elt)</td></tr>
 <tr class="separator:a515b33180a8c4dfeaea9810450344b11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10da747712339738b715dd61d764cd59" id="r_a10da747712339738b715dd61d764cd59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__c__interop_8c.html#a10da747712339738b715dd61d764cd59">lbm_clear_env</a> (void)</td></tr>
@@ -286,8 +286,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Clear the global environment. <br  />
- </p>
+<p>Clear the global environment. </p>
 
 </div>
 </div>
@@ -741,14 +740,14 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a5057e83442163b4ac0d6ebaea9630190" name="a5057e83442163b4ac0d6ebaea9630190"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5057e83442163b4ac0d6ebaea9630190">&#9670;&#160;</a></span>lbm_share_const_array()</h2>
+<a id="a0aab32c16e425690016eeeddedeec360" name="a0aab32c16e425690016eeeddedeec360"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0aab32c16e425690016eeeddedeec360">&#9670;&#160;</a></span>lbm_share_array_const()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">int lbm_share_const_array </td>
+          <td class="memname">int lbm_share_array_const </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *&#160;</td>
           <td class="paramname"><em>res</em>, </td>
@@ -772,7 +771,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Share a C array stored in flash with LBM.</p>
+<p>Share a C array stored in flash with LBM. Creates lbm_array_header in flash as well.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>Pointer to a heap-cell allocated in flash. </td></tr>
@@ -811,8 +810,8 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a2d47735347a128debefd7c6349632032" name="a2d47735347a128debefd7c6349632032"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d47735347a128debefd7c6349632032">&#9670;&#160;</a></span>share_const_array()</h2>
+<a id="a2b7f7717862833259e0b2304dcf35dbd" name="a2b7f7717862833259e0b2304dcf35dbd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2b7f7717862833259e0b2304dcf35dbd">&#9670;&#160;</a></span>share_array_const()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -821,7 +820,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool share_const_array </td>
+          <td class="memname">static bool share_array_const </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
           <td class="paramname"><em>flash_cell</em>, </td>

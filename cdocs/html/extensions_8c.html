@@ -164,6 +164,8 @@ Include dependency graph for extensions.c:</div>
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
+<tr class="memitem:a2f76bb2371d26cd58eecc482a52874d2" id="r_a2f76bb2371d26cd58eecc482a52874d2"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="extensions_8c.html#a2f76bb2371d26cd58eecc482a52874d2">lbm_extensions_set_next</a> (<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> i)</td></tr>
+<tr class="separator:a2f76bb2371d26cd58eecc482a52874d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a684ae658f7ef3c736b9ac621032e24af" id="r_a684ae658f7ef3c736b9ac621032e24af"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="extensions_8c.html#a684ae658f7ef3c736b9ac621032e24af">lbm_extensions_default</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *args, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> argn)</td></tr>
 <tr class="separator:a684ae658f7ef3c736b9ac621032e24af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae6de3916a520c66b1df9b78f7852e8f7" id="r_ae6de3916a520c66b1df9b78f7852e8f7"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="extensions_8c.html#ae6de3916a520c66b1df9b78f7852e8f7">lbm_extensions_init</a> (<a class="el" href="structlbm__extension__t.html">lbm_extension_t</a> *extension_storage, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> extension_storage_size)</td></tr>
@@ -199,8 +201,6 @@ Functions</h2></td></tr>
 Variables</h2></td></tr>
 <tr class="memitem:aaf9aacf354edab44c7e5146b8ffa7481" id="r_aaf9aacf354edab44c7e5146b8ffa7481"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="extensions_8c.html#aaf9aacf354edab44c7e5146b8ffa7481">ext_max</a> = 0</td></tr>
 <tr class="separator:aaf9aacf354edab44c7e5146b8ffa7481"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a475fd43607ed6ffb17e6e4aa4e9d268e" id="r_a475fd43607ed6ffb17e6e4aa4e9d268e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="extensions_8c.html#a475fd43607ed6ffb17e6e4aa4e9d268e">ext_num</a> = 0</td></tr>
-<tr class="separator:a475fd43607ed6ffb17e6e4aa4e9d268e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abad1135c2ad0fea7e20e84cbb03c79fa" id="r_abad1135c2ad0fea7e20e84cbb03c79fa"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="extensions_8c.html#abad1135c2ad0fea7e20e84cbb03c79fa">next_extension_ix</a> = 0</td></tr>
 <tr class="separator:abad1135c2ad0fea7e20e84cbb03c79fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc6bebb97679ae80ae073338639ff9b9" id="r_abc6bebb97679ae80ae073338639ff9b9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structlbm__extension__t.html">lbm_extension_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="extensions_8c.html#abc6bebb97679ae80ae073338639ff9b9">extension_table</a> = NULL</td></tr>
@@ -473,6 +473,30 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a2f76bb2371d26cd58eecc482a52874d2" name="a2f76bb2371d26cd58eecc482a52874d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f76bb2371d26cd58eecc482a52874d2">&#9670;&#160;</a></span>lbm_extensions_set_next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void lbm_extensions_set_next </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set the next index to be given out to the next added extension. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Next index. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a5f08b58ef5dc5aea093ba5dc7648b743" name="a5f08b58ef5dc5aea093ba5dc7648b743"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a5f08b58ef5dc5aea093ba5dc7648b743">&#9670;&#160;</a></span>lbm_get_extension()</h2>
 
@@ -677,28 +701,6 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> ext_max = 0</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">static</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a475fd43607ed6ffb17e6e4aa4e9d268e" name="a475fd43607ed6ffb17e6e4aa4e9d268e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a475fd43607ed6ffb17e6e4aa4e9d268e">&#9670;&#160;</a></span>ext_num</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> ext_num = 0</td>
         </tr>
       </table>
   </td>

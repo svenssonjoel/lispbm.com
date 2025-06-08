@@ -96,6 +96,8 @@ LBM_USE_DYN_LOOPS - Add loop macros, requires LBM_USE_DYN_MACROS. </li>
 <li>
 LBM_USE_DYN_ARRAYS - Add additional array manipulation functions. Requires LBM_USE_DYN_MACROS and LBM_USE_DYN_LOOPS </li>
 <li>
+LBM_USE_DYN_TTF - Load the lisp part of the TTF font library dynamically. </li>
+<li>
 LBM_USE_TIME_QUOTA - Use scheduler with time-based quotas instead of evaluator steps. </li>
 <li>
 LBM_USE_EXT_MAILBOX_GET - loads the mailbox-get extension that allows introspection into mailboxes. </li>
@@ -145,6 +147,11 @@ LBM_USE_ERROR_LINENO - Reports the line in <a class="el" href="eval__cps_8c.html
 </div><!-- fragment --><p>Lastly, the REPL can be build with <a href="https://www.libsdl.org/">SDL (Simple Directmedia Layer)</a> for graphical output. This is done by issueing the following command.</p>
 <div class="fragment"><div class="line">make sdl64 </div>
 </div><!-- fragment --><p>Or for 32bit.</p>
+<p><b>WARNING</b> if you are using UBUNTU 24.04(.0/.2) lts <b>DO NOT</b> "sudo atp install" the 32 bit sdl libraries. Doing so may render your system unusable as the apt solver is incorrectly deciding to uninstall key operating system packages. See <a href="https://bugs.launchpad.net/ubuntu/+source/libsdl2/+bug/2104920">bugreport </a>. Instead do the following: </p>
+<div class="fragment"><div class="line">sudo apt install aptitude</div>
+<div class="line">sudo aptitude install libsdl2-dev:i386</div>
+<div class="line">sudo aptitude install libsdl2-image-dev:i386</div>
+</div><!-- fragment --><p>Then to build 32bit LBM with sdl do: </p>
 <div class="fragment"><div class="line">make sdl</div>
 </div><!-- fragment --><p>The REPL with SDL requires <code>libsdl2-dev</code> and <code>libsdl2-image-dev</code> libraries or the 32 bit versions (for 32bit repl binary) <code>libsdl2-dev:i386</code> and <code>libsdl2-image-dev:i386</code>.</p>
 </div></div><!-- contents -->
