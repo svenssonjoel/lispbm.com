@@ -12,11 +12,12 @@ var searchData=
   ['closure_5fargs_9',['CLOSURE_ARGS',['../eval__cps_8c.html#a03ddd01f239ec9e38e1b413f7a117e80',1,'eval_cps.c']]],
   ['closure_5fargs_5frest_10',['CLOSURE_ARGS_REST',['../eval__cps_8c.html#a52ab555be081269f1cb6fd73218a3b3f',1,'eval_cps.c']]],
   ['cmp_11',['CMP',['../lbm__utils_8h.html#adf44891366ab95806ded6886a9f1c2ee',1,'lbm_utils.h']]],
-  ['continuation_12',['CONTINUATION',['../eval__cps_8c.html#a6cf058dc4a96b7840bde257c07da9523',1,'eval_cps.c']]],
-  ['continue_5farray_13',['CONTINUE_ARRAY',['../print_8c.html#a79722a89098c836d70e3ab8d16423ee7',1,'print.c']]],
-  ['continue_5flist_14',['CONTINUE_LIST',['../print_8c.html#a5bb5a206a60804f5e1bbf3372ea03982',1,'print.c']]],
-  ['custom_5ftype_5fdescriptor_15',['CUSTOM_TYPE_DESCRIPTOR',['../lbm__custom__type_8h.html#a5cf2f1d9ab3df68940f880a5d8c368c7',1,'lbm_custom_type.h']]],
-  ['custom_5ftype_5fdestructor_16',['CUSTOM_TYPE_DESTRUCTOR',['../lbm__custom__type_8h.html#a692f17df607b560be7c5bb731cc5b290',1,'lbm_custom_type.h']]],
-  ['custom_5ftype_5flbm_5fmem_5fsize_17',['CUSTOM_TYPE_LBM_MEM_SIZE',['../lbm__custom__type_8h.html#ae2e46c72dcc882124867dc1f86c9799d',1,'lbm_custom_type.h']]],
-  ['custom_5ftype_5fvalue_18',['CUSTOM_TYPE_VALUE',['../lbm__custom__type_8h.html#a775dbf61ad26f6986955b2f33b6492e3',1,'lbm_custom_type.h']]]
+  ['constant_5fheap_5fix_12',['CONSTANT_HEAP_IX',['../lbm__image_8c.html#afe1d105d0c06cf3ae1a12eeddf5b1fb0',1,'lbm_image.c']]],
+  ['continuation_13',['CONTINUATION',['../eval__cps_8c.html#a6cf058dc4a96b7840bde257c07da9523',1,'eval_cps.c']]],
+  ['continue_5farray_14',['CONTINUE_ARRAY',['../print_8c.html#a79722a89098c836d70e3ab8d16423ee7',1,'print.c']]],
+  ['continue_5flist_15',['CONTINUE_LIST',['../print_8c.html#a5bb5a206a60804f5e1bbf3372ea03982',1,'print.c']]],
+  ['custom_5ftype_5fdescriptor_16',['CUSTOM_TYPE_DESCRIPTOR',['../lbm__custom__type_8h.html#a5cf2f1d9ab3df68940f880a5d8c368c7',1,'lbm_custom_type.h']]],
+  ['custom_5ftype_5fdestructor_17',['CUSTOM_TYPE_DESTRUCTOR',['../lbm__custom__type_8h.html#a692f17df607b560be7c5bb731cc5b290',1,'lbm_custom_type.h']]],
+  ['custom_5ftype_5flbm_5fmem_5fsize_18',['CUSTOM_TYPE_LBM_MEM_SIZE',['../lbm__custom__type_8h.html#ae2e46c72dcc882124867dc1f86c9799d',1,'lbm_custom_type.h']]],
+  ['custom_5ftype_5fvalue_19',['CUSTOM_TYPE_VALUE',['../lbm__custom__type_8h.html#a775dbf61ad26f6986955b2f33b6492e3',1,'lbm_custom_type.h']]]
 ];

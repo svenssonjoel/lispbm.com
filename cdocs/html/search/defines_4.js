@@ -211,5 +211,6 @@ var searchData=
   ['exception_5fhandler_208',['EXCEPTION_HANDLER',['../eval__cps_8c.html#a563408e4d644cd57e5cf5522ef454189',1,'eval_cps.c']]],
   ['exit_5fatomic_209',['EXIT_ATOMIC',['../eval__cps_8c.html#a9f70b8a5fad80761af43643068ed3f82',1,'eval_cps.c']]],
   ['extension_5fsymbols_5fend_210',['EXTENSION_SYMBOLS_END',['../lbm__defines_8h.html#a5b91d5532971011db9c82fc024a5c2fb',1,'lbm_defines.h']]],
-  ['extension_5fsymbols_5fstart_211',['EXTENSION_SYMBOLS_START',['../lbm__defines_8h.html#a45f575fa295d6c27898969104180f3d7',1,'lbm_defines.h']]]
+  ['extension_5fsymbols_5fstart_211',['EXTENSION_SYMBOLS_START',['../lbm__defines_8h.html#a45f575fa295d6c27898969104180f3d7',1,'lbm_defines.h']]],
+  ['extension_5ftable_212',['EXTENSION_TABLE',['../lbm__image_8c.html#a129aef8c9cb080e451d609581241161b',1,'lbm_image.c']]]
 ];

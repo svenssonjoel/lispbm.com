@@ -11,5 +11,6 @@ var searchData=
   ['defrag_5fmem_5fheader_5fsize_8',['DEFRAG_MEM_HEADER_SIZE',['../lbm__defrag__mem_8c.html#a60b760da391a1caae259da11e37e1783',1,'lbm_defrag_mem.c']]],
   ['defrag_5fmem_5fsize_9',['DEFRAG_MEM_SIZE',['../lbm__defrag__mem_8c.html#af3d63e3ba780479ec62c625f1ad99aec',1,'lbm_defrag_mem.c']]],
   ['deg2rad_5ff_10',['DEG2RAD_f',['../lbm__utils_8h.html#aa46d6931748d6f2778800d1f1183a648',1,'lbm_utils.h']]],
-  ['done_11',['DONE',['../eval__cps_8c.html#abe6b865c045f3e7c6892ef4f15ff5779',1,'eval_cps.c']]]
+  ['done_11',['DONE',['../eval__cps_8c.html#abe6b865c045f3e7c6892ef4f15ff5779',1,'eval_cps.c']]],
+  ['downwards_12',['DOWNWARDS',['../lbm__image_8c.html#ac6a3a37e3214a7ba6b170b409f1aef20',1,'lbm_image.c']]]
 ];
