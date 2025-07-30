@@ -1,0 +1,36 @@
+# robots.txt for lispbm.com
+# LispBM: Concurrent Lisp for Microcontrollers
+
+User-agent: *
+Allow: /
+
+# Important pages to crawl
+Allow: /index.html
+Allow: /pages/
+Allow: /cdocs/
+Allow: /testlogs/
+Allow: /images/
+Allow: /code/
+
+# Block crawling of build artifacts and temporary files
+Disallow: /pages/src/
+Disallow: /*.md~
+Disallow: /#*#
+
+# Block crawling of raw source files (prefer HTML versions)
+Disallow: /*.md$
+
+# Allow crawling of documentation files
+Allow: /cdocs/html/
+Allow: /*.pdf
+
+# Common SEO directives
+Disallow: /cgi-bin/
+Disallow: /tmp/
+Disallow: /private/
+
+# Sitemap location
+Sitemap: https://www.lispbm.com/sitemap.xml
+
+# Crawl delay (be respectful)
+Crawl-delay: 1

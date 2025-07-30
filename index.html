@@ -1,5 +1,5 @@
 
-<HTML lang="en">
+<HTML lang="en-US">
 
 <HEAD>  
   
@@ -8,6 +8,24 @@
   <meta name="keywords" content="lisp, scheme, lispbm, lbm, script, lisp programming, lisp programming language, scripting microcontrollers, script language, stm32, esp32, microcontroller lisp, lisp for microcontrollers, programming, programming language, languages, PL, PLT, erlang, message passing, concurrency, runtime system, repl, read evaluate print loop, read eval print loop, llama, lispy the llama, llama sticker">
   <meta name="author" content="Bo Joel Svensson">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM: Concurrent Lisp for Microcontrollers">
+  <meta property="og:description" content="LispBM is a lisp for microcontrollers with concurrency and message passing. Used by VESC motor controllers for user scripts.">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LispBM">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM: Concurrent Lisp for Microcontrollers">
+  <meta name="twitter:description" content="LispBM is a lisp for microcontrollers with concurrency and message passing. Used by VESC motor controllers for user scripts.">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
 
   <link rel="apple-touch-icon" sizes="180x180" href="./ico/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
@@ -18,14 +36,50 @@
   <link rel="icon" href="./ico/favicon.ico">
   <link rel="manifest" href="./ico/site.webmanifest">
   
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "SoftwareApplication",
+    "name": "LispBM",
+    "alternateName": "LBM",
+    "description": "A Lisp programming language for microcontrollers with concurrency and message passing",
+    "url": "https://www.lispbm.com",
+    "downloadUrl": "https://github.com/svenssonjoel/lispBM",
+    "operatingSystem": ["Linux", "Windows", "Embedded", "STM32", "ESP32", "NRF52"],
+    "programmingLanguage": "Lisp",
+    "applicationCategory": "DeveloperApplication",
+    "offers": {
+      "@type": "Offer",
+      "price": "0",
+      "priceCurrency": "USD"
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Bo Joel Svensson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "LispBM Project",
+      "url": "https://www.lispbm.com"
+    },
+    "sourceOrganization": {
+      "@type": "Organization",
+      "name": "LispBM Project",
+      "url": "https://github.com/svenssonjoel/lispBM"
+    }
+  }
+  </script>
+  
 </HEAD> 
 
 <TITLE>LispBM: Concurrent Lisp for Microcontrollers</TITLE>
 
 <style type="text/css">
   body, html {
-      margin-left: 5%;
-      margin-right: 5%;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
   }
 
   img {
@@ -39,40 +93,82 @@
       border: 1px solid;
   }
 
-  .hero-image {
-      
-      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url("./images/lispbm_llama_small.png");
-      
-      height: 25%;
-      
-      /* Position and center the image to scale nicely on all screens */
-      background-position: center;
-      background-repeat: repeat;
-      background-size: contain;
-      position: relative;
+  .banner {
+      width: 100%;
+      height: 80px;
+      background-image: url("./images/lispbm_llama_small.png");
+      background-repeat: repeat-x;
+      background-size: auto 100%;
+      background-position: left center;
+      border-bottom: 2px solid #007bff;
+      margin-bottom: 20px;
   }
-  .hero-text {
+
+  .main-title {
       text-align: center;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      color: gray;
+      color: #333;
+      margin: 30px 0;
+      font-size: 2.5em;
+  }
+
+  .container {
+      display: flex;
+      min-height: 100vh;
   }
 
   #toc {
       position: fixed;
-      right: 0em;
-      top: 0em;
-      border:1px solid black;
-      background-color:#FFF;
-    
+      left: 0;
+      top: 0;
+      width: 250px;
+      height: 100vh;
+      overflow-y: auto;
+      background-color: #f8f9fa;
+      border-right: 1px solid #dee2e6;
+      padding: 20px;
+      box-sizing: border-box;
+      z-index: 1000;
   }
-  
-  #toc #full { display: none; } /* Hide the full TOC by default */
 
-  #toc:hover #full{
-      display: block; /* Show it on hover */
+  #toc h2 {
+      margin-top: 0;
+      font-size: 1.2em;
+      color: #333;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+  }
+
+  #toc ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+  }
+
+  #toc li {
+      margin: 8px 0;
+  }
+
+  #toc a {
+      color: #007bff;
+      text-decoration: none;
+      font-size: 0.9em;
+      line-height: 1.4;
+      display: block;
+      padding: 5px 0;
+      border-radius: 3px;
+      transition: background-color 0.2s;
+  }
+
+  #toc a:hover {
+      background-color: #e9ecef;
+      padding-left: 10px;
+  }
+
+  .main-content {
+      margin-left: 250px;
+      padding: 20px;
+      max-width: calc(100% - 250px);
+      box-sizing: border-box;
   }
 
   pre {
@@ -88,13 +184,39 @@
       box-shadow: 0 0 8px 0 rgba(0, 0, 0, .75);
   }
 
+  /* Responsive design - hide TOC on narrow screens */
+  @media (max-width: 768px) {
+      #toc {
+          display: none;
+      }
+      
+      .main-content {
+          margin-left: 0;
+          max-width: 100%;
+          padding: 10px;
+      }
+      
+      .banner {
+          margin-bottom: 15px;
+      }
+      
+      .main-title {
+          font-size: 2em;
+          margin: 20px 0;
+      }
+  }
+
 
   
 </style>
 
-<div id="toc">
-  <h2>Table of contents</h2>
-  <div id="full">
+
+
+<BODY bgcolor=#C0C0C0>
+
+<div class="container">
+  <nav id="toc" aria-label="Table of contents">
+    <h2>Table of contents</h2>
     <ul>
       <li> <a href="#lispbm-lbm"> Top </a> </li>
       <li> <a href="#want-to-get-involved-and-help-out"> Help Wanted </a> </li>
@@ -112,25 +234,19 @@
       <li> <a href="#other-lisps"> Other Lisp-like languages for microcontrollers </a> </li>
       <li> <a href="#stickers"> Stickers </a> </li>
     </ul>
-  </div>
-</div>
+  </nav>
 
-
-<BODY bgcolor=#C0C0C0>
-
-  
-    <div class="hero-image">
-      <div class="hero-text">
-        <h1 id="lispbm-lbm">lispBM: A Lisp for Microcontrollers</h1>
-      </div>
-    </div>   
+  <main class="main-content">
+    <div class="banner"></div>
+    <h1 id="lispbm-lbm" class="main-title">lispBM: A Lisp for Microcontrollers</h1>   
 
 <p>LispBM (LBM) is a lisp or scheme like programming language for microcontrollers. LispBM also borrows a couple of ideas from Erlang when it comes to concurrency, message passing, pattern matching and process monitoring. The LispBM runtime system can be compiled for either 32 or 64 bit platforms and runs on a wide range of hardware such as for example STM32, NRF52, ESP32 or X86. When running the LispBM runtime system on a microcontroller it can be built on top of ChibiOS, FreeRTOS or ZephyrOS or, if you are adventurous, on bare-metal. LispBM can also be built to run on top of a regular linux (and now even Windows).</p>
 
 <p> Who wouldn&#8217;t want a REPL (read eval print loop) on their embedded platform? This is what LispBM is for!
 </p> 
 
-<h2 id="want-to-get-involved-and-help-out">Want to get involved and help out?</h2>
+<section id="want-to-get-involved-and-help-out">
+<h2>Want to get involved and help out?</h2>
 <p>There are lots of interesting things to code on in and around the LispBM runtime system. I would love to interact with people who are interested in high-level programming languages on microcontrollers (or elsewhere) so please do not be shy to make contact. Together we can make great stuff happen ;)</p>
 <ol type="1">
 <li>Are you interested in microcontrollers and programming languages?</li>
@@ -156,10 +272,12 @@
 <li>Quickcheck-like property based testing of programs written in LBM.</li>
 <li>…</li>
 </ol>
+</section>
 
-<h2 id="getting-started">Getting started with LispBM</h2>
+<section id="getting-started">
+<h2>Getting started with LispBM</h2>
 
-The LispBM source code is available on <a href="https://www.github.com/svenssonjoel/lispbm"> github </a>.
+The LispBM source code is available on <a href="https://www.github.com/svenssonjoel/lispbm">GitHub repository</a>.
 
 <h3 id="getting-started-easy">Getting started on embedded: easy</h3>
 <p>The easiest way to get started with LispBM programming is to use <a href="https://vesc-project.com/vesc_tool">VESC-Tool</a> together with the <a href="https://github.com/vedderb/vesc_express">VESC EXPRESS Firmware</a> on an <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html">esp32c3</a>.</p>
@@ -194,7 +312,7 @@ make
 
 <p> If the make command above fails, it is most likely because there are some missing dependencies. </p>
 <p> Building the 32bit version of the repl requires 32bit libraries. If you are on an Ubuntu platform you get 32bit standard libraries by installing <code>gcc-multilib</code>. </p>
-<p> In addition to <code>gcc-multilib</code> the REPL requires libreadline andlibpng. You need to get the 32bit versions of these libraries. On Ubuntu you can run the following commands. </p>
+<p> In addition to <code>gcc-multilib</code> the REPL requires libreadline and libpng. You need to get the 32bit versions of these libraries. On Ubuntu you can run the following commands. </p>
 
 <pre>
 sudo apt install gcc-multilib libreadline-dev:i386 libpng-dev:i386
@@ -241,7 +359,7 @@ Type :quit to exit.
 <p> When you input code at the <code>#</code> prompt, LispBM answers on a new line starting with <code>></code>.</p>
 
 <p> Alternatively the REPL can be built as a 64bit binary. Building the 64bit binary requires 64bit versions of the readline and png libraries. </p>
-<p> On Ubuntu you get the dependcies by doing <code>sudo apt install libreadline-dev libpng-dev</code>. Then to build the executable you issue the following command.</p>
+<p> On Ubuntu you get the dependencies by doing <code>sudo apt install libreadline-dev libpng-dev</code>. Then to build the executable you issue the following command.</p>
 
 <pre>
 make all64
@@ -269,8 +387,10 @@ There is a precompiled REPL for windows <a href="winlbm.zip">here</a>. This REPL
 built using <a href="https://www.mingw-w64.org/">MINGW</a> on a linux machine and tested under the <a href="https://www.winehq.org/"> WINE </a>.
 
 If you want to help out with building and testing LBM on an actual Windows machine, let me know.
+</section>
 
-<h2 id="documentation">Documentation</h2>
+<section id="documentation">
+<h2>Documentation</h2>
 <ul>
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/lbmref.md">LispBM language reference</a>.</li>
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/displayref.md">Graphics library reference</a>.</li>
@@ -279,25 +399,31 @@ If you want to help out with building and testing LBM on an actual Windows machi
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/dynref.md">Library of dynamically loadable functionality</a>.</li>
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/gotchas.md">Gotchas and caveats</a>.</li>
 <li><a href="./cdocs/html/index.html">Implementation C code documents</a>.</li>
-<li>There are <a href="https://youtube.com/playlist?list=PLtf_3TaqZoDOQqZcB9Yj-R1zS2DWDZ9q9">demonstrations on YouTube</a>.</li>
+<li>There are <a href="https://youtube.com/playlist?list=PLtf_3TaqZoDOQqZcB9Yj-R1zS2DWDZ9q9">video demonstrations on YouTube</a>.</li>
 </ul>
+</section>
 
-<h2 id="editor-support">Editor support</h2>
+<section id="editor-support">
+<h2>Editor support</h2>
 <ul>
 <li><a href="https://vesc-project.com/vesc_tool">vesc_tool</a></li>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=rasmus-soderhielm.lispbm-language-support">vscode support</a></li>
 <li><a href="https://github.com/cortex/zed-lispbm">Zed</a></li>
-<li><a href="https://github.com/cortex/tree-sitter-lispbm">Tree-sitter</a></li>
+<li><a href="https://github.com/cortex/tree-sitter-lispbm">Tree-sitter grammar</a></li>
 </ul>
+</section>
 
-<h2 id="presentations">Presentations</h2>
+<section id="presentations">
+<h2>Presentations</h2>
 <ul>
   <li><a href="LBM_DEC_8.pdf"> Chalmers FP-Talk December 2023 </a> a video can be found on <a href=https://youtu.be/YAhUIaLu5po?feature=shared">youtube</a></li>
-  <li><a href="fp-talk-2025.pdf"> Chalmers FP-Talk Maj 2025 </a></li>
+  <li><a href="fp-talk-2025.pdf">Chalmers FP-Talk May 2025 presentation</a></li>
 </ul>
+</section>
 
 
-<h2 id="testlogs">Testing of LispBM</h2>
+<section id="testlogs">
+<h2>Testing of LispBM</h2>
 
 <p> The table below contains test reports for the recent numbered releases of LispBM.
   The test reports applies to the tagged states with the same numbering on Github.
@@ -305,7 +431,7 @@ If you want to help out with building and testing LBM on an actual Windows machi
   Versions <code>X.Y.Z</code> for non-zero <code>Z</code> are experimental and in development,
   and are sporadically tested as part of development but not given a full testing log treatment.
   If you want to use LispBM for something serious, please use a <code>X.Y.0</code> version
-  and keep in mind that testing is never exhaustive and in no way a quarantee of correctness
+  and keep in mind that testing is never exhaustive and in no way a guarantee of correctness
   or suitability for any given purpose. A thorough safety and reliability analysis should be
   performed on the software system where lispbm is integrated as a whole.
 </p>
@@ -381,11 +507,13 @@ If you want to help out with building and testing LBM on an actual Windows machi
 <li> Static analysis using <a href="https://github.com/facebook/infer"> Infer </a>. </li>
 <li> Static analysis using <a href="https://cppcheck.sourceforge.io/"> cppcheck </a>. </li>
 <li> Work in progress - Property based testing using <a href="https://www.cse.chalmers.se/~rjmh/QuickCheck/manual.html"> Haskell QuickCheck </a>. </li>
-<li> Test coverage is checked with gcov and <a href="https://gcovr.com/en/stable/"> gcovr </a>. </li>
+<li> Test coverage is checked with gcov and <a href="https://gcovr.com/en/stable/">gcovr coverage tool</a>. </li>
 </ul>
+</section>
 
 
-<h2 id="implementation">Lisp Implementation</h2>
+<section id="implementation">
+<h2>Lisp Implementation</h2>
 
 <p>The pages below outline steps of development that LispBM went through during 2020 - 2022.
   The information is quite outdated in relation to what LispBM has become since then but perhaps
@@ -409,23 +537,27 @@ If you want to help out with building and testing LBM on an actual Windows machi
   <li> <a href="./pages/lispbm_parsing_expressions/index.html"> Parsing of lispBM expressions </a> <br> 
   <li> <a href="./pages/lispbm_boxed_values/index.html"> A quick look at boxed values in lispBM </a> <br>
   <li> <a href="./pages/lispbm_evaluation_function/index.html"> More in-depth walkthrough of the lispBM evaluation function </a> <br>
-  <li> <a href="./pages/lispbm_current_status/index.html"> Another lisp for microcontrollers (lispBM) </a> <br>
+  <li> <a href="./pages/lispbm_current_status/index.html">Introduction to LispBM for microcontrollers</a> <br>
 </ul>
+</section>
 
-<h2 id="performance">LispBM Performance Evolution</h2>
+<section id="performance">
+<h2>LispBM Performance Evolution</h2>
 
 <p>The performance of the LispBM implementation continuously evolves as we introduce new features and engage in optimization efforts. We work to enhance its efficiency for microcontrollers, such as the STM32F4 running at 168MHz.</p>
 
 <p>Below, you can find performance charts illustrating LispBM&#8217;s performance on a set of benchmarks:</p>
 
-<img src="./images/benchresults.png" alt="Performance on a small set of benchmarks." />
-<img src="./images/benchresults_log.png" alt="Performance (log scale) on a small set of benchmarks." />
+<img src="./images/benchresults.png" alt="LispBM performance benchmarks chart showing execution times" loading="lazy" />
+<img src="./images/benchresults_log.png" alt="LispBM performance benchmarks chart with logarithmic scale" loading="lazy" />
 
 <p>If you&#8217;re interested in the technical details and benchmarks, you can explore our benchmark code here:</p>
 
-<p><a href="./code/lbm_benchmarks_2022_02_27/index.html">Benchmarks 2022_02_27</a></p>
+<p><a href="./code/lbm_benchmarks_2022_02_27/index.html">View detailed benchmark results from February 2022</a></p>
+</section>
 
-<h2 id="other-lisps">Other Lisp based Languages for Microcontrollers</h2>
+<section id="other-lisps">
+<h2>Other Lisp based Languages for Microcontrollers</h2>
 
 <p>Explore a range of Lisp-like programming languages that are tailored for microcontroller development. These languages are designed to thrive in resource-constrained environments, making them ideal choices for embedded systems. Whether you&#8217;re looking for a lightweight solution or a minimalist Lisp dialect, these languages offer unique approaches to microcontroller programming.</p>
 
@@ -442,22 +574,28 @@ If you want to help out with building and testing LBM on an actual Windows machi
 </ul>
 
 <p>Is your favourite microcontroller lisp missing from this list? Please send the details in an email bo(dot)joel(dot)svensson(whirly-a)gmail(dot)com.
+</section>
 
 <hr>
   
-<h2 id="stickers">LispBM stickers: Lispy the llama</h2>
+<section id="stickers">
+<h2>LispBM stickers: Lispy the llama</h2>
 
 <p>The LispBM mascot, Lispy the llama, was created by <a href="https://www.instagram.com/pixiladyart/">PixiLadyArt</a>. Thank you, Pixi!</p>
 
 <div>
-<img src="./images/sticker1.jpg" alt="Lispy the llama" style="transform:rotate(-90deg);width:20%;margin: 5%;max-width:100%"/>
-<img src="./images/sticker2.jpg" alt="Glitter lispy the llama" style="transform:rotate(-90deg);width:20%;margin: 5%;max-width:100%"/> <br>
+<img src="./images/sticker1.jpg" alt="Lispy the llama mascot sticker design" style="transform:rotate(-90deg);width:20%;margin: 5%;max-width:100%" loading="lazy"/>
+<img src="./images/sticker2.jpg" alt="Glitter Lispy the llama mascot sticker with sparkle effect" style="transform:rotate(-90deg);width:20%;margin: 5%;max-width:100%" loading="lazy"/> <br>
 </div>
 
 <a href="https://www.stickermule.com/eu/80a6e68895d554d/item/16514190"> Order glitter llama here </a><br>
-<a href="https://www.stickermule.com/eu/80a6e68895d554d/item/14737230"> Order the classic classy Lispy the llama here </a>
+<a href="https://www.stickermule.com/eu/80a6e68895d554d/item/14737230">Order the classic Lispy the llama sticker</a>
+</section>
 
 <br>
 <hr>
+  </main>
+</div>
+
 </BODY>
 </HTML>
