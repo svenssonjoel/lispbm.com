@@ -268,7 +268,7 @@
     <div class="banner"></div>
     <h1 id="lispbm-lbm" class="main-title">lispBM: A Lisp for Microcontrollers</h1>   
 
-<p>LispBM (LBM) is a lisp or scheme like programming language for microcontrollers. LispBM also borrows a couple of ideas from Erlang when it comes to concurrency, message passing, pattern matching and process monitoring. The LispBM runtime system can be compiled for either 32 or 64 bit platforms and runs on a wide range of hardware such as for example STM32, NRF52, ESP32 or X86. When running the LispBM runtime system on a microcontroller it can be built on top of ChibiOS, FreeRTOS or ZephyrOS or, if you are adventurous, on bare-metal. LispBM can also be built to run on top of a regular linux (and now even Windows).</p>
+<p>LispBM (LBM) is a Lisp or Scheme-like programming language for microcontrollers. LispBM also borrows a couple of ideas from Erlang when it comes to concurrency, message passing, pattern matching and process monitoring. The LispBM runtime system can be compiled for either 32 or 64-bit platforms and runs on a wide range of hardware such as, for example, STM32, NRF52, ESP32 or X86. When running the LispBM runtime system on a microcontroller, it can be built on top of ChibiOS, FreeRTOS or ZephyrOS or, if you are adventurous, on bare-metal. LispBM can also be built to run on top of regular Linux (and now even Windows).</p>
 
 <p> Who wouldn&#8217;t want a REPL (read eval print loop) on their embedded platform? This is what LispBM is for!
 </p> 
@@ -280,22 +280,22 @@
 <li>Are you interested in microcontrollers and programming languages?</li>
 <li>Do you like both imperative and functional programming?</li>
 <li>Clone the <a href="https://www.github.com/svenssonjoel/lispbm">repository</a> and join the fun!</li>
-<li>Join the <a href="https://discord.gg/urtJUUMnwQ">discord server</a>
+<li>Join the <a href="https://discord.gg/urtJUUMnwQ">Discord server</a></li>
 </ol>
 <p>There are areas where insights and help would matter greatly. Some I can think of are:</p>
 <ol type="1">
 <li>Running LispBM on system simulators.</li>
 <li>LispBM efficiency.</li>
-<li>Code size optimisation. Do more with less, while maintaining performance.</li>
+<li>Code size optimization. Do more with less, while maintaining performance.</li>
 <li>Documentation and testing.</li>
 <li>Useful extension libraries.</li>
 <li>Lisp scriptable home automation.</li>
 <li>Lisp scriptable MIDI sequencers.</li>
 <li>Lisp scriptable Audio synthesizers.</li>
-<li>(WIP)Porting the Linux REPL to Windows.</li>
-<li>Interface with RUST as a language for writing LBM extensions.</li>
-<li>partial-evaluation, supercompilation and byte-code compilation.</li>
-<li>Real time garbage collection.</li>
+<li>(WIP) Porting the Linux REPL to Windows.</li>
+<li>Interface with Rust as a language for writing LBM extensions.</li>
+<li>Partial-evaluation, supercompilation and byte-code compilation.</li>
+<li>Real-time garbage collection.</li>
 <li>Linter/code-preprocessor/checker tailored to LBM idiosyncrasies.</li>
 <li>Quickcheck-like property based testing of programs written in LBM.</li>
 <li>…</li>
@@ -305,11 +305,11 @@
 <section id="getting-started">
 <h2>Getting started with LispBM</h2>
 
-The LispBM source code is available on <a href="https://www.github.com/svenssonjoel/lispbm">GitHub repository</a>.
+The LispBM source code is available on <a href="https://www.github.com/svenssonjoel/lispbm">GitHub</a>.
 
 <h3 id="getting-started-easy">Getting started on embedded: easy</h3>
 <p>The easiest way to get started with LispBM programming is to use <a href="https://vesc-project.com/vesc_tool">VESC-Tool</a> together with the <a href="https://github.com/vedderb/vesc_express">VESC EXPRESS Firmware</a> on an <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html">esp32c3</a>.</p>
-<p>VESC-Tool gives you access to a very capable <a href="https://vesc-project.com/sites/default/files/lisp%20overview.png">IDE</a> for lisp programming on embedded systems and the VESC Express firmware provides built in functionality to interface with CAN, WIFI, BLE and UART as well as GPIO and display drivers.</p>
+<p>VESC-Tool gives you access to a very capable <a href="https://vesc-project.com/sites/default/files/lisp%20overview.png">IDE</a> for Lisp programming on embedded systems and the VESC Express firmware provides built-in functionality to interface with CAN, WiFi, BLE and UART as well as GPIO and display drivers.</p>
 <p>If you are looking for a more bare-bones way to add scripting capabilities to your embedded system, LispBM is quite platform independent and can be compiled for many different MCUs and systems. LispBM can tie into the rest of your application via what we call “extensions” which are C functions that can be called from your LispBM scripts.</p>
 
 <h3 id="getting-started-hard">Getting started on embedded: hard</h3>
@@ -320,7 +320,7 @@ The LispBM source code is available on <a href="https://www.github.com/svenssonj
 
 <h3 id="the-lbm-repl">Getting started on Linux</h3>
 
-<p> Start by cloning the LispBM repository. Open a terminal and issue command</p>
+<p> Start by cloning the LispBM repository. Open a terminal and issue the command:</p>
 
 <pre>
 git clone https://github.com/svenssonjoel/lispBM.git
@@ -333,20 +333,20 @@ cd lispBM
 cd repl
 </pre>
 
-<p> Now, you have multiple choices on how to build the REPL. To build the 32bit version (which is most similar to what you will run on a microcontroller) issue the <code>make</code> command. </p>
+<p> Now, you have multiple choices on how to build the REPL. To build the 32-bit version (which is most similar to what you will run on a microcontroller), issue the <code>make</code> command. </p>
 <pre>
 make
 </pre>
 
 <p> If the make command above fails, it is most likely because there are some missing dependencies. </p>
-<p> Building the 32bit version of the repl requires 32bit libraries. If you are on an Ubuntu platform you get 32bit standard libraries by installing <code>gcc-multilib</code>. </p>
-<p> In addition to <code>gcc-multilib</code> the REPL requires libreadline and libpng. You need to get the 32bit versions of these libraries. On Ubuntu you can run the following commands. </p>
+<p> Building the 32-bit version of the REPL requires 32-bit libraries. If you are on an Ubuntu platform, you get 32-bit standard libraries by installing <code>gcc-multilib</code>. </p>
+<p> In addition to <code>gcc-multilib</code>, the REPL requires libreadline and libpng. You need to get the 32-bit versions of these libraries. On Ubuntu, you can run the following commands: </p>
 
 <pre>
 sudo apt install gcc-multilib libreadline-dev:i386 libpng-dev:i386
 </pre>
 
-<p> If you were unable to install the 32bit dependencies with the command above, you may need to instruct the package manager that you are interested in 32bit packages as well.</p>
+<p> If you were unable to install the 32-bit dependencies with the command above, you may need to instruct the package manager that you are interested in 32-bit packages as well:</p>
     
 <pre>
 sudo dpkg --add-architecture i386
@@ -354,7 +354,7 @@ sudo dpkg --add-architecture i386
 
 <p> Then retry the previous step to install the dependencies. </p>
 
-<p> If installing the dependencies finished successfully, <code>make</code> should now work and the repl executable should be built. </p>
+<p> If installing the dependencies finished successfully, <code>make</code> should now work and the REPL executable should be built. </p>
 
 <p> Start the REPL and explore! </p>
 
@@ -386,35 +386,44 @@ Type :quit to exit.
 
 <p> When you input code at the <code>#</code> prompt, LispBM answers on a new line starting with <code>></code>.</p>
 
-<p> Alternatively the REPL can be built as a 64bit binary. Building the 64bit binary requires 64bit versions of the readline and png libraries. </p>
-<p> On Ubuntu you get the dependencies by doing <code>sudo apt install libreadline-dev libpng-dev</code>. Then to build the executable you issue the following command.</p>
+<p> Alternatively, the REPL can be built as a 64-bit binary. Building the 64-bit binary requires 64-bit versions of the readline and png libraries. </p>
+<p> On Ubuntu, you get the dependencies by doing <code>sudo apt install libreadline-dev libpng-dev</code>. Then, to build the executable, you issue the following command:</p>
 
 <pre>
 make all64
 </pre>
 
-<p> Lastly, the REPL can be build with <a href="https://www.libsdl.org/">SDL (Simple Directmedia Layer)</a> for graphical output.
-This is done by issueing the following command.</p>
+<p> Lastly, the REPL can be built with <a href="https://www.libsdl.org/">SDL (Simple Directmedia Layer)</a> for graphical output.
+This is done by issuing the following command:</p>
 
 <pre>
 make sdl64 
 </pre>
 
-<p> Or for 32bit.</p>
+<p> Or for 32-bit:</p>
 
 <pre>
 make sdl
 </pre>
 
 <p>The REPL with SDL requires <code>libsdl2-dev</code> and <code>libsdl2-image-dev</code> libraries or
-the 32 bit versions (for 32bit repl binary) <code>libsdl2-dev:i386</code> and <code>libsdl2-image-dev:i386</code>.</p>
+the 32-bit versions (for 32-bit REPL binary) <code>libsdl2-dev:i386</code> and <code>libsdl2-image-dev:i386</code>.</p>
 
 <h3 id="lbm-for-windows">Getting started on Windows</h3>
 
-There is a precompiled REPL for windows <a href="winlbm.zip">here</a>. This REPL is
-built using <a href="https://www.mingw-w64.org/">MINGW</a> on a linux machine and tested under the <a href="https://www.winehq.org/"> WINE </a>.
+There is a precompiled REPL for Windows <a href="winlbm/winlbm_0.33.0.zip">here</a>. This REPL is
+built using <a href="https://www.mingw-w64.org/">MINGW</a> on a Linux machine and tested under <a href="https://www.winehq.org/">WINE</a>.
 
-If you want to help out with building and testing LBM on an actual Windows machine, let me know.
+The following DLLs are required (some are included in the zip file):
+<ul>
+<li>KERNEL32.dll, msvcrt.dll, WS2_32.dll (Windows system DLLs)</li>
+<li>SDL2.dll, SDL2_image.dll, libpng16-16.dll</li>
+<li>history5.dll, readline5.dll</li>
+</ul>
+
+To run the REPL, execute <code>lbm32.exe</code> in console (cmd) or PowerShell. If there are issues about VirtualAlloc, try to run as administrator.
+
+Help with debugging and testing of the Windows version is much appreciated. If you want to help out with building and testing LBM on an actual Windows machine, let me know.
 </section>
 
 <section id="documentation">
@@ -444,7 +453,7 @@ If you want to help out with building and testing LBM on an actual Windows machi
 <section id="presentations">
 <h2>Presentations</h2>
 <ul>
-  <li><a href="LBM_DEC_8.pdf"> Chalmers FP-Talk December 2023 </a> a video can be found on <a href=https://youtu.be/YAhUIaLu5po?feature=shared">youtube</a></li>
+  <li><a href="LBM_DEC_8.pdf"> Chalmers FP-Talk December 2023 </a> - a video can be found on <a href="https://youtu.be/YAhUIaLu5po?feature=shared">YouTube</a></li>
   <li><a href="fp-talk-2025.pdf">Chalmers FP-Talk May 2025 presentation</a></li>
 </ul>
 </section>
@@ -456,11 +465,11 @@ If you want to help out with building and testing LBM on an actual Windows machi
   <li><a href="html/the_ai_perspective.html">The AI Perspective</a> - by Claude</li>
   <li><a href="./pages/lispbm_evaluator/index.html"> Defunctionalizing a Continuation-Passing Style Evaluator </a></li>
   <li><a href="./pages/lispbm_compilation_1"> Towards a bytecode compiler for lispBM </a></li>
-  <li><a href="./pages/lispbm_register_machine/index.html"> Evaluation of expressions using a register machine </a> (Edited june 23 2020: BugFix!)</li>
+  <li><a href="./pages/lispbm_register_machine/index.html"> Evaluation of expressions using a register machine </a> (Edited June 23, 2020: BugFix!)</li>
   <li><a href="./pages/lispbm_memory_allocation/index.html"> An attempt to get a better grip on the memory usage </a></li>
   <li><a href="./pages/lispbm_towards_concurrency_2/index.html"> Spawn and Wait: Concurrency in lispBM part 2 </a></li> 
   <li><a href="./pages/lispbm_towards_concurrency/index.html"> Concurrency in lispBM part 1 </a></li> 
-  <li><a href="./pages/lispbm_quasiquotation/index.html"> Quasiquotation in lispBM </a>  (Edited June 10 2020: BugFix)</li>
+  <li><a href="./pages/lispbm_quasiquotation/index.html"> Quasiquotation in lispBM </a>  (Edited June 10, 2020: BugFix)</li>
   <li><a href="./pages/lispbm_short_circuit_logic/index.html"> Boolean operators with short-circuit behavior </a></li>
   <li><a href="./pages/lispbm_recursion_to_iteration/index.html"> Turning Recursion into Iteration using an Explicit Stack </a></li>
   <li><a href="./pages/lispbm_esp32_repl/index.html"> Implementation of a lispBM REPL for the ESP32 MCU </a></li> 
@@ -481,14 +490,14 @@ If you want to help out with building and testing LBM on an actual Windows machi
 <h2>Testing of LispBM</h2>
 
 <p> The table below contains test reports for the recent numbered releases of LispBM.
-  The test reports applies to the tagged states with the same numbering on Github.
-  Note that only versions <code>X.Y.0</code> gets a tag and a full run of all tests.
+  The test reports apply to the tagged states with the same numbering on GitHub.
+  Note that only versions <code>X.Y.0</code> get a tag and a full run of all tests.
   Versions <code>X.Y.Z</code> for non-zero <code>Z</code> are experimental and in development,
   and are sporadically tested as part of development but not given a full testing log treatment.
-  If you want to use LispBM for something serious, please use a <code>X.Y.0</code> version
+  If you want to use LispBM for something serious, please use an <code>X.Y.0</code> version
   and keep in mind that testing is never exhaustive and in no way a guarantee of correctness
   or suitability for any given purpose. A thorough safety and reliability analysis should be
-  performed on the software system where lispbm is integrated as a whole.
+  performed on the software system where LispBM is integrated as a whole.
 </p>
 
 <p> The table of test-results is provided for traceability purposes and gives a snapshot of known problems
@@ -496,10 +505,10 @@ If you want to help out with building and testing LBM on an actual Windows machi
 </p>
 
 <p> That said, we are very serious about our testing and we do want to make it possible to use LispBM
-  as a scripting language integrated into <em>any</em> application. This is an on going effort and
+  as a scripting language integrated into <em>any</em> application. This is an ongoing effort and
   collaboration is most appreciated.</p>
 
-<p>Please report bugs via the issues tracker on <a href="https://github.com/svenssonjoel/lispBM/issues">github</a>.</p>
+<p>Please report bugs via the issues tracker on <a href="https://github.com/svenssonjoel/lispBM/issues">GitHub</a>.</p>
 
 <table>
     <thead>
@@ -559,7 +568,7 @@ If you want to help out with building and testing LBM on an actual Windows machi
 <p><strong>NOTE:</strong> The scan-build directory is empty if the scan-build tool finds no issues with the code. </p>
 <p><strong>NOTE:</strong> The Infer result file <code>infer_x.y.z.txt</code> is empty if Infer finds no issues.</p>    
 <br>
-<p>We expand on our testing from time to time but currently apply the following testing methods </p>
+<p>We expand on our testing from time to time but currently apply the following testing methods: </p>
 <ul>
 <li> Unit tests. </li>
 <li> Static analysis using <a href="https://clang-analyzer.llvm.org/scan-build.html"> CLANG scan-build </a>. </li>
@@ -614,7 +623,7 @@ correctly configured LispBM system) will be removed.
 </section>
 
 <section id="other-lisps">
-<h2>Other Lisp based Languages for Microcontrollers</h2>
+<h2>Other Lisp-based Languages for Microcontrollers</h2>
 
 <p>Explore a range of Lisp-like programming languages that are tailored for microcontroller development. These languages are designed to thrive in resource-constrained environments, making them ideal choices for embedded systems. Whether you&#8217;re looking for a lightweight solution or a minimalist Lisp dialect, these languages offer unique approaches to microcontroller programming.</p>
 
@@ -630,7 +639,7 @@ correctly configured LispBM system) will be removed.
   </li>
 </ul>
 
-<p>Is your favourite microcontroller lisp missing from this list? Please send the details in an email bo(dot)joel(dot)svensson(whirly-a)gmail(dot)com.
+<p>Is your favorite microcontroller Lisp missing from this list? Please send the details in an email to bo(dot)joel(dot)svensson(whirly-a)gmail(dot)com.
 </section>
 
 <hr>
