@@ -184,6 +184,34 @@
       box-shadow: 0 0 8px 0 rgba(0, 0, 0, .75);
   }
 
+  .image-comparison {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+  }
+
+  .image-comparison figure {
+      flex: 1;
+      margin: 0;
+      text-align: center;
+      min-width: 300px;
+  }
+
+  .image-comparison img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .image-comparison figcaption {
+      margin-top: 10px;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+  }
+
   /* Responsive design - hide TOC on narrow screens */
   @media (max-width: 768px) {
       #toc {
@@ -542,6 +570,25 @@ If you want to help out with building and testing LBM on an actual Windows machi
 </ul>
 </section>
 
+Leading up to version 0.33.0, focus was on improving test coverage. As can be seen from the images below, test coverage has
+increased drastically and we are now covering 97.4% of functions and 91.7% of lines. There are still improvements needed for
+branch coverage. Many of the uncovered branches are extremely hard to trigger and in a correctly set-up integration of LispBM
+it may be impossible to trigger these error conditions. The plan for future testing is to slowly increase coverage with tests
+designed to trigger even more unlikely edge cases, but overly defensive programming practices (such as conditions that cannot arise in a
+correctly configured LispBM system) will be removed.
+
+<div class="image-comparison">
+  <figure>
+    <img src="./images/coverage_0.32.0.jpg" alt="LispBM testing coverage version 0.32.0" loading="lazy" />
+    <figcaption>Test coverage for version 0.32.0</figcaption>
+  </figure>
+  <figure>
+    <img src="./images/coverage_0.33.0.jpg" alt="LispBM testing coverage version 0.33.0" loading="lazy" />
+    <figcaption>Test coverage for version 0.33.0</figcaption>
+  </figure>
+</div>
+
+
 
 <section id="performance">
 <h2>LispBM Performance Evolution</h2>
@@ -550,8 +597,16 @@ If you want to help out with building and testing LBM on an actual Windows machi
 
 <p>Below, you can find performance charts illustrating LispBM&#8217;s performance on a set of benchmarks:</p>
 
-<img src="./images/benchresults.png" alt="LispBM performance benchmarks chart showing execution times" loading="lazy" />
-<img src="./images/benchresults_log.png" alt="LispBM performance benchmarks chart with logarithmic scale" loading="lazy" />
+<div class="image-comparison">
+  <figure>
+    <img src="./images/benchresults.png" alt="LispBM performance benchmarks chart showing execution times" loading="lazy" />
+    <figcaption>Performance benchmarks with linear scale</figcaption>
+  </figure>
+  <figure>
+    <img src="./images/benchresults_log.png" alt="LispBM performance benchmarks chart with logarithmic scale" loading="lazy" />
+    <figcaption>Performance benchmarks with logarithmic scale</figcaption>
+  </figure>
+</div>
 
 <p>If you&#8217;re interested in the technical details and benchmarks, you can explore our benchmark code here:</p>
 
