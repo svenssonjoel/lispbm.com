@@ -249,8 +249,9 @@
       <li> <a href="#lispbm-lbm"> Top </a> </li>
       <li> <a href="#want-to-get-involved-and-help-out"> Help Wanted </a> </li>
       <li> <a href="#getting-started"> Getting started with LispBM </a></li>
-      <li> <a href="#getting-started-easy"> Getting started on Embedded: easy </a> </li>
-      <li> <a href="#getting-started-hard"> Getting started on Embedded: hard </a> </li>
+      <li> <a href="#getting-started-easy"> Getting started on embedded: easy </a> </li>
+      <li> <a href="#getting-started-easy-no-vesc"> Getting started on embedded: easy (no vesc)</a> </li>
+      <li> <a href="#getting-started-hard"> Getting started on embedded: hard </a> </li>
       <li> <a href="#the-lbm-repl"> Getting started on Linux </a> </li>
       <li> <a href="#lbm-for-windows"> Getting started on Windows </a> </li>
       <li> <a href="#documentation"> Documentation </a> </li>
@@ -312,11 +313,59 @@ The LispBM source code is available on <a href="https://www.github.com/svenssonj
 <p>VESC-Tool gives you access to a very capable <a href="https://vesc-project.com/sites/default/files/lisp%20overview.png">IDE</a> for Lisp programming on embedded systems and the VESC Express firmware provides built-in functionality to interface with CAN, WiFi, BLE and UART as well as GPIO and display drivers.</p>
 <p>If you are looking for a more bare-bones way to add scripting capabilities to your embedded system, LispBM is quite platform independent and can be compiled for many different MCUs and systems. LispBM can tie into the rest of your application via what we call “extensions” which are C functions that can be called from your LispBM scripts.</p>
 
-<h3 id="getting-started-hard">Getting started on embedded: hard</h3>
-<p>If you want to build your own lisp environment based on LispBM on top of ChibiOS, Zephyr, FreeRTOS or bare-metal then
-  this is quite possible! I am sorry, though, that there is currently not very much documentation about how to get going with that.
-  Looking at how the vesc_express integration works is one starting point as well as the x86 REPL mentioned below.</p>
+<h3 id="getting-started-easy-no-vesc">Getting started on embedded: easy (no vesc)</h3>
+<p>In the directory <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/esp32c3">'examples/esp32c3'</a> in the code repository there is an example setup
+  of LispBM without any of the VESC parts. This example is targeting the <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkitm-1/index.html">esp32c3-devkitm-mini1</a> and FreeRTOS.</p>
 
+<h4>Precompiled Binaries</h4>
+<p>For quick testing, precompiled binaries are available: <a href="./dist/esp32c3-repl.zip">esp32c3-repl.zip</a></p>
+<p>The precompiled binaries can be flashed onto the development kit with the following command:</p>
+<pre>
+esptool.py --chip esp32c3 --port /dev/ttyUSB0 --baud 460800 write_flash \
+    0x0 bootloader.bin \
+    0x8000 partition-table.bin \
+    0x10000 hello_world.bin
+</pre>
+
+<h4>Building and Flashing</h4>
+<p>To build and flash the ESP32C3 example, follow these steps:</p>
+
+<p>First, process the flash partition table:</p>
+<pre>
+idf.py partition-table
+</pre>
+
+<p>Then build the project:</p>
+<pre>
+idf.py build
+</pre>
+
+<p>Flash the firmware to your ESP32C3:</p>
+<pre>
+idf.py flash
+</pre>
+
+<p>Finally, connect to the development kit using a serial terminal (such as minicom) or run:</p>
+<pre>
+idf.py monitor
+</pre>
+
+<p>You can now interact with a simple REPL on your ESP32C3.</p>
+
+
+    
+
+<h3 id="getting-started-hard">Getting started on embedded: hard</h3>
+<p>If you want to build your own lisp environment based on LispBM on
+  top of ChibiOS, Zephyr, FreeRTOS or bare-metal then this is quite
+  possible! </p>
+<p>
+  For a simple example using FreeRTOS, look at <a href="#getting-started-easy-no-vesc"> Getting started on embedded: easy (no vesc)</a>.
+  Another source for information on how to do LispBM and FreeRTOS, look at <a href="https://github.com/vedderb/vesc_express">VESC EXPRESS</a>.
+  For ChibiOS integration look at the benchmark runner <a href="https://github.com/svenssonjoel/lispBM/tree/master/benchmarks/bench_chibi">bench_chibi</a> or
+  for a more thorough integration <a href="https://github.com/vedderb/bldc">VESC BLDC</a>.
+  Finally there is also the <a href="https://github.com/svenssonjoel/lispBM/tree/master/repl">Linux REPL</a> that one can look at for ideas.
+</p>
 
 <h3 id="the-lbm-repl">Getting started on Linux</h3>
 
