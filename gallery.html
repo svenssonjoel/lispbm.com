@@ -1,0 +1,319 @@
+<HTML lang="en-US">
+
+<HEAD>  
+  
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM Gallery - Showcase of LispBM projects, creations, and community contributions. Explore what people have built with LispBM, the Lisp for microcontrollers.">
+  <meta name="keywords" content="lispbm gallery, lispbm projects, lispbm showcase, lisp microcontroller projects, embedded lisp examples, lispbm community, lispbm creations">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/gallery.html">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM Gallery - Community Projects and Creations">
+  <meta property="og:description" content="Showcase of LispBM projects, creations, and community contributions. Explore what people have built with LispBM, the Lisp for microcontrollers.">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/gallery.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LispBM">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM Gallery - Community Projects and Creations">
+  <meta name="twitter:description" content="Showcase of LispBM projects, creations, and community contributions. Explore what people have built with LispBM, the Lisp for microcontrollers.">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./ico/favicon.ico">
+  <link rel="icon" href="./ico/favicon.ico">
+  <link rel="manifest" href="./ico/site.webmanifest">
+  
+</HEAD> 
+
+<TITLE>LispBM Gallery - Community Projects and Creations</TITLE>
+
+<style type="text/css">
+  body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #C0C0C0;
+  }
+
+  .banner {
+      width: 100%;
+      height: 80px;
+      background-image: url("./images/lispbm_llama_small.png");
+      background-repeat: repeat-x;
+      background-size: auto 100%;
+      background-position: left center;
+      border-bottom: 2px solid #007bff;
+      margin-bottom: 20px;
+  }
+
+  .main-title {
+      text-align: center;
+      color: #333;
+      margin: 30px 0;
+      font-size: 2.5em;
+  }
+
+  .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+
+  .back-link {
+      display: inline-block;
+      color: #007bff;
+      text-decoration: none;
+      margin-bottom: 20px;
+      font-size: 1.1em;
+      transition: color 0.2s;
+  }
+
+  .back-link:hover {
+      color: #0056b3;
+      text-decoration: underline;
+  }
+
+  .description {
+      text-align: center;
+      color: #666;
+      font-size: 1.1em;
+      margin-bottom: 40px;
+      line-height: 1.6;
+  }
+
+  .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 30px;
+      padding: 20px 0;
+  }
+
+  .gallery-item {
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .gallery-item:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  .gallery-item img {
+      width: 100%;
+      height: 250px;
+      object-fit: cover;
+      display: block;
+  }
+
+  .gallery-item-caption {
+      padding: 15px;
+      text-align: center;
+      background: white;
+  }
+
+  .gallery-item-title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 5px;
+      font-size: 1.1em;
+  }
+
+  .gallery-item-description {
+      color: #666;
+      font-size: 0.9em;
+      line-height: 1.4;
+      margin-bottom: 8px;
+  }
+
+  .gallery-item-attribution {
+      color: #888;
+      font-size: 0.8em;
+      font-style: italic;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+      .container {
+          padding: 10px;
+      }
+      
+      .main-title {
+          font-size: 2em;
+          margin: 20px 0;
+      }
+      
+      .gallery-grid {
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 20px;
+      }
+
+      .gallery-item img {
+          height: 200px;
+      }
+  }
+
+  @media (max-width: 480px) {
+      .gallery-grid {
+          grid-template-columns: 1fr;
+      }
+  }
+</style>
+
+<BODY>
+
+<div class="banner"></div>
+
+<div class="container">
+  <a href="index.html" class="back-link">← Back to Main Site</a>
+  
+  <h1 class="main-title">LispBM Gallery</h1>
+  
+  <p class="description">
+    Welcome to the LispBM Gallery! This showcase features projects, creations, and contributions from the LispBM community. 
+    Have you built something cool with LispBM? We'd love to feature it here! Send us your pictures and project details.
+  </p>
+
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- Gallery items will be populated by JavaScript -->
+  </div>
+</div>
+
+<script>
+// Array of all images in the collage directory with descriptions
+const galleryImages = [
+  {
+    src: 'images/collage/DemiLama.png',
+    title: 'DemiLama',
+    description: 'Creative artwork featuring our beloved LispBM mascot',
+    filename: 'DemiLama.png'
+  },
+  {
+    src: 'images/collage/cat_holiday_03.png',
+    title: 'Holiday Cat Animation',
+    description: 'Screenshot from a festive LispBM holiday animation',
+    filename: 'cat_holiday_03.png'
+  },
+  {
+    src: 'images/collage/lbm-holiday-animation_04.png',
+    title: 'LispBM Holiday Animation',
+    description: 'Frame from a LispBM-powered holiday animation project',
+    filename: 'lbm-holiday-animation_04.png'
+  },
+  {
+    src: 'images/collage/lispbm.jpeg',
+    title: 'LispBM Logo',
+    description: 'Official LispBM project logo and branding',
+    filename: 'lispbm.jpeg'
+  },
+  {
+    src: 'images/collage/lispbm_llama.png',
+    title: 'Lispy the Llama',
+    description: 'Our mascot Lispy the llama in all their glory',
+    filename: 'lispbm_llama.png'
+  },
+  {
+    src: 'images/collage/lisprunners.png',
+    title: 'Lisp Runners',
+    description: 'Dynamic visualization of Lisp processes in action',
+    filename: 'lisprunners.png'
+  },
+  {
+    src: 'images/collage/lispwizaard.png',
+    title: 'Lisp Wizard',
+    description: 'The mystical Lisp Wizard conjuring code magic',
+    filename: 'lispwizaard.png'
+  },
+  {
+    src: 'images/collage/llamacouldron.jpg',
+    title: 'Llama Cauldron',
+    description: 'Brewing up some LispBM magic in the llama cauldron',
+    filename: 'llamacouldron.jpg'
+  },
+  {
+    src: 'images/collage/xmas_lisp-2024-12-20_11.39.26_04.png',
+    title: 'Christmas Lisp 2024',
+    description: 'Holiday-themed LispBM project from December 2024',
+    filename: 'xmas_lisp-2024-12-20_11.39.26_04.png'
+  }
+];
+
+// Global variable to store credits data
+let imageCredits = {};
+
+// Function to load and parse CSV credits
+async function loadImageCredits() {
+  try {
+    const response = await fetch('image_credits.csv');
+    const csvText = await response.text();
+    const lines = csvText.trim().split('\n');
+    
+    // Skip header row and parse each line
+    for (let i = 1; i < lines.length; i++) {
+      const [filename, attribution] = lines[i].split(',');
+      if (filename && attribution) {
+        imageCredits[filename] = attribution;
+      }
+    }
+  } catch (error) {
+    console.log('Could not load image credits:', error);
+  }
+}
+
+// Function to format attribution (make URLs clickable)
+function formatAttribution(attribution) {
+  if (attribution.startsWith('http://') || attribution.startsWith('https://')) {
+    return `<a href="${attribution}" target="_blank" rel="noopener noreferrer" style="color: #007bff; text-decoration: none;">${attribution}</a>`;
+  }
+  return attribution;
+}
+
+// Function to create gallery items
+function createGalleryGrid() {
+  const galleryGrid = document.getElementById('galleryGrid');
+  
+  galleryImages.forEach(image => {
+    const galleryItem = document.createElement('div');
+    galleryItem.className = 'gallery-item';
+    
+    const attribution = imageCredits[image.filename] || 'Unknown';
+    const formattedAttribution = formatAttribution(attribution);
+    
+    galleryItem.innerHTML = `
+      <img src="${image.src}" alt="${image.title}" loading="lazy">
+      <div class="gallery-item-caption">
+        <div class="gallery-item-title">${image.title}</div>
+        <div class="gallery-item-description">${image.description}</div>
+        <div class="gallery-item-attribution">Credit: ${formattedAttribution}</div>
+      </div>
+    `;
+    
+    galleryGrid.appendChild(galleryItem);
+  });
+}
+
+// Initialize gallery when page loads
+async function initGallery() {
+  await loadImageCredits();
+  createGalleryGrid();
+}
+
+window.addEventListener('load', initGallery);
+</script>
+
+</BODY>
+</HTML>

@@ -262,6 +262,7 @@
       <li> <a href="#performance"> LispBM performance over time </a> </li>
       <li> <a href="#other-lisps"> Other Lisp-like languages for microcontrollers </a> </li>
       <li> <a href="#stickers"> Stickers </a> </li>
+      <li> <a href="#gallery"> LispBM Gallery </a> </li>
     </ul>
   </nav>
 
@@ -712,6 +713,83 @@ correctly configured LispBM system) will be removed.
 
 <br>
 <hr>
+
+<!-- LispBM Gallery section -->
+<section id="gallery">
+<h2>LispBM Gallery</h2>
+<div style="text-align: center; margin-top: 20px;">
+  <p style="color: #666; font-size: 0.9em;">Have you done something cool with LispBM? Send us a picture for our LispBM Gallery!</p>
+  <p style="margin: 15px 0;"><a href="gallery.html" style="color: #007bff; text-decoration: none; font-weight: bold; font-size: 1.1em;">→ View Full Gallery</a></p>
+  <img id="randomCollageImage" src="" alt="Random collage image" style="max-width: 300px; max-height: 200px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);" loading="lazy"/>
+  <p id="imageAttribution" style="color: #888; font-size: 0.8em; font-style: italic; margin-top: 8px;"></p>
+</div>
+</section>
+
+<script>
+// Array of all images in the collage directory with filenames
+const collageImages = [
+  { src: 'images/collage/DemiLama.png', filename: 'DemiLama.png' },
+  { src: 'images/collage/cat_holiday_03.png', filename: 'cat_holiday_03.png' },
+  { src: 'images/collage/lbm-holiday-animation_04.png', filename: 'lbm-holiday-animation_04.png' },
+  { src: 'images/collage/lispbm.jpeg', filename: 'lispbm.jpeg' },
+  { src: 'images/collage/lispbm_llama.png', filename: 'lispbm_llama.png' },
+  { src: 'images/collage/lisprunners.png', filename: 'lisprunners.png' },
+  { src: 'images/collage/lispwizaard.png', filename: 'lispwizaard.png' },
+  { src: 'images/collage/llamacouldron.jpg', filename: 'llamacouldron.jpg' },
+  { src: 'images/collage/xmas_lisp-2024-12-20_11.39.26_04.png', filename: 'xmas_lisp-2024-12-20_11.39.26_04.png' }
+];
+
+// Global variable to store credits data
+let imageCredits = {};
+
+// Function to load and parse CSV credits
+async function loadImageCredits() {
+  try {
+    const response = await fetch('image_credits.csv');
+    const csvText = await response.text();
+    const lines = csvText.trim().split('\n');
+    
+    // Skip header row and parse each line
+    for (let i = 1; i < lines.length; i++) {
+      const [filename, attribution] = lines[i].split(',');
+      if (filename && attribution) {
+        imageCredits[filename] = attribution;
+      }
+    }
+  } catch (error) {
+    console.log('Could not load image credits:', error);
+  }
+}
+
+// Function to format attribution (make URLs clickable)
+function formatAttribution(attribution) {
+  if (attribution.startsWith('http://') || attribution.startsWith('https://')) {
+    return `<a href="${attribution}" target="_blank" rel="noopener noreferrer" style="color: #007bff; text-decoration: none;">${attribution}</a>`;
+  }
+  return attribution;
+}
+
+// Function to display a random image with attribution
+function displayRandomImage() {
+  const randomIndex = Math.floor(Math.random() * collageImages.length);
+  const randomImageObj = collageImages[randomIndex];
+  
+  document.getElementById('randomCollageImage').src = randomImageObj.src;
+  
+  const attribution = imageCredits[randomImageObj.filename] || 'Unknown';
+  const formattedAttribution = formatAttribution(attribution);
+  document.getElementById('imageAttribution').innerHTML = `Credit: ${formattedAttribution}`;
+}
+
+// Initialize random image display when page loads
+async function initRandomImage() {
+  await loadImageCredits();
+  displayRandomImage();
+}
+
+window.addEventListener('load', initRandomImage);
+</script>
+
   </main>
 </div>
 
