@@ -1,10 +1,10 @@
-filename,attribution
-DemiLama.png,https://www.instagram.com/pixiladyart/
-cat_holiday_03.png,https://github.com/laxsjo/
-lbm-holiday-animation_04.png,https://github.com/r3n33
-lispbm.jpeg,https://www.instagram.com/pixiladyart/
-lispbm_llama.png,https://www.instagram.com/pixiladyart/
-lisprunners.png,LispBM Project
-lispwizaard.png,LispBM Project
-llamacouldron.jpg,https://www.instagram.com/pixiladyart/
-xmas_lisp-2024-12-20_11.39.26_04.png,https://github.com/svenssonjoel/
+filename,title,description,attribution
+DemiLama.png,DemiLama,Creative artwork featuring our beloved LispBM mascot,https://www.instagram.com/pixiladyart/
+cat_holiday_03.png,Holiday Cat Animation,Screenshot from a festive LispBM holiday animation,https://github.com/laxsjo/
+lbm-holiday-animation_04.png,LispBM Holiday Animation,Frame from a LispBM-powered holiday animation project,https://github.com/r3n33
+lispbm.jpeg,LispBM Logo,Official LispBM project logo and branding,https://www.instagram.com/pixiladyart/
+lispbm_llama.png,Lispy the Llama,Our mascot Lispy the llama in all their glory,https://www.instagram.com/pixiladyart/
+lisprunners.png,Lisp Runners,Dynamic visualization of Lisp processes in action,LispBM Project
+lispwizaard.png,Lisp Wizard,The mystical Lisp Wizard conjuring code magic,LispBM Project
+llamacouldron.jpg,Llama Cauldron,Brewing up some LispBM magic in the llama cauldron,https://www.instagram.com/pixiladyart/
+xmas_lisp-2024-12-20_11.39.26_04.png,Christmas Lisp 2024,Holiday-themed LispBM project from December 2024,https://github.com/svenssonjoel/

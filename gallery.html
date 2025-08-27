@@ -302,69 +302,11 @@
 </div>
 
 <script>
-// Array of all images in the collage directory with descriptions
-const galleryImages = [
-  {
-    src: 'images/collage/DemiLama.png',
-    title: 'DemiLama',
-    description: 'Creative artwork featuring our beloved LispBM mascot',
-    filename: 'DemiLama.png'
-  },
-  {
-    src: 'images/collage/cat_holiday_03.png',
-    title: 'Holiday Cat Animation',
-    description: 'Screenshot from a festive LispBM holiday animation',
-    filename: 'cat_holiday_03.png'
-  },
-  {
-    src: 'images/collage/lbm-holiday-animation_04.png',
-    title: 'LispBM Holiday Animation',
-    description: 'Frame from a LispBM-powered holiday animation project',
-    filename: 'lbm-holiday-animation_04.png'
-  },
-  {
-    src: 'images/collage/lispbm.jpeg',
-    title: 'LispBM Logo',
-    description: 'Official LispBM project logo and branding',
-    filename: 'lispbm.jpeg'
-  },
-  {
-    src: 'images/collage/lispbm_llama.png',
-    title: 'Lispy the Llama',
-    description: 'Our mascot Lispy the llama in all their glory',
-    filename: 'lispbm_llama.png'
-  },
-  {
-    src: 'images/collage/lisprunners.png',
-    title: 'Lisp Runners',
-    description: 'Dynamic visualization of Lisp processes in action',
-    filename: 'lisprunners.png'
-  },
-  {
-    src: 'images/collage/lispwizaard.png',
-    title: 'Lisp Wizard',
-    description: 'The mystical Lisp Wizard conjuring code magic',
-    filename: 'lispwizaard.png'
-  },
-  {
-    src: 'images/collage/llamacouldron.jpg',
-    title: 'Llama Cauldron',
-    description: 'Brewing up some LispBM magic in the llama cauldron',
-    filename: 'llamacouldron.jpg'
-  },
-  {
-    src: 'images/collage/xmas_lisp-2024-12-20_11.39.26_04.png',
-    title: 'Christmas Lisp 2024',
-    description: 'Holiday-themed LispBM project from December 2024',
-    filename: 'xmas_lisp-2024-12-20_11.39.26_04.png'
-  }
-];
+// Global variable to store gallery data from CSV
+let galleryImages = [];
 
-// Global variable to store credits data
-let imageCredits = {};
-
-// Function to load and parse CSV credits
-async function loadImageCredits() {
+// Function to load and parse CSV data
+async function loadGalleryData() {
   try {
     const response = await fetch('image_credits.csv');
     const csvText = await response.text();
@@ -372,13 +314,20 @@ async function loadImageCredits() {
     
     // Skip header row and parse each line
     for (let i = 1; i < lines.length; i++) {
-      const [filename, attribution] = lines[i].split(',');
-      if (filename && attribution) {
-        imageCredits[filename] = attribution;
+      const [filename, title, description, attribution] = lines[i].split(',');
+      if (filename && title && description && attribution) {
+        galleryImages.push({
+          src: `images/collage/${filename}`,
+          filename: filename,
+          title: title,
+          description: description,
+          attribution: attribution
+        });
       }
     }
+    console.log('Successfully loaded gallery data from CSV');
   } catch (error) {
-    console.log('Could not load image credits:', error);
+    console.log('Could not load CSV data:', error);
   }
 }
 
@@ -398,8 +347,7 @@ function createGalleryGrid() {
     const galleryItem = document.createElement('div');
     galleryItem.className = 'gallery-item';
     
-    const attribution = imageCredits[image.filename] || 'Unknown';
-    const formattedAttribution = formatAttribution(attribution);
+    const formattedAttribution = formatAttribution(image.attribution);
     
     galleryItem.innerHTML = `
       <img src="${image.src}" alt="${image.title}" loading="lazy">
@@ -411,7 +359,7 @@ function createGalleryGrid() {
     `;
     
     // Add click event to open modal
-    galleryItem.addEventListener('click', () => openModal(image, attribution));
+    galleryItem.addEventListener('click', () => openModal(image, image.attribution));
     
     galleryGrid.appendChild(galleryItem);
   });
@@ -444,7 +392,7 @@ function closeModal() {
 
 // Initialize gallery when page loads
 async function initGallery() {
-  await loadImageCredits();
+  await loadGalleryData();
   createGalleryGrid();
   setupModalEvents();
 }
