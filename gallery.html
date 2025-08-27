@@ -106,11 +106,106 @@
       overflow: hidden;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
   }
 
   .gallery-item:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+  }
+
+  /* Modal overlay styles */
+  .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+  }
+
+  .modal-overlay.active {
+      opacity: 1;
+      visibility: visible;
+  }
+
+  .modal-content {
+      max-width: 90vw;
+      max-height: 90vh;
+      background: white;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+      transform: scale(0.7);
+      transition: transform 0.3s ease;
+  }
+
+  .modal-overlay.active .modal-content {
+      transform: scale(1);
+  }
+
+  .modal-image {
+      width: 100%;
+      height: auto;
+      max-height: 70vh;
+      object-fit: contain;
+      display: block;
+  }
+
+  .modal-caption {
+      padding: 20px;
+      text-align: center;
+      background: white;
+  }
+
+  .modal-title {
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+      font-size: 1.2em;
+  }
+
+  .modal-description {
+      color: #666;
+      font-size: 1em;
+      line-height: 1.4;
+      margin-bottom: 10px;
+  }
+
+  .modal-attribution {
+      color: #888;
+      font-size: 0.9em;
+      font-style: italic;
+  }
+
+  .modal-close {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.9);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      font-size: 24px;
+      font-weight: bold;
+      color: #333;
+      cursor: pointer;
+      transition: background 0.2s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+  }
+
+  .modal-close:hover {
+      background: white;
   }
 
   .gallery-item img {
@@ -190,6 +285,19 @@
 
   <div class="gallery-grid" id="galleryGrid">
     <!-- Gallery items will be populated by JavaScript -->
+  </div>
+</div>
+
+<!-- Modal overlay for image popup -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-content">
+    <button class="modal-close" id="modalClose">&times;</button>
+    <img class="modal-image" id="modalImage" src="" alt="">
+    <div class="modal-caption">
+      <div class="modal-title" id="modalTitle"></div>
+      <div class="modal-description" id="modalDescription"></div>
+      <div class="modal-attribution" id="modalAttribution"></div>
+    </div>
   </div>
 </div>
 
@@ -286,7 +394,7 @@ function formatAttribution(attribution) {
 function createGalleryGrid() {
   const galleryGrid = document.getElementById('galleryGrid');
   
-  galleryImages.forEach(image => {
+  galleryImages.forEach((image, index) => {
     const galleryItem = document.createElement('div');
     galleryItem.className = 'gallery-item';
     
@@ -302,14 +410,66 @@ function createGalleryGrid() {
       </div>
     `;
     
+    // Add click event to open modal
+    galleryItem.addEventListener('click', () => openModal(image, attribution));
+    
     galleryGrid.appendChild(galleryItem);
   });
+}
+
+// Function to open modal with image details
+function openModal(image, attribution) {
+  const modal = document.getElementById('modalOverlay');
+  const modalImage = document.getElementById('modalImage');
+  const modalTitle = document.getElementById('modalTitle');
+  const modalDescription = document.getElementById('modalDescription');
+  const modalAttribution = document.getElementById('modalAttribution');
+  
+  modalImage.src = image.src;
+  modalImage.alt = image.title;
+  modalTitle.textContent = image.title;
+  modalDescription.textContent = image.description;
+  modalAttribution.innerHTML = `Credit: ${formatAttribution(attribution)}`;
+  
+  modal.classList.add('active');
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+}
+
+// Function to close modal
+function closeModal() {
+  const modal = document.getElementById('modalOverlay');
+  modal.classList.remove('active');
+  document.body.style.overflow = ''; // Restore background scrolling
 }
 
 // Initialize gallery when page loads
 async function initGallery() {
   await loadImageCredits();
   createGalleryGrid();
+  setupModalEvents();
+}
+
+// Setup modal event listeners
+function setupModalEvents() {
+  const modal = document.getElementById('modalOverlay');
+  const closeButton = document.getElementById('modalClose');
+  
+  // Close button click
+  closeButton.addEventListener('click', closeModal);
+  
+  // Click outside modal content to close
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+      closeModal();
+    }
+  });
+  
+  // ESC key to close
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
+    }
+  });
 }
 
 window.addEventListener('load', initGallery);
