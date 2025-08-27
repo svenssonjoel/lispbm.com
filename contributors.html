@@ -1,0 +1,447 @@
+<HTML lang="en-US">
+
+<HEAD>  
+  
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM Contributors - Meet the amazing developers who have contributed to LispBM, the Lisp for microcontrollers. Community acknowledgments and contributor profiles.">
+  <meta name="keywords" content="lispbm contributors, lispbm developers, open source contributors, lisp microcontroller developers, github contributors, lispbm community">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/contributors.html">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM Contributors - Community Acknowledgments">
+  <meta property="og:description" content="Meet the amazing developers who have contributed to LispBM, the Lisp for microcontrollers. Community acknowledgments and contributor profiles.">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/contributors.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LispBM">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM Contributors - Community Acknowledgments">
+  <meta name="twitter:description" content="Meet the amazing developers who have contributed to LispBM, the Lisp for microcontrollers. Community acknowledgments and contributor profiles.">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./ico/favicon.ico">
+  <link rel="icon" href="./ico/favicon.ico">
+  <link rel="manifest" href="./ico/site.webmanifest">
+  
+</HEAD> 
+
+<TITLE>LispBM Contributors - Community Acknowledgments</TITLE>
+
+<style type="text/css">
+  body, html {
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+      background-color: #C0C0C0;
+  }
+
+  .banner {
+      width: 100%;
+      height: 80px;
+      background-image: url("./images/lispbm_llama_small.png");
+      background-repeat: repeat-x;
+      background-size: auto 100%;
+      background-position: left center;
+      border-bottom: 2px solid #007bff;
+      margin-bottom: 20px;
+  }
+
+  .main-title {
+      text-align: center;
+      color: #333;
+      margin: 30px 0;
+      font-size: 2.5em;
+  }
+
+  .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+
+  .back-link {
+      display: inline-block;
+      color: #007bff;
+      text-decoration: none;
+      margin-bottom: 20px;
+      font-size: 1.1em;
+      transition: color 0.2s;
+  }
+
+  .back-link:hover {
+      color: #0056b3;
+      text-decoration: underline;
+  }
+
+  .description {
+      text-align: center;
+      color: #666;
+      font-size: 1.1em;
+      margin-bottom: 40px;
+      line-height: 1.6;
+  }
+
+  .loading-message {
+      text-align: center;
+      color: #666;
+      font-size: 1.1em;
+      margin: 40px 0;
+  }
+
+  .contributors-stats {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      text-align: center;
+  }
+
+  .contributors-stats h3 {
+      margin-top: 0;
+      color: #333;
+  }
+
+  .stat-number {
+      font-size: 2em;
+      font-weight: bold;
+      color: #007bff;
+  }
+
+  .contributors-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 25px;
+      padding: 20px 0;
+  }
+
+  .contributor-card {
+      background: white;
+      border-radius: 12px;
+      padding: 25px;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .contributor-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  }
+
+  .contributor-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      margin-bottom: 15px;
+      border: 3px solid #007bff;
+  }
+
+  .contributor-name {
+      font-size: 1.2em;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 8px;
+  }
+
+  .contributor-username {
+      color: #666;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+  }
+
+  .contributor-stats {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 15px;
+  }
+
+  .stat-item {
+      text-align: center;
+  }
+
+  .stat-value {
+      font-weight: bold;
+      color: #007bff;
+      font-size: 1.1em;
+  }
+
+  .stat-label {
+      color: #666;
+      font-size: 0.8em;
+  }
+
+  .contributor-link {
+      display: inline-block;
+      background: #007bff;
+      color: white;
+      padding: 8px 16px;
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: 0.9em;
+      transition: background 0.2s;
+  }
+
+  .contributor-link:hover {
+      background: #0056b3;
+  }
+
+  .error-message {
+      background: #f8d7da;
+      border: 1px solid #f5c6cb;
+      color: #721c24;
+      padding: 15px;
+      border-radius: 5px;
+      text-align: center;
+      margin: 20px 0;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+      .container {
+          padding: 10px;
+      }
+      
+      .main-title {
+          font-size: 2em;
+          margin: 20px 0;
+      }
+      
+      .contributors-grid {
+          grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+          gap: 20px;
+      }
+  }
+
+  @media (max-width: 480px) {
+      .contributors-grid {
+          grid-template-columns: 1fr;
+      }
+  }
+</style>
+
+<BODY>
+
+<div class="banner"></div>
+
+<div class="container">
+  <a href="index.html" class="back-link">← Back to Main Site</a>
+  
+  <h1 class="main-title">LispBM Contributors</h1>
+  
+  <p class="description">
+    LispBM is made possible by the amazing developers who contribute their time, expertise, and passion. 
+    Here we celebrate the community members who help make LispBM better for everyone.
+    Thank you for your contributions! 🙏
+  </p>
+
+  <div class="contributors-stats" id="contributorsStats" style="display: none;">
+    <h3>Community Impact</h3>
+    <div style="display: flex; justify-content: space-around; flex-wrap: wrap;">
+      <div style="margin: 10px;">
+        <div class="stat-number" id="totalContributors">-</div>
+        <div>Contributors</div>
+      </div>
+      <div style="margin: 10px;">
+        <div class="stat-number" id="totalCommits">-</div>
+        <div>Total Commits</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="loading-message" id="loadingMessage">
+    Loading contributors from GitHub... ⏳
+  </div>
+
+  <div class="error-message" id="errorMessage" style="display: none;">
+    <strong>Unable to load contributor data from GitHub.</strong><br>
+    Please check your internet connection or try again later.
+  </div>
+
+  <div class="contributors-grid" id="contributorsGrid">
+    <!-- Contributors will be populated by JavaScript -->
+  </div>
+</div>
+
+<script>
+// Fallback contributor data (used when GitHub API fails/rate limited)
+const fallbackContributors = [
+  {
+    login: 'vedderb',
+    avatar_url: 'https://github.com/vedderb.png',
+    html_url: 'https://github.com/vedderb',
+    contributions: 'Many',
+    type: 'User'
+  },
+  {
+    login: 'laxsjo',
+    avatar_url: 'https://github.com/laxsjo.png', 
+    html_url: 'https://github.com/laxsjo',
+    contributions: 'Several',
+    type: 'User'
+  },
+  {
+    login: 'r3n33',
+    avatar_url: 'https://github.com/r3n33.png',
+    html_url: 'https://github.com/r3n33', 
+    contributions: 'Several',
+    type: 'User'
+  }
+  // Add more known contributors here as needed
+];
+
+// Function to fetch contributors from GitHub API
+async function fetchContributors() {
+  try {
+    const response = await fetch('https://api.github.com/repos/svenssonjoel/lispBM/contributors');
+    
+    if (!response.ok) {
+      if (response.status === 403) {
+        throw new Error('RATE_LIMITED');
+      }
+      throw new Error(`GitHub API error: ${response.status}`);
+    }
+    
+    const contributors = await response.json();
+    
+    // Filter out svenssonjoel user
+    const filteredContributors = contributors.filter(contributor => 
+      contributor.login.toLowerCase() !== 'svenssonjoel'
+    );
+    
+    return { contributors: filteredContributors, fromAPI: true };
+    
+  } catch (error) {
+    console.error('Error fetching contributors:', error);
+    
+    if (error.message === 'RATE_LIMITED') {
+      // Return fallback data for rate limiting
+      return { contributors: fallbackContributors, fromAPI: false, rateLimited: true };
+    }
+    
+    throw error;
+  }
+}
+
+// Function to create contributor card
+function createContributorCard(contributor) {
+  const card = document.createElement('div');
+  card.className = 'contributor-card';
+  
+  card.innerHTML = `
+    <img src="${contributor.avatar_url}" alt="${contributor.login}" class="contributor-avatar">
+    <div class="contributor-name">${contributor.login}</div>
+    <div class="contributor-username">@${contributor.login}</div>
+    <div class="contributor-stats">
+      <div class="stat-item">
+        <div class="stat-value">${contributor.contributions}</div>
+        <div class="stat-label">Commits</div>
+      </div>
+    </div>
+    <a href="${contributor.html_url}" target="_blank" rel="noopener noreferrer" class="contributor-link">
+      View Profile →
+    </a>
+  `;
+  
+  return card;
+}
+
+// Function to show rate limit notice
+function showRateLimitNotice() {
+  const notice = document.createElement('div');
+  notice.style.cssText = `
+    background: #fff3cd; 
+    border: 1px solid #ffeaa7; 
+    color: #856404; 
+    padding: 15px; 
+    border-radius: 5px; 
+    text-align: center; 
+    margin-bottom: 20px;
+  `;
+  notice.innerHTML = `
+    <strong>Notice:</strong> GitHub API rate limit reached. Showing known contributors. 
+    <br><small>Live data will refresh automatically after the rate limit resets.</small>
+  `;
+  
+  document.getElementById('contributorsGrid').parentNode.insertBefore(notice, document.getElementById('contributorsGrid'));
+}
+
+// Function to display contributors
+function displayContributors(data) {
+  const { contributors, fromAPI, rateLimited } = data;
+  const grid = document.getElementById('contributorsGrid');
+  const loadingMessage = document.getElementById('loadingMessage');
+  const contributorsStats = document.getElementById('contributorsStats');
+  
+  // Hide loading message
+  loadingMessage.style.display = 'none';
+  
+  // Show rate limit notice if needed
+  if (rateLimited) {
+    showRateLimitNotice();
+  }
+  
+  // Show stats
+  contributorsStats.style.display = 'block';
+  document.getElementById('totalContributors').textContent = contributors.length;
+  
+  if (fromAPI) {
+    const totalCommits = contributors.reduce((sum, contributor) => sum + contributor.contributions, 0);
+    document.getElementById('totalCommits').textContent = totalCommits.toLocaleString();
+  } else {
+    document.getElementById('totalCommits').textContent = 'Many';
+  }
+  
+  // Clear grid and add contributors
+  grid.innerHTML = '';
+  
+  contributors.forEach(contributor => {
+    const card = createContributorCard(contributor);
+    grid.appendChild(card);
+  });
+}
+
+// Function to show error message
+function showError() {
+  const loadingMessage = document.getElementById('loadingMessage');
+  const errorMessage = document.getElementById('errorMessage');
+  
+  loadingMessage.style.display = 'none';
+  errorMessage.style.display = 'block';
+}
+
+// Initialize the page
+async function initContributorsPage() {
+  try {
+    const data = await fetchContributors();
+    
+    if (data.contributors.length === 0) {
+      showError();
+      return;
+    }
+    
+    displayContributors(data);
+    
+  } catch (error) {
+    showError();
+  }
+}
+
+// Load contributors when page loads
+window.addEventListener('load', initContributorsPage);
+</script>
+
+</BODY>
+</HTML>
