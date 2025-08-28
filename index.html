@@ -280,6 +280,10 @@
 <h2>LispBM Gallery</h2>
 <p>Have you done something cool with LispBM? Send us a picture for our LispBM Gallery! You can <a href="gallery.html">view the full gallery</a> to see all the amazing projects from our community.</p>
 
+<div id="homepageDataSourceNotice" style="display: none; background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 10px; border-radius: 5px; margin: 15px 0; text-align: left;">
+  <strong>Notice:</strong> Using fallback data - CSV file could not be loaded for homepage gallery.
+</div>
+
 <div style="margin-top: 20px;">
   <img id="randomCollageImage" src="" alt="Random collage image" style="max-width: 300px; max-height: 200px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);" loading="lazy"/>
   <p id="imageAttribution" style="color: #888; font-size: 0.8em; font-style: italic; margin-top: 8px;"></p>
@@ -717,24 +721,112 @@ correctly configured LispBM system) will be removed.
 <hr>
 
 <script>
-// Array of all images in the collage directory with filenames
-const collageImages = [
-  { src: 'images/collage/DemiLama.png', filename: 'DemiLama.png' },
-  { src: 'images/collage/cat_holiday_03.png', filename: 'cat_holiday_03.png' },
-  { src: 'images/collage/lbm-holiday-animation_04.png', filename: 'lbm-holiday-animation_04.png' },
-  { src: 'images/collage/lispbm.jpeg', filename: 'lispbm.jpeg' },
-  { src: 'images/collage/lispbm_llama.png', filename: 'lispbm_llama.png' },
-  { src: 'images/collage/lisprunners.png', filename: 'lisprunners.png' },
-  { src: 'images/collage/lispwizaard.png', filename: 'lispwizaard.png' },
-  { src: 'images/collage/llamacouldron.jpg', filename: 'llamacouldron.jpg' },
-  { src: 'images/collage/xmas_lisp-2024-12-20_11.39.26_04.png', filename: 'xmas_lisp-2024-12-20_11.39.26_04.png' }
+// Fallback gallery data (used when CSV loading fails)
+const fallbackGalleryImages = [
+  {
+    src: 'images/collage/DemiLama.png',
+    filename: 'DemiLama.png',
+    title: 'DemiLama',
+    description: 'Creative artwork featuring our beloved LispBM mascot',
+    attribution: 'https://www.instagram.com/pixiladyart/'
+  },
+  {
+    src: 'images/collage/cat_holiday_03.png',
+    filename: 'cat_holiday_03.png',
+    title: 'Holiday Cat Animation',
+    description: 'Screenshot from a festive LispBM holiday animation',
+    attribution: 'https://github.com/laxsjo/'
+  },
+  {
+    src: 'images/collage/lbm-holiday-animation_04.png',
+    filename: 'lbm-holiday-animation_04.png',
+    title: 'LispBM Holiday Animation',
+    description: 'Frame from a LispBM-powered holiday animation project',
+    attribution: 'https://github.com/r3n33'
+  },
+  {
+    src: 'images/collage/lispbm.jpeg',
+    filename: 'lispbm.jpeg',
+    title: 'LispBM Logo',
+    description: 'Official LispBM project logo and branding',
+    attribution: 'https://www.instagram.com/pixiladyart/'
+  },
+  {
+    src: 'images/collage/lispbm_llama.png',
+    filename: 'lispbm_llama.png',
+    title: 'Lispy the Llama',
+    description: 'Our mascot Lispy the llama in all their glory',
+    attribution: 'https://www.instagram.com/pixiladyart/'
+  },
+  {
+    src: 'images/collage/lisprunners.png',
+    filename: 'lisprunners.png',
+    title: 'Lisp Runners',
+    description: 'Dynamic visualization of Lisp processes in action',
+    attribution: 'LispBM Project'
+  },
+  {
+    src: 'images/collage/lispwizaard.png',
+    filename: 'lispwizaard.png',
+    title: 'Lisp Wizard',
+    description: 'The mystical Lisp Wizard conjuring code magic',
+    attribution: 'LispBM Project'
+  },
+  {
+    src: 'images/collage/llamacouldron.jpg',
+    filename: 'llamacouldron.jpg',
+    title: 'Llama Cauldron',
+    description: 'Brewing up some LispBM magic in the llama cauldron',
+    attribution: 'https://www.instagram.com/pixiladyart/'
+  },
+  {
+    src: 'images/collage/xmas_lisp-2024-12-20_11.39.26_04.png',
+    filename: 'xmas_lisp-2024-12-20_11.39.26_04.png',
+    title: 'Christmas Lisp 2024',
+    description: 'Holiday-themed LispBM project from December 2024',
+    attribution: 'https://github.com/svenssonjoel/'
+  }
 ];
 
-// Global variable to store credits data
-let imageCredits = {};
+// Global variable to store gallery data from CSV
+let galleryImages = [];
 
-// Function to load and parse CSV credits
-async function loadImageCredits() {
+// Function to parse CSV line properly (handles commas in quoted fields)
+function parseCSVLine(line) {
+  const result = [];
+  let current = '';
+  let inQuotes = false;
+  
+  for (let i = 0; i < line.length; i++) {
+    const char = line[i];
+    
+    if (char === '"') {
+      inQuotes = !inQuotes;
+    } else if (char === ',' && !inQuotes) {
+      result.push(current.trim());
+      current = '';
+    } else {
+      current += char;
+    }
+  }
+  result.push(current.trim());
+  return result;
+}
+
+// Function to show/hide the data source notice for homepage
+function showHomepageDataSourceNotice(usingFallback) {
+  const notice = document.getElementById('homepageDataSourceNotice');
+  if (usingFallback) {
+    notice.style.display = 'block';
+  } else {
+    notice.style.display = 'none';
+  }
+}
+
+// Function to load and parse CSV data
+async function loadGalleryData() {
+  let usingFallback = false;
+  
   try {
     const response = await fetch('image_credits.csv');
     const csvText = await response.text();
@@ -742,14 +834,33 @@ async function loadImageCredits() {
     
     // Skip header row and parse each line
     for (let i = 1; i < lines.length; i++) {
-      const [filename, attribution] = lines[i].split(',');
-      if (filename && attribution) {
-        imageCredits[filename] = attribution;
+      const [filename, title, description, attribution] = parseCSVLine(lines[i]);
+      if (filename && title && description && attribution) {
+        galleryImages.push({
+          src: `images/collage/${filename}`,
+          filename: filename,
+          title: title,
+          description: description,
+          attribution: attribution
+        });
       }
     }
+    console.log('Successfully loaded gallery data from CSV for homepage');
   } catch (error) {
-    console.log('Could not load image credits:', error);
+    console.log('Could not load CSV data for homepage, using fallback:', error);
+    galleryImages = [...fallbackGalleryImages];
+    usingFallback = true;
   }
+  
+  // If no items loaded, use fallback
+  if (galleryImages.length === 0) {
+    console.log('No gallery items loaded from CSV for homepage, using fallback data');
+    galleryImages = [...fallbackGalleryImages];
+    usingFallback = true;
+  }
+  
+  // Show notice if using fallback data
+  showHomepageDataSourceNotice(usingFallback);
 }
 
 // Function to format attribution (make URLs clickable)
@@ -762,19 +873,18 @@ function formatAttribution(attribution) {
 
 // Function to display a random image with attribution
 function displayRandomImage() {
-  const randomIndex = Math.floor(Math.random() * collageImages.length);
-  const randomImageObj = collageImages[randomIndex];
+  const randomIndex = Math.floor(Math.random() * galleryImages.length);
+  const randomImageObj = galleryImages[randomIndex];
   
   document.getElementById('randomCollageImage').src = randomImageObj.src;
   
-  const attribution = imageCredits[randomImageObj.filename] || 'Unknown';
-  const formattedAttribution = formatAttribution(attribution);
+  const formattedAttribution = formatAttribution(randomImageObj.attribution);
   document.getElementById('imageAttribution').innerHTML = `Credit: ${formattedAttribution}`;
 }
 
 // Initialize random image display when page loads
 async function initRandomImage() {
-  await loadImageCredits();
+  await loadGalleryData();
   displayRandomImage();
 }
 
