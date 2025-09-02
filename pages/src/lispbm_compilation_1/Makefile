@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = Compilation of lispBM programs
 DESCRIPTION = Some initial steps towards Bytecode compilation of lispBM programs
-KEYWORDS =  Compiler compilation lisp bytecode
+KEYWORDS = lisp compiler, compilation, bytecode, lispbm, lisp compilation, interpreter, embedded lisp, microcontroller
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 

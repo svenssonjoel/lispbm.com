@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = Memory allocation for boxed values and arrays
 DESCRIPTION = Memory allocation
-KEYWORDS = lisp microcontrollers memory management allocation arrays boxed values
+KEYWORDS = memory allocation, memory management, lisp, lispbm, microcontrollers, embedded memory, arrays, boxed values, heap allocation
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 

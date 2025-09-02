@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = Parsing Lisp Expressions
 DESCRIPTION = How LispBM Parses Expressions
-KEYWORDS = Parsing Lisp C Compression Code
+KEYWORDS = lisp parsing, parser, tokenizer, parsing expressions, lisp interpreter, lispbm, compression, embedded lisp
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 

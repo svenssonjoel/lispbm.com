@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = Turn Recursion into Iteration using an Explicit Stack
 DESCRIPTION = Some lispbm implementation functions that used to be recursive are rewritten as iteration
-KEYWORDS = lisp recursion iteration stack lisp for microcontrollers mcu stm32 nrf52 esp32  
+KEYWORDS = lisp recursion, recursion to iteration, tail recursion, stack optimization, lisp for, lispbm, microcontrollers, mcu, stm32, esp32  
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 

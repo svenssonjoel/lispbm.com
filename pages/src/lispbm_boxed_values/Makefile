@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = Boxed Values
 DESCRIPTION = Boxed Values in LispBM
-KEYWORDS = Lisp MCU Boxed Values Heap Representation
+KEYWORDS = lisp, lispbm, boxed values, heap, memory representation, microcontroller lisp, embedded lisp, stm32, esp32, memory management
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 

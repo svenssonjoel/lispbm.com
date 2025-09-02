@@ -1,89 +1,81 @@
-<HTML>
+<HTML lang="en-US">
 
 <HEAD>  
 
-  <TITLE>Implement a LispBM REPL in a ChibiOs Thread</TITLE>
-
   <meta charset="UTF-8">
   <meta name="description" content="Example code on how to set up a REPL running in a ChibiOs Thread">
-  <meta name="keywords" content="stm32f4 chibios repl lisp mcu microcontroller thread threads ">
+  <meta name="keywords" content="chibios, stm32f4, stm32, repl, lisp, lispbm, microcontroller, embedded lisp, real time, threads, mcu ">
   <meta name="author" content="Bo Joel Svensson">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- SEO Meta Tags -->
+
   <link rel="canonical" href="https://wwwlispbm.com/pages/lispbm_chibios_repl/index.html" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+
+  <meta property="og:title" content="Implement a LispBM REPL in a ChibiOs Thread">
+  <meta property="og:description" content="Example code on how to set up a REPL running in a ChibiOs Thread">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://wwwlispbm.com/pages/lispbm_chibios_repl/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Implement a LispBM REPL in a ChibiOs Thread">
+  <meta name="twitter:description" content="Example code on how to set up a REPL running in a ChibiOs Thread">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.lispbm.com/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.lispbm.com/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.lispbm.com/ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
+
+  <link rel="stylesheet" href="../../styles.css">
 
 </HEAD> 
 
-<style type="text/css">
-  
-  body, html {
-  margin-left: 5%;
-  margin-right: 5%;
-  }
-    
-  body, html {
-  margin-left: 5%;
-  margin-right: 5%;
-  font-size: large;
-  zoom-level: 150%;
-  }
-  
-  pre {
-  background-color: white;
-  word-wrap: normal;
-  overflow-x: auto;
-  white-space: pre;
-  margin-left: 2%;
-  margin-right: 2%;
-  }
+<TITLE>Implement a LispBM REPL in a ChibiOs Thread</TITLE>
 
-  img {
-  max-width:100%;
-  height:auto;
-  }
+<BODY class="with-background">
 
-  embed {
-  max-width:100%;
-  width:100%;
-  min-height:350px;
-  height:auto;
-  }
- 
-  .yt-link {
-  text-align: center;
-  }
-  
-  .yt-link img {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%
-  }
+<div class="container">
+  <div class="banner"></div>
 
-  tr:hover {background-color: #8abd8a;}
-  
+  <div class="nav-menu">
+    <a href="https://www.lispbm.com/" class="back-link">← Back to LispBM Home</a>
+  </div>
 
-  th {
-  background-color: #333;
-  color: white;
-  }
-  
-</style>
+<!-- Content starts here --> 
 
-<BODY bgcolor=#C0C0C0>
-
-<font size="+2">
-  <i> Bo Joel Svensson </i> <br>
-  <i> blog (dot) joel (dot) svensson (at) gmail (dot) com </i> <br>
-</font>
-
-<!-- BODY IS INTENTIONALY LEFT OPEN --> 
-
-<h1 id="example-implementation-of-a-repl-running-in-a-chibios-thread">Example Implementation of a REPL Running in a ChibiOs Thread</h1>
-<p>This text will show an example of how to implement a lispBM REPL based on ChibiOS for a microcontroller such as the STM32F4. I have tried this code on a stm32f407G-discovery board. The version of ChibiOS used for that test is <code>19.1.2</code>.</p>
-<h2 id="input-and-output-on-a-chibios-basesequentialstream">Input and Output on a ChibiOs BaseSequentialStream</h2>
-<p>ChibiOs has an abstraction for byte streams called <code>BaseSequentialStream</code> that you can operate on using the functions <code>streamRead</code>, <code>streamWrite</code>, <code>streamGet</code> and <code>streamPut</code>.</p>
-<p>The <code>streamGet</code> functions read one byte of data from the stream, blocking until data is available. <code>streamPut</code> instead writes one byte of data onto the stream. These two functions can be used to implement an <code>inputline</code> function where for each byte we read into a buffer we check if it is the newline character and in that case return a number indicating how many bytes have been read.</p>
-<p>Arguments to the <code>inputline</code> function are an abstract stream, a target character buffer and the size of that buffer.</p>
+<h1
+id="example-implementation-of-a-repl-running-in-a-chibios-thread">Example
+Implementation of a REPL Running in a ChibiOs Thread</h1>
+<p>This text will show an example of how to implement a lispBM REPL
+based on ChibiOS for a microcontroller such as the STM32F4. I have tried
+this code on a stm32f407G-discovery board. The version of ChibiOS used
+for that test is <code>19.1.2</code>.</p>
+<h2 id="input-and-output-on-a-chibios-basesequentialstream">Input and
+Output on a ChibiOs BaseSequentialStream</h2>
+<p>ChibiOs has an abstraction for byte streams called
+<code>BaseSequentialStream</code> that you can operate on using the
+functions <code>streamRead</code>, <code>streamWrite</code>,
+<code>streamGet</code> and <code>streamPut</code>.</p>
+<p>The <code>streamGet</code> functions read one byte of data from the
+stream, blocking until data is available. <code>streamPut</code> instead
+writes one byte of data onto the stream. These two functions can be used
+to implement an <code>inputline</code> function where for each byte we
+read into a buffer we check if it is the newline character and in that
+case return a number indicating how many bytes have been read.</p>
+<p>Arguments to the <code>inputline</code> function are an abstract
+stream, a target character buffer and the size of that buffer.</p>
 <pre><code>int inputline(BaseSequentialStream *chp, char *buffer, int size) {
   int n = 0;
   unsigned char c;
@@ -115,17 +107,36 @@
   }
   buffer[size - 1] = 0;
   return 0; // Filled up buffer without reading a linebreak
-}
-</code></pre>
-<p>The function tries to fill up the buffer, by looping from <code>0</code> to <code>size-1</code> and in each iteration getting a character from the stream.</p>
-<p>There are a few special cases here. For example, the character read could be a backspace character. If that is the case a character should be removed from the buffer and the loop counter be decremented, unless of course it is zero.</p>
-<p>Then in the case of a newline character, the number of read characters are returned.</p>
-<p>In most cases the character read from the stream is also <em>echoed</em> back onto the stream, so they will appear on the terminal on the other end of the stream as well (where the user sits).</p>
+}</code></pre>
+<p>The function tries to fill up the buffer, by looping from
+<code>0</code> to <code>size-1</code> and in each iteration getting a
+character from the stream.</p>
+<p>There are a few special cases here. For example, the character read
+could be a backspace character. If that is the case a character should
+be removed from the buffer and the loop counter be decremented, unless
+of course it is zero.</p>
+<p>Then in the case of a newline character, the number of read
+characters are returned.</p>
+<p>In most cases the character read from the stream is also
+<em>echoed</em> back onto the stream, so they will appear on the
+terminal on the other end of the stream as well (where the user
+sits).</p>
 <h2 id="the-repl-as-a-chibios-thread">The REPL as a ChibiOs Thread</h2>
-<p>With the help of the <code>inputline</code> function defined above we can now start to write a REPL. First, though, I would like to show how to implement a lispBM extension for printing strings.</p>
-<h3 id="example-of-a-lispbm-extension">Example of a LispBM Extension</h3>
-<p>The previous text, on <a href="../lispBM/fundamentals_and_extensions/index.html">Fundamentals and Extensions</a>, outlined how fundamentals and extensions work <em>internally</em> but didn't provide any example extension. So this example may make the extensions concept a bit more concrete.</p>
-<p>The extension <code>ext_print</code> takes a pointer to the first argument and the number of arguments as input. This is the interface used for all extensions. All arguments are lispBM <code>VALUE</code>s so the extension function itself has to decode these into things that make sense in a C program.</p>
+<p>With the help of the <code>inputline</code> function defined above we
+can now start to write a REPL. First, though, I would like to show how
+to implement a lispBM extension for printing strings.</p>
+<h3 id="example-of-a-lispbm-extension">Example of a LispBM
+Extension</h3>
+<p>The previous text, on <a
+href="../lispBM/fundamentals_and_extensions/index.html">Fundamentals and
+Extensions</a>, outlined how fundamentals and extensions work
+<em>internally</em> but didn't provide any example extension. So this
+example may make the extensions concept a bit more concrete.</p>
+<p>The extension <code>ext_print</code> takes a pointer to the first
+argument and the number of arguments as input. This is the interface
+used for all extensions. All arguments are lispBM <code>VALUE</code>s so
+the extension function itself has to decode these into things that make
+sense in a C program.</p>
 <pre><code>VALUE ext_print(VALUE *args, int argn) {
  
   for (int i = 0; i &lt; argn; i ++) {
@@ -149,10 +160,15 @@
  
   }
   return enc_sym(symrepr_true());
-}
-</code></pre>
-<p>The extension can print strings and characters. It can be seen in the conditionals that either an array, <code>PTR_TYPE_ARRAY</code>, is expected or a character, <code>VAL_TYPE_CHAR</code>. Any other type is not accepted and the extension just returns nil. Another choice would have been to return the type error symbol in this case, or to ignore that argument and proceed with printing all printable arguments.</p>
-<p>The print extension is also an example of a function that can take 0 or more arguments.</p>
+}</code></pre>
+<p>The extension can print strings and characters. It can be seen in the
+conditionals that either an array, <code>PTR_TYPE_ARRAY</code>, is
+expected or a character, <code>VAL_TYPE_CHAR</code>. Any other type is
+not accepted and the extension just returns nil. Another choice would
+have been to return the type error symbol in this case, or to ignore
+that argument and proceed with printing all printable arguments.</p>
+<p>The print extension is also an example of a function that can take 0
+or more arguments.</p>
 <pre><code># (print)
 &gt; t 
 # (print &quot;apa&quot;)
@@ -160,10 +176,13 @@ apa&gt; t
 # (print &quot;apa&quot; &quot;kurt&quot;)
 apakurt&gt; t 
 # (print &quot;apa&quot; &quot;kurt&quot; &quot;bertil&quot;)
-apakurtbertil&gt; t 
-</code></pre>
-<h3 id="initialization-and-reset-of-the-runtime-system">Initialization and Reset of the Runtime System</h3>
-<p>The following function resets and reinitializes the lispBM runtime system. If there is an existing symbol representation table, heap or extensions these are freed. Then all of the subsystems are restarted.</p>
+apakurtbertil&gt; t </code></pre>
+<h3 id="initialization-and-reset-of-the-runtime-system">Initialization
+and Reset of the Runtime System</h3>
+<p>The following function resets and reinitializes the lispBM runtime
+system. If there is an existing symbol representation table, heap or
+extensions these are freed. Then all of the subsystems are
+restarted.</p>
 <pre><code>int reset_repl(int heap_size) {
   symrepr_del();
   heap_del();
@@ -207,22 +226,35 @@ apakurtbertil&gt; t
   chprintf(chp,&quot;Lisp REPL started (ChibiOS)!\n\r&quot;);
   
   return res;
-}
-</code></pre>
-<p>The boolean argument to <code>eval_cps_init</code> indicates if the continuation stack is allowed to grow or not. In this case it is not.</p>
-<p>Later a command will be added to the REPL called <code>:reset</code> that will run the function above.</p>
+}</code></pre>
+<p>The boolean argument to <code>eval_cps_init</code> indicates if the
+continuation stack is allowed to grow or not. In this case it is
+not.</p>
+<p>Later a command will be added to the REPL called <code>:reset</code>
+that will run the function above.</p>
 <pre><code># :reset
 Symrepr initialized.
 Heap initialized. Free cons cells: 2048
 Evaluator initialized.
 Extension added.
 Lisp REPL started (ChibiOS)!
-# 
-</code></pre>
+# </code></pre>
 <h3 id="the-repl-thread">The REPL Thread</h3>
-<p>In ChibiOs thread functions are defined using the <code>THD_FUNCTION</code> macro that takes two arguments, the function name and the name of an argument. For the REPL thread no argument of value is passed over, so we ignore this.</p>
-<p>This thread function will run forever and in parallel with the main exection thread. Before entering into an eternal loop some storage space for input and output strings are allocated and the REPL is reset using the function defined above.</p>
-<p>The value of type <code>heap_state_t</code> is used as storage when reading out statistics from the heap subsystem. The REPL will present these statistics if the command <code>:info</code> is given. No valid lispBM construct begins with (or even contains) <code>:</code> ,thats why this character is chosen for commands directed at the runtime system rather than the evaluator. Three of the commands are implemented, <code>:info</code>, <code>:quit</code> and <code>:reset</code>.</p>
+<p>In ChibiOs thread functions are defined using the
+<code>THD_FUNCTION</code> macro that takes two arguments, the function
+name and the name of an argument. For the REPL thread no argument of
+value is passed over, so we ignore this.</p>
+<p>This thread function will run forever and in parallel with the main
+exection thread. Before entering into an eternal loop some storage space
+for input and output strings are allocated and the REPL is reset using
+the function defined above.</p>
+<p>The value of type <code>heap_state_t</code> is used as storage when
+reading out statistics from the heap subsystem. The REPL will present
+these statistics if the command <code>:info</code> is given. No valid
+lispBM construct begins with (or even contains) <code>:</code> ,thats
+why this character is chosen for commands directed at the runtime system
+rather than the evaluator. Three of the commands are implemented,
+<code>:info</code>, <code>:quit</code> and <code>:reset</code>.</p>
 <pre><code>static THD_FUNCTION(repl, arg) {
 
   (void) arg;
@@ -277,12 +309,22 @@ Lisp REPL started (ChibiOS)!
 
   symrepr_del();
   heap_del();
-}
-</code></pre>
-<p>The thread then goes into an infinite loop and most of the code in there is about handling the <code>:</code> commands. But first it prints a prompts, clear the input buffer and reads a line of text from the user. If the text that is read in is not one of the <code>:</code> commands it will be fed through the parser and the result of that is fed to the evaluator. This will either result in an error symbol and an error message is printed. Otherwise it is output as a result. The REPL then does it all again.</p>
+}</code></pre>
+<p>The thread then goes into an infinite loop and most of the code in
+there is about handling the <code>:</code> commands. But first it prints
+a prompts, clear the input buffer and reads a line of text from the
+user. If the text that is read in is not one of the <code>:</code>
+commands it will be fed through the parser and the result of that is fed
+to the evaluator. This will either result in an error symbol and an
+error message is printed. Otherwise it is output as a result. The REPL
+then does it all again.</p>
 <h2 id="the-main-function">The Main Function</h2>
-<p>The <code>main</code> function doesn't do very much. It does what ChibiOs main function usually do, <code>halInit</code> and <code>chSysInit</code>. Then it sets up the byte stream over USB (this is code directly from one of the examples that come with ChibiOs).</p>
-<p>After setting up the byte stream and USB, the REPL thread is launched and the main thread goes into an infinite loop.</p>
+<p>The <code>main</code> function doesn't do very much. It does what
+ChibiOs main function usually do, <code>halInit</code> and
+<code>chSysInit</code>. Then it sets up the byte stream over USB (this
+is code directly from one of the examples that come with ChibiOs).</p>
+<p>After setting up the byte stream and USB, the REPL thread is launched
+and the main thread goes into an infinite loop.</p>
 <pre><code>int main(void) {
     halInit();
     chSysInit();
@@ -312,15 +354,37 @@ Lisp REPL started (ChibiOS)!
       chThdSleepMilliseconds(500);
     }
 
-}
-</code></pre>
-<p>The <code>REPL_WA_SIZE</code>, is a value that sets up a thread working area size. This is set to 40kb in this case. With a heap of 2048 cells, the heap alone should be using 16kb. So picking 40kb for working area should leave some room for the symbol tables and such. I am actually entirely sure that when malloc is called from a thread it is allocated within the working area, but experiments seem to indiciate this as setting the working area too small will cause a failure. Must learn more about how ChibiOs threads and working areas work.</p>
-<p>If you want to get a hold of all of the code involved, that is a source tree where all you need to do is run make, this is present on <a href="www.github.com/svenssonjoel/lispBM">Github</a> under the directory <code>repl-ChibiOs</code>.</p>
+}</code></pre>
+<p>The <code>REPL_WA_SIZE</code>, is a value that sets up a thread
+working area size. This is set to 40kb in this case. With a heap of 2048
+cells, the heap alone should be using 16kb. So picking 40kb for working
+area should leave some room for the symbol tables and such. I am
+actually entirely sure that when malloc is called from a thread it is
+allocated within the working area, but experiments seem to indiciate
+this as setting the working area too small will cause a failure. Must
+learn more about how ChibiOs threads and working areas work.</p>
+<p>If you want to get a hold of all of the code involved, that is a
+source tree where all you need to do is run make, this is present on <a
+href="www.github.com/svenssonjoel/lispBM">Github</a> under the directory
+<code>repl-ChibiOs</code>.</p>
 <hr />
-<p><a href="http://www.lispbm.com">HOME</a></p>
-<p>Please contact me with questions, suggestions or feedback at blog (dot) joel (dot) svensson (at) gmail (dot) com or join the <a href=https://groups.google.com/g/svenssonjoelgithubio> google group </a>.</p>
-<p>© Copyright 2020 Bo Joel Svensson</p>
-<p>This page was generated using <a href=https://pandoc.org/> Pandoc</a>.</p>
+</div> <!-- Close container -->
+
+<footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
+  <p>
+    <a href="https://www.lispbm.com/" class="back-link">← Back to LispBM Home</a>
+  </p>
+
+  <p>
+    Please contact me with questions, suggestions or feedback at blog
+    (dot) joel (dot) svensson (at) gmail (dot) com or join the
+    <a href="https://groups.google.com/g/svenssonjoelgithubio"> google group</a>. 
+  </p>
+
+  <p>&copy; Copyright 2020 Bo Joel Svensson</p>
+
+  <p><small>This page was generated using <a href="https://pandoc.org/">Pandoc</a>.</small></p>
+</footer>
+
 </BODY>
 </HTML>
-

@@ -84,3 +84,106 @@ table, th, td {
         font-size: 1.8em;
     }
 }
+
+/* Code block styling for article pages - match main page */
+pre {
+    overflow-x: auto !important;
+    border-radius: 5px !important;
+    background: #414449 !important;
+    color: #b3bccc !important;
+    padding: 15px !important;
+    margin: 20px 2% !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+}
+
+/* Pandoc-generated code blocks with syntax highlighting */
+.sourceCode {
+    overflow-x: auto !important;
+    border-radius: 5px !important;
+    background: #414449 !important;
+    color: #b3bccc !important;
+    padding: 15px !important;
+    margin: 20px 2% !important;
+}
+
+.sourceCode pre {
+    background: transparent !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+/* Target the actual <pre><code> blocks */
+pre code {
+    background: transparent !important;
+    color: #b3bccc !important;
+    padding: 0 !important;
+    border-radius: 0 !important;
+    font-family: 'Courier New', Courier, monospace !important;
+    font-size: 14px !important;
+    line-height: 1.4 !important;
+    display: block;
+    width: 100%;
+}
+
+/* Make sure syntax-highlighted code inside .sourceCode gets proper styling */
+.sourceCode pre code {
+    background: transparent !important;
+    color: #b3bccc !important;
+}
+
+/* Syntax highlighting colors for dark theme */
+.sourceCode .kw { color: #66d9ef !important; } /* Keywords */
+.sourceCode .dt { color: #a6e22e !important; } /* Data types */
+.sourceCode .dv { color: #ae81ff !important; } /* Numbers */
+.sourceCode .st { color: #e6db74 !important; } /* Strings */
+.sourceCode .co { color: #75715e !important; } /* Comments */
+.sourceCode .fu { color: #a6e22e !important; } /* Functions */
+.sourceCode .op { color: #f92672 !important; } /* Operators */
+
+code {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.05em;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+}
+
+/* Table hover effects for article pages */
+tr:hover {
+    background-color: #8abd8a;
+}
+
+th {
+    background-color: #333;
+    color: white;
+    padding: 8px 12px;
+}
+
+td {
+    padding: 6px 12px;
+}
+
+/* Embedded content styling */
+embed {
+    max-width: 100%;
+    width: 100%;
+    min-height: 350px;
+    height: auto;
+}
+
+/* YouTube link styling */
+.yt-link {
+    text-align: center;
+}
+
+.yt-link img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+}

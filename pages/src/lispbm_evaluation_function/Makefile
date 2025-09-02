@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = A Closer Look at LispBM's Evaluation Function
 DESCRIPTION = Evaluation in continuation passing style in C 
-KEYWORDS = Lisp MCU STM32 NRF52 continuation passing style CPS interpreter repl  
+KEYWORDS = lisp eval, eval lisp, continuation passing style, CPS, interpreter, evaluator, lispbm, microcontroller, stm32, nrf52, embedded lisp  
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 
