@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = Concurrent Tasks
 DESCRIPTION = An attempt to run multiple concurrent lispbm tasks
-KEYWORDS = Concurrent tasks context evaluation lisp microcontrollers stm32 nrf52 esp32  
+KEYWORDS = lisp concurrency, concurrent tasks, task spawn, concurrent programming, lispbm, microcontrollers, embedded concurrency, stm32, esp32  
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 

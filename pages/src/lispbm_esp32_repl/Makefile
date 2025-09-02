@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = Implement a LispBM REPL for the ESP32 MCU
 DESCRIPTION = Example of how to implement and compile a LispBM REPL for ESP32
-KEYWORDS = ESP32 esp32 freertos lisp mcu microcontroller embedded repl 
+KEYWORDS = esp32, esp32 lisp, freertos, lisp, lispbm, microcontroller, embedded lisp, repl, esp32 repl, mcu 
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 

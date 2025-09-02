@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = Adding Short Circuit Capable Boolean Operators
 DESCRIPTION = An attempt at adding Short Circuit Capable Boolean Operators to LispBM
-KEYWORDS = lisp microcontroller MCU microcontrollers stm32 stm32f4 nrf52 esp32 xilinx zync
+KEYWORDS = boolean short circuit, short circuit operators, lisp logic, boolean evaluation, lispbm, microcontroller, stm32, nrf52, esp32
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 

@@ -6,7 +6,7 @@ HTML = $(patsubst %.md,%.html,$(MD))
 DIR   = $(notdir $(CURDIR))
 TITLE = Compressed Source Code in lispBM
 DESCRIPTION = LispBM can parse compressed source code, this text shows the implementation.
-KEYWORDS = Huffman coding compression Lisp stm32 nrf52 compressed source code lispBM
+KEYWORDS = huffman coding, compression, code compression, lisp compression, lispbm, embedded compression, stm32, nrf52, source code compression
 YEAR  = 2020
 LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
 

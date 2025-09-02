@@ -1,110 +1,151 @@
-<HTML>
+<HTML lang="en-US">
 
 <HEAD>  
 
-  <TITLE>A Closer Look at LispBM's Evaluation Function</TITLE>
-
   <meta charset="UTF-8">
   <meta name="description" content="Evaluation in continuation passing style in C ">
-  <meta name="keywords" content="Lisp MCU STM32 NRF52 continuation passing style CPS interpreter repl  ">
+  <meta name="keywords" content="lisp eval, eval lisp, continuation passing style, CPS, interpreter, evaluator, lispbm, microcontroller, stm32, nrf52, embedded lisp  ">
   <meta name="author" content="Bo Joel Svensson">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+  <!-- SEO Meta Tags -->
+
   <link rel="canonical" href="https://www.lispbm.com/pages/lispbm_evaluation_function/index.html" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+
+  <meta property="og:title" content="A Closer Look at LispBM's Evaluation Function">
+  <meta property="og:description" content="Evaluation in continuation passing style in C ">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/pages/lispbm_evaluation_function/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="A Closer Look at LispBM's Evaluation Function">
+  <meta name="twitter:description" content="Evaluation in continuation passing style in C ">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.lispbm.com/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.lispbm.com/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.lispbm.com/ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
+
+  <link rel="stylesheet" href="../../styles.css">
 
 </HEAD> 
 
-<style type="text/css">
-  
-  body, html {
-  margin-left: 5%;
-  margin-right: 5%;
-  }
-    
-  body, html {
-  margin-left: 5%;
-  margin-right: 5%;
-  font-size: large;
-  zoom-level: 150%;
-  }
-  
-  pre {
-  background-color: white;
-  word-wrap: normal;
-  overflow-x: auto;
-  white-space: pre;
-  margin-left: 2%;
-  margin-right: 2%;
-  }
+<TITLE>A Closer Look at LispBM's Evaluation Function</TITLE>
 
-  img {
-  max-width:100%;
-  height:auto;
-  }
+<BODY class="with-background">
 
-  embed {
-  max-width:100%;
-  width:100%;
-  min-height:350px;
-  height:auto;
-  }
- 
-  .yt-link {
-  text-align: center;
-  }
-  
-  .yt-link img {
-  display: block;
-  margin: 0 auto;
-  max-width: 100%
-  }
+<div class="container">
+  <div class="banner"></div>
 
-  tr:hover {background-color: #8abd8a;}
-  
+  <div class="nav-menu">
+    <a href="https://www.lispbm.com/" class="back-link">← Back to LispBM Home</a>
+  </div>
 
-  th {
-  background-color: #333;
-  color: white;
-  }
-  
-</style>
-
-<BODY bgcolor=#C0C0C0>
-
-<font size="+2">
-  <i> Bo Joel Svensson </i> <br>
-  <i> blog (dot) joel (dot) svensson (at) gmail (dot) com </i> <br>
-</font>
-
-<!-- BODY IS INTENTIONALY LEFT OPEN --> 
+<!-- Content starts here --> 
 
 <h1 id="evaluating-expressions">Evaluating Expressions</h1>
-<p>This text is a more in depth look at the code that evaluates expressions in lispBM. I hope that It can be of value to someone, just like the <a href="http://lisperator.net/pltut/">Lisperator</a> code was useful to me.</p>
-<p>This code is work in progress and some things look the way they do currently because there is some vague thought of a future direction it may go in. I will try to point out these extra complexities that currently have no direct purpose.</p>
-<p>The goal is that the evaluator should have a certain set of properties.</p>
-<ol>
-<li><p>Tail-calls and even infinite recursion (in tail-position) should be possible without ever-growing memory consumption.</p></li>
-<li><p>At any point where heap space is allocated it must be possible to pause the computation, perform <em>garbage collection</em> (gc), and then pick up execution again where the computation was paused.</p></li>
-<li><p>Evaluation should be correct in relation to environments (such that the body of a let is evaluated in an environment extended with the bindings). There are also other examples of where similar properties should hold, such as when <code>lambda</code>s are evaluated into <code>closure</code>s.</p></li>
-<li><p>Evaluating an expression should give the expected result.</p></li>
+<p>This text is a more in depth look at the code that evaluates
+expressions in lispBM. I hope that It can be of value to someone, just
+like the <a href="http://lisperator.net/pltut/">Lisperator</a> code was
+useful to me.</p>
+<p>This code is work in progress and some things look the way they do
+currently because there is some vague thought of a future direction it
+may go in. I will try to point out these extra complexities that
+currently have no direct purpose.</p>
+<p>The goal is that the evaluator should have a certain set of
+properties.</p>
+<ol type="1">
+<li><p>Tail-calls and even infinite recursion (in tail-position) should
+be possible without ever-growing memory consumption.</p></li>
+<li><p>At any point where heap space is allocated it must be possible to
+pause the computation, perform <em>garbage collection</em> (gc), and
+then pick up execution again where the computation was paused.</p></li>
+<li><p>Evaluation should be correct in relation to environments (such
+that the body of a let is evaluated in an environment extended with the
+bindings). There are also other examples of where similar properties
+should hold, such as when <code>lambda</code>s are evaluated into
+<code>closure</code>s.</p></li>
+<li><p>Evaluating an expression should give the expected
+result.</p></li>
 </ol>
-<p>Writing the code that does all 4 of the above is (at least to me) a bit tricky and I am not entirely sure that every path through the evaluator really maintains these properties yet. As problems shows up, they are addressed.</p>
-<p>After writing down the <a href="../lispbm_current_status/index.html">overview of lispBM</a>, some possible simplifications was spotted. While refactoring these I also noticed a case of violating property 1. The code that evaluates the <code>PROGN</code> functionality was written in a way that led to ever-growing memory use if involved in a infinite recursion. For example:</p>
+<p>Writing the code that does all 4 of the above is (at least to me) a
+bit tricky and I am not entirely sure that every path through the
+evaluator really maintains these properties yet. As problems shows up,
+they are addressed.</p>
+<p>After writing down the <a
+href="../lispbm_current_status/index.html">overview of lispBM</a>, some
+possible simplifications was spotted. While refactoring these I also
+noticed a case of violating property 1. The code that evaluates the
+<code>PROGN</code> functionality was written in a way that led to
+ever-growing memory use if involved in a infinite recursion. For
+example:</p>
 <pre><code>(define f
   (lambda (x)
     (progn (print &quot;hello&quot;)
-       (f (+ x 1)))))
-</code></pre>
-<p>But the problem was possible to fix. I will point out where I fell in the trap later.</p>
-<p>Property 1, is tackled by implementing the evaluator in continuation passing style and as a while loop with explicitly managed state. For example, the explicit continuation stack keeps track of arguments to the continuation and which continuation to apply. Care has to be taken that the interactions with the stack happen in the correct order so that we do not end up with ever-growing stack usage. One way to put it is that nothing should be pushed onto the stack before a tail-call and then popped when finally the tail-call returns.</p>
-<p>Property 2, is handled at each place where cons-cells are allocated. The exact details differ a little from one place to another, so I will point this out in the code further down. But in essence what it means is that the stack and the evaluation context is set to a previously known state and then the evaluation loop is re-entered with a <em>perform gc</em> flag set. The evaluator will then perform GC in the next iteration. When GC is done the next iteration of the evaluator will continue work with the evaluation context.</p>
-<p>Property 3, is dealt with in the cases involving <code>define</code>, <code>let</code> and <code>lambda</code>. Either by making changes to the globally defined environment (in the case of <code>define</code>) or by updating the local environment that the evaluation context maintains.</p>
-<p>Property 4, is loosely checked by a growing set of tests located under the <code>tests</code> directory.</p>
-<p>There are also a set of flags, <code>perform_gc</code>, <code>apply_continuation</code> and <code>done</code>. These are set in the evaluator loop to signal to itself what it should be doing in the next iteration. <code>done</code> is set when there is an error that it is not possible to recover from. <code>apply_continuation</code> is set if the next iteration should pop information off the stack and process that. This happens for example when evaluation results in base type (such as a number). That number may be a part of an addition as in (+ 1 2). So in the next iteration of the loop the continuation will contain information about what to do with that number. The <code>perform_gc</code> flag is set (as hinted above), when heap is full and we cannot proceed unless gc is executed.</p>
+       (f (+ x 1)))))</code></pre>
+<p>But the problem was possible to fix. I will point out where I fell in
+the trap later.</p>
+<p>Property 1, is tackled by implementing the evaluator in continuation
+passing style and as a while loop with explicitly managed state. For
+example, the explicit continuation stack keeps track of arguments to the
+continuation and which continuation to apply. Care has to be taken that
+the interactions with the stack happen in the correct order so that we
+do not end up with ever-growing stack usage. One way to put it is that
+nothing should be pushed onto the stack before a tail-call and then
+popped when finally the tail-call returns.</p>
+<p>Property 2, is handled at each place where cons-cells are allocated.
+The exact details differ a little from one place to another, so I will
+point this out in the code further down. But in essence what it means is
+that the stack and the evaluation context is set to a previously known
+state and then the evaluation loop is re-entered with a <em>perform
+gc</em> flag set. The evaluator will then perform GC in the next
+iteration. When GC is done the next iteration of the evaluator will
+continue work with the evaluation context.</p>
+<p>Property 3, is dealt with in the cases involving <code>define</code>,
+<code>let</code> and <code>lambda</code>. Either by making changes to
+the globally defined environment (in the case of <code>define</code>) or
+by updating the local environment that the evaluation context
+maintains.</p>
+<p>Property 4, is loosely checked by a growing set of tests located
+under the <code>tests</code> directory.</p>
+<p>There are also a set of flags, <code>perform_gc</code>,
+<code>apply_continuation</code> and <code>done</code>. These are set in
+the evaluator loop to signal to itself what it should be doing in the
+next iteration. <code>done</code> is set when there is an error that it
+is not possible to recover from. <code>apply_continuation</code> is set
+if the next iteration should pop information off the stack and process
+that. This happens for example when evaluation results in base type
+(such as a number). That number may be a part of an addition as in (+ 1
+2). So in the next iteration of the loop the continuation will contain
+information about what to do with that number. The
+<code>perform_gc</code> flag is set (as hinted above), when heap is full
+and we cannot proceed unless gc is executed.</p>
 <h2 id="often-used-dependencies">Often Used Dependencies</h2>
-<p>There a couple of often used functions throughout the <code>eval_cps</code> code that comes from other parts of lispBM. Many of these are called <code>enc_X</code> where <code>X</code> can be something like <code>sym</code>, <code>i</code>, <code>u</code> and so on. These functions encode values from <em>the C world</em> into lispBM <code>VALUE</code>s, for example <code>enc_i</code> turns a C integer into a lispBM <code>VALUE</code> representing a 28Bit integer. Similarly there are functions called <code>dec_X</code> that transform values in the other direction.</p>
-<h2 id="global-data-and-some-smaller-functions">Global Data and Some Smaller Functions</h2>
-<p>Now to the code! Evaluation makes use of almost everything else. So most of the lispBM header files are included.</p>
+<p>There a couple of often used functions throughout the
+<code>eval_cps</code> code that comes from other parts of lispBM. Many
+of these are called <code>enc_X</code> where <code>X</code> can be
+something like <code>sym</code>, <code>i</code>, <code>u</code> and so
+on. These functions encode values from <em>the C world</em> into lispBM
+<code>VALUE</code>s, for example <code>enc_i</code> turns a C integer
+into a lispBM <code>VALUE</code> representing a 28Bit integer. Similarly
+there are functions called <code>dec_X</code> that transform values in
+the other direction.</p>
+<h2 id="global-data-and-some-smaller-functions">Global Data and Some
+Smaller Functions</h2>
+<p>Now to the code! Evaluation makes use of almost everything else. So
+most of the lispBM header files are included.</p>
 <pre><code>#include &quot;symrepr.h&quot;
 #include &quot;heap.h&quot;
 #include &quot;env.h&quot;
@@ -114,25 +155,40 @@
 #include &quot;extensions.h&quot;
 #ifdef VISUALIZE_HEAP
 #include &quot;heap_vis.h&quot;
-#endif
-</code></pre>
-<p>Below are the new set of continuation functions (after changes applied since <a href="../lispbm_current_status/index.html">the earlier text on lispBM</a>). There are now only 7 continuation functions instead of 9. The difference is that before there was the three continuations <code>FUNCTION</code>, <code>FUNCTION_APP</code> and <code>ARG_LIST</code> that are now replaced by just <code>APPLICATION</code> and <code>APPLICATION_ARGS</code>. There was also one continuation function that was no longer used at all and could be dropped.</p>
+#endif</code></pre>
+<p>Below are the new set of continuation functions (after changes
+applied since <a href="../lispbm_current_status/index.html">the earlier
+text on lispBM</a>). There are now only 7 continuation functions instead
+of 9. The difference is that before there was the three continuations
+<code>FUNCTION</code>, <code>FUNCTION_APP</code> and
+<code>ARG_LIST</code> that are now replaced by just
+<code>APPLICATION</code> and <code>APPLICATION_ARGS</code>. There was
+also one continuation function that was no longer used at all and could
+be dropped.</p>
 <pre><code>#define DONE              1
 #define SET_GLOBAL_ENV    2
 #define BIND_TO_KEY_REST  3
 #define IF                4
 #define PROGN_REST        5
 #define APPLICATION       6
-#define APPLICATION_ARGS  7
-</code></pre>
-<p>There is a little bit of global state maintained by the evaluator. It consists of the global environment (where things <code>define</code>d go) and the evaluation context. There are also some <code>VALUE</code>s, <code>NIL</code> and <code>NONSENSE</code> these symbols are just given names that are easier to write and stand out a bit as they are used quite frequently.</p>
+#define APPLICATION_ARGS  7</code></pre>
+<p>There is a little bit of global state maintained by the evaluator. It
+consists of the global environment (where things <code>define</code>d
+go) and the evaluation context. There are also some <code>VALUE</code>s,
+<code>NIL</code> and <code>NONSENSE</code> these symbols are just given
+names that are easier to write and stand out a bit as they are used
+quite frequently.</p>
 <pre><code>static VALUE eval_cps_global_env;
 static VALUE NIL;
 static VALUE NONSENSE;
 
-eval_context_t *eval_context = NULL;
-</code></pre>
-<p>Then there are a bunch of functions that handle evaluation contexts. These are not very important now. They are written in this way because of a vague plan to let the evaluator work on more than one context where each context represents a task. Since it is possible to pause the evaluation of a context it should be possible to also implement task switching by pausing one context and then activating another.</p>
+eval_context_t *eval_context = NULL;</code></pre>
+<p>Then there are a bunch of functions that handle evaluation contexts.
+These are not very important now. They are written in this way because
+of a vague plan to let the evaluator work on more than one context where
+each context represents a task. Since it is possible to pause the
+evaluation of a context it should be possible to also implement task
+switching by pausing one context and then activating another.</p>
 <pre><code>eval_context_t *eval_cps_get_current_context(void) {
   return eval_context;
 }
@@ -153,23 +209,30 @@ void eval_cps_drop_top_context(void) {
   eval_context = eval_context-&gt;next;
   stack_del(ctx-&gt;K);
   free(ctx);
-}
-</code></pre>
-<p>The <code>eval_cps_get_env</code> is meant to be called by the REPL implementation in case it is interested in knowing the contents of the environment.</p>
+}</code></pre>
+<p>The <code>eval_cps_get_env</code> is meant to be called by the REPL
+implementation in case it is interested in knowing the contents of the
+environment.</p>
 <pre><code>VALUE eval_cps_get_env(void) {
   return eval_cps_global_env;
-}
-</code></pre>
-<p>The <code>eval_cps_bi_eval</code> function connects to the <code>fundamental.c</code> module and provides the fundamental function called <code>eval</code>.</p>
+}</code></pre>
+<p>The <code>eval_cps_bi_eval</code> function connects to the
+<code>fundamental.c</code> module and provides the fundamental function
+called <code>eval</code>.</p>
 <pre><code>VALUE eval_cps_bi_eval(VALUE exp) {
   eval_context_t *ctx = eval_cps_get_current_context();
 
   ctx-&gt;curr_exp = exp;
   return run_eval(ctx);
-}
-</code></pre>
-<h2 id="starting-up-and-shutting-down">Starting Up and Shutting Down</h2>
-<p>The <code>eval_cps_init</code> functions initializes the evaluation state. It takes an argument that decides whether or not the continuation stack is allowed to grow or if it will be of fixed size. The global environment is initialized and a single mapping is added that map <code>nil</code> to <code>nil</code>. The global evaluation context is allocated.</p>
+}</code></pre>
+<h2 id="starting-up-and-shutting-down">Starting Up and Shutting
+Down</h2>
+<p>The <code>eval_cps_init</code> functions initializes the evaluation
+state. It takes an argument that decides whether or not the continuation
+stack is allowed to grow or if it will be of fixed size. The global
+environment is initialized and a single mapping is added that map
+<code>nil</code> to <code>nil</code>. The global evaluation context is
+allocated.</p>
 <pre><code>int eval_cps_init(bool grow_continuation_stack) {
   int res = 1;
   NIL = enc_sym(symrepr_nil());
@@ -188,16 +251,20 @@ void eval_cps_drop_top_context(void) {
       type_of(eval_cps_global_env) == VAL_TYPE_SYMBOL) res = 0;
 
   return res;
-}
-</code></pre>
-<p>The following function frees up the allocated state used by the evaluator.</p>
+}</code></pre>
+<p>The following function frees up the allocated state used by the
+evaluator.</p>
 <pre><code>void eval_cps_del(void) {
   stack_del(eval_context-&gt;K);
   free(eval_context);
-}
-</code></pre>
+}</code></pre>
 <h2 id="entry-point-function">Entry-point Function</h2>
-<p>The function that is called from the REPL is called <code>eval_cps_program</code> and takes a list of expressions as argument. This function currently modifies the global evaluation context and then loops over the list of expressions and evaluates them from first to last using the <code>run_eval</code> function. the result of the last expression is returned to the caller.</p>
+<p>The function that is called from the REPL is called
+<code>eval_cps_program</code> and takes a list of expressions as
+argument. This function currently modifies the global evaluation context
+and then loops over the list of expressions and evaluates them from
+first to last using the <code>run_eval</code> function. the result of
+the last expression is returned to the caller.</p>
 <pre><code>VALUE eval_cps_program(VALUE lisp) {
 
   eval_context_t *ctx = eval_cps_get_current_context();
@@ -218,11 +285,13 @@ void eval_cps_drop_top_context(void) {
     curr = cdr(curr);
   }
   return res;
-}
-</code></pre>
-<p>So now all the surrounding functions are covered, somewhat, and we can go in depth with the evaluation function, <code>run_eval</code>.</p>
+}</code></pre>
+<p>So now all the surrounding functions are covered, somewhat, and we
+can go in depth with the evaluation function, <code>run_eval</code>.</p>
 <h2 id="evaluation-loop">Evaluation Loop</h2>
-<p>The run eval function starts out with pushing the <code>DONE</code> continuation onto the stack and defines some state needed throughout the evaluation:</p>
+<p>The run eval function starts out with pushing the <code>DONE</code>
+continuation onto the stack and defines some state needed throughout the
+evaluation:</p>
 <pre><code>VALUE run_eval(eval_context_t *ctx){
 
   push_u32(ctx-&gt;K, enc_u(DONE));
@@ -232,24 +301,39 @@ void eval_cps_drop_top_context(void) {
   bool perform_gc = false;
   bool app_cont = false;
 
-  uint32_t non_gc = 0;
-</code></pre>
-<ol>
-<li><p>The <code>r</code> value is what will hold the result of evaluating the expression. <code>r</code> also holds intermediate results throughout evaluation.</p></li>
-<li><p>The <code>done</code> flag signals that evaluation is finished, either successfully or ended in an error.</p></li>
-<li><p>The <code>perform_gc</code> flag, if set, indicates that this iteration of the evaluation loop will include a round of garbage collection.</p></li>
-<li><p>The <code>app_cont</code> flag signals that a continuation should be applied at this point.</p></li>
-<li><p>There is a counter <code>non_gc</code> that counts how many time the loop iterated without the garbage collector running. So if <code>perform_gc</code> is set and the counter is 0, we are really entirely out of memory. I think the counter should be replaced with a boolean flag that indicates if GC was run in the iteration before.</p></li>
+  uint32_t non_gc = 0;</code></pre>
+<ol type="1">
+<li><p>The <code>r</code> value is what will hold the result of
+evaluating the expression. <code>r</code> also holds intermediate
+results throughout evaluation.</p></li>
+<li><p>The <code>done</code> flag signals that evaluation is finished,
+either successfully or ended in an error.</p></li>
+<li><p>The <code>perform_gc</code> flag, if set, indicates that this
+iteration of the evaluation loop will include a round of garbage
+collection.</p></li>
+<li><p>The <code>app_cont</code> flag signals that a continuation should
+be applied at this point.</p></li>
+<li><p>There is a counter <code>non_gc</code> that counts how many time
+the loop iterated without the garbage collector running. So if
+<code>perform_gc</code> is set and the counter is 0, we are really
+entirely out of memory. I think the counter should be replaced with a
+boolean flag that indicates if GC was run in the iteration
+before.</p></li>
 </ol>
-<p>After defining up these bookkeeping variables, the loop that runs <code>while (!done)</code> is started.</p>
+<p>After defining up these bookkeeping variables, the loop that runs
+<code>while (!done)</code> is started.</p>
 <pre><code>  while (!done) {
     
 #ifdef VISUALIZE_HEAP
     heap_vis_gen_image();
-#endif
-</code></pre>
-<p><code>heap_vis</code> is a module of lispBM that can be used for debugging purposes. Every time <code>heap_vis_gen_image()</code> is called an image is generated that has one pixel per cons-cell on the heap. Different colors in this image represent things like <em>free</em>, <em>marked</em> and <em>in use</em>.</p>
-<p>Next there is a check if this iteration will include a round of garbage collection.</p>
+#endif</code></pre>
+<p><code>heap_vis</code> is a module of lispBM that can be used for
+debugging purposes. Every time <code>heap_vis_gen_image()</code> is
+called an image is generated that has one pixel per cons-cell on the
+heap. Different colors in this image represent things like
+<em>free</em>, <em>marked</em> and <em>in use</em>.</p>
+<p>Next there is a check if this iteration will include a round of
+garbage collection.</p>
 <pre><code>    if (perform_gc) {
       if (non_gc == 0) {
         done = true;
@@ -267,22 +351,42 @@ void eval_cps_drop_top_context(void) {
       perform_gc = false;
     } else {
       non_gc ++;
-    }
-</code></pre>
-<p>If <code>perform_gc</code> is set, and we are not in the problematic case when gc was run last iteration, a call to <code>heap_perform_gc_aux</code> will happen. The arguments to this functions are the things that the mark phase should mark as being in use. This involves the continuation stack! The continuation stack can hold pointers to heap structures that are needed in the future and that are not pointed to by any environment.</p>
-<p>If the <code>app_cont</code> flag is set, the execution path goes into a function called <code>apply_continuation</code> that takes all the status flags as well as the current intermediate result <code>r</code> as input. The <code>apply_continuation</code> function will pop the top off from the stack and use the value stored there to decide what continuation (from the list of defined continuations) to apply. The <code>r</code> value is given to this continuation but it may also pop additional arguments from the stack.</p>
+    }</code></pre>
+<p>If <code>perform_gc</code> is set, and we are not in the problematic
+case when gc was run last iteration, a call to
+<code>heap_perform_gc_aux</code> will happen. The arguments to this
+functions are the things that the mark phase should mark as being in
+use. This involves the continuation stack! The continuation stack can
+hold pointers to heap structures that are needed in the future and that
+are not pointed to by any environment.</p>
+<p>If the <code>app_cont</code> flag is set, the execution path goes
+into a function called <code>apply_continuation</code> that takes all
+the status flags as well as the current intermediate result
+<code>r</code> as input. The <code>apply_continuation</code> function
+will pop the top off from the stack and use the value stored there to
+decide what continuation (from the list of defined continuations) to
+apply. The <code>r</code> value is given to this continuation but it may
+also pop additional arguments from the stack.</p>
 <pre><code>    if (app_cont) {
       r = apply_continuation(ctx, r, &amp;done, &amp;perform_gc, &amp;app_cont);
       continue;
-    }
-</code></pre>
-<p>Now it is time for the big <code>switch</code> statement that evaluates each of the different language constructs. The value <code>head</code> is used later when the current expression is a list, depending on what the head of that list is evaluation will take different paths. The <code>value</code> variable is a temporary used throughout.</p>
+    }</code></pre>
+<p>Now it is time for the big <code>switch</code> statement that
+evaluates each of the different language constructs. The value
+<code>head</code> is used later when the current expression is a list,
+depending on what the head of that list is evaluation will take
+different paths. The <code>value</code> variable is a temporary used
+throughout.</p>
 <pre><code>    VALUE head;
     VALUE value = enc_sym(symrepr_eerror());
 
-    switch (type_of(ctx-&gt;curr_exp)) {
-</code></pre>
-<p>The first case deals with symbols. When a symbol is evaluated it is looked up in the environment, local and global. A symbol can, however, also refer to a fundamental function (such as <code>+</code>) or to an extension (user provided c function). If the symbol is not found in any environment and does not represent a fundamental or extension an evaluation error is returned and the <code>done</code> flag is set.</p>
+    switch (type_of(ctx-&gt;curr_exp)) {</code></pre>
+<p>The first case deals with symbols. When a symbol is evaluated it is
+looked up in the environment, local and global. A symbol can, however,
+also refer to a fundamental function (such as <code>+</code>) or to an
+extension (user provided c function). If the symbol is not found in any
+environment and does not represent a fundamental or extension an
+evaluation error is returned and the <code>done</code> flag is set.</p>
 <pre><code>    case VAL_TYPE_SYMBOL:
 
       value = env_lookup(ctx-&gt;curr_exp, ctx-&gt;curr_env);
@@ -308,9 +412,12 @@ void eval_cps_drop_top_context(void) {
       }
       app_cont = true;
       r = value;
-      break;
-</code></pre>
-<p>Next the switch statement deals with the other basic types, numbers and arrays, that don't need further evaluation but rather just that they will be passed as argument to some continuation. This is done by setting the <code>app_cont</code> flag and setting <code>r</code> to the what we want passed to the continuation as argument.</p>
+      break;</code></pre>
+<p>Next the switch statement deals with the other basic types, numbers
+and arrays, that don't need further evaluation but rather just that they
+will be passed as argument to some continuation. This is done by setting
+the <code>app_cont</code> flag and setting <code>r</code> to the what we
+want passed to the continuation as argument.</p>
 <pre><code>    case PTR_TYPE_BOXED_F:
     case PTR_TYPE_BOXED_U:
     case PTR_TYPE_BOXED_I:
@@ -320,20 +427,22 @@ void eval_cps_drop_top_context(void) {
     case PTR_TYPE_ARRAY:
       app_cont = true;
       r = ctx-&gt;curr_exp;
-      break;
-</code></pre>
-<p>The next two cases <code>ref</code> and <code>stream</code> are not implemented and are currently just vague ideas.</p>
+      break;</code></pre>
+<p>The next two cases <code>ref</code> and <code>stream</code> are not
+implemented and are currently just vague ideas.</p>
 <pre><code>    case PTR_TYPE_REF:
     case PTR_TYPE_STREAM:
       r = enc_sym(symrepr_eerror());
       done = true;
-      break;
-</code></pre>
-<p>So, if the expression is not a symbol or other basic type, it should be a list. The next case checks if the expression is a list and then depending on what the head of that list is the evaluation takes different paths.</p>
+      break;</code></pre>
+<p>So, if the expression is not a symbol or other basic type, it should
+be a list. The next case checks if the expression is a list and then
+depending on what the head of that list is the evaluation takes
+different paths.</p>
 <pre><code>    case PTR_TYPE_CONS:
-      head = car(ctx-&gt;curr_exp);
-</code></pre>
-<p>The head of the list is stored in the <code>head</code> variable for easy access.</p>
+      head = car(ctx-&gt;curr_exp);</code></pre>
+<p>The head of the list is stored in the <code>head</code> variable for
+easy access.</p>
 <pre><code>      if (type_of(head) == VAL_TYPE_SYMBOL) {
 
         // Special form: QUOTE
@@ -341,10 +450,16 @@ void eval_cps_drop_top_context(void) {
           r = car(cdr(ctx-&gt;curr_exp));
           app_cont = true;
           continue;
-        }
-</code></pre>
-<p>The <code>QUOTE</code> case is easy. It corresponds to an expression such as for example <code>'(+ 1 2)</code>, so <code>r</code> is set to <code>(+ 1 2)</code> and then the continuation is applied.</p>
-<p>The <code>define</code> form takes two arguments, a symbol and an expression. The expression is evaluated and then the result of that evaluation is stored in a mapping from the symbol to the value in the environment. This will be the first case where a continuation is created. This function also performs a check to see that the programmer is not rebinding nil.</p>
+        }</code></pre>
+<p>The <code>QUOTE</code> case is easy. It corresponds to an expression
+such as for example <code>'(+ 1 2)</code>, so <code>r</code> is set to
+<code>(+ 1 2)</code> and then the continuation is applied.</p>
+<p>The <code>define</code> form takes two arguments, a symbol and an
+expression. The expression is evaluated and then the result of that
+evaluation is stored in a mapping from the symbol to the value in the
+environment. This will be the first case where a continuation is
+created. This function also performs a check to see that the programmer
+is not rebinding nil.</p>
 <pre><code>        // Special form: DEFINE
         if (dec_sym(head) == symrepr_define()) {
           VALUE key = car(cdr(ctx-&gt;curr_exp));
@@ -360,10 +475,24 @@ void eval_cps_drop_top_context(void) {
           push_u32_2(ctx-&gt;K, key, enc_u(SET_GLOBAL_ENV));
           ctx-&gt;curr_exp = val_exp;
           continue;
-        }
-</code></pre>
-<p>The <code>key</code> and <code>val_exp</code> variables are set to the arguments to <code>define</code>. Then at the end, the <code>key</code> and the continuation <code>SET_GLOBAL_ENV</code> are pushed to the continuation stack. The current expression is set to <code>val_exp</code>. This means that in the next iteration the evaluation loop will evaluate the <code>val_exp</code>. When evaluating <code>val_exp</code> is done, the continuation will be called with the result of that evaluation and an additional argument, the <code>key</code>, that is already on the stack. So when entering into the <code>SET_GLOBAL_ENV</code> continuation all the data is available to create the global binding.</p>
-<p>The <code>progn</code> takes a sequence of expressions as arguments that are all supposed to be evaluated in turn, from the first to the last. The result of evaluating the last expression in the sequence is the result of the whole thing. There is a check for an empty sequence of expressions which results in <code>nil</code> otherwise a continuation is created in this case as well.</p>
+        }</code></pre>
+<p>The <code>key</code> and <code>val_exp</code> variables are set to
+the arguments to <code>define</code>. Then at the end, the
+<code>key</code> and the continuation <code>SET_GLOBAL_ENV</code> are
+pushed to the continuation stack. The current expression is set to
+<code>val_exp</code>. This means that in the next iteration the
+evaluation loop will evaluate the <code>val_exp</code>. When evaluating
+<code>val_exp</code> is done, the continuation will be called with the
+result of that evaluation and an additional argument, the
+<code>key</code>, that is already on the stack. So when entering into
+the <code>SET_GLOBAL_ENV</code> continuation all the data is available
+to create the global binding.</p>
+<p>The <code>progn</code> takes a sequence of expressions as arguments
+that are all supposed to be evaluated in turn, from the first to the
+last. The result of evaluating the last expression in the sequence is
+the result of the whole thing. There is a check for an empty sequence of
+expressions which results in <code>nil</code> otherwise a continuation
+is created in this case as well.</p>
 <pre><code>        // Special form: PROGN
         if (dec_sym(head) == symrepr_progn()) {
           VALUE exps = cdr(ctx-&gt;curr_exp);
@@ -382,10 +511,19 @@ void eval_cps_drop_top_context(void) {
           push_u32_2(ctx-&gt;K, cdr(exps), enc_u(PROGN_REST));
           ctx-&gt;curr_exp = car(exps);
           continue;
-        }
-</code></pre>
-<p>The <code>progn</code> case sets up for the continuation by setting the current expression to the head of the sequence of expressions. the <em>pointer to</em> the rest of the list is pushed onto the stack as well as the <code>PROGN_REST</code> continuation. The <code>PROGN_REST</code> continuation thus has two arguments to work with once it gets called. The result of the previously evaluated expression (head) and the rest of the sequence. Later in this text we will see exactly what the continuation functions does in all of these cases.</p>
-<p>The <code>lambda</code> case does not create a continuation but it is interesting for another reason. This is the first example of a case that allocates heap memory and thus must be pausable and restartable in the case that there is no free heap space.</p>
+        }</code></pre>
+<p>The <code>progn</code> case sets up for the continuation by setting
+the current expression to the head of the sequence of expressions. the
+<em>pointer to</em> the rest of the list is pushed onto the stack as
+well as the <code>PROGN_REST</code> continuation. The
+<code>PROGN_REST</code> continuation thus has two arguments to work with
+once it gets called. The result of the previously evaluated expression
+(head) and the rest of the sequence. Later in this text we will see
+exactly what the continuation functions does in all of these cases.</p>
+<p>The <code>lambda</code> case does not create a continuation but it is
+interesting for another reason. This is the first example of a case that
+allocates heap memory and thus must be pausable and restartable in the
+case that there is no free heap space.</p>
 <pre><code>        // Special form: LAMBDA
         if (dec_sym(head) == symrepr_lambda()) {
 
@@ -419,10 +557,27 @@ void eval_cps_drop_top_context(void) {
           app_cont = true;
           r = closure;
           continue;
-        }
-</code></pre>
-<p>The <code>lambda</code> starts out by doing a shallow copy of the local environment, this means that skeleton of the environment is traversed and copied but the copy will point to the same mappings as the original. So only enough new cons-cells are used to for the skeleton-structure of the environment, none for the data itself. This consing can fail with an <em>memory error</em>, <code>symrepr_merror()</code>, symbol as result in which case we are out of heap. In this case the <code>perform_gc</code> flag is set and <code>app_cont</code> is cleared. An important detail is that it does not alter the current expression which means that once the evaluation starts up again the current expression will still be the same lambda case. Thus evaluation will resume. There are more complicated cases of this where changes to the stack have been made and we have to restore this to proper state before continuing, this will appear later.</p>
-<p>After copying the environment, a <code>closure</code> is created from the environment copy and the contents of the <code>lambda</code>. This again uses cons and allocates heap space and is followed by a similar check for a memory error. If it all works out though, <code>app_cont</code> is set and <code>r</code> is set to the <code>closure</code> and evaluation continues.</p>
+        }</code></pre>
+<p>The <code>lambda</code> starts out by doing a shallow copy of the
+local environment, this means that skeleton of the environment is
+traversed and copied but the copy will point to the same mappings as the
+original. So only enough new cons-cells are used to for the
+skeleton-structure of the environment, none for the data itself. This
+consing can fail with an <em>memory error</em>,
+<code>symrepr_merror()</code>, symbol as result in which case we are out
+of heap. In this case the <code>perform_gc</code> flag is set and
+<code>app_cont</code> is cleared. An important detail is that it does
+not alter the current expression which means that once the evaluation
+starts up again the current expression will still be the same lambda
+case. Thus evaluation will resume. There are more complicated cases of
+this where changes to the stack have been made and we have to restore
+this to proper state before continuing, this will appear later.</p>
+<p>After copying the environment, a <code>closure</code> is created from
+the environment copy and the contents of the <code>lambda</code>. This
+again uses cons and allocates heap space and is followed by a similar
+check for a memory error. If it all works out though,
+<code>app_cont</code> is set and <code>r</code> is set to the
+<code>closure</code> and evaluation continues.</p>
 <p>Now the <code>if</code> case:</p>
 <pre><code>        // Special form: IF
         if (dec_sym(head) == symrepr_if()) {
@@ -433,10 +588,18 @@ void eval_cps_drop_top_context(void) {
                      enc_u(IF));
           ctx-&gt;curr_exp = car(cdr(ctx-&gt;curr_exp));
           continue;
-        }
-</code></pre>
-<p>The <code>if</code> case sets up for a continuation that takes the then and else branch expressions as arguments. Then the current expression is set to be the boolean expression that is used to select then or else. So once the boolean has been evaluated we will enter into the continuation that can then set up the system for either evaluating the then or the else branch.</p>
-<p>The <code>let</code> takes two arguments, a list of bindings to extend the local environment with and an expression to evaluate in the extended environment. So, to begin with these pieces are bound to variables <code>orig_env</code>, <code>binds</code> and <code>exp</code> for easy access.</p>
+        }</code></pre>
+<p>The <code>if</code> case sets up for a continuation that takes the
+then and else branch expressions as arguments. Then the current
+expression is set to be the boolean expression that is used to select
+then or else. So once the boolean has been evaluated we will enter into
+the continuation that can then set up the system for either evaluating
+the then or the else branch.</p>
+<p>The <code>let</code> takes two arguments, a list of bindings to
+extend the local environment with and an expression to evaluate in the
+extended environment. So, to begin with these pieces are bound to
+variables <code>orig_env</code>, <code>binds</code> and <code>exp</code>
+for easy access.</p>
 <pre><code>        // Special form: LET
         if (dec_sym(head) == symrepr_let()) {
           VALUE orig_env = ctx-&gt;curr_env;
@@ -477,11 +640,26 @@ void eval_cps_drop_top_context(void) {
           ctx-&gt;curr_exp = val0_exp;
           ctx-&gt;curr_env = new_env;
           continue;
-        }
-</code></pre>
-<p>The kind of <code>let</code> implemented here allows bindings defined early in the list of bindings to be used in the definition of the later ones. This is accomplished by a two phase approach where first the environment containing the bindings is created using just the keys (and mapping each of the keys to nil). Then the expressions whose results are to be bound to the keys are evaluated one after the other, in order, in this new environment. Once an expression is evaluated the mapping for that key (that currently is <code>nil</code>) is updated. Of course it is not possible to use a later binding in a currently evaluated expression as that binding would return 'nil` rather than what it is supposed to.</p>
-<p>So after setting up the environment with <code>key</code> - <code>nil</code> bindings, a continuation is created and the current expression is set to evaluate the first value to be bound.</p>
-<p>Now we have dealt with all special forms (but one) the application form. Once getting to this point we just assume that if the current expression is a list, then it is a function application. This may turn out to be wrong (as it may also be a programmer mistake) in which case evaluation results in an error.</p>
+        }</code></pre>
+<p>The kind of <code>let</code> implemented here allows bindings defined
+early in the list of bindings to be used in the definition of the later
+ones. This is accomplished by a two phase approach where first the
+environment containing the bindings is created using just the keys (and
+mapping each of the keys to nil). Then the expressions whose results are
+to be bound to the keys are evaluated one after the other, in order, in
+this new environment. Once an expression is evaluated the mapping for
+that key (that currently is <code>nil</code>) is updated. Of course it
+is not possible to use a later binding in a currently evaluated
+expression as that binding would return 'nil` rather than what it is
+supposed to.</p>
+<p>So after setting up the environment with <code>key</code> -
+<code>nil</code> bindings, a continuation is created and the current
+expression is set to evaluate the first value to be bound.</p>
+<p>Now we have dealt with all special forms (but one) the application
+form. Once getting to this point we just assume that if the current
+expression is a list, then it is a function application. This may turn
+out to be wrong (as it may also be a programmer mistake) in which case
+evaluation results in an error.</p>
 <pre><code>      } // If head is symbol
       push_u32_4(ctx-&gt;K,
                  ctx-&gt;curr_env,
@@ -490,10 +668,18 @@ void eval_cps_drop_top_context(void) {
                  enc_u(APPLICATION_ARGS));
 
       ctx-&gt;curr_exp = head; // evaluate the function
-      continue;
-</code></pre>
-<p>This case creates a continuation that needs to have access to the current environment, a counter <code>enc_u(0)</code> (to count arguments), the list of arguments <code>cdr(ctx-&gt;curr_exp)</code> and the continuation itself is called <code>APPLICATION_ARGS</code>. The current expression is set to the head of the list. This will be evaluated next and will result in either a <em>function object</em> of some kind or an error. A function object could for example be a closure or a symbol pointing out a fundamental operation or an extension.</p>
-<p>This concludes the evaluation function. The rest just checks for some serious errors and if the loop is exited <code>r</code> is returned as the result of evaluation.</p>
+      continue;</code></pre>
+<p>This case creates a continuation that needs to have access to the
+current environment, a counter <code>enc_u(0)</code> (to count
+arguments), the list of arguments <code>cdr(ctx-&gt;curr_exp)</code> and
+the continuation itself is called <code>APPLICATION_ARGS</code>. The
+current expression is set to the head of the list. This will be
+evaluated next and will result in either a <em>function object</em> of
+some kind or an error. A function object could for example be a closure
+or a symbol pointing out a fundamental operation or an extension.</p>
+<p>This concludes the evaluation function. The rest just checks for some
+serious errors and if the loop is exited <code>r</code> is returned as
+the result of evaluation.</p>
 <pre><code>    default:
       // BUG No applicable case!
       done = true;
@@ -502,10 +688,17 @@ void eval_cps_drop_top_context(void) {
     }
   } // while (!done)
   return r;
-}
-</code></pre>
-<h2 id="continuation-points-and-apply-continuation">Continuation points and apply continuation</h2>
-<p>So far there have been a number of examples of the creation of continuations but what happens when these are applied is still untold. The <code>apply_continuation</code> function, that takes care of this continuation application, is about the same size as <code>run_eval</code> and really they interact at a quite deep level. <code>run_eval</code> calls <code>apply_continuation</code> and <code>apply_continuation</code> changes the evaluation context meaning it influences what the next iteration of the evaluation loop does.</p>
+}</code></pre>
+<h2 id="continuation-points-and-apply-continuation">Continuation points
+and apply continuation</h2>
+<p>So far there have been a number of examples of the creation of
+continuations but what happens when these are applied is still untold.
+The <code>apply_continuation</code> function, that takes care of this
+continuation application, is about the same size as
+<code>run_eval</code> and really they interact at a quite deep level.
+<code>run_eval</code> calls <code>apply_continuation</code> and
+<code>apply_continuation</code> changes the evaluation context meaning
+it influences what the next iteration of the evaluation loop does.</p>
 <pre><code>VALUE apply_continuation(eval_context_t *ctx, VALUE arg, bool *done, bool *perform_gc, bool *app_cont){
 
   VALUE k;
@@ -513,23 +706,39 @@ void eval_cps_drop_top_context(void) {
 
   VALUE res;
 
-  *app_cont = false;
-</code></pre>
-<p><code>apply_continuation</code> starts out by popping of the top of the stack that should contain one of the continuation function identifiers defined close to the top of this document. The rest of the function is, just like the evaluation loop, a large switch statement.</p>
+  *app_cont = false;</code></pre>
+<p><code>apply_continuation</code> starts out by popping of the top of
+the stack that should contain one of the continuation function
+identifiers defined close to the top of this document. The rest of the
+function is, just like the evaluation loop, a large switch
+statement.</p>
 <pre><code>  switch(dec_u(k)) {
   case DONE:
     *done = true;
-    return arg;
-</code></pre>
-<p>In case we have reached the <code>DONE</code> continuation, pushed onto the stack when entering <code>run_eval</code>, we are done, the <code>done</code> flag is set and the argument to the continuation <code>arg</code> is returned. <code>arg</code> corresponds to the variable <code>r</code> in the evaluator.</p>
+    return arg;</code></pre>
+<p>In case we have reached the <code>DONE</code> continuation, pushed
+onto the stack when entering <code>run_eval</code>, we are done, the
+<code>done</code> flag is set and the argument to the continuation
+<code>arg</code> is returned. <code>arg</code> corresponds to the
+variable <code>r</code> in the evaluator.</p>
 <pre><code>  case SET_GLOBAL_ENV:
     res = cont_set_global_env(ctx, arg, done, perform_gc);
     if (!(*done)) 
       *app_cont = true;
-    return res;
-</code></pre>
-<p>The <code>SET_GLOBAL_ENV</code> continuation is broken out into a separate function. I cannot really decide if I should break all of these cases out into functions or not. The <code>cont_set_global_env</code> function is shown further down.</p>
-<p>Now, the <code>PROGN</code> continuation is where a property one breaking mistake was made. Towards the end of the function there is a comment <code>// allow for tail recursion</code> right before a conditional that checks if the rest of the sequence of expressions is nil. If it is nil, we are currently in tail-call position and should not push anything to the stack that we have to potentially wait a long time before it is freed. Forgetting about this special case means a nil is pushed to the stack, only to be dealt with once the tail-call is handled.</p>
+    return res;</code></pre>
+<p>The <code>SET_GLOBAL_ENV</code> continuation is broken out into a
+separate function. I cannot really decide if I should break all of these
+cases out into functions or not. The <code>cont_set_global_env</code>
+function is shown further down.</p>
+<p>Now, the <code>PROGN</code> continuation is where a property one
+breaking mistake was made. Towards the end of the function there is a
+comment <code>// allow for tail recursion</code> right before a
+conditional that checks if the rest of the sequence of expressions is
+nil. If it is nil, we are currently in tail-call position and should not
+push anything to the stack that we have to potentially wait a long time
+before it is freed. Forgetting about this special case means a nil is
+pushed to the stack, only to be dealt with once the tail-call is
+handled.</p>
 <pre><code>  case PROGN_REST: {
     VALUE rest;
     pop_u32(ctx-&gt;K, &amp;rest);
@@ -554,12 +763,27 @@ void eval_cps_drop_top_context(void) {
     push_u32_2(ctx-&gt;K, cdr(rest), enc_u(PROGN_REST));
     ctx-&gt;curr_exp = car(rest);
     return NONSENSE;
-  }
-</code></pre>
-<p>The <code>PROGN</code> case sets up the head of the sequence of expressions to evaluated in the next iteration of the evaluation loop and pushes the rest of the sequence along with the same <code>PROGN_REST</code> continuation onto the stack.</p>
-<p>The <code>APPLICATION</code> case is a bit long and messy but really tricky compared to the other cases. It just gets a bit messy because there are a number of things that can be applied. There are <code>closure</code>s, <code>fundamental</code> operations and <code>extension</code>s and each of these get a special case in the <code>APPLICATION</code> continuation.</p>
-<p>When entering into the <code>APPLICATION</code> case, all the arguments, a counter and the function are present of the stack. in the case of <code>fundamental</code> or <code>extension</code> operations this knowledge is utilized and a pointer to the first argument on the stack is passed to the function. When it comes to the closures however, the arguments are extracted from the stack and added to an augmented environment for the closures body to evaluate in.</p>
-<p>It is important that after running a <code>fundamental</code> or an <code>extension</code> the stack is cleared, or we will fall into the property 1 issue again.</p>
+  }</code></pre>
+<p>The <code>PROGN</code> case sets up the head of the sequence of
+expressions to evaluated in the next iteration of the evaluation loop
+and pushes the rest of the sequence along with the same
+<code>PROGN_REST</code> continuation onto the stack.</p>
+<p>The <code>APPLICATION</code> case is a bit long and messy but really
+tricky compared to the other cases. It just gets a bit messy because
+there are a number of things that can be applied. There are
+<code>closure</code>s, <code>fundamental</code> operations and
+<code>extension</code>s and each of these get a special case in the
+<code>APPLICATION</code> continuation.</p>
+<p>When entering into the <code>APPLICATION</code> case, all the
+arguments, a counter and the function are present of the stack. in the
+case of <code>fundamental</code> or <code>extension</code> operations
+this knowledge is utilized and a pointer to the first argument on the
+stack is passed to the function. When it comes to the closures however,
+the arguments are extracted from the stack and added to an augmented
+environment for the closures body to evaluate in.</p>
+<p>It is important that after running a <code>fundamental</code> or an
+<code>extension</code> the stack is cleared, or we will fall into the
+property 1 issue again.</p>
 <pre><code>  case APPLICATION: { 
     VALUE count;
     pop_u32(ctx-&gt;K, &amp;count);
@@ -651,9 +875,9 @@ void eval_cps_drop_top_context(void) {
 
     *app_cont = true;
     return ext_res;
-  }
-</code></pre>
-<p>The `APPLICATION_ARGS' continuation handles evaluation of the list of arguments to a function.</p>
+  }</code></pre>
+<p>The `APPLICATION_ARGS' continuation handles evaluation of the list of
+arguments to a function.</p>
 <pre><code>  case APPLICATION_ARGS: {
     VALUE count;
     VALUE env;
@@ -673,11 +897,22 @@ void eval_cps_drop_top_context(void) {
     ctx-&gt;curr_exp = car(rest);
     ctx-&gt;curr_env = env;
     return NONSENSE; 
-  }
-</code></pre>
-<p>Here the current expression is set up to evaluate the head of the list of the rest of the arguments. A continuation is created for evaluating the rest of the arguments. When creating this continuation the number-of-arguments counter is incremented.</p>
-<p>Each time <code>APPLICATION_ARGS</code> is entered the previously evaluated argument (or the function in case of the first call to <code>APPLICATION_ARGS</code>) is pushed onto the stack. This means that the stack is now also the vehicle for transport of arguments to the functions. When the list of arguments have been fully evaluated, the stack will contain the function, all of the arguments and the counter value and a <code>APPLICATION</code> continuation is created.</p>
-<p>The <code>BIND_TO_KEY_REST</code> continuation, that is created in the <code>let</code> case of the evaluation loop, takes care of evaluating all the expressions to be bound to variables in the local environment.</p>
+  }</code></pre>
+<p>Here the current expression is set up to evaluate the head of the
+list of the rest of the arguments. A continuation is created for
+evaluating the rest of the arguments. When creating this continuation
+the number-of-arguments counter is incremented.</p>
+<p>Each time <code>APPLICATION_ARGS</code> is entered the previously
+evaluated argument (or the function in case of the first call to
+<code>APPLICATION_ARGS</code>) is pushed onto the stack. This means that
+the stack is now also the vehicle for transport of arguments to the
+functions. When the list of arguments have been fully evaluated, the
+stack will contain the function, all of the arguments and the counter
+value and a <code>APPLICATION</code> continuation is created.</p>
+<p>The <code>BIND_TO_KEY_REST</code> continuation, that is created in
+the <code>let</code> case of the evaluation loop, takes care of
+evaluating all the expressions to be bound to variables in the local
+environment.</p>
 <pre><code>  case BIND_TO_KEY_REST:{
     VALUE key;
     VALUE env;
@@ -704,10 +939,14 @@ void eval_cps_drop_top_context(void) {
     ctx-&gt;curr_exp = exp;
     ctx-&gt;curr_env = env;
     return NONSENSE;
-  }
-</code></pre>
-<p>Each time <code>BIND_TO_KEY_REST</code> is called the environment is modified with the recently evaluated value. Once all bindings have been dealt with, the let body is set up to be evaluated within the newly formed local environment.</p>
-<p>The <code>IF</code> continuation gets the result of evaluating the boolean condition as an argument. It then sets up for evaluation of either the then or the else branch in the evaluation loop.</p>
+  }</code></pre>
+<p>Each time <code>BIND_TO_KEY_REST</code> is called the environment is
+modified with the recently evaluated value. Once all bindings have been
+dealt with, the let body is set up to be evaluated within the newly
+formed local environment.</p>
+<p>The <code>IF</code> continuation gets the result of evaluating the
+boolean condition as an argument. It then sets up for evaluation of
+either the then or the else branch in the evaluation loop.</p>
 <pre><code>  case IF: {
     VALUE then_branch;
     VALUE else_branch;
@@ -720,16 +959,25 @@ void eval_cps_drop_top_context(void) {
       ctx-&gt;curr_exp = else_branch;
     }
     return NONSENSE;
-  }
-</code></pre>
-<p>Now, if we do reach the end of this switch, something is very wrong and an error is return and evaluation is aborted.</p>
+  }</code></pre>
+<p>Now, if we do reach the end of this switch, something is very wrong
+and an error is return and evaluation is aborted.</p>
 <pre><code>  } // end switch
   *done = true;
   return enc_sym(symrepr_eerror());
 }
-
 </code></pre>
-<p>Back to that broken out function that sets the global environment. It does the work needed for the <code>SET_GLOBAL_ENV</code> continuation. The <code>key</code> to use is on the stack and the value is passed as argument to the continuation. Not we set up a new environment which is the <code>key</code> - <code>val</code> pair consed onto the old global environment. This consing (that is done inside of the <code>env_set</code> function) can fail as usual and we need to be able to be able to pause the computation and perform garbage collection. However, if all works out fine, the global variable <code>eval_cps_global_env</code> is updated with the value of the newly created one.</p>
+<p>Back to that broken out function that sets the global environment. It
+does the work needed for the <code>SET_GLOBAL_ENV</code> continuation.
+The <code>key</code> to use is on the stack and the value is passed as
+argument to the continuation. Not we set up a new environment which is
+the <code>key</code> - <code>val</code> pair consed onto the old global
+environment. This consing (that is done inside of the
+<code>env_set</code> function) can fail as usual and we need to be able
+to be able to pause the computation and perform garbage collection.
+However, if all works out fine, the global variable
+<code>eval_cps_global_env</code> is updated with the value of the newly
+created one.</p>
 <pre><code>VALUE cont_set_global_env(eval_context_t *ctx, VALUE val, bool *done, bool *perform_gc){
 
   VALUE key;
@@ -749,10 +997,17 @@ void eval_cps_drop_top_context(void) {
   }
   eval_cps_global_env = new_env;
   return enc_sym(symrepr_true());
-}
-</code></pre>
-<h2 id="when-property-1-is-not-honored">When Property 1 is Not Honored</h2>
-<p>In order to see what happens when we fail to honor property 1, the <code>push_u32</code> function that is used in all functions that push onto the stack is augmented with a print statement. This print statement prints the stack pointer <code>sp</code> and the value that is being pushed onto the stack. This experiment is run with a stack that does not allow growing, this is checked internally in the function <code>stack_grow</code> and it will not reallocate the stack if this flag is set.</p>
+}</code></pre>
+<h2 id="when-property-1-is-not-honored">When Property 1 is Not
+Honored</h2>
+<p>In order to see what happens when we fail to honor property 1, the
+<code>push_u32</code> function that is used in all functions that push
+onto the stack is augmented with a print statement. This print statement
+prints the stack pointer <code>sp</code> and the value that is being
+pushed onto the stack. This experiment is run with a stack that does not
+allow growing, this is checked internally in the function
+<code>stack_grow</code> and it will not reallocate the stack if this
+flag is set.</p>
 <pre><code>int push_u32(stack *s, UINT val) {
   int res = 1;
   s-&gt;data[s-&gt;sp] = val;
@@ -763,9 +1018,10 @@ void eval_cps_drop_top_context(void) {
     res = stack_grow(s);
   }
   return res;
-}
-</code></pre>
-<p>The <code>PROGN_REST</code> continuation is a good target to introduce this error in. Below is what it looks like with the code that makes it <code>//allow for tail recursion</code>.</p>
+}</code></pre>
+<p>The <code>PROGN_REST</code> continuation is a good target to
+introduce this error in. Below is what it looks like with the code that
+makes it <code>//allow for tail recursion</code>.</p>
 <pre><code>  case PROGN_REST: {
     VALUE rest;
     pop_u32(ctx-&gt;K, &amp;rest);
@@ -790,9 +1046,9 @@ void eval_cps_drop_top_context(void) {
     push_u32_2(ctx-&gt;K, cdr(rest), enc_u(PROGN_REST));
     ctx-&gt;curr_exp = car(rest);
     return NONSENSE;
-  }
-</code></pre>
-<p>So let's modify the code by removing that little block. Now it looks as follows.</p>
+  }</code></pre>
+<p>So let's modify the code by removing that little block. Now it looks
+as follows.</p>
 <pre><code>  case PROGN_REST: {
     VALUE rest;
     pop_u32(ctx-&gt;K, &amp;rest);
@@ -811,14 +1067,13 @@ void eval_cps_drop_top_context(void) {
     push_u32_2(ctx-&gt;K, cdr(rest), enc_u(PROGN_REST));
     ctx-&gt;curr_exp = car(rest);
     return NONSENSE;
-  }
-</code></pre>
-<p>Now if we build lispBM and the REPL with this faulty code and enter the following program which is a tail-recursive run-forever program.</p>
+  }</code></pre>
+<p>Now if we build lispBM and the REPL with this faulty code and enter
+the following program which is a tail-recursive run-forever program.</p>
 <pre><code>(define f
   (lambda (x)
     (progn (print &quot;hello&quot;)
-       (f (+ x 1)))))
-</code></pre>
+       (f (+ x 1)))))</code></pre>
 <p>The following is the result:</p>
 <pre><code>Lisp REPL started!
 Type :quit to exit.
@@ -857,10 +1112,14 @@ Stack sp 100 : 0
 Stack sp 101 : (&quot;hello&quot; nil)
 Stack sp 102 : 8
 Segmentation fault
-
 </code></pre>
-<p>The stack just keeps growing until it hits about 100 elements (the size of the stack) and a segfault is triggered. We can also see that <code>x</code> has reached the value 48, so 48 iterations of the infinite recursion have been executed and I guess we can conclude that the stack is growing with approximately 2 element per iteration.</p>
-<p>When the REPL runs with the fixed code and the same program it keeps running:</p>
+<p>The stack just keeps growing until it hits about 100 elements (the
+size of the stack) and a segfault is triggered. We can also see that
+<code>x</code> has reached the value 48, so 48 iterations of the
+infinite recursion have been executed and I guess we can conclude that
+the stack is growing with approximately 2 element per iteration.</p>
+<p>When the REPL runs with the fixed code and the same program it keeps
+running:</p>
 <pre><code>Stack sp 1 : (closure ((x nil) ((progn ((print (&quot;hello&quot; nil)) ((f ((+ (x (1 nil))) nil)) nil))) (nil nil))))
 Stack sp 2 : ((x 3159) nil)
 Stack sp 3 : 1
@@ -893,14 +1152,28 @@ Stack sp 4 : 0
 Stack sp 5 : (&quot;hello&quot; nil)
 Stack sp 6 : 7
 Stack sp 3 : print
-
 </code></pre>
-<p>Here execution was stopped after a short while with ctrl+c and we can see that the stack pointer is at most 11 and also that we have incremented <code>x</code> to 3160 by now. Looks a lot better!</p>
+<p>Here execution was stopped after a short while with ctrl+c and we can
+see that the stack pointer is at most 11 and also that we have
+incremented <code>x</code> to 3160 by now. Looks a lot better!</p>
 <hr />
-<p><a href="http://www.lispbm.com">HOME</a></p>
-<p>Please contact me with questions, suggestions or feedback at blog (dot) joel (dot) svensson (at) gmail (dot) com or join the <a href=https://groups.google.com/g/svenssonjoelgithubio> google group </a>.</p>
-<p>© Copyright 2020 Bo Joel Svensson</p>
-<p>This page was generated using <a href=https://pandoc.org/> Pandoc</a>.</p>
+</div> <!-- Close container -->
+
+<footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
+  <p>
+    <a href="https://www.lispbm.com/" class="back-link">← Back to LispBM Home</a>
+  </p>
+
+  <p>
+    Please contact me with questions, suggestions or feedback at blog
+    (dot) joel (dot) svensson (at) gmail (dot) com or join the
+    <a href="https://groups.google.com/g/svenssonjoelgithubio"> google group</a>. 
+  </p>
+
+  <p>&copy; Copyright 2020 Bo Joel Svensson</p>
+
+  <p><small>This page was generated using <a href="https://pandoc.org/">Pandoc</a>.</small></p>
+</footer>
+
 </BODY>
 </HTML>
-

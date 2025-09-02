@@ -197,12 +197,13 @@ continuation that again goes back to the `eval-progn` function to
 continue evaluating the sequence of expressions. `eval-progn` is
 recursive in a roundabout way via the continuation passed to `evalk`.
 
-Note that `progn-cont` ignores the `x` argument. This is related to
-what `progn` means in a user program. `progn` evaluates a sequence of
-expression and throws away the results (except the result of the last
-expression which is the result of the entire `progn` block). The
-result of the previous expression in the `progn` sequence is exactly
-what you find in the `x` argument.
+Note that the progn continuation `(lambda (x) (eval-progn env ls k))`
+ignores the `x` argument. This is related to what `progn` means in a
+user program. `progn` evaluates a sequence of expression and throws
+away the results (except the result of the last expression which is
+the result of the entire `progn` block). The result of the previous
+expression in the `progn` sequence is exactly what you find in the `x`
+argument.
 
 
 
@@ -242,7 +243,7 @@ is that the global env contains the mapping `apa` is 5.
 For example: 
 ```lisp
 # (evalk nil '(define apa (+ 2 3)) done)
-> (+ 2 3)
+> 5
 # global-env
 > ((apa . 5))
 # 
