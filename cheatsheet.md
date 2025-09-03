@@ -321,14 +321,16 @@ t                            ; True
 ```lisp
 (defstruct point (x y))          ; Define struct type
 ; Creates:
-; - (make-point x y)             ; Constructor
+; - (make-point)                 ; Constructor
 ; - (point? obj)                 ; Type predicate  
 ; - (point-x obj)                ; Field accessor/setter
 ; - (point-y obj)                ; Field accessor/setter
 
-(var p (make-point 10 20))       ; Create instance
+(var p (make-point))             ; Create instance
+(point-x p 10)                   ; Set field
 (point-x p)                      ; Access field: 10
 (point-x p 30)                   ; Set field
+(point-x p)                      ; Access field: 30
 ```
 
 ### Advanced Macro Definition
