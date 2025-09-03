@@ -662,6 +662,13 @@ correctly configured LispBM system) will be removed.
 // Fallback gallery data (used when CSV loading fails)
 const fallbackGalleryImages = [
   {
+    src: 'images/collage/rad_rod.png',
+    filename: 'rad_rod.png',
+    title: 'Rad Rod AWD',
+    description: 'Razor Ground Force Rad Rod AWD. VESC® based controllers at 8KW',
+    attribution: 'https://www.youtube.com/watch?v=NEgMkoUbaqs'
+  },
+  {
     src: 'images/collage/DemiLama.png',
     filename: 'DemiLama.png',
     title: 'DemiLama',
@@ -669,15 +676,15 @@ const fallbackGalleryImages = [
     attribution: 'https://www.instagram.com/pixiladyart/'
   },
   {
-    src: 'images/collage/cat-holiday-03.png',
-    filename: 'cat-holiday-03.png',
+    src: 'images/collage/cat_holiday_03.png',
+    filename: 'cat_holiday_03.png',
     title: 'Holiday Cat Animation',
     description: 'Screenshot from a festive LispBM holiday animation',
     attribution: 'https://github.com/laxsjo/'
   },
   {
-    src: 'images/collage/lbm-holiday-animation-04.png',
-    filename: 'lbm-holiday-animation-04.png',
+    src: 'images/collage/lbm-holiday-animation_04.png',
+    filename: 'lbm-holiday-animation_04.png',
     title: 'LispBM Holiday Animation',
     description: 'Frame from a LispBM-powered holiday animation project',
     attribution: 'https://github.com/r3n33'
@@ -690,8 +697,8 @@ const fallbackGalleryImages = [
     attribution: 'https://www.instagram.com/pixiladyart/'
   },
   {
-    src: 'images/collage/lispbm-llama.png',
-    filename: 'lispbm-llama.png',
+    src: 'images/collage/lispbm_llama.png',
+    filename: 'lispbm_llama.png',
     title: 'Lispy the Llama',
     description: 'Our mascot Lispy the llama in all their glory',
     attribution: 'https://www.instagram.com/pixiladyart/'
@@ -718,8 +725,8 @@ const fallbackGalleryImages = [
     attribution: 'https://www.instagram.com/pixiladyart/'
   },
   {
-    src: 'images/collage/xmas-lisp-2024-12-20-11.39.26-04.png',
-    filename: 'xmas-lisp-2024-12-20-11.39.26-04.png',
+    src: 'images/collage/xmas_lisp-2024-12-20_11.39.26_04.png',
+    filename: 'xmas_lisp-2024-12-20_11.39.26_04.png',
     title: 'Christmas Lisp 2024',
     description: 'Holiday-themed LispBM project from December 2024',
     attribution: 'https://github.com/svenssonjoel/'
@@ -766,7 +773,7 @@ async function loadGalleryData() {
   let usingFallback = false;
   
   try {
-    const response = await fetch('image-credits.csv');
+    const response = await fetch('image_credits.csv');
     const csvText = await response.text();
     const lines = csvText.trim().split('\n');
     
