@@ -19,10 +19,10 @@
   <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
   <meta property="og:url" content="https://www.lispbm.com/">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="LispBM">
+  <meta property="og:site-name" content="LispBM">
   
   <!-- Twitter Card Meta Tags -->
-  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:card" content="summary-large-image">
   <meta name="twitter:title" content="LispBM: Concurrent Lisp for Microcontrollers">
   <meta name="twitter:description" content="LispBM is a lisp for microcontrollers with concurrency and message passing. Learn how to implement a Lisp interpreter with detailed articles on evaluators, garbage collection, parsing, and embedded REPL development.">
   <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
@@ -271,7 +271,7 @@
 The LispBM source code is available on <a href="https://www.github.com/svenssonjoel/lispbm">GitHub</a>, and the LispBM community is available on <a href="https://discord.gg/urtJUUMnwQ">Discord</a>.
 
 <h3 id="getting-started-easy">Getting started on embedded: easy</h3>
-<p>The easiest way to get started with LispBM programming is to use <a href="https://vesc-project.com/vesc_tool">VESC-Tool</a> together with the <a href="https://github.com/vedderb/vesc_express">VESC EXPRESS Firmware</a> on an <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html">esp32c3</a>.</p>
+<p>The easiest way to get started with LispBM programming is to use <a href="https://vesc-project.com/vesc-tool">VESC-Tool</a> together with the <a href="https://github.com/vedderb/vesc-express">VESC EXPRESS Firmware</a> on an <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html">esp32c3</a>.</p>
 <p>VESC-Tool gives you access to a very capable <a href="https://vesc-project.com/sites/default/files/lisp%20overview.png">IDE</a> for Lisp programming on embedded systems and the VESC Express firmware provides built-in functionality to interface with CAN, WiFi, BLE and UART as well as GPIO and display drivers.</p>
 
 <p>Keep an eye on the <a href="https://www.vesclabs.com">VESC Labs</a> website for devices that come with LispBM per default.</p>
@@ -285,10 +285,10 @@ The LispBM source code is available on <a href="https://www.github.com/svenssonj
 <p>For quick testing, precompiled binaries are available: <a href="./dist/esp32c3-repl.zip">esp32c3-repl.zip</a></p>
 <p>The precompiled binaries can be flashed onto the development kit with the following command:</p>
 <pre>
-esptool.py --chip esp32c3 --port /dev/ttyUSB0 --baud 460800 write_flash \
+esptool.py --chip esp32c3 --port /dev/ttyUSB0 --baud 460800 write-flash \
     0x0 bootloader.bin \
     0x8000 partition-table.bin \
-    0x10000 hello_world.bin
+    0x10000 hello-world.bin
 </pre>
 
 <h4>Building and Flashing</h4>
@@ -325,8 +325,8 @@ idf.py monitor
   possible! </p>
 <p>
   For a simple example using FreeRTOS, look at <a href="#getting-started-easy-no-vesc"> Getting started on embedded: easy (no vesc)</a>.
-  Another source for information on how to do LispBM and FreeRTOS, look at <a href="https://github.com/vedderb/vesc_express">VESC EXPRESS</a>.
-  For ChibiOS integration look at the benchmark runner <a href="https://github.com/svenssonjoel/lispBM/tree/master/benchmarks/bench_chibi">bench_chibi</a> or
+  Another source for information on how to do LispBM and FreeRTOS, look at <a href="https://github.com/vedderb/vesc-express">VESC EXPRESS</a>.
+  For ChibiOS integration look at the benchmark runner <a href="https://github.com/svenssonjoel/lispBM/tree/master/benchmarks/bench-chibi">bench-chibi</a> or
   for a more thorough integration <a href="https://github.com/vedderb/bldc">VESC BLDC</a>.
   Finally there is also the <a href="https://github.com/svenssonjoel/lispBM/tree/master/repl">Linux REPL</a> that one can look at for ideas.
 </p>
@@ -424,13 +424,13 @@ the 32-bit versions (for 32-bit REPL binary) <code>libsdl2-dev:i386</code> and <
 
 <h3 id="lbm-for-windows">Getting started on Windows</h3>
 
-There is a precompiled REPL for Windows <a href="winlbm/winlbm_0.33.0b.zip">here</a>. This REPL is
+There is a precompiled REPL for Windows <a href="winlbm/winlbm-0.33.0b.zip">here</a>. This REPL is
 built using <a href="https://www.mingw-w64.org/">MINGW</a> on a Linux machine and tested under <a href="https://www.winehq.org/">WINE</a>.
 
 The following DLLs are required (some are included in the zip file):
 <ul>
-<li>KERNEL32.dll, msvcrt.dll, WS2_32.dll (Windows system DLLs)</li>
-<li>SDL2.dll, SDL2_image.dll, libpng16-16.dll</li>
+<li>KERNEL32.dll, msvcrt.dll, WS2-32.dll (Windows system DLLs)</li>
+<li>SDL2.dll, SDL2-image.dll, libpng16-16.dll</li>
 <li>history5.dll, readline5.dll</li>
 <li>zlib1.dll (may also be required)</li>
 </ul>
@@ -450,14 +450,14 @@ Help with debugging and testing of the Windows version is much appreciated. If y
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/dynref.md">Library of dynamically loadable functionality</a>.</li>
 <li><a href="https://github.com/svenssonjoel/lispBM/blob/master/doc/gotchas.md">Gotchas and caveats</a>.</li>
 <li><a href="./cdocs/html/index.html">Implementation C code documents</a>.</li>
-<li>There are <a href="https://youtube.com/playlist?list=PLtf_3TaqZoDOQqZcB9Yj-R1zS2DWDZ9q9">video demonstrations on YouTube</a>.</li>
+<li>There are <a href="https://youtube.com/playlist?list=PLtf-3TaqZoDOQqZcB9Yj-R1zS2DWDZ9q9">video demonstrations on YouTube</a>.</li>
 </ul>
 </section>
 
 <section id="editor-support">
 <h2>Editor support</h2>
 <ul>
-<li><a href="https://vesc-project.com/vesc_tool">vesc_tool</a></li>
+<li><a href="https://vesc-project.com/vesc-tool">vesc-tool</a></li>
 <li><a href="https://marketplace.visualstudio.com/items?itemName=rasmus-soderhielm.lispbm-language-support">vscode support</a></li>
 <li><a href="https://github.com/cortex/zed-lispbm">Zed</a></li>
 <li><a href="https://github.com/cortex/tree-sitter-lispbm">Tree-sitter grammar</a></li>
@@ -467,7 +467,7 @@ Help with debugging and testing of the Windows version is much appreciated. If y
 <section id="presentations">
 <h2>Presentations</h2>
 <ul>
-  <li><a href="LBM_DEC_8.pdf"> Chalmers FP-Talk December 2023 </a> - a video can be found on <a href="https://youtu.be/YAhUIaLu5po?feature=shared">YouTube</a></li>
+  <li><a href="LBM-DEC-8.pdf"> Chalmers FP-Talk December 2023 </a> - a video can be found on <a href="https://youtu.be/YAhUIaLu5po?feature=shared">YouTube</a></li>
   <li><a href="fp-talk-2025.pdf">Chalmers FP-Talk May 2025 presentation</a></li>
 </ul>
 </section>
@@ -476,25 +476,25 @@ Help with debugging and testing of the Windows version is much appreciated. If y
 <h2>Language Implementation</h2>
 <p>Texts about language development, implementation techniques, and the technical details behind LispBM.</p>
 <ul>
-  <li><a href="./pages/lispbm_evaluator/index.html"> Defunctionalizing a Continuation-Passing Style Evaluator </a></li>
-  <li><a href="./pages/lispbm_compilation_1"> Towards a bytecode compiler for lispBM </a></li>
-  <li><a href="./pages/lispbm_register_machine/index.html"> Evaluation of expressions using a register machine </a> (Edited June 23, 2020: BugFix!)</li>
-  <li><a href="./pages/lispbm_memory_allocation/index.html"> An attempt to get a better grip on the memory usage </a></li>
-  <li><a href="./pages/lispbm_towards_concurrency_2/index.html"> Spawn and Wait: Concurrency in lispBM part 2 </a></li> 
-  <li><a href="./pages/lispbm_towards_concurrency/index.html"> Concurrency in lispBM part 1 </a></li> 
-  <li><a href="./pages/lispbm_quasiquotation/index.html"> Quasiquotation in lispBM </a>  (Edited June 10, 2020: BugFix)</li>
-  <li><a href="./pages/lispbm_short_circuit_logic/index.html"> Boolean operators with short-circuit behavior </a></li>
-  <li><a href="./pages/lispbm_recursion_to_iteration/index.html"> Turning Recursion into Iteration using an Explicit Stack </a></li>
-  <li><a href="./pages/lispbm_esp32_repl/index.html"> Implementation of a lispBM REPL for the ESP32 MCU </a></li> 
-  <li><a href="./pages/lispbm_zephyros_repl/index.html"> Implementing a lispBM REPL in Zephyr OS </a></li> 
-  <li><a href="./pages/lispbm_compressed_code/index.html"> Compression and parsing of compressed source code </a></li> 
-  <li><a href="./pages/lispbm_garbage_collector/index.html"> Garbage collection in lispBM </a></li> 
-  <li><a href="./pages/lispbm_chibios_repl/index.html"> Implementing a lispBM REPL in ChibiOs </a></li> 
-  <li><a href="./pages/lispbm_fundamentals_and_extensions/index.html"> Fundamental operations and extensions in lispBM </a></li>
-  <li><a href="./pages/lispbm_parsing_expressions/index.html"> Parsing of lispBM expressions </a></li> 
-  <li><a href="./pages/lispbm_boxed_values/index.html"> A quick look at boxed values in lispBM </a></li>
-  <li><a href="./pages/lispbm_evaluation_function/index.html"> More in-depth walkthrough of the lispBM evaluation function </a></li>
-  <li><a href="./pages/lispbm_current_status/index.html">Introduction to LispBM for microcontrollers</a></li>
+  <li><a href="./pages/lispbm-evaluator/index.html"> Defunctionalizing a Continuation-Passing Style Evaluator </a></li>
+  <li><a href="./pages/lispbm-compilation-1"> Towards a bytecode compiler for lispBM </a></li>
+  <li><a href="./pages/lispbm-register-machine/index.html"> Evaluation of expressions using a register machine </a> (Edited June 23, 2020: BugFix!)</li>
+  <li><a href="./pages/lispbm-memory-allocation/index.html"> An attempt to get a better grip on the memory usage </a></li>
+  <li><a href="./pages/lispbm-towards-concurrency-2/index.html"> Spawn and Wait: Concurrency in lispBM part 2 </a></li> 
+  <li><a href="./pages/lispbm-towards-concurrency/index.html"> Concurrency in lispBM part 1 </a></li> 
+  <li><a href="./pages/lispbm-quasiquotation/index.html"> Quasiquotation in lispBM </a>  (Edited June 10, 2020: BugFix)</li>
+  <li><a href="./pages/lispbm-short-circuit-logic/index.html"> Boolean operators with short-circuit behavior </a></li>
+  <li><a href="./pages/lispbm-recursion-to-iteration/index.html"> Turning Recursion into Iteration using an Explicit Stack </a></li>
+  <li><a href="./pages/lispbm-esp32-repl/index.html"> Implementation of a lispBM REPL for the ESP32 MCU </a></li> 
+  <li><a href="./pages/lispbm-zephyros-repl/index.html"> Implementing a lispBM REPL in Zephyr OS </a></li> 
+  <li><a href="./pages/lispbm-compressed-code/index.html"> Compression and parsing of compressed source code </a></li> 
+  <li><a href="./pages/lispbm-garbage-collector/index.html"> Garbage collection in lispBM </a></li> 
+  <li><a href="./pages/lispbm-chibios-repl/index.html"> Implementing a lispBM REPL in ChibiOs </a></li> 
+  <li><a href="./pages/lispbm-fundamentals-and-extensions/index.html"> Fundamental operations and extensions in lispBM </a></li>
+  <li><a href="./pages/lispbm-parsing-expressions/index.html"> Parsing of lispBM expressions </a></li> 
+  <li><a href="./pages/lispbm-boxed-values/index.html"> A quick look at boxed values in lispBM </a></li>
+  <li><a href="./pages/lispbm-evaluation-function/index.html"> More in-depth walkthrough of the lispBM evaluation function </a></li>
+  <li><a href="./pages/lispbm-current-status/index.html">Introduction to LispBM for microcontrollers</a></li>
 </ul>
 </section>
 
@@ -531,54 +531,54 @@ Help with debugging and testing of the Windows version is much appreciated. If y
     </thead>
     <tbody>
       <tr>
-        <td><a href="testlogs\html\version_0.33.0\index.html">0.33.0</a></td>
+        <td><a href="testlogs\html\version-0.33.0\index.html">0.33.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.33.0"> tag 0.33.0 </a> </td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.32.0\index.html">0.32.0</a></td>
+        <td><a href="testlogs\html\version-0.32.0\index.html">0.32.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.32.0"> tag 0.32.0 </a> </td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.31.0\index.html">0.31.0</a></td>
+        <td><a href="testlogs\html\version-0.31.0\index.html">0.31.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.31.0"> tag 0.31.0 </a> </td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.30.0\index.html">0.30.0</a></td>
+        <td><a href="testlogs\html\version-0.30.0\index.html">0.30.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.30.0"> tag 0.30.0 </a> </td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.29.0\index.html">0.29.0</a></td>
+        <td><a href="testlogs\html\version-0.29.0\index.html">0.29.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.29.0"> tag 0.29.0 </a> </td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.28.0\index.html">0.28.0</a></td>
+        <td><a href="testlogs\html\version-0.28.0\index.html">0.28.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.28.0"> tag 0.28.0 </a> </td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.27.0\index.html">0.27.0</a></td>
+        <td><a href="testlogs\html\version-0.27.0\index.html">0.27.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.27.0"> tag 0.27.0 </a> </td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.26.0\index.html">0.26.0</a></td>
+        <td><a href="testlogs\html\version-0.26.0\index.html">0.26.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.26.0"> tag 0.26.0 </a> </td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.25.0\index.html">0.25.0</a></td>
+        <td><a href="testlogs\html\version-0.25.0\index.html">0.25.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.25.0"> tag 0.25.0 </a></td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.24.0\index.html">0.24.0</a></td>
+        <td><a href="testlogs\html\version-0.24.0\index.html">0.24.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.24.0"> tag 0.24.0 </a></td>
       </tr>
       <tr>
-        <td><a href="testlogs\html\version_0.23.0\index.html">0.23.0</a></td>
+        <td><a href="testlogs\html\version-0.23.0\index.html">0.23.0</a></td>
         <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.23.0"> tag 0.23.0 </a></td>
       </tr>
     </tbody>
 </table>
 
 <p><strong>NOTE:</strong> The scan-build directory is empty if the scan-build tool finds no issues with the code. </p>
-<p><strong>NOTE:</strong> The Infer result file <code>infer_x.y.z.txt</code> is empty if Infer finds no issues.</p>    
+<p><strong>NOTE:</strong> The Infer result file <code>infer-x.y.z.txt</code> is empty if Infer finds no issues.</p>    
 <br>
 <p>We expand on our testing from time to time but currently apply the following testing methods: </p>
 <ul>
@@ -600,11 +600,11 @@ correctly configured LispBM system) will be removed.
 
 <div class="image-comparison">
   <figure>
-    <img src="./images/coverage_0.32.0.jpg" alt="LispBM testing coverage version 0.32.0" loading="lazy" />
+    <img src="./images/coverage-0.32.0.jpg" alt="LispBM testing coverage version 0.32.0" loading="lazy" />
     <figcaption>Test coverage for version 0.32.0</figcaption>
   </figure>
   <figure>
-    <img src="./images/coverage_0.33.0.jpg" alt="LispBM testing coverage version 0.33.0" loading="lazy" />
+    <img src="./images/coverage-0.33.0.jpg" alt="LispBM testing coverage version 0.33.0" loading="lazy" />
     <figcaption>Test coverage for version 0.33.0</figcaption>
   </figure>
 </div>
@@ -624,14 +624,14 @@ correctly configured LispBM system) will be removed.
     <figcaption>Performance benchmarks with linear scale</figcaption>
   </figure>
   <figure>
-    <img src="./images/benchresults_log.png" alt="LispBM performance benchmarks chart with logarithmic scale" loading="lazy" />
+    <img src="./images/benchresults-log.png" alt="LispBM performance benchmarks chart with logarithmic scale" loading="lazy" />
     <figcaption>Performance benchmarks with logarithmic scale</figcaption>
   </figure>
 </div>
 
 <p>If you&#8217;re interested in the technical details and benchmarks, you can explore our benchmark code here:</p>
 
-<p><a href="./code/lbm_benchmarks_2022_02_27/index.html">View detailed benchmark results from February 2022</a></p>
+<p><a href="./code/lbm-benchmarks-2022-02-27/index.html">View detailed benchmark results from February 2022</a></p>
 </section>
 
 <section id="other-lisps">
@@ -667,15 +667,15 @@ const fallbackGalleryImages = [
     attribution: 'https://www.instagram.com/pixiladyart/'
   },
   {
-    src: 'images/collage/cat_holiday_03.png',
-    filename: 'cat_holiday_03.png',
+    src: 'images/collage/cat-holiday-03.png',
+    filename: 'cat-holiday-03.png',
     title: 'Holiday Cat Animation',
     description: 'Screenshot from a festive LispBM holiday animation',
     attribution: 'https://github.com/laxsjo/'
   },
   {
-    src: 'images/collage/lbm-holiday-animation_04.png',
-    filename: 'lbm-holiday-animation_04.png',
+    src: 'images/collage/lbm-holiday-animation-04.png',
+    filename: 'lbm-holiday-animation-04.png',
     title: 'LispBM Holiday Animation',
     description: 'Frame from a LispBM-powered holiday animation project',
     attribution: 'https://github.com/r3n33'
@@ -688,8 +688,8 @@ const fallbackGalleryImages = [
     attribution: 'https://www.instagram.com/pixiladyart/'
   },
   {
-    src: 'images/collage/lispbm_llama.png',
-    filename: 'lispbm_llama.png',
+    src: 'images/collage/lispbm-llama.png',
+    filename: 'lispbm-llama.png',
     title: 'Lispy the Llama',
     description: 'Our mascot Lispy the llama in all their glory',
     attribution: 'https://www.instagram.com/pixiladyart/'
@@ -716,8 +716,8 @@ const fallbackGalleryImages = [
     attribution: 'https://www.instagram.com/pixiladyart/'
   },
   {
-    src: 'images/collage/xmas_lisp-2024-12-20_11.39.26_04.png',
-    filename: 'xmas_lisp-2024-12-20_11.39.26_04.png',
+    src: 'images/collage/xmas-lisp-2024-12-20-11.39.26-04.png',
+    filename: 'xmas-lisp-2024-12-20-11.39.26-04.png',
     title: 'Christmas Lisp 2024',
     description: 'Holiday-themed LispBM project from December 2024',
     attribution: 'https://github.com/svenssonjoel/'
@@ -764,7 +764,7 @@ async function loadGalleryData() {
   let usingFallback = false;
   
   try {
-    const response = await fetch('image_credits.csv');
+    const response = await fetch('image-credits.csv');
     const csvText = await response.text();
     const lines = csvText.trim().split('\n');
     
@@ -802,7 +802,7 @@ async function loadGalleryData() {
 // Function to format attribution (make URLs clickable)
 function formatAttribution(attribution) {
   if (attribution.startsWith('http://') || attribution.startsWith('https://')) {
-    return `<a href="${attribution}" target="_blank" rel="noopener noreferrer" style="color: #007bff; text-decoration: none;">${attribution}</a>`;
+    return `<a href="${attribution}" target="-blank" rel="noopener noreferrer" style="color: #007bff; text-decoration: none;">${attribution}</a>`;
   }
   return attribution;
 }
