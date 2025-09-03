@@ -205,8 +205,11 @@ nil         ; False/empty list
 (bufset-u8 buf 0 255)        ; Set byte at index
 
 ; Lisp arrays  
-(array 1 2 3)                ; Create array [| 1 2 3 |]
-(array 1 'apa '(+ 1 2))      ; Create array [|1 apa (+ 1 2)|]
+(array 1 2 3)                    ; Create array [| 1 2 3 |]
+(array 1 'apa '(+ 1 2))          ; Create array [|1 apa (+ 1 2)|]
+(length (array 1 'apa '(+ 1 2))) ; Lenght of array: 3
+(ix (array 1 'apa '(+ 1 2)) 1 )  ; Index into array: apa
+
 ```
 
 ## Advanced Features
