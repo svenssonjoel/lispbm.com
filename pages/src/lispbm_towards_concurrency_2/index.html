@@ -271,7 +271,7 @@ will jump to the <code>apply_continuation</code> function and case
 <p>The <code>WAIT</code> continuation pops the context id to wait for
 from the stack, then calls <code>eval_cps_remove_done_ctx</code> to scan
 through the list of finished contexts. If this is successful the result
-stored in that waiting context is returned. Otherwise a second sound of
+stored in that waiting context is returned. Otherwise a second round of
 <code>WAIT</code> continuation is set up.</p>
 <h2 id="some-thoughts-on-the-current-implementation">Some Thoughts on
 the Current Implementation</h2>

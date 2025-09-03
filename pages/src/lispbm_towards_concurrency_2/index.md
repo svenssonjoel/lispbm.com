@@ -263,7 +263,7 @@ function and case `WAIT`.
 The `WAIT` continuation pops the context id to wait for from the
 stack, then calls `eval_cps_remove_done_ctx` to scan through the list
 of finished contexts. If this is successful the result stored in that
-waiting context is returned. Otherwise a second sound of `WAIT`
+waiting context is returned. Otherwise a second round of `WAIT`
 continuation is set up. 
 
 ## Some Thoughts on the Current Implementation
