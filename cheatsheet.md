@@ -313,7 +313,7 @@ t                            ; True
 (loopforeach item '(a b c)       ; Foreach loop
   (print item))
 
-(loopwhile-thd 1024 (< i 100)    ; Threaded while loop
+(loopwhile-thd 100 (< i 100)     ; Threaded while loop
   { (print i) (setq i (+ i 1)) })
 ```
 
