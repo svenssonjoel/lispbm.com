@@ -294,9 +294,9 @@ t                            ; True
 ### Alternative Function Definition
 ```lisp
 (defun square (x) (* x x))   ; Define function (alternative syntax)
-(defunret factorial (n)      ; Function with early return capability
-  (if (< n 0) (return 'error))
-  (if (<= n 1) 1 (* n (factorial (- n 1)))))
+(defunret factorial (n) ; Function with early return capability
+  (if (< n 0) (return 'error)
+      (if (<= n 1) 1 (* n (factorial (- n 1))))))
 ```
 
 ### Enhanced Loop Constructs
