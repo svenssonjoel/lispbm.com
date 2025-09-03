@@ -205,7 +205,8 @@ nil         ; False/empty list
 (bufset-u8 buf 0 255)        ; Set byte at index
 
 ; Lisp arrays  
-(array 'i32 '(1 2 3))        ; Create typed array
+(array 1 2 3)                ; Create array [| 1 2 3 |]
+(array 1 'apa '(+ 1 2))      ; Create array [|1 apa (+ 1 2)|]
 ```
 
 ## Advanced Features
