@@ -240,17 +240,17 @@
 ; Result: a</pre>
           </td>
         </tr>
-        <!-- Test 10: SEMANTIC DIFFER -->
-        <tr style="background-color: #f0a0a0;">
+        <!-- Test 10: SEMANTIC MATCH -->
+        <tr style="background-color: #99ccff;">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
-            <pre style="margin: 0 !important;">```,a
+            <pre style="margin: 0 !important;">``,a
 ; Result: a
 ; Eval: variable_not_bound</pre>
           </td>
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
-            <pre style="margin: 0 !important;">```,a
+            <pre style="margin: 0 !important;">``,a
 ; Result: (quasiquote (unquote a))
-; Eval: ERROR</pre>
+; Eval: Unbound variable: a</pre>
           </td>
         </tr>
         <!-- Test 11: MATCH -->
