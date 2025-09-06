@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>  
+  <meta charset="UTF-8">
+  <meta name="description" content="Real-world test comparison of LispBM vs Guile 3 quasiquotation implementations. See 25 test cases with color-coded results showing exact matches, semantic equivalence, and behavioral differences based on Bawden's quasiquotation algorithms.">
+  <meta name="keywords" content="lispbm vs guile, quasiquotation comparison, bawden quasiquotation, lispbm testing, guile 3 scheme, unquote splice, continuation passing style, lisp macro expansion, r5rs compliance, embedded lisp, microcontroller lisp, semantic equivalence, lisp implementation"
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/quasiquotation-comparison.html">
+  <meta name="robots" content="index, follow">
+  
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM vs Guile 3: Real Quasiquotation Test Results">
+  <meta property="og:description" content="Real-world test comparison of LispBM vs Guile 3 quasiquotation implementations. See 25 test cases with color-coded results showing exact matches, semantic equivalence, and behavioral differences based on Bawden's quasiquotation algorithms."
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/quasiquotation-comparison.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LispBM">
+  
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM vs Guile 3: Real Quasiquotation Test Results">
+  <meta name="twitter:description" content="Real-world test comparison of LispBM vs Guile 3 quasiquotation implementations. See 25 test cases with color-coded results showing exact matches, semantic equivalence, and behavioral differences."
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <!-- Favicon and Icon Links -->
+  <link rel="apple-touch-icon" sizes="180x180" href="./ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./ico/favicon.ico">
+  <link rel="icon" href="./ico/favicon.ico">
+  <link rel="manifest" href="./ico/site.webmanifest">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Page-Specific Styles -->
+  <style type="text/css">
+    /* Override centered text alignment from main stylesheet */
+    .description {
+      text-align: left;
+    }
+    
+    .main-title {
+      text-align: left;
+    }
+    
+    .side-by-side {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin: 30px 0;
+    }
+    
+    .code-section {
+      margin: 0;
+    }
+    
+    .code-header {
+      font-weight: bold;
+      margin-bottom: 0;
+      padding: 8px 15px;
+      border-radius: 5px 5px 0 0;
+    }
+    
+    .lispbm-header {
+      background: #d4edda;
+      color: #155724;
+      border: 1px solid #c3e6cb;
+      border-bottom: none;
+    }
+    
+    .guile-header {
+      background: #f8d7da;
+      color: #721c24;
+      border: 1px solid #f5c6cb;
+      border-bottom: none;
+    }
+    
+    /* Adjust pre styling for side-by-side */
+    .side-by-side pre {
+      margin: 0 !important;
+      border-radius: 0 0 5px 5px !important;
+    }
+    
+    @media (max-width: 768px) {
+      .side-by-side {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+    }
+  </style>
+</head> 
+
+<title>LispBM vs Scheme R5RS: Quasiquotation Comparison</title>
+
+<body class="with-background">
+
+<div class="container">
+  <div class="banner"></div>
+  <a href="index.html" class="back-link">← Back to Main Site</a>
+  
+  <h1 class="main-title">LispBM vs Scheme R5RS: Quasiquotation Comparison</h1>
+  
+  <!-- Main Content Area -->
+  <div id="mainContent">
+
+    <p>Quasiquotation (qq) implementation is tricky! The implementation of qq in LispBM is based on Bawden&#39;s paper <a href="https://www.brics.dk/NS/99/1/BRICS-NS-99-1.pdf#page=6">Quasiquotation in Lisp</a>.
+      To get the algorithms from Bawden&#39;s appendix A into continuation passing style C code took some massaging! The correctness of the implementation
+      is a big concern of mine.
+    </p>
+    
+    <p>On this page LispBM quasiquote expansion is compared to Guile 3 as a way to explore similarities and differences and
+      to, perhaps, gain some confidence that LispBM quasiquotation is OK and useful.
+    </p>
+
+    <p> A comparison to a more standard scheme is also useful for people with that experience if at some point they
+      would want to write a LispBM program. </p> 
+    
+    <h2>Overview of Quasiquotation</h2>
+    <p>Quasiquotation allows you to create templates where most of the structure is quoted (literal), but specific parts can be unquoted for evaluation. The three main constructs are:</p>
+    <ul>
+      <li><code>`</code> (quasiquote) - Creates a template</li>
+      <li><code>,</code> (unquote) - Evaluates an expression within the template</li>
+      <li><code>,@</code> (unquote-splicing) - Evaluates and splices a list into the template</li>
+    </ul>
+
+    <h2>Quasiquotation Examples</h2>
+    <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
+      <thead>
+        <tr>
+          <th style="border: 1px solid #ddd; padding: 15px; background-color: #60a060; color: #ffffff; text-align: left; width: 50%;">LispBM</th>
+          <th style="border: 1px solid #ddd; padding: 15px; background-color: #e08080; color: #ffffff; text-align: left; width: 50%;">Guile 3 (Scheme R5RS)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Test 1: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,@(list 1 2 3))
+; Result: (1 2 3)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,@(list 1 2 3))
+; Result: (1 2 3)</pre>
+          </td>
+        </tr>
+        <!-- Test 2: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(a ,@(list 1 2) b)
+; Result: (a 1 2 b)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(a ,@(list 1 2) b)
+; Result: (a 1 2 b)</pre>
+          </td>
+        </tr>
+        <!-- Test 3: DIFFER -->
+        <tr style="background-color: #f0a0a0;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,@())
+; Result: nil</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,@())
+; Result: ERROR or unsupported</pre>
+          </td>
+        </tr>
+        <!-- Test 4: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 ,@(list 2 3) 4)
+; Result: (1 2 3 4)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 ,@(list 2 3) 4)
+; Result: (1 2 3 4)</pre>
+          </td>
+        </tr>
+        <!-- Test 5: SEMANTIC MATCH -->
+        <tr style="background-color: #99ccff;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(a ,,(+ 1 2))
+; Result: (append (quote (a)) (list 3))
+; Eval: (a 3)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(a ,,(+ 1 2))
+; Result: (quasiquote (a (unquote 3)))
+; Eval: (a 3)</pre>
+          </td>
+        </tr>
+        <!-- Test 6: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(quote ,@(list 1 2))
+; Result: (quote 1 2)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(quote ,@(list 1 2))
+; Result: (quote 1 2)</pre>
+          </td>
+        </tr>
+        <!-- Test 7: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,@(cdr (quote (0 1 2 3))))
+; Result: (1 2 3)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,@(cdr (quote (0 1 2 3))))
+; Result: (1 2 3)</pre>
+          </td>
+        </tr>
+        <!-- Test 8: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(list ,@(list 1 2 3))
+; Result: (list 1 2 3)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(list ,@(list 1 2 3))
+; Result: (list 1 2 3)</pre>
+          </td>
+        </tr>
+        <!-- Test 9: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`,'a
+; Result: a</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`,'a
+; Result: a</pre>
+          </td>
+        </tr>
+        <!-- Test 10: SEMANTIC DIFFER -->
+        <tr style="background-color: #f0a0a0;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">```,a
+; Result: a
+; Eval: variable_not_bound</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">```,a
+; Result: (quasiquote (unquote a))
+; Eval: ERROR</pre>
+          </td>
+        </tr>
+        <!-- Test 11: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`,`a
+; Result: a</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`,`a
+; Result: a</pre>
+          </td>
+        </tr>
+        <!-- Test 12: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 . 2)
+; Result: (1 . 2)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 . 2)
+; Result: (1 . 2)</pre>
+          </td>
+        </tr>
+        <!-- Test 13: DIFFER -->
+        <tr style="background-color: #f0a0a0;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`',(car ())
+; Result: (quote nil)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`',(car ())
+; Result: ERROR or unsupported</pre>
+          </td>
+        </tr>
+        <!-- Test 14: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,1 ,2 . ,3)
+; Result: (1 2 . 3)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,1 ,2 . ,3)
+; Result: (1 2 . 3)</pre>
+          </td>
+        </tr>
+        <!-- Test 15: DIFFER -->
+        <tr style="background-color: #f0a0a0;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,@nil ,1)
+; Result: (1)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(,@nil ,1)
+; Result: ERROR or unsupported</pre>
+          </td>
+        </tr>
+        <!-- Test 16: DIFFER -->
+        <tr style="background-color: #f0a0a0;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 2 ,@() ,@() 3)
+; Result: (1 2 3)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 2 ,@() ,@() 3)
+; Result: ERROR or unsupported</pre>
+          </td>
+        </tr>
+        <!-- Test 17: SEMANTIC MATCH -->
+        <tr style="background-color: #99ccff;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(,,@(list 0 1 2))
+; Result: (list 0 1 2)
+; Eval: (0 1 2)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(,,@(list 0 1 2))
+; Result: (quasiquote ((unquote 0 1 2)))
+; Eval: (0 1 2)</pre>
+          </td>
+        </tr>
+        <!-- Test 18: SEMANTIC MATCH -->
+        <tr style="background-color: #99ccff;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(,,@(cdr '(0 1 2 3)) ,4)
+; Result: (append (list 1 2 3) (list 4))
+; Eval: (1 2 3 4)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(,,@(cdr '(0 1 2 3)) ,4)
+; Result: (quasiquote ((unquote 1 2 3) (unquote 4)))
+; Eval: (1 2 3 4)</pre>
+          </td>
+        </tr>
+        <!-- Test 19: DIFFER -->
+        <tr style="background-color: #f0a0a0;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(1 2 ,,@() ,,@())
+; Result: (append (quote (1 2)) (list) (list))</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(1 2 ,,@() ,,@())
+; Result: ERROR or unsupported</pre>
+          </td>
+        </tr>
+        <!-- Test 20: SEMANTIC MATCH -->
+        <tr style="background-color: #99ccff;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(a ,,(+ 1 2) ,(+ 3 4))
+; Result: (append (quote (a)) (list 3) (list (+ 3 4)))
+; Eval: (a 3 7)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(a ,,(+ 1 2) ,(+ 3 4))
+; Result: (quasiquote (a (unquote 3) (unquote (+ 3 4))))
+; Eval: (a 3 7)</pre>
+          </td>
+        </tr>
+        <!-- Test 21: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`5
+; Result: 5</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`5
+; Result: 5</pre>
+          </td>
+        </tr>
+        <!-- Test 22: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`,5
+; Result: 5</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`,5
+; Result: 5</pre>
+          </td>
+        </tr>
+        <!-- Test 23: SEMANTIC MATCH -->
+        <tr style="background-color: #99ccff;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">(let ((x 5)) `(let ((x ,(+ x 10))) `(list ,,x ,x)))
+; Result: (let ((x 15)) (append (quote (list)) (list 5) (list x)))
+; Eval: (list 5 15)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">(let ((x 5)) `(let ((x ,(+ x 10))) `(list ,,x ,x)))
+; Result: (let ((x 15)) (quasiquote (list (unquote 5) (unquote x))))
+; Eval: (list 5 15)</pre>
+          </td>
+        </tr>
+        <!-- Test 24: DIFFER -->
+        <tr style="background-color: #f0a0a0;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`,@0
+; Result: read_error
+; Eval: read_error</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`,@0
+; Result: (unquote-splicing 0)
+; Eval: ERROR</pre>
+          </td>
+        </tr>
+        <!-- Test 25: MATCH -->
+        <tr style="background-color: #80c080;">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 2 ,@'(3 . 4))
+; Result: (1 2 3 . 4)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 2 ,@'(3 . 4))
+; Result: (1 2 3 . 4)</pre>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Legend</h2>
+    <div style="margin: 20px 0;">
+      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: #80c080; border-radius: 3px;">
+        <strong>Green:</strong> Exact Match - Both systems produce identical results
+      </div>
+      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: #99ccff; border-radius: 3px;">
+        <strong>Blue:</strong> Semantic Match - Different syntax but equivalent when evaluated
+      </div>
+      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: #f0a0a0; border-radius: 3px;">
+        <strong>Red:</strong> Difference - Results differ in behavior or evaluation
+      </div>
+    </div>
+
+    <h2>Conclusion</h2>
+
+    <p>
+      There are differences but I am not sure these are very imporant! LispBM seems to handle these cases
+      of quasiquotation perfectly fine.
+    </p>
+
+    <p>
+      If you have examples of interesting quasiquotes please send me a message. I would love
+      to expand on this comparison and to explore the limits of the quasiquoter.
+      If we are lucky we find some bugs (hopefully fixable) along the way!
+    </p>
+    
+  </div>
+</div>
+
+<script>
+  // Add syntax highlighting or interactive features if needed
+</script>
+
+</body>
+</html>
