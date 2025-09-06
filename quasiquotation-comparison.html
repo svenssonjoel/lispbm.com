@@ -41,6 +41,15 @@
   
   <!-- Page-Specific Styles -->
   <style type="text/css">
+    /* Color variables for test results */
+    :root {
+      --match-color: #80c080;
+      --semantic-match-color: #99ccff;
+      --differ-color: #f0a0a0;
+      --lispbm-header-color: #2c2c2c;
+      --guile-header-color: #2c2c2c;
+    }
+    
     /* Override centered text alignment from main stylesheet */
     .description {
       text-align: left;
@@ -134,13 +143,13 @@
     <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
       <thead>
         <tr>
-          <th style="border: 1px solid #ddd; padding: 15px; background-color: #60a060; color: #ffffff; text-align: left; width: 50%;">LispBM</th>
-          <th style="border: 1px solid #ddd; padding: 15px; background-color: #e08080; color: #ffffff; text-align: left; width: 50%;">Guile 3 (Scheme R5RS)</th>
+          <th style="border: 1px solid #ddd; padding: 15px; background-color: var(--lispbm-header-color); color: #ffffff; text-align: left; width: 50%;">LispBM</th>
+          <th style="border: 1px solid #ddd; padding: 15px; background-color: var(--guile-header-color); color: #ffffff; text-align: left; width: 50%;">Guile 3 (Scheme R5RS)</th>
         </tr>
       </thead>
       <tbody>
         <!-- Test 1: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(,@(list 1 2 3))
 ; Result: (1 2 3)</pre>
@@ -151,7 +160,7 @@
           </td>
         </tr>
         <!-- Test 2: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(a ,@(list 1 2) b)
 ; Result: (a 1 2 b)</pre>
@@ -162,7 +171,7 @@
           </td>
         </tr>
         <!-- Test 3: DIFFER -->
-        <tr style="background-color: #f0a0a0;">
+        <tr style="background-color: var(--differ-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(,@())
 ; Result: nil</pre>
@@ -173,7 +182,7 @@
           </td>
         </tr>
         <!-- Test 4: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(1 ,@(list 2 3) 4)
 ; Result: (1 2 3 4)</pre>
@@ -184,7 +193,7 @@
           </td>
         </tr>
         <!-- Test 5: SEMANTIC MATCH -->
-        <tr style="background-color: #99ccff;">
+        <tr style="background-color: var(--semantic-match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">``(a ,,(+ 1 2))
 ; Result: (append (quote (a)) (list 3))
@@ -197,7 +206,7 @@
           </td>
         </tr>
         <!-- Test 6: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(quote ,@(list 1 2))
 ; Result: (quote 1 2)</pre>
@@ -208,7 +217,7 @@
           </td>
         </tr>
         <!-- Test 7: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(,@(cdr (quote (0 1 2 3))))
 ; Result: (1 2 3)</pre>
@@ -219,7 +228,7 @@
           </td>
         </tr>
         <!-- Test 8: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(list ,@(list 1 2 3))
 ; Result: (list 1 2 3)</pre>
@@ -230,7 +239,7 @@
           </td>
         </tr>
         <!-- Test 9: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`,'a
 ; Result: a</pre>
@@ -241,7 +250,7 @@
           </td>
         </tr>
         <!-- Test 10: SEMANTIC MATCH -->
-        <tr style="background-color: #99ccff;">
+        <tr style="background-color: var(--semantic-match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">``,a
 ; Result: a
@@ -254,7 +263,7 @@
           </td>
         </tr>
         <!-- Test 11: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`,`a
 ; Result: a</pre>
@@ -265,7 +274,7 @@
           </td>
         </tr>
         <!-- Test 12: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(1 . 2)
 ; Result: (1 . 2)</pre>
@@ -276,7 +285,7 @@
           </td>
         </tr>
         <!-- Test 13: DIFFER -->
-        <tr style="background-color: #f0a0a0;">
+        <tr style="background-color: var(--differ-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`',(car ())
 ; Result: (quote nil)</pre>
@@ -287,7 +296,7 @@
           </td>
         </tr>
         <!-- Test 14: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(,1 ,2 . ,3)
 ; Result: (1 2 . 3)</pre>
@@ -298,7 +307,7 @@
           </td>
         </tr>
         <!-- Test 15: DIFFER -->
-        <tr style="background-color: #f0a0a0;">
+        <tr style="background-color: var(--differ-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(,@nil ,1)
 ; Result: (1)</pre>
@@ -309,7 +318,7 @@
           </td>
         </tr>
         <!-- Test 16: DIFFER -->
-        <tr style="background-color: #f0a0a0;">
+        <tr style="background-color: var(--differ-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(1 2 ,@() ,@() 3)
 ; Result: (1 2 3)</pre>
@@ -320,7 +329,7 @@
           </td>
         </tr>
         <!-- Test 17: SEMANTIC MATCH -->
-        <tr style="background-color: #99ccff;">
+        <tr style="background-color: var(--semantic-match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">``(,,@(list 0 1 2))
 ; Result: (list 0 1 2)
@@ -346,7 +355,7 @@
           </td>
         </tr>
         <!-- Test 19: DIFFER -->
-        <tr style="background-color: #f0a0a0;">
+        <tr style="background-color: var(--differ-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">``(1 2 ,,@() ,,@())
 ; Result: (append (quote (1 2)) (list) (list))</pre>
@@ -357,7 +366,7 @@
           </td>
         </tr>
         <!-- Test 20: SEMANTIC MATCH -->
-        <tr style="background-color: #99ccff;">
+        <tr style="background-color: var(--semantic-match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">``(a ,,(+ 1 2) ,(+ 3 4))
 ; Result: (append (quote (a)) (list 3) (list (+ 3 4)))
@@ -370,7 +379,7 @@
           </td>
         </tr>
         <!-- Test 21: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`5
 ; Result: 5</pre>
@@ -381,7 +390,7 @@
           </td>
         </tr>
         <!-- Test 22: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`,5
 ; Result: 5</pre>
@@ -392,7 +401,7 @@
           </td>
         </tr>
         <!-- Test 23: SEMANTIC MATCH -->
-        <tr style="background-color: #99ccff;">
+        <tr style="background-color: var(--semantic-match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">(let ((x 5)) `(let ((x ,(+ x 10))) `(list ,,x ,x)))
 ; Result: (let ((x 15)) (append (quote (list)) (list 5) (list x)))
@@ -405,7 +414,7 @@
           </td>
         </tr>
         <!-- Test 24: DIFFER -->
-        <tr style="background-color: #f0a0a0;">
+        <tr style="background-color: var(--differ-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`,@0
 ; Result: read_error
@@ -418,7 +427,7 @@
           </td>
         </tr>
         <!-- Test 25: MATCH -->
-        <tr style="background-color: #80c080;">
+        <tr style="background-color: var(--match-color);">
           <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
             <pre style="margin: 0 !important;">`(1 2 ,@'(3 . 4))
 ; Result: (1 2 3 . 4)</pre>
@@ -433,17 +442,63 @@
 
     <h2>Legend</h2>
     <div style="margin: 20px 0;">
-      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: #80c080; border-radius: 3px;">
+      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: var(--match-color); border-radius: 3px;">
         <strong>Green:</strong> Exact Match - Both systems produce identical results
       </div>
-      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: #99ccff; border-radius: 3px;">
+      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: var(--semantic-match-color); border-radius: 3px;">
         <strong>Blue:</strong> Semantic Match - Different syntax but equivalent when evaluated
       </div>
-      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: #f0a0a0; border-radius: 3px;">
+      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: var(--differ-color); border-radius: 3px;">
         <strong>Red:</strong> Difference - Results differ in behavior or evaluation
       </div>
     </div>
 
+    <h2>Noteworthy about nil</h2> 
+
+    <p>Guile does not have a nil so some of the comparisons above are a bit unfair.
+      Look at the the example below that in guile is an error because nil is not
+      defined by default:
+    </p>
+    
+    <pre>
+`(,@nil ,1)
+Unbound variable: nil
+    </pre>
+    
+    <p>
+      If we define nil to be the empty list in guile then the following happens:
+    </p>
+    
+    <pre>
+(define nil '())
+scheme@(guile-user) [5]> `(,@nil ,1)
+$1 = (1)
+    </pre>
+    
+    <p>
+      So in that case it behaves the same as LispBM. So lets try one more thing:
+    </p>
+    
+    <pre>
+`(,@() ,1) 
+While compiling expression:
+Syntax error:
+unknown location: unexpected syntax in form ()
+    </pre>
+
+    <p> Here we are back to having an error.
+      Let's try one more thing in guile:
+    </p>
+
+    <pre>
+`(,@'() ,1)
+ $2 = (1)
+    </pre>
+
+    <p>
+      In this final case Guile and LispBM behaves exactly the same again. 
+    </p>
+    
     <h2>Conclusion</h2>
 
     <p>
@@ -456,6 +511,8 @@
       to expand on this comparison and to explore the limits of the quasiquoter.
       If we are lucky we find some bugs (hopefully fixable) along the way!
     </p>
+
+    
     
   </div>
 </div>
