@@ -140,6 +140,28 @@
     </ul>
 
     <h2>Quasiquotation Examples</h2>
+
+    <p>
+      The examples below compare quasiquotation expansion between LispBM and Guile.
+      In the cases where a quasiquoted expression expands identically between LispBM and Guile, the background
+      will be green. Sometimes the quasiquoted expression expands differently in LispBM and Guile. In these cases we follow up with a
+      comparison of evaluating the two expressions. If two expressions are identical after evaluation
+      the background will be blue and LispBM and Guile will be considered to semantically be identical in their handling
+      of that expression. If the results differ both in expansion and after evaluation, the background is red.
+    </p>
+
+    <div style="margin: 20px 0;">
+      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: var(--match-color); border-radius: 3px;">
+        <strong>Green:</strong> Exact Match - Both systems produce identical results
+      </div>
+      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: var(--semantic-match-color); border-radius: 3px;">
+        <strong>Blue:</strong> Semantic Match - Different syntax but equivalent when evaluated
+      </div>
+      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: var(--differ-color); border-radius: 3px;">
+        <strong>Red:</strong> Difference - Results differ in behavior or evaluation
+      </div>
+    </div>
+
     <table style="width: 100%; border-collapse: collapse; margin: 20px 0;">
       <thead>
         <tr>
@@ -451,19 +473,6 @@
       </tbody>
     </table>
  
-    <h2>Legend</h2>
-    <div style="margin: 20px 0;">
-      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: var(--match-color); border-radius: 3px;">
-        <strong>Green:</strong> Exact Match - Both systems produce identical results
-      </div>
-      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: var(--semantic-match-color); border-radius: 3px;">
-        <strong>Blue:</strong> Semantic Match - Different syntax but equivalent when evaluated
-      </div>
-      <div style="display: inline-block; padding: 5px 10px; margin: 5px; background-color: var(--differ-color); border-radius: 3px;">
-        <strong>Red:</strong> Difference - Results differ in behavior or evaluation
-      </div>
-    </div>
-
     <h2>Important note about nil</h2> 
 
     <p>Guile does not have a nil so some of the comparisons above are a bit unfair.
