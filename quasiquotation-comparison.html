@@ -3,8 +3,8 @@
 
 <head>  
   <meta charset="UTF-8">
-  <meta name="description" content="Real-world test comparison of LispBM vs Guile 3 quasiquotation implementations. See 25 test cases with color-coded results showing exact matches, semantic equivalence, and behavioral differences based on Bawden's quasiquotation algorithms.">
-  <meta name="keywords" content="lispbm vs guile, quasiquotation comparison, bawden quasiquotation, lispbm testing, guile 3 scheme, unquote splice, continuation passing style, lisp macro expansion, r5rs compliance, embedded lisp, microcontroller lisp, semantic equivalence, lisp implementation"
+  <meta name="description" content="Real-world test comparison of LispBM vs Guile 3 quasiquotation implementations. See test cases with color-coded results showing exact matches, semantic equivalence, and behavioral differences based on Bawden's quasiquotation algorithms.">
+  <meta name="keywords" content="lispbm vs guile, quasiquotation comparison, bawden quasiquotation, lispbm testing, guile 3 Scheme, unquote splice, continuation passing style, lisp macro expansion, r5rs compliance, embedded lisp, microcontroller lisp, semantic equivalence, lisp implementation"
   <meta name="author" content="Bo Joel Svensson">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -14,7 +14,7 @@
   
   <!-- Open Graph Meta Tags -->
   <meta property="og:title" content="LispBM vs Guile 3: Real Quasiquotation Test Results">
-  <meta property="og:description" content="Real-world test comparison of LispBM vs Guile 3 quasiquotation implementations. See 25 test cases with color-coded results showing exact matches, semantic equivalence, and behavioral differences based on Bawden's quasiquotation algorithms."
+  <meta property="og:description" content="Real-world test comparison of LispBM vs Guile 3 quasiquotation implementations. See test cases with color-coded results showing exact matches, semantic equivalence, and behavioral differences based on Bawden's quasiquotation algorithms."
   <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
   <meta property="og:url" content="https://www.lispbm.com/quasiquotation-comparison.html">
   <meta property="og:type" content="website">
@@ -23,7 +23,7 @@
   <!-- Twitter Card Meta Tags -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="LispBM vs Guile 3: Real Quasiquotation Test Results">
-  <meta name="twitter:description" content="Real-world test comparison of LispBM vs Guile 3 quasiquotation implementations. See 25 test cases with color-coded results showing exact matches, semantic equivalence, and behavioral differences."
+  <meta name="twitter:description" content="Real-world test comparison of LispBM vs Guile 3 quasiquotation implementations. See test cases with color-coded results showing exact matches, semantic equivalence, and behavioral differences."
   <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
 
   <!-- Favicon and Icon Links -->
@@ -119,24 +119,24 @@
   <!-- Main Content Area -->
   <div id="mainContent">
 
-    <p>Quasiquotation (qq) implementation is tricky! The implementation of qq in LispBM is based on Bawden&#39;s paper <a href="https://www.brics.dk/NS/99/1/BRICS-NS-99-1.pdf#page=6">Quasiquotation in Lisp</a>.
-      To get the algorithms from Bawden&#39;s appendix A into continuation passing style C code took some massaging! The correctness of the implementation
+    <p>Implementing quasiquotation (qq) is challenging! The implementation of qq in LispBM is based on Bawden&#39;s paper <a href="https://www.brics.dk/NS/99/1/BRICS-NS-99-1.pdf#page=6">Quasiquotation in Lisp</a>.
+      To understand the algorithms from Bawden&#39;s appendix and to turn them into continuation passing style C code took a lot of effort! The correctness of the implementation
       is a big concern of mine.
     </p>
     
-    <p>On this page LispBM quasiquote expansion is compared to Guile 3 as a way to explore similarities and differences and
+    <p>This page compares LispBM&#39;s quasiquote expansion with Guile 3 as a way to explore similarities and differences and
       to, perhaps, gain some confidence that LispBM quasiquotation is OK and useful.
     </p>
 
-    <p> A comparison to a more standard scheme is also useful for people with that experience if at some point they
+    <p> A comparison to a more standard Scheme is also useful for people with that experience if at some point they
       would want to write a LispBM program. </p> 
     
     <h2>Overview of Quasiquotation</h2>
     <p>Quasiquotation allows you to create templates where most of the structure is quoted (literal), but specific parts can be unquoted for evaluation. The three main constructs are:</p>
     <ul>
-      <li><code>`</code> (quasiquote) - Creates a template</li>
-      <li><code>,</code> (unquote) - Evaluates an expression within the template</li>
-      <li><code>,@</code> (unquote-splicing) - Evaluates and splices a list into the template</li>
+      <li><code>`</code> (quasiquote) - Creates a template.</li>
+      <li><code>,</code> (unquote) - Evaluates an expression within the template.</li>
+      <li><code>,@</code> (unquote-splicing) - Evaluates and splices a list into the template.</li>
     </ul>
 
     <h2>Quasiquotation Examples</h2>
@@ -470,6 +470,31 @@
 ; Result: (1 2 3 4 5 6 7 8 9 10)</pre>
           </td>
         </tr>
+        <!-- Test 27: MATCH -->
+        <tr style="background-color: var(--match-color);">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 2 ,@'() ,@'() 3)
+; Result: (1 2 3)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">`(1 2 ,@'() ,@'() 3)
+; Result: (1 2 3)</pre>
+          </td>
+        </tr>
+        <!-- Test 28: SEMANTIC MATCH -->
+        <tr style="background-color: var(--semantic-match-color);">
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(1 2 ,,@'() ,,@'())
+; Result: (append (quote (1 2)) (list) (list))
+; Eval:  (1 2)</pre>
+          </td>
+          <td style="border: 1px solid #ddd; padding: 10px; vertical-align: top;">
+            <pre style="margin: 0 !important;">``(1 2 ,,@'() ,,@'())
+; Result: (quasiquote (1 2 (unquote) (unquote)))
+; Eval: (1 2)</pre>
+          </td>
+        </tr>
+
       </tbody>
     </table>
  
@@ -519,10 +544,80 @@ unknown location: unexpected syntax in form ()
       In this final case Guile and LispBM behave exactly the same again. 
     </p>
     
+    <h2>LispBM Arrays vs Guile Vectors in Quasiquotation</h2>
+    
+    <p>
+      Another difference between LispBM and Guile is how they handle array/vector data structures 
+      within quasiquotation contexts. Both languages have array-like structures, but they integrate 
+      differently with the quasiquote system.
+    </p>
+    
+    <h3>Guile Vectors with Quasiquotation</h3>
+    <p>
+      Guile has vectors with literal syntax <code>#(...)</code> that integrates seamlessly with quasiquotation.
+      As I understand it, the <code>#</code> can be thought of as a <code>'</code> for vectors.
+    </p> <!-- ' --> 
+    
+    <pre>
+;; Literal vector (no evaluation)
+#(1 2 (+ 1 2))          ; → #(1 2 (+ 1 2))
+
+;; Vector with quasiquote (selective evaluation)  
+`#(,(+ 1 2) 4)          ; → #(3 4)
+
+;; Vector constructor (full evaluation)
+(vector (+ 1 2) 4)      ; → #(3 4)
+    </pre>
+    
+    <h3>LispBM Arrays with Quasiquotation</h3>
+    <p>
+      LispBM has arrays with literal syntax <code>[| ... |]</code> that are always literal, 
+      regardless of quasiquote context:
+    </p>
+    
+    <pre>
+;; Literal array (no evaluation)
+[| 1 2 (+ 1 2) |]       ; → [| 1 2 (+ 1 2) |]
+
+;; Array in quasiquote (still no evaluation!)
+`[| ,(+ 1 2) 4 |]       ; → [|([comma] (+ 1 2)) 4|]
+
+;; Array constructor (full evaluation)
+`(array ,(+ 1 2) 4)     ; → (array 3 4), which evaluates to an array
+    </pre>
+
+    <p>
+      The example where <code>`[| ,(+ 1 2) 4 |]</code> becomes <code>[|([comma] (+ 1 2)) 4|]</code>
+      is unfortunate. The <code>[comma]</code> is how LispBM prints the comma symbol, and this
+      internal symbol should not be a part of any fully parsed expression. This is
+      an example of where an internal implementation detail is leaking out and becomes visible to the
+      user. This will be fixed by in a future version of LispBM.
+    </p> 
+    
+    <h3>Explanation</h3>
+    <p>
+      LispBM is meant for systems with very limited ram and uses different memory regions for cons-cell heap
+      and for more array like data (array-memory). The literal syntax for arrays <code>[| ... |]</code>, is processed
+      entirely in the reader and the array can be allocated and filled with data without any involvement of
+      the evaluator. To allow the comma <code>,</code> and comma-at <code>,@</code> operations inside of an
+          <code>[| ... |]</code> array would mean that the actual array in array-memory cannot be created
+          until evaluation time and the data will be intermediately stored on the heap as well as on the evaluation stack.
+    </p>
+
+    <p>
+      The chosen approach means that arrays specified using <code>[| ... |]</code> can be larger than
+      the evaluation stack as well as larger than the available cons-cell heap even.
+    </p>
+
+    <p>
+      Note that the <code>[ ... ]</code> byte array syntax in LispBM is also entirely
+      literal for the exact same reasons.
+    </p> 
+    
     <h2>Conclusion</h2>
 
     <p>
-      There are differences but I am not sure these are very important! LispBM seems to handle these cases
+      There are differences but I am not sure these are very important. LispBM seems to handle these cases
       of quasiquotation perfectly fine.
     </p>
 
