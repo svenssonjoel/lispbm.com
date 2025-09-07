@@ -543,6 +543,45 @@ unknown location: unexpected syntax in form ()
     <p>
       In this final case Guile and LispBM behave exactly the same again. 
     </p>
+
+
+    <h2>Deeply nested quasiquotes</h2>
+
+    <p>
+      Example: <code>`(list 1 `(,@(list 1 2 3) `(,@(list 4 5 6))))</code>
+    </p>
+    
+    <p>
+      The example above is an expression with deeply nested quasiquotes. These do not fit
+      the pattern used in the tests above where either the quasiquote expands equally in LispBM and Guile
+      or we check if they are Semantically equivalent after one round of evaluation.
+    </p>
+
+    <p>
+      In this case we would need to traverse into the result and evaluate subtrees then test
+      equality of value.
+    </p>
+
+    <p>
+      LispBM expands the example as follows: <code>(list 1 (append (list 1 2 3) (list (quote (list 4 5 6)))))</code>.
+    </p>
+
+    <p>
+      Guile expands the same example as: <code>(list 1 (quasiquote ((unquote-splicing (list 1 2 3)) (quasiquote ((unquote-splicing (list 4 5 6)))))))</code>
+    </p> 
+
+    <p>
+      After one round of LispBM evaluation: <code>(1 (1 2 3 (list 4 5 6)))</code>
+    </p>
+
+    <p>
+      After one round of Guile evaluation: <code>(1 (1 2 3 (quasiquote ((unquote-splicing (list 4 5 6))))))</code>
+    </p>
+
+    <p>
+      The two final expressions are semantically equivalent because in LispBM <code>(list 4 5 6)</code> evaluates to <code>(4 5 6)</code> and
+      in Guile <code>(quasiquote ((unquote-splicing (list 4 5 6))))</code> also evaluates to <code>(4 5 6)</code>.
+    </p>
     
     <h2>LispBM Arrays vs Guile Vectors in Quasiquotation</h2>
     
