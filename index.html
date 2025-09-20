@@ -5,7 +5,7 @@
   
   <meta charset="UTF-8">
   <meta name="description" content="LispBM is a lisp for microcontrollers with concurrency and message passing. Learn how to implement a Lisp interpreter with detailed articles on evaluators, garbage collection, parsing, and embedded REPL development. Used by VESC motor controllers.">
-  <meta name="keywords" content="lisp, scheme, lispbm, lbm, script, lisp programming, lisp programming language, scripting microcontrollers, script language, stm32, esp32, microcontroller lisp, lisp for microcontrollers, lisp implementation for embedded systems, embedded lisp implementation, embedded systems lisp, lisp embedded systems, programming, programming language, languages, PL, PLT, erlang, message passing, concurrency, runtime system, repl, read evaluate print loop, read eval print loop, llama, lispy the llama, lisp implementation, interpreter implementation, embedded interpreter, microcontroller interpreter, garbage collection, continuation passing style, evaluator, parser, tokenizer, register machine, bytecode compiler, embedded lisp tutorial, vesc lisp, lisp vesc, embedded scripting, microcontroller scripting">
+  <meta name="keywords" content="lisp, scheme, lispbm, lbm, script, lisp programming, lisp programming language, scripting microcontrollers, script language, stm32, esp32, esp32 lisp, esp32 lisp programming, esp32 lisp interpreter, esp32 lisp repl, microcontroller lisp, lisp for microcontrollers, lisp implementation for embedded systems, embedded lisp implementation, embedded systems lisp, lisp embedded systems, programming, programming language, languages, PL, PLT, erlang, message passing, concurrency, runtime system, repl, read evaluate print loop, read eval print loop, llama, lispy the llama, lisp implementation, interpreter implementation, embedded interpreter, microcontroller interpreter, garbage collection, continuation passing style, evaluator, parser, tokenizer, register machine, bytecode compiler, embedded lisp tutorial, vesc lisp, lisp vesc, embedded scripting, microcontroller scripting">
   <meta name="author" content="Bo Joel Svensson">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
@@ -253,8 +253,7 @@
 <li>Real-time garbage collection.</li>
 <li>Linter/code-preprocessor/checker tailored to LBM idiosyncrasies.</li>
 <li>Quickcheck-like property based testing of programs written in LBM.</li>
-<li>Formal verification of properties of the runtime system using Frama-C.</li>
-<li>…</li>
+<li>Additional platforms (a maintainer for the Zephyr platform support is needed).</li>
 </ol>
 </section>
 
@@ -810,7 +809,7 @@ async function loadGalleryData() {
 // Function to format attribution (make URLs clickable)
 function formatAttribution(attribution) {
   if (attribution.startsWith('http://') || attribution.startsWith('https://')) {
-    return `<a href="${attribution}" target="-blank" rel="noopener noreferrer" style="color: #007bff; text-decoration: none;">${attribution}</a>`;
+    return `<a href="${attribution}" target="_blank" rel="noopener noreferrer" style="color: #007bff; text-decoration: none;">${attribution}</a>`;
   }
   return attribution;
 }
