@@ -72,6 +72,9 @@
   </script>
   
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
   
 </HEAD> 
 
@@ -87,29 +90,94 @@
   }
 
   .nav-menu {
-      background: #f8f9fa;
-      border: 1px solid #dee2e6;
-      border-radius: 8px;
-      padding: 15px 20px;
       margin-bottom: 30px;
+      position: relative;
+  }
+
+  .menu-toggle {
+      background: #007bff;
+      color: white;
+      border: none;
+      padding: 15px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 500;
+      transition: background-color 0.2s;
+      width: 100%;
       text-align: center;
   }
 
-  .nav-menu a {
-      color: #007bff;
-      text-decoration: none;
-      font-weight: 500;
-      margin: 0 20px;
-      padding: 8px 16px;
-      border-radius: 4px;
-      transition: all 0.2s;
-      display: inline-block;
+  .menu-toggle:hover {
+      background: #0056b3;
   }
 
-  .nav-menu a:hover {
-      background-color: #007bff;
-      color: white;
+  .nav-links {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #000080;
+      border: 2px solid #00ffff;
+      box-shadow: none;
+      z-index: 1000;
+      list-style: none;
+      margin: 10px 0 0 0;
+      padding: 1px;
+      max-height: 400px;
+      overflow-y: auto;
+      font-family: 'IBM Plex Mono', 'Consolas', 'Liberation Mono', 'Lucida Console', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-rendering: optimizeSpeed;
+      -webkit-font-smoothing: none;
+      -moz-osx-font-smoothing: unset;
+  }
+
+  .nav-links.show {
+      display: block;
+  }
+
+  .nav-links li {
+      margin: 0;
+      padding: 0;
+  }
+
+  .nav-links a {
+      display: block;
+      color: #00ffff;
       text-decoration: none;
+      padding: 2px 8px;
+      background: #000080;
+      transition: none;
+      line-height: 1.2;
+  }
+
+  .nav-links a:hover {
+      background-color: #00ffff;
+      color: #000080;
+      text-decoration: none;
+  }
+
+  .nav-divider {
+      background: #000080;
+      color: #ffff00;
+      padding: 2px 8px;
+      font-size: 12px;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      border-top: 1px solid #008080;
+      border-bottom: 1px solid #008080;
+      margin: 1px 0;
+      line-height: 1.2;
+  }
+
+  .nav-divider:first-child {
+      border-top: none;
+      margin-top: 0;
   }
 
   .main-content {
@@ -195,13 +263,29 @@
 
 <div class="container">
   <nav class="nav-menu" aria-label="Main navigation">
-    <a href="contributors.html">Contributors</a>
-    <a href="gallery.html">Gallery</a>
-    <a href="#getting-started">Getting Started</a>
-    <a href="#testlogs">Testing</a>
-    <a href="#performance">Performance</a>
-    <a href="https://github.com/svenssonjoel/lispBM">GitHub</a>
-    <a href="#documentation">Documentation</a>
+    <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰ Menu</button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="why-lisp.html">Why Lisp?</a></li>
+      <li><a href="contributors.html">Contributors</a></li>
+      <li><a href="gallery.html">Gallery</a></li>
+      <li class="nav-divider">Getting Started</li>
+      <li><a href="#getting-started">Overview</a></li>
+      <li><a href="#getting-started-easy">Embedded (Easy)</a></li>
+      <li><a href="#getting-started-easy-no-vesc">Embedded (No VESC)</a></li>
+      <li><a href="#the-lbm-repl">Linux REPL</a></li>
+      <li><a href="#lbm-for-windows">Windows</a></li>
+      <li class="nav-divider">Resources</li>
+      <li><a href="#documentation">Documentation</a></li>
+      <li><a href="#editor-support">Editor Support</a></li>
+      <li><a href="#presentations">Presentations</a></li>
+      <li><a href="#language-implementation">Implementation</a></li>
+      <li><a href="#testlogs">Testing</a></li>
+      <li><a href="#performance">Performance</a></li>
+      <li><a href="#other-lisps">Other Lisps</a></li>
+      <li class="nav-divider">External</li>
+      <li><a href="https://github.com/svenssonjoel/lispBM">GitHub</a></li>
+      <li><a href="#want-to-get-involved-and-help-out">Get Involved</a></li>
+    </ul>
   </nav>
 
   <main class="main-content">
@@ -836,6 +920,29 @@ async function initRandomImage() {
 }
 
 window.addEventListener('load', initRandomImage);
+
+// Navigation menu toggle
+function toggleMenu() {
+  const navLinks = document.getElementById('navLinks');
+  navLinks.classList.toggle('show');
+}
+
+// Close menu when clicking outside
+document.addEventListener('click', function(event) {
+  const navMenu = document.querySelector('.nav-menu');
+  const navLinks = document.getElementById('navLinks');
+
+  if (!navMenu.contains(event.target)) {
+    navLinks.classList.remove('show');
+  }
+});
+
+// Close menu when clicking on a link
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', function() {
+    document.getElementById('navLinks').classList.remove('show');
+  });
+});
 </script>
 
   </main>
