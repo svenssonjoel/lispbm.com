@@ -1,0 +1,292 @@
+<HTML lang="en-US">
+
+<HEAD>
+
+  <meta charset="UTF-8">
+  <meta name="description" content="Discover why Lisp is perfect for embedded systems and microcontrollers. Learn the personal story behind LispBM, from hobby project to production system powering VESC motor controllers.">
+  <meta name="keywords" content="why lisp, lisp embedded systems, lisp microcontrollers, lispbm story, embedded programming, functional programming, lisp benefits, SICP, scheme programming, VESC integration, embedded scripting, microcontroller lisp, lisp advantages">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/why-lisp.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Why Lisp? Understanding the Power of Lisp Programming">
+  <meta property="og:description" content="Discover why Lisp is perfect for embedded systems and microcontrollers. Learn the personal story behind LispBM, from hobby project to production system powering VESC motor controllers.">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/why-lisp.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary-large-image">
+  <meta name="twitter:title" content="Why Lisp? Understanding the Power of Lisp Programming">
+  <meta name="twitter:description" content="Discover why Lisp is perfect for embedded systems and microcontrollers. Learn the personal story behind LispBM, from hobby project to production system powering VESC motor controllers.">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./ico/favicon.ico">
+  <link rel="icon" href="./ico/favicon.ico">
+  <link rel="manifest" href="./ico/site.webmanifest">
+
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Why Lisp? Understanding the Power of Lisp Programming",
+    "description": "Discover why Lisp is perfect for embedded systems and microcontrollers. Learn the personal story behind LispBM, from hobby project to production system powering VESC motor controllers.",
+    "url": "https://www.lispbm.com/why-lisp.html",
+    "author": {
+      "@type": "Person",
+      "name": "Bo Joel Svensson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "LispBM Project",
+      "url": "https://www.lispbm.com"
+    },
+    "datePublished": "2025-01-20",
+    "articleSection": "Programming Languages"
+  }
+  </script>
+
+  <link rel="stylesheet" href="styles.css">
+
+</HEAD>
+
+<TITLE>Why Lisp? The Philosophy and Power of Lisp Programming</TITLE>
+
+<style type="text/css">
+  /* Page-specific styles */
+
+  .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+
+
+  .main-content {
+      margin: 0;
+      padding: 0;
+      max-width: 100%;
+      box-sizing: border-box;
+  }
+
+  pre {
+      overflow-x: auto;
+      border-radius: 5px;
+      background: #414449;
+      color: #b3bccc;
+      padding: 15px;
+      font-size: 13pt;
+      tab-size: 4;
+      -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
+      -moz-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
+      box-shadow: 0 0 8px 0 rgba(0, 0, 0, .75);
+  }
+
+  .highlight {
+      background-color: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 15px;
+      margin: 20px 0;
+      border-radius: 4px;
+  }
+
+  .comparison-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      background: white;
+      border-radius: 8px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .comparison-table th,
+  .comparison-table td {
+      padding: 12px 15px;
+      text-align: left;
+      border-bottom: 1px solid #ddd;
+  }
+
+  .comparison-table th {
+      background-color: #f8f9fa;
+      font-weight: 600;
+      color: #495057;
+  }
+
+  .comparison-table tr:hover {
+      background-color: #f8f9fa;
+  }
+
+  /* Responsive design */
+  @media (max-width: 768px) {
+      .container {
+          padding: 10px;
+      }
+
+      .main-title {
+          font-size: 2em;
+          margin: 20px 0;
+      }
+  }
+</style>
+
+<BODY class="with-background">
+<div class="container">
+  <div class="banner"></div>
+  <a href="index.html" class="back-link">← Back to Main Site</a>
+
+  <h1 id="why-lisp" class="main-title">Why Lisp?</h1>
+
+
+  <h2>Personal motivation for making a Lisp</h2>
+
+  <p>Back in 2018, when the work on LispBM started, I was learning
+  about embedded systems both from a software and a hardware
+  perspective. During this time, I was introduced to the STM32-Discovery
+  board and started writing small programs for it. For a person with a
+  background in more high-level programming the
+  program/compile/flash/debug cycle of interacting with a development
+  board felt very clunky! Moving to embedded/IoT from being more of a
+  "Haskeller" was quite a culture shock, not only the clunky
+  development loop but also all the wires, all the acronyms (I2C, SPI,
+  UART ...) and that the oscilloscope is an absolutely necessary
+  debugging tool. It was quite overwhelming!</p>
+
+  <p>As a beginner, one makes a lot of mistakes and an easy task such
+  as getting an LED to blink can easily lead to several repetitions of
+  the compile/flash/debug procedure. Frustration grew!</p>
+
+  <p>At about the same time I discovered the
+  MIT <a href="https://www.youtube.com/watch?v=-J_xL4IGhJA&list=PLE18841CABEA24090">Structure
+  and Interpretation of Computer Programs (SICP)</a> video series and
+  found the simplicity and beautiful elegance of the language they
+  described so very appealing. The language explored in SICP is called
+  Scheme and it is a minimalistic Lisp dialect with a focus on
+  functional programming.</p>
+
+  <p>When learning something new and very foreign I like to combine it
+  with something I am more familiar with. This is where the original
+  idea for LispBM started to form. I wanted a REPL on the development
+  board and I wanted to implement something like the beautiful system
+  they showed in SICP - to make an efficient implementation of a Lisp
+  or Scheme-like language for microcontrollers.</p>
+
+  <p>Of course many of the ideas in SICP are extra beautiful because
+  they are expressed in the Scheme language itself. To run efficiently
+  without using too many resources all of that had to be recreated in
+  C.</p>
+
+  <p>Note that while the initial motivation came from the frustration
+  of working with embedded systems and the beauty of Scheme, the
+  actual LispBM implementation does not follow SICP or any one single
+  source very closely. The only Lisp dialect I had any experience with at all
+  was Emacs Lisp, which probably also colored some of my initial design choices.</p>
+
+  <p>In detail, motivation and inspiration came from many sources:</p>
+  <ul>
+    <li>Garbage collection - from Jones, Lins - Garbage collection ISBN: 0471941484</li>
+    <li>Continuation passing style evaluator - <a href="https://lisperator.net/">https://lisperator.net/</a></li>
+    <li>Quasiquotation - from Alan Bawden's paper <a href="https://www.brics.dk/NS/99/1/BRICS-NS-99-1.pdf#page=6">Quasiquotation in lisp</a></li>
+    <li>Pattern matching system - from earlier functional programming experience</li>
+    <li>Message passing system - from Erlang</li>
+    <li>Concurrency and process monitoring - from Erlang</li>
+    <li>Memory subsystems - long and deep discussions with Benjamin Vedder</li>
+  </ul>
+
+
+  <h2>Why Lisp for Embedded Systems?</h2>
+
+  <p>Over the years the LispBM runtime system has changed a lot and many insights have been reached. If we were to take a new stab at motivating a Lisp dialect on embedded systems it would go something like this:</p>
+
+  <ul>
+    <li><strong>Small but powerful:</strong> A runtime system for a
+    Lisp dialect can be made very small (in binary size) while also
+    being a flexible and powerful language. Lisp is also expressive
+    which means that programs written in Lisp can do a lot while also
+    remaining small.</li>
+    <li><strong>Easy parsing:</strong> Some complain about Lisp syntax (or lack of syntax) but when it comes to implementing a reader on a resource constrained system and allowing for an interactive REPL it is a big benefit that Lisp is so easy to parse.</li>
+    <li><strong>Platform Portability:</strong> While not yet a strong argument, some degree of platform portability can be made possible. This is mainly limited by platform specific extensions to LispBM.</li>
+    <li><strong>Rapid Prototyping:</strong> A runtime system that is always ready to accept new high-level code speeds up the programming → running code flow.</li>
+  </ul>
+
+  <p>There is a long tradition of using a custom Lisp dialect as a built-in scripting or configuration language, think of AutoCAD and Emacs. LispBM continues this tradition.</p>
+  
+
+  <h2>From Hobby Project to Production System</h2>
+
+  <p>From 2018 to 2022 LispBM had been a
+    personal hobby project without any particularly clear direction or
+    aim. In January 2022, we started experimenting with integrating LispBM
+    into the <a href="https://www.youtube.com/watch?v=sml8MKaMeSQ">VESC
+    BLDC motor control software</a>.</p>
+
+  <p>This started an intensive period of making LispBM more feature
+    complete. LispBM already had a lot of diverse functionality, such as
+    concurrency, quasiquotation and so on. Focus had been on those
+    implementation details and algorithms that I found interesting and
+    fun, but really basic things such as negation were missing.</p>
+  
+  <p>From this point onward LispBM has matured and grown together with
+     the VESC ecosystem of hardware solutions. Apart from substantial
+     extension libraries for the VESC BLDC software and the VESC Express
+     family of firmwares, the following additions and improvements to the
+     LispBM runtime system come from the challenge of making LispBM a
+     more complete scripting language for the VESC platform:</p>
+
+  <ul>
+    <li>Time-based scheduling</li>
+    <li>Defragmentable memory areas</li>
+    <li>Graphics and TTF font libraries</li>
+    <li>Image subsystem</li>
+  </ul>
+
+  <p>In addition to the above-mentioned major additions, now that we
+     had users, numerous bugs were discovered and fixed! Focus has
+     increased on correctness as can be seen by the size of the test
+     suite and in the static analysis tools used. The aim and goal of
+     LispBM is now to be a sandboxed, efficient, small, correct and
+     bug-free language and runtime system.</p>
+
+  <p>A question we often get in relation to LispBM being a part of the
+    VESC software is: Why didn't you pick uPython instead? My answer to
+    this is that I think both I and Benjamin are very happy that we
+    chose to build something from scratch. A more established system
+    would probably have been even harder for us to adapt to the specific
+    requirements of the VESC software. I hope that by building something
+    uniquely suited to the VESC situation, we have also created
+    something of general applicability.</p>
+
+  <h2>Acknowledgments</h2>
+
+  <p>This journey from frustrated embedded developer to LispBM implementor
+    has been supported by many people. Benjamin Vedder's willingness to
+    experiment with integrating LispBM into VESC software was the
+    turning point that gave the project real purpose and direction.
+    I am infinitely grateful.
+  </p>
+
+  <p>The VESC community deserves special recognition for being patient
+     early adopters, providing invaluable bug reports, and pushing LispBM
+     to become more robust. Every crash report and feature request has
+     made LispBM better.</p>
+
+  <p>Finally, thanks to all the open source contributors, the computer
+     science researchers whose work inspired LispBM's design, and anyone
+     who has taken the time to try LispBM on their own projects.</p>
+
+    <!-- Content will be added here -->
+</div>
+
+</BODY>
+</HTML>
