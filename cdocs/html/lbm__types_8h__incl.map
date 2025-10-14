@@ -1,9 +1,6 @@
 <map id="lbm_types.h" name="lbm_types.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="91,5,193,31"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="5,79,76,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="127,33,70,73,67,68,124,28"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="101,79,183,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="145,31,145,65,139,65,139,31"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="208,79,295,104"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="161,28,223,69,220,73,158,33"/>
+<area shape="rect" id="node1" title=" " alt="" coords="86,5,179,32"/>
+<area shape="rect" id="node2" title=" " alt="" coords="5,80,71,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="95,80,170,107"/>
+<area shape="rect" id="node4" title=" " alt="" coords="195,80,273,107"/>
 </map>

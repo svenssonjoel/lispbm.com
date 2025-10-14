@@ -1,21 +1,11 @@
 <map id="lbm_channel.c" name="lbm_channel.c">
-<area shape="rect" id="Node000001" title=" " alt="" coords="247,5,363,31"/>
-<area shape="rect" id="Node000002" href="$lbm__channel_8h.html" title=" " alt="" coords="129,79,246,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="287,33,220,74,217,69,284,28"/>
-<area shape="rect" id="Node000008" title=" " alt="" coords="269,79,340,104"/>
-<area shape="poly" id="edge9_Node000001_Node000008" title=" " alt="" coords="307,31,307,65,302,65,302,31"/>
-<area shape="rect" id="Node000009" href="$lbm__defines_8h.html" title=" " alt="" coords="364,79,477,104"/>
-<area shape="poly" id="edge10_Node000001_Node000009" title=" " alt="" coords="325,28,391,69,389,74,322,33"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="5,225,76,251"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="156,106,118,125,81,154,62,183,50,213,45,211,57,180,77,150,115,121,154,102"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="211,225,294,251"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="195,103,244,212,239,214,190,106"/>
-<area shape="rect" id="Node000005" title=" " alt="" coords="270,152,409,177"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="213,102,303,144,301,149,211,106"/>
-<area shape="rect" id="Node000006" href="$lbm__types_8h.html" title=" " alt="" coords="92,152,195,177"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="182,106,160,142,155,139,178,103"/>
-<area shape="poly" id="edge6_Node000006_Node000003" title=" " alt="" coords="128,180,70,219,67,215,125,175"/>
-<area shape="poly" id="edge7_Node000006_Node000004" title=" " alt="" coords="162,175,225,215,222,220,159,180"/>
-<area shape="rect" id="Node000007" title=" " alt="" coords="100,225,187,251"/>
-<area shape="poly" id="edge8_Node000006_Node000007" title=" " alt="" coords="146,178,146,212,141,212,141,178"/>
+<area shape="rect" id="node1" title=" " alt="" coords="233,5,339,32"/>
+<area shape="rect" id="node2" href="$lbm__channel_8h.html" title=" " alt="" coords="122,80,229,107"/>
+<area shape="rect" id="node8" title=" " alt="" coords="253,80,319,107"/>
+<area shape="rect" id="node9" href="$lbm__defines_8h.html" title=" " alt="" coords="343,80,445,107"/>
+<area shape="rect" id="node3" title=" " alt="" coords="5,229,71,256"/>
+<area shape="rect" id="node4" title=" " alt="" coords="198,229,273,256"/>
+<area shape="rect" id="node5" title=" " alt="" coords="255,155,378,181"/>
+<area shape="rect" id="node6" href="$lbm__types_8h.html" title=" " alt="" coords="87,155,181,181"/>
+<area shape="rect" id="node7" title=" " alt="" coords="95,229,173,256"/>
 </map>

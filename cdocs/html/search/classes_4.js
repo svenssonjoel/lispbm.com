@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['token_5ffloat_0',['token_float',['../structtoken__float.html',1,'']]],
-  ['token_5fint_1',['token_int',['../structtoken__int.html',1,'']]]
+  ['sharing_5ftable_1844',['sharing_table',['../structsharing__table.html',1,'']]],
+  ['size_5faccumulator_1845',['size_accumulator',['../structsize__accumulator.html',1,'']]],
+  ['special_5fsym_1846',['special_sym',['../structspecial__sym.html',1,'']]]
 ];

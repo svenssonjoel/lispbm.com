@@ -1,9 +1,6 @@
 <map id="lbm_c_interop.h" name="lbm_c_interop.h">
-<area shape="rect" id="Node000001" title=" " alt="" coords="67,5,194,31"/>
-<area shape="rect" id="Node000002" href="$lbm__c__interop_8c.html" title=" " alt="" coords="5,79,131,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,43,80,80,76,77,109,39"/>
-<area shape="rect" id="Node000003" href="$lispbm_8h.html" title=" " alt="" coords="155,79,234,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="152,39,186,77,182,80,148,43"/>
-<area shape="rect" id="Node000004" href="$lispbm_8c.html" title=" " alt="" coords="156,152,233,177"/>
-<area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="197,118,197,152,192,152,192,118"/>
+<area shape="rect" id="node1" title=" " alt="" coords="42,5,157,32"/>
+<area shape="rect" id="node2" href="$lispbm_8h.html" title=" " alt="" coords="5,80,76,107"/>
+<area shape="rect" id="node4" href="$lbm__c__interop_8c.html" title=" " alt="" coords="101,80,215,107"/>
+<area shape="rect" id="node3" href="$lispbm_8c.html" title=" " alt="" coords="5,155,76,181"/>
 </map>
