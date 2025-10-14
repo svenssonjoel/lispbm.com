@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['special_5fsym_0',['special_sym',['../structspecial__sym.html',1,'']]]
+  ['matcher_1843',['matcher',['../structmatcher.html',1,'']]]
 ];
