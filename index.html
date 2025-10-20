@@ -270,7 +270,7 @@
       <li><a href="gallery.html">Gallery</a></li>
       <li class="nav-divider">Getting Started</li>
       <li><a href="#getting-started">Overview</a></li>
-      <li><a href="#getting-started-easy">VESC EXPRESS (Easy)</a></li>
+      <li><a href="#getting-started-vesc-express">VESC EXPRESS</a></li>
       <li><a href="#getting-started-esp32c3-easy-no-vesc">ESP32C3 FreeRTOS</a></li>
       <li><a href="#getting-started-stm32f4-easy-no-vesc">STM32F4 ChibiOS</a></li>
       <li><a href="#getting-started-hard">Roll your own LBM!</a></li>
@@ -338,13 +338,13 @@
 
 The LispBM source code is available on <a href="https://www.github.com/svenssonjoel/lispbm">GitHub</a>, and the LispBM community is available on <a href="https://discord.gg/urtJUUMnwQ">Discord</a>.
 
-<h3 id="getting-started-easy">Getting started on embedded: easy</h3>
+<h3 id="getting-started-vesc-express">Getting started on VESC EXPRESS</h3>
 <p>The easiest way to get started with LispBM programming is to use <a href="https://vesc-project.com/vesc_tool">VESC Tool</a> together with the <a href="https://github.com/vedderb/vesc-express">VESC EXPRESS Firmware</a> on an <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html">esp32c3</a>.</p>
 <p>VESC-Tool gives you access to a very capable <a href="https://vesc-project.com/sites/default/files/lisp%20overview.png">IDE</a> for Lisp programming on embedded systems and the VESC Express firmware provides built-in functionality to interface with CAN, WiFi, BLE and UART as well as GPIO and display drivers.</p>
 
 <p>Keep an eye on the <a href="https://www.vesclabs.com">VESC Labs</a> website for devices that come with LispBM per default.</p>
 
-<h3 id="getting-started-esp32c3-easy-no-vesc">Getting started on esp32c3: easy (no vesc)</h3>
+<h3 id="getting-started-esp32c3-easy-no-vesc">Getting started on esp32c3</h3>
 <p>In the directory <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/esp32c3">'examples/esp32c3'</a> there is an example setup
    targeting the <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkitm-1/index.html">esp32c3-devkitm-mini1</a> (available on <a href="https://eu.mouser.com/new/espressif/espressif-systems-esp32-c3-devkitm-1-board/">Mouser</a> or <a href="https://www.digikey.com/en/products/detail/espressif-systems/ESP32-C3-DEVKITM-1-N4X/25587617">Digikey</a>) and FreeRTOS.</p>
 <p>This is a suitable starting point for integrating LispBM scripting into your own FreeRTOS based projects.</p>
@@ -384,7 +384,7 @@ idf.py monitor
 
 <p>You can now interact with a simple REPL on your ESP32C3.</p>
 
-<h3 id="getting-started-stm32f4-easy-no-vesc">Getting started on stm32f4: easy (no vesc)</h3>
+<h3 id="getting-started-stm32f4-easy-no-vesc">Getting started on stm32f4</h3>
 <p>In the directory <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/stm32f4-discovery"><code>examples/stm32f4-discovery</code></a> there is an example setup
    targeting the <a href="https://www.st.com/en/evaluation-tools/stm32f4discovery.html">stm32f407G-disc1</a> (available on  <a href="https://www.mouser.se/ProductDetail/STMicroelectronics/STM32F407G-DISC1?qs=mKNKSX85ZJejxc9JOGT45A%3D%3D">Mouser</a>) and ChibiOS.</p>
 <p>This is a suitable starting point for integrating LispBM scripting into your own ChibiOS based projects.</p>
