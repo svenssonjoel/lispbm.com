@@ -5,10 +5,12 @@
   
   <meta charset="UTF-8">
   <meta name="description" content="LispBM is a lisp for microcontrollers with concurrency and message passing. Learn how to implement a Lisp interpreter with detailed articles on evaluators, garbage collection, parsing, and embedded REPL development. Used by VESC motor controllers.">
-  <meta name="keywords" content="lisp, scheme, lispbm, lbm, script, lisp programming, lisp programming language, scripting microcontrollers, script language, stm32, esp32, esp32 lisp, esp32 lisp programming, esp32 lisp interpreter, esp32 lisp repl, microcontroller lisp, lisp for microcontrollers, lisp implementation for embedded systems, embedded lisp implementation, embedded systems lisp, lisp embedded systems, programming, programming language, languages, PL, PLT, erlang, message passing, concurrency, runtime system, repl, read evaluate print loop, read eval print loop, llama, lispy the llama, lisp implementation, interpreter implementation, embedded interpreter, microcontroller interpreter, garbage collection, continuation passing style, evaluator, parser, tokenizer, register machine, bytecode compiler, embedded lisp tutorial, vesc lisp, lisp vesc, embedded scripting, microcontroller scripting">
+  <meta name="keywords" content="lispbm, lisp microcontroller, embedded lisp, esp32 lisp, stm32 lisp, freertos lisp, chibios lisp, zephyr lisp, vesc lisp, microcontroller scripting, embedded scripting, lisp interpreter, lisp repl, esp32c3 lisp, stm32f4 lisp, lisp audio programming, i2s audio lisp, concurrency message passing, lisp garbage collection, continuation passing style, bytecode compiler, embedded systems programming, iot scripting language, real-time scripting">
   <meta name="author" content="Bo Joel Svensson">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
+
+  <title>LispBM: Concurrent Lisp for Microcontrollers</title>
+
   <!-- SEO Meta Tags -->
   <link rel="canonical" href="https://www.lispbm.com/">
   <meta name="robots" content="index, follow">
@@ -75,10 +77,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
-  
-</HEAD> 
 
-<TITLE>LispBM: Concurrent Lisp for Microcontrollers</TITLE>
+</HEAD>
 
 <style type="text/css">
   /* Index-specific styles */
@@ -398,7 +398,7 @@ idf.py monitor
 <p>Prerequisites and building instructions are available in the README.md file in the <code>examples/stm32f4-discovery-i2s</code> directory.</p>
     
 
-<h3 id="getting-started-hard">Getting started on embedded: hard</h3>
+<h3 id="getting-started-hard">Roll your own LBM!</h3>
 <p>If you want to build your own lisp environment based on LispBM on
   top of ChibiOS, Zephyr, FreeRTOS or bare-metal then this is quite
   possible! </p>
