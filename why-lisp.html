@@ -66,31 +66,11 @@
 <style type="text/css">
   /* Page-specific styles */
 
-  .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 20px;
-  }
-
-
   .main-content {
       margin: 0;
       padding: 0;
       max-width: 100%;
       box-sizing: border-box;
-  }
-
-  pre {
-      overflow-x: auto;
-      border-radius: 5px;
-      background: #414449;
-      color: #b3bccc;
-      padding: 15px;
-      font-size: 13pt;
-      tab-size: 4;
-      -webkit-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
-      -moz-box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.75);
-      box-shadow: 0 0 8px 0 rgba(0, 0, 0, .75);
   }
 
   .highlight {
@@ -128,16 +108,26 @@
       background-color: #f8f9fa;
   }
 
-  /* Responsive design */
-  @media (max-width: 768px) {
-      .container {
-          padding: 10px;
-      }
+  /* Content wrapper */
+  .content-wrapper {
+      background: white;
+      padding: 30px;
+      margin: 30px 0;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
 
-      .main-title {
-          font-size: 2em;
-          margin: 20px 0;
-      }
+  .content-wrapper h1,
+  .content-wrapper h2 {
+      color: #007bff;
+      border-bottom: 2px solid #007bff;
+      padding-bottom: 10px;
+      margin-top: 30px;
+  }
+
+  .content-wrapper h1:first-child,
+  .content-wrapper h2:first-child {
+      margin-top: 0;
   }
 </style>
 
@@ -146,7 +136,8 @@
   <div class="banner"></div>
   <a href="index.html" class="back-link">← Back to Main Site</a>
 
-  <h1 id="why-lisp" class="main-title">Why Lisp?</h1>
+  <div class="content-wrapper">
+  <h1 id="why-lisp">Why Lisp?</h1>
 
 
   <h2>Personal motivation for making a Lisp</h2>
@@ -284,8 +275,8 @@
   <p>Finally, thanks to all the open source contributors, the computer
      science researchers whose work inspired LispBM's design, and anyone
      who has taken the time to try LispBM on their own projects.</p>
+  </div>
 
-    <!-- Content will be added here -->
 </div>
 
 </BODY>
