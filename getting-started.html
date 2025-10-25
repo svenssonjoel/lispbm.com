@@ -31,6 +31,155 @@
   <link rel="icon" href="./ico/favicon.ico">
   <link rel="manifest" href="./ico/site.webmanifest">
 
+  <!-- Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Getting Started with LispBM",
+    "description": "Step-by-step guides for getting LispBM running on VESC Express, ESP32C3, STM32F4, Linux, and Windows.",
+    "url": "https://www.lispbm.com/getting-started.html",
+    "author": {
+      "@type": "Person",
+      "name": "Bo Joel Svensson"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "LispBM Project",
+      "url": "https://www.lispbm.com"
+    },
+    "datePublished": "2025-01-20",
+    "dateModified": "2025-01-25",
+    "about": {
+      "@type": "SoftwareApplication",
+      "name": "LispBM",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Linux, Windows, ESP32, STM32, Embedded Systems"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Getting Started with LispBM on Linux",
+    "description": "Learn how to install and run LispBM REPL on Linux",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Clone the repository",
+        "text": "Clone the LispBM repository from GitHub",
+        "itemListElement": {
+          "@type": "HowToDirection",
+          "text": "git clone https://github.com/svenssonjoel/lispBM.git"
+        }
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Navigate to the REPL directory",
+        "text": "Change to the repl subdirectory",
+        "itemListElement": {
+          "@type": "HowToDirection",
+          "text": "cd lispBM && cd repl"
+        }
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Install dependencies",
+        "text": "Install required 32-bit libraries",
+        "itemListElement": {
+          "@type": "HowToDirection",
+          "text": "sudo apt install gcc-multilib libreadline-dev:i386 libpng-dev:i386"
+        }
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Build the REPL",
+        "text": "Compile the LispBM REPL",
+        "itemListElement": {
+          "@type": "HowToDirection",
+          "text": "make"
+        }
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Run the REPL",
+        "text": "Start the LispBM REPL",
+        "itemListElement": {
+          "@type": "HowToDirection",
+          "text": "./repl"
+        }
+      }
+    ],
+    "tool": [
+      {
+        "@type": "HowToTool",
+        "name": "gcc-multilib"
+      },
+      {
+        "@type": "HowToTool",
+        "name": "libreadline-dev"
+      },
+      {
+        "@type": "HowToTool",
+        "name": "libpng-dev"
+      }
+    ]
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "HowTo",
+    "name": "Getting Started with LispBM on ESP32C3",
+    "description": "Learn how to flash and run LispBM on ESP32C3 development board",
+    "step": [
+      {
+        "@type": "HowToStep",
+        "name": "Download precompiled binaries",
+        "text": "Get the ESP32C3 REPL binaries",
+        "url": "https://www.lispbm.com/dist/esp32c3-repl.zip"
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Flash the binaries",
+        "text": "Flash bootloader, partition table, and REPL to ESP32C3",
+        "itemListElement": {
+          "@type": "HowToDirection",
+          "text": "esptool.py --chip esp32c3 --port /dev/ttyUSB0 --baud 460800 write-flash 0x0 bootloader.bin 0x8000 partition-table.bin 0x10000 repl.bin"
+        }
+      },
+      {
+        "@type": "HowToStep",
+        "name": "Connect to the REPL",
+        "text": "Use a serial terminal to interact with LispBM",
+        "itemListElement": {
+          "@type": "HowToDirection",
+          "text": "Connect via minicom or serial terminal at 115200 baud"
+        }
+      }
+    ],
+    "tool": [
+      {
+        "@type": "HowToTool",
+        "name": "esptool.py"
+      },
+      {
+        "@type": "HowToTool",
+        "name": "ESP32C3 DevKit"
+      }
+    ],
+    "supply": [
+      {
+        "@type": "HowToSupply",
+        "name": "ESP32-C3-DevKitM-1"
+      }
+    ]
+  }
+  </script>
+
   <link rel="stylesheet" href="styles.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
