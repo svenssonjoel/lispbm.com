@@ -304,7 +304,9 @@
 </div>
 
 <div style="margin-top: 20px;">
-  <img id="randomCollageImage" src="" alt="Random collage image" style="max-width: 300px; max-height: 200px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);" loading="lazy"/>
+  <a href="gallery.html" style="display: inline-block; text-decoration: none;">
+    <img id="randomCollageImage" src="" alt="Random collage image" style="max-width: 300px; max-height: 200px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" loading="lazy"/>
+  </a>
   <p id="imageAttribution" style="color: #888; font-size: 0.8em; font-style: italic; margin-top: 8px;"></p>
 </div>
 </section>
