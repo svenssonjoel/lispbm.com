@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+
+  <meta charset="UTF-8">
+  <meta name="description" content="Get started with LispBM on your platform - VESC Express, ESP32C3, STM32F4, Linux, Windows, or build your own embedded Lisp environment.">
+  <meta name="keywords" content="lispbm getting started, install lispbm, esp32 lisp tutorial, stm32 lisp tutorial, vesc express lispbm, lispbm repl, embedded lisp setup">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Getting Started with LispBM</title>
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/getting-started.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="Getting Started with LispBM">
+  <meta property="og:description" content="Step-by-step guides for getting LispBM running on VESC Express, ESP32C3, STM32F4, Linux, and Windows.">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/getting-started.html">
+  <meta property="og:type" content="website">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./ico/favicon.ico">
+  <link rel="icon" href="./ico/favicon.ico">
+  <link rel="manifest" href="./ico/site.webmanifest">
+
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+</head>
+
+<style type="text/css">
+  /* Getting started page-specific styles */
+
+  .intro {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+
+  .platform-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 30px 0;
+  }
+
+  .platform-card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .platform-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .platform-card h3 {
+    color: #007bff;
+    margin-top: 0;
+  }
+
+  .platform-card .difficulty {
+    display: inline-block;
+    padding: 4px 12px;
+    border-radius: 4px;
+    font-size: 0.85em;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+
+  .difficulty.easiest {
+    background: #d4edda;
+    color: #155724;
+  }
+
+  .difficulty.easy {
+    background: #d1ecf1;
+    color: #0c5460;
+  }
+
+  .difficulty.moderate {
+    background: #fff3cd;
+    color: #856404;
+  }
+
+  .difficulty.advanced {
+    background: #f8d7da;
+    color: #721c24;
+  }
+
+  section h3 {
+    color: #0056b3;
+    margin-top: 30px;
+  }
+
+  section h4 {
+    color: #333;
+    margin-top: 20px;
+  }
+
+  ul {
+    line-height: 1.8;
+  }
+
+  /* Responsive design for platform grid */
+  @media (max-width: 768px) {
+    .platform-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<body class="with-background">
+
+<div class="container">
+  <a href="index.html" class="back-link">← Back to Home</a>
+
+  <section>
+  <h1>Getting Started with LispBM</h1>
+
+  
+    <p>The LispBM source code is available on <a href="https://www.github.com/svenssonjoel/lispbm">GitHub</a>, and the LispBM community is available on <a href="https://discord.gg/urtJUUMnwQ">Discord</a>.</p>
+
+    <p>Choose the platform that best suits your needs below. If you're completely new to LispBM, we recommend starting with either <strong>VESC Express</strong> (easiest, with full IDE support) or the <strong>Linux REPL</strong> (quick local development).</p>
+  </section>
+  
+<!--  <h2 style="text-align: center; color: #333; margin-bottom: 10px;">Choose Your Platform</h2>-->
+
+  <div class="platform-grid">
+    <div class="platform-card">
+      <h3>VESC Express</h3>
+      <span class="difficulty easiest">Easiest</span>
+      <p><strong>Best for:</strong> Beginners, motor control projects, quick prototyping</p>
+      <p>Full IDE support with VESC Tool, built-in CAN, WiFi, BLE, GPIO, and display drivers.</p>
+      <p><a href="#getting-started-vesc-express">Jump to guide →</a></p>
+    </div>
+
+    <div class="platform-card">
+      <h3>Linux REPL</h3>
+      <span class="difficulty easy">Easy</span>
+      <p><strong>Best for:</strong> Local development, learning LispBM, testing code</p>
+      <p>Quick setup for experimenting with LispBM on your development machine.</p>
+      <p><a href="#the-lbm-repl">Jump to guide →</a></p>
+    </div>
+
+    <div class="platform-card">
+      <h3>ESP32C3</h3>
+      <span class="difficulty easy">Easy</span>
+      <p><strong>Best for:</strong> FreeRTOS projects, IoT applications, ESP32 development</p>
+      <p>Precompiled binaries available for quick testing on ESP32C3 DevKit.</p>
+      <p><a href="#getting-started-esp32c3-easy-no-vesc">Jump to guide →</a></p>
+    </div>
+
+    <div class="platform-card">
+      <h3>STM32F4</h3>
+      <span class="difficulty moderate">Moderate</span>
+      <p><strong>Best for:</strong> ChibiOS projects, STM32 development, custom embedded systems</p>
+      <p>Example setup for STM32F407G Discovery board with ChibiOS.</p>
+      <p><a href="#getting-started-stm32f4-easy-no-vesc">Jump to guide →</a></p>
+    </div>
+
+    <div class="platform-card">
+      <h3>STM32F4 + I2S</h3>
+      <span class="difficulty moderate">Moderate</span>
+      <p><strong>Best for:</strong> Audio applications, signal processing, sound generation</p>
+      <p>LispBM for audio generation on STM32F4 with I2S support.</p>
+      <p><a href="#getting-started-stm32f4-i2s-easy-no-vesc">Jump to guide →</a></p>
+    </div>
+
+    <div class="platform-card">
+      <h3>Windows</h3>
+      <span class="difficulty easy">Easy</span>
+      <p><strong>Best for:</strong> Windows users, testing without Linux</p>
+      <p>Precompiled REPL for Windows (built with MinGW, tested with WINE).</p>
+      <p><a href="#lbm-for-windows">Jump to guide →</a></p>
+    </div>
+
+    <div class="platform-card">
+      <h3>Roll Your Own</h3>
+      <span class="difficulty advanced">Advanced</span>
+      <p><strong>Best for:</strong> Custom platforms, bare-metal, ZephyrOS, or unique requirements</p>
+      <p>Build your own LispBM environment from scratch.</p>
+      <p><a href="#getting-started-hard">Jump to guide →</a></p>
+    </div>
+  </div>
+
+  <!-- VESC EXPRESS -->
+  <section id="getting-started-vesc-express">
+    <h2>Getting Started on VESC EXPRESS</h2>
+    <p>The easiest way to get started with LispBM programming is to use <a href="https://vesc-project.com/vesc_tool">VESC Tool</a> together with the <a href="https://github.com/vedderb/vesc-express">VESC EXPRESS Firmware</a> on an <a href="https://docs.espressif.com/projects/esp-idf/en/latest/esp32c3/hw-reference/esp32c3/user-guide-devkitm-1.html">esp32c3</a>.</p>
+
+    <p>VESC-Tool gives you access to a very capable <a href="https://vesc-project.com/sites/default/files/lisp%20overview.png">IDE</a> for Lisp programming on embedded systems and the VESC Express firmware provides built-in functionality to interface with CAN, WiFi, BLE and UART as well as GPIO and display drivers.</p>
+
+    <p>Keep an eye on the <a href="https://www.vesclabs.com">VESC Labs</a> website for devices that come with LispBM per default.</p>
+  </section>
+
+  <!-- ESP32C3 -->
+  <section id="getting-started-esp32c3-easy-no-vesc">
+    <h2>Getting Started on ESP32C3</h2>
+    <p>In the directory <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/esp32c3">'examples/esp32c3'</a> there is an example setup
+       targeting the <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkitm-1/index.html">esp32c3-devkitm-mini1</a> (available on <a href="https://eu.mouser.com/new/espressif/espressif-systems-esp32-c3-devkitm-1-board/">Mouser</a> or <a href="https://www.digikey.com/en/products/detail/espressif-systems/ESP32-C3-DEVKITM-1-N4X/25587617">Digikey</a>) and FreeRTOS.</p>
+    <p>This is a suitable starting point for integrating LispBM scripting into your own FreeRTOS based projects.</p>
+
+    <h3>Precompiled Binaries</h3>
+    <p>For quick testing, precompiled binaries are available: <a href="./dist/esp32c3-repl.zip">esp32c3-repl.zip</a></p>
+    <p>The precompiled binaries can be flashed onto the development kit with the following command:</p>
+    <pre>esptool.py --chip esp32c3 --port /dev/ttyUSB0 --baud 460800 write-flash \
+    0x0 bootloader.bin \
+    0x8000 partition-table.bin \
+    0x10000 repl.bin</pre>
+
+    <h3>Building and Flashing</h3>
+    <p>To build and flash the ESP32C3 example, follow these steps:</p>
+
+    <p>First, process the flash partition table:</p>
+    <pre>idf.py partition-table</pre>
+
+    <p>Then build the project:</p>
+    <pre>idf.py build</pre>
+
+    <p>Flash the firmware to your ESP32C3:</p>
+    <pre>idf.py flash</pre>
+
+    <p>Finally, connect to the development kit using a serial terminal (such as minicom) or run:</p>
+    <pre>idf.py monitor</pre>
+
+    <p>You can now interact with a simple REPL on your ESP32C3.</p>
+  </section>
+
+  <!-- STM32F4 -->
+  <section id="getting-started-stm32f4-easy-no-vesc">
+    <h2>Getting Started on STM32F4</h2>
+    <p>In the directory <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/stm32f4-discovery"><code>examples/stm32f4-discovery</code></a> there is an example setup
+       targeting the <a href="https://www.st.com/en/evaluation-tools/stm32f4discovery.html">stm32f407G-disc1</a> (available on  <a href="https://www.mouser.se/ProductDetail/STMicroelectronics/STM32F407G-DISC1?qs=mKNKSX85ZJejxc9JOGT45A%3D%3D">Mouser</a>) and ChibiOS.</p>
+    <p>This is a suitable starting point for integrating LispBM scripting into your own ChibiOS based projects.</p>
+    <p>Prerequisites and building instructions are available in the README.md file in the <code>examples/stm32f4-discovery</code> directory.</p>
+  </section>
+
+  <!-- STM32F4 + I2S -->
+  <section id="getting-started-stm32f4-i2s-easy-no-vesc">
+    <h2>Getting Started on STM32F4 + I2S</h2>
+    <p>In the directory <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/stm32f4-discovery-i2s"><code>examples/stm32f4-discovery-i2s</code></a> there is an example setup
+       targeting the <a href="https://www.st.com/en/evaluation-tools/stm32f4discovery.html">stm32f407G-disc1</a> (available on  <a href="https://www.mouser.se/ProductDetail/STMicroelectronics/STM32F407G-DISC1?qs=mKNKSX85ZJejxc9JOGT45A%3D%3D">Mouser</a>) and ChibiOS.</p>
+    <p>This is a suitable starting point for integrating LispBM scripting for audio generation on your own ChibiOS based projects.</p>
+    <p>Prerequisites and building instructions are available in the README.md file in the <code>examples/stm32f4-discovery-i2s</code> directory.</p>
+  </section>
+
+  <!-- Roll Your Own -->
+  <section id="getting-started-hard">
+    <h2>Roll Your Own LBM!</h2>
+    <p>If you want to build your own lisp environment based on LispBM on
+      top of ChibiOS, Zephyr, FreeRTOS or bare-metal then this is quite
+      possible! </p>
+    <p>
+      For a simple example using FreeRTOS/ChibiOS, look at <a href="#getting-started-esp32c3-easy-no-vesc"> Getting started on embedded: ESP32C3</a>
+      and <a href="#getting-started-stm32f4-easy-no-vesc"> Getting started on embedded: STM32F4</a>. </p>
+    <p>
+      Another source for information on how to do LispBM and FreeRTOS, look at <a href="https://github.com/vedderb/vesc-express">VESC EXPRESS</a>.
+      For ChibiOS integration look at the benchmark runner <a href="https://github.com/svenssonjoel/lispBM/tree/master/benchmarks/bench-chibi">bench-chibi</a> or
+      for a more thorough integration <a href="https://github.com/vedderb/bldc">VESC BLDC</a>.
+      Finally there is also the <a href="https://github.com/svenssonjoel/lispBM/tree/master/repl">Linux REPL</a> that one can look at for ideas.
+    </p>
+  </section>
+
+  <!-- Linux REPL -->
+  <section id="the-lbm-repl">
+    <h2>Getting Started on Linux</h2>
+
+    <p> Start by cloning the LispBM repository. Open a terminal and issue the command:</p>
+
+    <pre>git clone https://github.com/svenssonjoel/lispBM.git</pre>
+
+    <p> You should now have a directory called lispBM. Go into it and into the <code>repl</code> subdirectory. </p>
+
+    <pre>cd lispBM
+cd repl</pre>
+
+    <p> Now, you have multiple choices on how to build the REPL. To build the 32-bit version (which is most similar to what you will run on a microcontroller), issue the <code>make</code> command. </p>
+    <pre>make</pre>
+
+    <p> If the make command above fails, it is most likely because there are some missing dependencies. </p>
+    <p> Building the 32-bit version of the REPL requires 32-bit libraries. If you are on an Ubuntu platform, you get 32-bit standard libraries by installing <code>gcc-multilib</code>. </p>
+    <p> In addition to <code>gcc-multilib</code>, the REPL requires libreadline and libpng. You need to get the 32-bit versions of these libraries. On Ubuntu, you can run the following commands: </p>
+
+    <pre>sudo apt install gcc-multilib libreadline-dev:i386 libpng-dev:i386</pre>
+
+    <p> If you were unable to install the 32-bit dependencies with the command above, you may need to instruct the package manager that you are interested in 32-bit packages as well:</p>
+
+    <pre>sudo dpkg --add-architecture i386</pre>
+
+    <p> Then retry the previous step to install the dependencies. </p>
+
+    <p> If installing the dependencies finished successfully, <code>make</code> should now work and the REPL executable should be built. </p>
+
+    <p> Start the REPL and explore! </p>
+
+    <pre>./repl</pre>
+
+    <p> You should now be greeted by the LispBM REPL in a way similar to what is shown below.</p>
+
+    <pre>Lisp REPL started! (LBM Version: 0.27.1)
+Type :quit to exit.
+     :info for statistics.
+     :load [filename] to load lisp source.
+#</pre>
+
+    <p> Try to evaluate some expressions. Type <code>(+ 1 2)</code> and press enter. </p>
+
+    <pre>Lisp REPL started! (LBM Version: 0.27.1)
+Type :quit to exit.
+     :info for statistics.
+     :load [filename] to load lisp source.
+# (+ 1 2)
+> 3
+# </pre>
+
+    <p> When you input code at the <code>#</code> prompt, LispBM answers on a new line starting with <code>></code>.</p>
+
+    <h3>Building 64-bit Version</h3>
+
+    <p> Alternatively, the REPL can be built as a 64-bit binary. Building the 64-bit binary requires 64-bit versions of the readline and png libraries. </p>
+    <p> On Ubuntu, you get the dependencies by doing <code>sudo apt install libreadline-dev libpng-dev</code>. Then, to build the executable, you issue the following command:</p>
+
+    <pre>make all64</pre>
+
+    <h3>Building with SDL Support</h3>
+
+    <p> Lastly, the REPL can be built with <a href="https://www.libsdl.org/">SDL (Simple Directmedia Layer)</a> for graphical output.
+    This is done by issuing the following command:</p>
+
+    <pre>make sdl64</pre>
+
+    <p> Or for 32-bit:</p>
+
+    <pre>make sdl</pre>
+
+    <p>The REPL with SDL requires <code>libsdl2-dev</code> and <code>libsdl2-image-dev</code> libraries or
+    the 32-bit versions (for 32-bit REPL binary) <code>libsdl2-dev:i386</code> and <code>libsdl2-image-dev:i386</code>.</p>
+  </section>
+
+  <!-- Windows -->
+  <section id="lbm-for-windows">
+    <h2>Getting Started on Windows</h2>
+
+    <p>There is a precompiled REPL for Windows <a href="winlbm/winlbm_0.33.0b.zip">here</a>. This REPL is
+    built using <a href="https://www.mingw-w64.org/">MINGW</a> on a Linux machine and tested under <a href="https://www.winehq.org/">WINE</a>.</p>
+
+    <p>The following DLLs are required (some are included in the zip file):</p>
+    <ul>
+      <li>KERNEL32.dll, msvcrt.dll, WS2-32.dll (Windows system DLLs)</li>
+      <li>SDL2.dll, SDL2-image.dll, libpng16-16.dll</li>
+      <li>history5.dll, readline5.dll</li>
+      <li>zlib1.dll (may also be required)</li>
+    </ul>
+
+    <p>To run the REPL, execute <code>lbm32.exe</code> in console (cmd) or PowerShell. If there are errors involving VirtualAlloc, try to run as administrator.</p>
+
+    <p>Help with debugging and testing of the Windows version is much appreciated. If you want to help out with building and testing LBM on an actual Windows machine, let me know.</p>
+  </section>
+
+  <div style="text-align: center; margin: 40px 0;">
+    <a href="index.html" class="back-link">← Back to Home</a>
+  </div>
+
+</div>
+
+</body>
+</html>
