@@ -557,15 +557,32 @@ correctly configured LispBM system) will be removed.
 
 <p>Below, you can find performance charts illustrating LispBM&#8217;s performance on a set of benchmarks:</p>
 
-<div class="image-comparison">
-  <figure>
-    <img src="./images/benchresults.png" alt="LispBM performance benchmarks chart showing execution times" loading="lazy" />
-    <figcaption>Performance benchmarks with linear scale</figcaption>
+<div style="display: flex; flex-direction: column; gap: 30px; margin: 20px 0;">
+  <figure style="margin: 0; text-align: center;">
+    <img src="./images/frame_176.png" alt="LispBM performance benchmarks chart showing execution times"
+         loading="lazy"
+         onclick="openVideoModal()"
+         style="width: 100%; height: auto; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); cursor: pointer; transition: transform 0.2s, opacity 0.2s;"
+         onmouseover="this.style.transform='scale(1.02)'; this.style.opacity='0.9'"
+         onmouseout="this.style.transform='scale(1)'; this.style.opacity='1'" />
+    <figcaption style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;">Performance benchmarks with linear scale (click to view animation)</figcaption>
   </figure>
-  <figure>
-    <img src="./images/benchresults_log.png" alt="LispBM performance benchmarks chart with logarithmic scale" loading="lazy" />
-    <figcaption>Performance benchmarks with logarithmic scale</figcaption>
+  <figure style="margin: 0; text-align: center;">
+    <img src="./images/benchresults_log.png" alt="LispBM performance benchmarks chart with logarithmic scale" loading="lazy" style="width: 100%; height: auto; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);" />
+    <figcaption style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;">Performance benchmarks with logarithmic scale</figcaption>
   </figure>
+</div>
+
+<!-- Video Modal -->
+<div id="videoModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); overflow: auto;" onclick="closeVideoModal()">
+  <div style="position: relative; width: 90%; max-width: 1200px; margin: 50px auto;">
+    <span style="position: absolute; top: -40px; right: 0; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;" onclick="closeVideoModal()">&times;</span>
+    <video id="modalVideo" controls autoplay style="width: 100%; height: auto; border-radius: 5px;">
+      <source src="./lbm_performance_history.mp4" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+    <p style="color: #f1f1f1; text-align: center; margin-top: 15px; font-size: 1.1em;">LispBM Performance History Over Time</p>
+  </div>
 </div>
 
 <p>If you&#8217;re interested in the technical details and benchmarks, you can explore our benchmark code <a href="https://github.com/svenssonjoel/lispBM/tree/master/benchmarks">here</a></p>
@@ -791,6 +808,29 @@ document.querySelectorAll('.nav-links a').forEach(link => {
   link.addEventListener('click', function() {
     document.getElementById('navLinks').classList.remove('show');
   });
+});
+
+// Video modal functions
+function openVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  modal.style.display = 'block';
+  video.play();
+}
+
+function closeVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  modal.style.display = 'none';
+  video.pause();
+  video.currentTime = 0;
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeVideoModal();
+  }
 });
 </script>
 
