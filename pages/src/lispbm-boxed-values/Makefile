@@ -8,7 +8,7 @@ TITLE = Boxed Values
 DESCRIPTION = Boxed Values in LispBM
 KEYWORDS = lisp, lispbm, boxed values, heap, memory representation, microcontroller lisp, embedded lisp, stm32, esp32, memory management
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

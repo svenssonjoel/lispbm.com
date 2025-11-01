@@ -8,7 +8,7 @@ TITLE = Implement a LispBM REPL in a ChibiOs Thread
 DESCRIPTION = Example code on how to set up a REPL running in a ChibiOs Thread
 KEYWORDS = chibios, stm32f4, stm32, repl, lisp, lispbm, microcontroller, embedded lisp, real time, threads, mcu 
 YEAR  = 2020
-LINK  = https://wwwlispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

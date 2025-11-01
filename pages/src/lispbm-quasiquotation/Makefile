@@ -8,7 +8,7 @@ TITLE = Implementation of Quasiquotation in LispBM
 DESCRIPTION = A first go at adding quasiquotation to lispBM 
 KEYWORDS = lisp quasiquotation, quasiquote, quotation, lisp macros, lispbm, microcontrollers, interpreter, stm32, nrf52, esp32  
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

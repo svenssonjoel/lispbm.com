@@ -8,7 +8,7 @@ TITLE = Compressed Source Code in lispBM
 DESCRIPTION = LispBM can parse compressed source code, this text shows the implementation.
 KEYWORDS = huffman coding, compression, code compression, lisp compression, lispbm, embedded compression, stm32, nrf52, source code compression
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

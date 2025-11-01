@@ -8,7 +8,7 @@ TITLE = Implementation of a REPL for Zephyr OS
 DESCRIPTION = Example code on how to set up a REPL running under Zephyr OS
 KEYWORDS = nrf52, zephyr, zephyr os, stlink, lisp, lispbm, repl, microcontroller, embedded lisp, nordic 
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

@@ -8,7 +8,7 @@ TITLE = Implement a LispBM REPL for the ESP32 MCU
 DESCRIPTION = Example of how to implement and compile a LispBM REPL for ESP32
 KEYWORDS = esp32, esp32 lisp, freertos, lisp, lispbm, microcontroller, embedded lisp, repl, esp32 repl, mcu 
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

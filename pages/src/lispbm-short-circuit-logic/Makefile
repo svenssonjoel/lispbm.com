@@ -8,7 +8,7 @@ TITLE = Adding Short Circuit Capable Boolean Operators
 DESCRIPTION = An attempt at adding Short Circuit Capable Boolean Operators to LispBM
 KEYWORDS = boolean short circuit, short circuit operators, lisp logic, boolean evaluation, lispbm, microcontroller, stm32, nrf52, esp32
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

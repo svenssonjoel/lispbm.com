@@ -8,7 +8,7 @@ TITLE = Concurrent Tasks - Part 2 - Spawn an
 DESCRIPTION = Implementation of spawn and wait for lispBM task
 KEYWORDS = lisp concurrency, message passing, concurrent tasks, erlang style, actor model, lispbm, microcontrollers, stm32, esp32 
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

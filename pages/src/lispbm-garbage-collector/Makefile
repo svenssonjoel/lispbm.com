@@ -8,7 +8,7 @@ TITLE = Garbage Collection in LispBM
 DESCRIPTION = A Walkthrough of the implementation of the garbage collector in lispBM
 KEYWORDS = garbage collection, mark and sweep, memory management, lisp, lispbm, microcontroller, embedded gc, stm32, mcu 
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 
