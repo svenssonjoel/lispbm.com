@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>LispBM - Concurrent Lisp for Microcontrollers</title>
+    <link>https://www.lispbm.com/</link>
+    <description>LispBM is a Lisp/Scheme dialect for microcontrollers with concurrency and message passing. Stay updated on releases, features, and community projects.</description>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 01 Nov 2025 00:00:00 GMT</lastBuildDate>
+    <atom:link href="https://www.lispbm.com/feed.xml" rel="self" type="application/rss+xml" />
+    <image>
+      <url>https://www.lispbm.com/images/lispbm_llama_small.png</url>
+      <title>LispBM</title>
+      <link>https://www.lispbm.com/</link>
+    </image>
+
+    <item>
+      <title>LispBM 0.34.1 Released</title>
+      <link>https://github.com/svenssonjoel/lispBM/releases/tag/0.34.1</link>
+      <description>LispBM version 0.34.1 is now available with bug fixes, improvements, and new features. Download the latest release from GitHub.</description>
+      <pubDate>Mon, 28 Oct 2024 00:00:00 GMT</pubDate>
+      <guid>https://github.com/svenssonjoel/lispBM/releases/tag/0.34.1</guid>
+    </item>
+
+    <item>
+      <title>LispBM Gallery - Community Showcase</title>
+      <link>https://www.lispbm.com/gallery.html</link>
+      <description>Explore projects and creations from the LispBM community. See what people are building with LispBM on microcontrollers.</description>
+      <pubDate>Fri, 25 Jan 2025 00:00:00 GMT</pubDate>
+      <guid>https://www.lispbm.com/gallery.html</guid>
+    </item>
+
+    <item>
+      <title>Getting Started with LispBM</title>
+      <link>https://www.lispbm.com/getting-started.html</link>
+      <description>Get started with LispBM on your platform - VESC Express, ESP32C3, STM32F4, Linux, Windows, or build your own embedded Lisp environment.</description>
+      <pubDate>Fri, 25 Jan 2025 00:00:00 GMT</pubDate>
+      <guid>https://www.lispbm.com/getting-started.html</guid>
+    </item>
+
+    <item>
+      <title>Why Lisp? The Story Behind LispBM</title>
+      <link>https://www.lispbm.com/why-lisp.html</link>
+      <description>Discover why Lisp is perfect for embedded systems. The personal story behind LispBM, from hobby project to production system in VESC controllers.</description>
+      <pubDate>Fri, 25 Jan 2025 00:00:00 GMT</pubDate>
+      <guid>https://www.lispbm.com/why-lisp.html</guid>
+    </item>
+
+  </channel>
+</rss>
