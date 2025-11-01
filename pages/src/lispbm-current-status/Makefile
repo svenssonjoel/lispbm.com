@@ -9,7 +9,7 @@ TITLE = Another Lisp for Microcontrollers
 DESCRIPTION = A quick walkthrough of the lispBM implementation
 KEYWORDS = lispbm status, lisp implementation, microcontroller lisp, embedded lisp, stm32, nrf52, esp32, continuation passing style, xilinx zynq 
 YEAR = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

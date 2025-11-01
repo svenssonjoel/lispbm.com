@@ -8,7 +8,7 @@ TITLE = Fundamental Operations and Platform Specific Extensions
 DESCRIPTION = walkthrough of how the fundamental operations and the system for extensions are implemneted in lispBM
 KEYWORDS = lisp fundamentals, lisp extensions, lisp interpreter, language implementation, lispbm, microcontroller, stm32, nrf52, embedded lisp
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

@@ -8,7 +8,7 @@ TITLE = Concurrent Tasks
 DESCRIPTION = An attempt to run multiple concurrent lispbm tasks
 KEYWORDS = lisp concurrency, concurrent tasks, task spawn, concurrent programming, lispbm, microcontrollers, embedded concurrency, stm32, esp32  
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

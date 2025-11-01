@@ -8,7 +8,7 @@ TITLE = A Closer Look at LispBM's Evaluation Function
 DESCRIPTION = Evaluation in continuation passing style in C 
 KEYWORDS = lisp eval, eval lisp, continuation passing style, CPS, interpreter, evaluator, lispbm, microcontroller, stm32, nrf52, embedded lisp  
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 

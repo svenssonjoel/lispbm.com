@@ -8,7 +8,7 @@ TITLE = Register Machine Evaluation of Expressions
 DESCRIPTION = Evaluating lispBM expressions using a register machine
 KEYWORDS = register machine, lisp evaluation, virtual machine, interpreter implementation, lispbm, evaluation model, lisp vm
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 
 all: $(HTML)

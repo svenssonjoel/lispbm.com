@@ -8,7 +8,7 @@ TITLE = Parsing Lisp Expressions
 DESCRIPTION = How LispBM Parses Expressions
 KEYWORDS = lisp parsing, parser, tokenizer, parsing expressions, lisp interpreter, lispbm, compression, embedded lisp
 YEAR  = 2020
-LINK  = https://www.lispbm.com/pages/$(DIR)/index.html
+LINK  = https://www.lispbm.com/pages/$(DIR)/
 
 all: $(HTML)
 
