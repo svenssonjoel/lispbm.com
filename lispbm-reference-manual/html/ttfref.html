@@ -1,0 +1,496 @@
+<HTML lang="en-US">
+
+<HEAD>  
+
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM Reference Documentation - LispBM TTF Font Library">
+  <meta name="keywords" content="lispbm, lisp, reference, documentation, embedded lisp, microcontroller, LispBM TTF Font Library">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+
+  <link rel="canonical" href="https://www.lispbm.com/lispbm-reference-manual/ttfref/" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+
+  <meta property="og:title" content="LispBM TTF Font Library">
+  <meta property="og:description" content="LispBM Reference Documentation - LispBM TTF Font Library">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/lispbm-reference-manual/ttfref/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM TTF Font Library">
+  <meta name="twitter:description" content="LispBM Reference Documentation - LispBM TTF Font Library">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.lispbm.com/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.lispbm.com/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.lispbm.com/ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
+
+  <link rel="stylesheet" href="../../styles.css">
+
+</HEAD> 
+
+<TITLE>LispBM TTF Font Library</TITLE>
+
+<BODY class="with-background">
+
+<div class="container">
+  <div class="banner"></div>
+
+  <div class="nav-menu">
+    <a href="https://www.lispbm.com/" class="back-link">← Back to LispBM Home</a>
+  </div>
+
+<!-- Content starts here --> 
+
+<h1 id="lispbm-ttf-font-library">LispBM TTF Font Library</h1>
+<p>The LispBM TTF font extensions are based on the <a
+href="https://github.com/tomolt/libschrift">libschrift</a> library</p>
+<h1 id="binary-format-description">Binary format description</h1>
+<p>The LispBM TrueType font support works in two phases. The first phase
+is called prepare and it prerenders selected glyphs into a custom binary
+format that we feel are more suitable for small embedded systems. This
+prerendering can be done offline and then only the binary blob be
+uploaded to the embedded system or it can be used on-demand if there is
+resources and a need for that.</p>
+<p>The binary format starts with a preamble</p>
+<ul>
+<li>0 - uint16</li>
+<li>version - uint16</li>
+<li>"font" - zero terminated string</li>
+</ul>
+<p>Following the preamble a number of different tables will be stored.
+Each table starts with a string (zero terminated) indicating what kind
+of table it is. Following the table string is 4 byte size field. This is
+common to all tables:</p>
+<ul>
+<li>kind - zero terminated string</li>
+<li>size - uint32</li>
+</ul>
+<p>The different kinds of tables that can occur after the preamble
+are:</p>
+<ul>
+<li>Line metrics table - "lmtx"</li>
+<li>Kerning table - "kern"</li>
+<li>Glyph table - "glyphs"</li>
+</ul>
+<p><strong>Line metrics</strong></p>
+<ul>
+<li>"lmtx" - zero terminated string</li>
+<li>size - uint32</li>
+<li>ascender - float32</li>
+<li>descender - float32</li>
+<li>line_gap - float32</li>
+</ul>
+<p><strong>Kerning table</strong></p>
+<ul>
+<li>"kern" - zero terminated string</li>
+<li>size - uint32</li>
+<li>num_rows - uint32</li>
+<li>rows - kern_table_row[]</li>
+</ul>
+<p>kern_table_row:</p>
+<ul>
+<li>utf32 : uint32</li>
+<li>num_pairs : uint32</li>
+<li>pairs - kern_pair[]</li>
+</ul>
+<p>kern_pair:</p>
+<ul>
+<li>utf32 : uint32</li>
+<li>x_shift : float32</li>
+<li>y_shift : float32</li>
+</ul>
+<p><strong>Glyph table</strong></p>
+<ul>
+<li>"glyphs" - zero terminated string</li>
+<li>size - uint32</li>
+<li>num_glyphs - uint32</li>
+<li>format - uint32</li>
+<li>glyps - glyph[]</li>
+</ul>
+<p>glyph:</p>
+<ul>
+<li>utf32 : uint32</li>
+<li>advance_width : float32</li>
+<li>left_side_bearing : float32</li>
+<li>y_offset : int32</li>
+<li>width : int32</li>
+<li>height : int32</li>
+<li>data : uint8[]</li>
+</ul>
+<h1 id="reference">Reference</h1>
+<h3 id="ttf-prepare">ttf-prepare</h3>
+<p><code>ttf-prepare</code> initializes font and prerenders glyphs. The
+result of <code>ttf-prepare</code> is a binary blob conaining all the
+information needed to print text using the prepared glyphs The form of a
+<code>ttf-prepare</code> expression is:
+<code>(ttf-prepare font-data scale img-format utf8-str)</code>.</p>
+<ul>
+<li>font-data : A ttf font file loaded or imported</li>
+<li>scale : Floating point value specifying text size scaling.</li>
+<li>img-format : Prerendering format. Formats are described in the <a
+href="./displayref.md">displayref</a>.</li>
+<li>utf8-str : A string containing the UTF8 characters to
+prerender.</li>
+</ul>
+<p>Note that only characters mentioned in the <code>utf-string</code>
+will be usable.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(define b (ttf-prepare font <span class="dv">32</span> <span class="at">&#39;indexed4</span> <span class="st">&quot;helo wrd!&quot;</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">102</span> <span class="dv">111</span> <span class="dv">110</span> <span class="dv">116</span> <span class="dv">0</span> <span class="dv">108</span> <span class="dv">109</span> <span class="dv">116</span> <span class="dv">120</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">12</span> <span class="dv">65</span> <span class="dv">238</span> <span class="dv">151</span> <span class="dv">142</span> <span class="dv">192</span> <span class="dv">193</span> <span class="dv">137</span> <span class="dv">56</span> <span class="dv">63</span> <span class="dv">101</span> <span class="dv">96</span> <span class="dv">66</span> <span class="dv">107</span> <span class="dv">101</span> <span class="dv">114</span> <span class="dv">110</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">96</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">4</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">104</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">119</span> <span class="dv">190</span> <span class="dv">212</span> <span class="dv">253</span> <span class="dv">244</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">111</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">119</span> <span class="dv">190</span> <span class="dv">212</span> <span class="dv">253</span> <span class="dv">244</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">114</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> </span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>Note try to not put duplicate characters in the utf8-str. Duplicate
+characters use extra memory temporarily which could be a problem if you
+are already low on mem.</p>
+<hr />
+<h3 id="ttf-text">ttf-text</h3>
+<p><code>ttf-text</code> draws text on an image from the <a
+href="./displayref.md">display library</a>. The form of an
+<code>ttf-text</code> expression is
+<code>(ttf-text img pos-x pos-y colors font-blob utf8-str opt-dir opt-linespacing)</code>.</p>
+<ul>
+<li>img : A display library image.</li>
+<li>pos-x : Horizontal placement of text within the image.</li>
+<li>pos-y : Vertical placement of text within the image.</li>
+<li>colors : List of colors to use for antialiasing.</li>
+<li>font-blob : The font object created by
+<code>ttf-prepare</code>.</li>
+<li>utf8-str : The text to draw.</li>
+<li>opt-dir : Optional argument specifying direction up or down using
+symbols <code>up</code> and <code>down</code>.</li>
+<li>opt-linespacing : A binary number specifying a scaling of the
+linespacing.</li>
+</ul>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(define aa-red &#39;(<span class="dv">0</span> <span class="dv">4456448</span> <span class="dv">10027008</span> <span class="dv">16711680</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span> <span class="dv">4456448</span> <span class="dv">10027008</span> <span class="dv">16711680</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td> Example </td> <td> Image </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(ttf-text disp <span class="dv">70</span> <span class="dv">120</span> aa-red b <span class="st">&quot;hello world!&quot;</span>)</span></code></pre></div>
+</td>
+<td>
+
+<img src=./images/ttf-img1.png >
+
+</td>
+<td>
+
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(ttf-text disp <span class="dv">20</span> <span class="dv">40</span> aa-red b <span class="st">&quot;hello&quot;</span> <span class="at">&#39;down</span>)</span></code></pre></div>
+</td>
+<td>
+
+<img src=./images/ttf-img2.png >
+
+</td>
+<td>
+
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(ttf-text disp <span class="dv">50</span> <span class="dv">90</span> aa-red b <span class="st">&quot;hello&quot;</span> <span class="at">&#39;up</span>)</span></code></pre></div>
+</td>
+<td>
+
+<img src=./images/ttf-img3.png >
+
+</td>
+<td>
+
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(ttf-text disp <span class="dv">70</span> <span class="dv">90</span> aa-red b <span class="st">&quot;hello</span><span class="sc">\n</span><span class="st">world!&quot;</span>)</span></code></pre></div>
+</td>
+<td>
+
+<img src=./images/ttf-img4.png >
+
+</td>
+<td>
+
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(ttf-text disp <span class="dv">70</span> <span class="dv">90</span> aa-red b <span class="st">&quot;hello</span><span class="sc">\n</span><span class="st">world!&quot;</span> <span class="fl">2.0</span> )</span></code></pre></div>
+</td>
+<td>
+
+<img src=./images/ttf-img5.png >
+
+</td>
+<td>
+
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="ttf-line-height">ttf-line-height</h3>
+<p>Obtain line-height from a prepared font object.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(ttf-line-height b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fl">36.768002</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="ttf-ascender">ttf-ascender</h3>
+<p>Obtain the ascender metrics from a prepared font object.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(ttf-ascender b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fl">29.824001</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="ttf-descender">ttf-descender</h3>
+<p>Obtain the descender metrics from a prepared font object.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(ttf-descender b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>-<span class="fl">6.048000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="ttf-line-gap">ttf-line-gap</h3>
+<p>Obtain the line-gap metrics from a prepared font object.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(ttf-line-gap b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.896000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="ttf-glyph-dims">ttf-glyph-dims</h3>
+<p>Obtain the dimensions of a glyph from a prepared font object.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(ttf-glyph-dims b <span class="st">&quot;o&quot;</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb24"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">18</span>u <span class="dv">20</span>u)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="ttf-text-dims">ttf-text-dims</h3>
+<p>Obtain the dimensions of a string of text rendered using a prepared
+font object.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb25"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>(ttf-text-dims b <span class="st">&quot;hello&quot;</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb26"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">72</span>u <span class="dv">36</span>u)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h1 id="examples">Examples</h1>
+<h3 id="example-using-a-font">Example: Using a font</h3>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>(img-clear disp)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb28"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td> Example </td> <td> Image </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb29"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">import</span> <span class="st">&quot;Roboto-Regular.ttf&quot;</span> <span class="at">&#39;roboto</span>)</span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>(define ft (ttf-prepare roboto <span class="dv">32</span> <span class="at">&#39;indexed4</span> <span class="st">&quot;helo wrd&quot;</span>))</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>(define aa-green &#39;(<span class="dv">0</span> <span class="dv">17408</span> <span class="dv">39168</span> <span class="dv">65280</span>))</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>(ttf-text disp <span class="dv">40</span> <span class="dv">40</span> aa-green ft <span class="st">&quot;hello world&quot;</span>)</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>(disp-render disp <span class="dv">0</span> <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<img src=./images/ttf-img6.png >
+
+</td>
+<td>
+
+<div class="sourceCode" id="cb30"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<p>This document was generated by LispBM version 0.34.2</p>
+</div> <!-- Close container -->
+
+<footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
+  <p>
+    <a href="https://www.lispbm.com/" class="back-link">← Back to LispBM Home</a>
+  </p>
+
+  <p>
+    Please contact me with questions, suggestions or feedback at blog
+    (dot) joel (dot) svensson (at) gmail (dot) com or join the
+    <a href="https://groups.google.com/g/svenssonjoelgithubio"> google group</a>. 
+  </p>
+
+  <p>&copy; Copyright 2025 Bo Joel Svensson</p>
+
+  <p><small>This page was generated using <a href="https://pandoc.org/">Pandoc</a>.</small></p>
+</footer>
+
+</BODY>
+</HTML>

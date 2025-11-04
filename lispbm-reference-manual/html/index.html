@@ -1,0 +1,179 @@
+<HTML lang="en-US">
+
+<HEAD>
+
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM Reference Manual - Searchable documentation for LispBM functions and features">
+  <meta name="keywords" content="lispbm, lisp, reference, documentation, embedded lisp, microcontroller, search">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/lispbm-reference-manual/" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM Reference Manual">
+  <meta property="og:description" content="Searchable reference documentation for LispBM">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/lispbm-reference-manual/">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM Reference Manual">
+  <meta name="twitter:description" content="Searchable reference documentation for LispBM">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.lispbm.com/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.lispbm.com/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.lispbm.com/ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
+
+  <link rel="stylesheet" href="../styles.css">
+
+  <!-- Pagefind CSS -->
+  <link href="./pagefind/pagefind-ui.css" rel="stylesheet">
+
+  <style>
+    .reference-links {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 30px 0;
+    }
+
+    .reference-card {
+      padding: 20px;
+      border: 1px solid #dee2e6;
+      border-radius: 8px;
+      background: white;
+      transition: box-shadow 0.2s;
+    }
+
+    .reference-card:hover {
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+
+    .reference-card h3 {
+      margin-top: 0;
+      margin-bottom: 10px;
+    }
+
+    .reference-card a {
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .reference-card a:hover {
+      text-decoration: underline;
+    }
+
+    .reference-card p {
+      margin: 0;
+      color: #666;
+      font-size: 0.9em;
+    }
+
+    .search-section {
+      margin: 40px 0;
+      padding: 30px;
+      background: #f8f9fa;
+      border-radius: 8px;
+    }
+
+    .search-section h2 {
+      margin-top: 0;
+    }
+  </style>
+
+</HEAD>
+
+<TITLE>LispBM Reference Manual</TITLE>
+
+<BODY class="with-background">
+
+<div class="container">
+  <div class="banner"></div>
+
+  <div class="nav-menu">
+    <a href="https://www.lispbm.com/" class="back-link">← Back to LispBM Home</a>
+  </div>
+
+
+<!-- Content starts here -->
+
+<h1>LispBM Reference Manual</h1>
+  
+<div class="search-section">
+  <h2>Search Documentation</h2>
+  <div id="search"></div>
+</div>
+
+<h2>Reference Sections</h2>
+
+<div class="reference-links">
+  <div class="reference-card">
+    <h3><a href="lbmref.html">LispBM Core Reference</a></h3>
+    <p>Complete reference for LispBM core functions, special forms, and language features.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3><a href="displayref.html">Display Library</a></h3>
+    <p>Graphics and display functions for embedded platforms with limited memory.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3><a href="ttfref.html">TrueType Font Reference</a></h3>
+    <p>Functions for rendering TrueType fonts on displays.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3><a href="dynref.html">Dynamic Extensions</a></h3>
+    <p>Documentation for dynamically loadable extensions.</p>
+  </div>
+
+  <div class="reference-card">
+    <h3><a href="runtimeref.html">Runtime Reference</a></h3>
+    <p>Runtime system functions and configuration.</p>
+  </div>
+  
+</div>
+
+</div> <!-- Close container -->
+
+<!-- Pagefind JS -->
+<script src="./pagefind/pagefind-ui.js"></script>
+<script>
+    window.addEventListener('DOMContentLoaded', (event) => {
+        new PagefindUI({
+            element: "#search",
+            showSubResults: true,
+            excerptLength: 15,
+            bundlePath: "./pagefind/"
+        });
+    });
+</script>
+
+<footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
+  <p>
+    <a href="https://www.lispbm.com/" class="back-link">← Back to LispBM Home</a>
+  </p>
+
+  <p>
+    Please contact me with questions, suggestions or feedback at blog
+    (dot) joel (dot) svensson (at) gmail (dot) com or join the
+    <a href="https://discord.gg/BYD5TStb">Discord server</a>.
+  </p>
+
+  <p>&copy; Copyright 2025 Bo Joel Svensson</p>
+  
+</footer>
+
+</BODY>
+</HTML>
