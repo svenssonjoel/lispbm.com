@@ -148,15 +148,14 @@
 </div> <!-- Close container -->
 
 <!-- Pagefind JS -->
-<script src="./pagefind/pagefind-ui.js"></script>
-<script>
+<script src="./pagefind/pagefind-ui.js" type="text/javascript"></script>
+<script type="text/javascript">
     window.addEventListener('DOMContentLoaded', (event) => {
-        new PagefindUI({
+        new window.PagefindUI({
             element: "#search",
             showSubResults: true,
             excerptLength: 15,
-            basePath: "/lispbm-reference-manual/html",
-            bundlePath: "/lispbm-reference-manual/html/pagefind/"
+            basePath: "/lispbm-reference-manual/html/"
         });
     });
 </script>
