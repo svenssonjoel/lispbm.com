@@ -44,7 +44,7 @@
   <title></title>
 </head>
 
-<body data-pagefind-filter="Platform:VESC" data-pagefind-filter="Document:Vesc Express Display">
+<body>
 
 <div style="max-width: 900px; margin: 0 auto; padding: 20px;">
   <div style="margin-bottom: 20px;">
@@ -52,6 +52,10 @@
   </div>
 
 <!-- Content starts here -->
+
+<div data-pagefind-body>
+<div data-pagefind-filter="Platform">VESC</div>
+<div data-pagefind-filter="Document">Vesc Express Display</div>
 
 <h1
 id="documentation-for-graphics-library-and-display-drivers">Documentation
@@ -792,6 +796,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb74-1"><a hre
 <span id="cb74-13"><a href="#cb74-13" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">0</span> <span class="dv">0</span> (<span class="kw">list</span> <span class="bn">0x000000</span> <span class="bn">0xFF0000</span>))</span></code></pre></div>
 <p><img src="./resources/blit_attributes.jpg"
 alt="Bliting with different attributes" /></p>
+</div> <!-- Close pagefind-body -->
 </div> <!-- Close container -->
 
 <footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
