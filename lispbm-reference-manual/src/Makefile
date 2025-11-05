@@ -21,12 +21,11 @@ all: $(HTML) copy index
 	@BASENAME=$$(basename $< .md); \
 	DOCNAME=$$(echo $$BASENAME | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g'); \
 	if echo "$<" | grep -q "vesc"; then \
-	  sed -i "s|<body>|<body data-pagefind-filter=\"Platform:VESC\">|" $@; \
-	  sed -i "s|<body data-pagefind-filter=\"Platform:VESC\">|<body data-pagefind-filter=\"Platform:VESC\" data-pagefind-filter=\"Document:$$DOCNAME\">|" $@; \
+	  sed -i "s|<div id=\"pagefind-platform\"></div>|<div data-pagefind-filter=\"Platform\">VESC</div>|" $@; \
 	else \
-	  sed -i "s|<body>|<body data-pagefind-filter=\"Platform:Core LispBM\">|" $@; \
-	  sed -i "s|<body data-pagefind-filter=\"Platform:Core LispBM\">|<body data-pagefind-filter=\"Platform:Core LispBM\" data-pagefind-filter=\"Document:$$DOCNAME\">|" $@; \
-	fi
+	  sed -i "s|<div id=\"pagefind-platform\"></div>|<div data-pagefind-filter=\"Platform\">Core LispBM</div>|" $@; \
+	fi; \
+	sed -i "s|<div id=\"pagefind-document\"></div>|<div data-pagefind-filter=\"Document\">$$DOCNAME</div>|" $@
 
 copy: $(HTML)
 	@echo "Copying HTML files and CSS to output directory..."
