@@ -18,10 +18,12 @@ all: $(HTML) copy index
 	 cat $<; \
 	 sed "s/###YEAR###/$(YEAR)/g" post.html) | pandoc -f gfm -o $@
 	@# Add pagefind filter attributes based on filename
-	@if echo "$<" | grep -q "vesc"; then \
-	  sed -i 's/<body>/<body data-pagefind-filter="Platform:VESC">/' $@; \
+	@BASENAME=$$(basename $< .md); \
+	DOCNAME=$$(echo $$BASENAME | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g'); \
+	if echo "$<" | grep -q "vesc"; then \
+	  sed -i "s|<body>|<body data-pagefind-filter=\"Platform=VESC, Document=$$DOCNAME\">|" $@; \
 	else \
-	  sed -i 's/<body>/<body data-pagefind-filter="Platform:Core LispBM">/' $@; \
+	  sed -i "s|<body>|<body data-pagefind-filter=\"Platform=Core LispBM, Document=$$DOCNAME\">|" $@; \
 	fi
 
 copy: $(HTML)
