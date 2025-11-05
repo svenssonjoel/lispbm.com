@@ -14,14 +14,16 @@ all: $(HTML) copy index
 	DESCRIPTION="LispBM Reference Documentation - $$TITLE"; \
 	KEYWORDS="lispbm, lisp, reference, documentation, embedded lisp, microcontroller, $$TITLE"; \
 	LINK="https://www.lispbm.com/lispbm-reference-manual/$$(basename $@ .html)/"; \
-	(sed "s/###123###/$$TITLE/g;s/###456###/$$DESCRIPTION/g;s/###789###/$$KEYWORDS/g;s'###LINK###'$$LINK'g" ../../pages/src/pre.html; \
+	(sed "s/###123###/$$TITLE/g;s/###456###/$$DESCRIPTION/g;s/###789###/$$KEYWORDS/g;s'###LINK###'$$LINK'g" pre.html; \
 	 cat $<; \
-	 sed "s/###YEAR###/$(YEAR)/g" ../../pages/src/post.html) | pandoc -f gfm -o $@
+	 sed "s/###YEAR###/$(YEAR)/g" post.html) | pandoc -f gfm -o $@
 
 copy: $(HTML)
-	@echo "Copying HTML files to output directory..."
+	@echo "Copying HTML files and CSS to output directory..."
 	@mkdir -p ../html
-	@cp *.html ../html/
+	@cp $(HTML) ../html/
+	@cp index.html ../html/
+	@cp reference.css ../html/
 
 index: copy
 	@echo "Building search index with Pagefind..."
