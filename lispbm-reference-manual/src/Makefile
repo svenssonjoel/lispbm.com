@@ -21,9 +21,11 @@ all: $(HTML) copy index
 	@BASENAME=$$(basename $< .md); \
 	DOCNAME=$$(echo $$BASENAME | sed 's/-/ /g' | sed 's/\b\(.\)/\u\1/g'); \
 	if echo "$<" | grep -q "vesc"; then \
-	  sed -i "s|<body>|<body data-pagefind-filter=\"Platform=VESC, Document=$$DOCNAME\">|" $@; \
+	  sed -i "s|<body>|<body data-pagefind-filter=\"Platform:VESC\">|" $@; \
+	  sed -i "s|<body data-pagefind-filter=\"Platform:VESC\">|<body data-pagefind-filter=\"Platform:VESC\" data-pagefind-filter=\"Document:$$DOCNAME\">|" $@; \
 	else \
-	  sed -i "s|<body>|<body data-pagefind-filter=\"Platform=Core LispBM, Document=$$DOCNAME\">|" $@; \
+	  sed -i "s|<body>|<body data-pagefind-filter=\"Platform:Core LispBM\">|" $@; \
+	  sed -i "s|<body data-pagefind-filter=\"Platform:Core LispBM\">|<body data-pagefind-filter=\"Platform:Core LispBM\" data-pagefind-filter=\"Document:$$DOCNAME\">|" $@; \
 	fi
 
 copy: $(HTML)
