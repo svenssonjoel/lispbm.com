@@ -17,6 +17,12 @@ all: $(HTML) copy index
 	(sed "s/###123###/$$TITLE/g;s/###456###/$$DESCRIPTION/g;s/###789###/$$KEYWORDS/g;s'###LINK###'$$LINK'g" pre.html; \
 	 cat $<; \
 	 sed "s/###YEAR###/$(YEAR)/g" post.html) | pandoc -f gfm -o $@
+	@# Add pagefind filter attributes based on filename
+	@if echo "$<" | grep -q "vesc"; then \
+	  sed -i 's/<body>/<body data-pagefind-filter="Platform:VESC">/' $@; \
+	else \
+	  sed -i 's/<body>/<body data-pagefind-filter="Platform:Core LispBM">/' $@; \
+	fi
 
 copy: $(HTML)
 	@echo "Copying HTML files and CSS to output directory..."
