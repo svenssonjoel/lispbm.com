@@ -3839,7 +3839,4066 @@ GC is run automatically when needed.</p>
 <tr>
 <td> Example </td> <td> Result </td>
 </tr>
+<tr>
+<td>
 
+<div class="sourceCode" id="cb407"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb407-1"><a href="#cb407-1" aria-hidden="true" tabindex="-1"></a>(gc)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb408"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb408-1"><a href="#cb408-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="special-forms">Special forms</h2>
+<p>Special forms are like functions except that they choose what
+arguments are evaluated. This is in contrast to "normal functions",
+usually referred to as <em>"forms"</em> in other Lisps, which always
+evaluate every argument they are given.</p>
+<p>Note that some special forms are located in other sections to improve
+the document flow. These are:</p>
+<ul>
+<li><a href="#quote"><code>quote</code></a></li>
+<li><a href="#and"><code>and</code></a></li>
+<li><a href="#or"><code>or</code></a></li>
+<li><a href="#match"><code>match</code></a></li>
+<li><a href="#recv"><code>recv</code></a></li>
+<li><a href="#recv-to"><code>recv-to</code></a></li>
+<li><a href="#call-cc"><code>call-cc</code></a></li>
+<li><a href="#call-cc-unsafe"><code>call-cc-unsafe</code></a></li>
+<li><a href="#atomic"><code>atomic</code></a></li>
+<li><a href="#macro"><code>macro</code></a></li>
+<li><a href="#move-to-flash"><code>move-to-flash</code></a></li>
+</ul>
+<hr />
+<h3 id="if">if</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>Conditionals are written as
+<code>(if cond-expr then-expr else-exp)</code>. If the
+<code>cond-expr</code> evaluates to <a href="#nil"><code>nil</code></a>
+the <code>else-expr</code> will be evaluated. For any other value of
+<code>cond-expr</code> the <code>then-expr</code> will be evaluated.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb409"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb409-1"><a href="#cb409-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">if</span> t <span class="dv">1</span> <span class="dv">2</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb410"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb410-1"><a href="#cb410-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb411"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb411-1"><a href="#cb411-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">if</span> <span class="va">nil</span> <span class="dv">1</span> <span class="dv">2</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb412"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb412-1"><a href="#cb412-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="cond">cond</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p><code>cond</code> is a generalization of <code>if</code> to discern
+between n different cases based on boolean expressions. The form of a
+<code>cond</code> expression is:
+<code>(cond ( cond-expr1 expr1) (cond-expr2 expr2) ... (cond-exprN exprN))</code>.
+The conditions are checked from first to last and for the first
+<code>cond-exprN</code> that evaluates to true, the corresponding
+<code>exprN</code> is evaluated.</p>
+<p>If no <code>cond-exprN</code> evaluates to true, the result of the
+entire conditional is <code>nil</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb413"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb413-1"><a href="#cb413-1" aria-hidden="true" tabindex="-1"></a>(define a <span class="dv">0</span>)</span>
+<span id="cb413-2"><a href="#cb413-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">cond</span> ((<span class="kw">&lt;</span> a <span class="dv">0</span>) <span class="at">&#39;abrakadabra</span>)</span>
+<span id="cb413-3"><a href="#cb413-3" aria-hidden="true" tabindex="-1"></a>      ((<span class="kw">&gt;</span> a <span class="dv">0</span>) <span class="at">&#39;llama</span>)</span>
+<span id="cb413-4"><a href="#cb413-4" aria-hidden="true" tabindex="-1"></a>      ((<span class="kw">=</span> a <span class="dv">0</span>) <span class="at">&#39;hello-world</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb414"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb414-1"><a href="#cb414-1" aria-hidden="true" tabindex="-1"></a>hello-world</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb415"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb415-1"><a href="#cb415-1" aria-hidden="true" tabindex="-1"></a>(define a <span class="dv">5</span>)</span>
+<span id="cb415-2"><a href="#cb415-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">cond</span> ((<span class="kw">=</span> a <span class="dv">1</span>) <span class="at">&#39;doughnut</span>)</span>
+<span id="cb415-3"><a href="#cb415-3" aria-hidden="true" tabindex="-1"></a>      ((<span class="kw">=</span> a <span class="dv">7</span>) <span class="at">&#39;apple-strudel</span>)</span>
+<span id="cb415-4"><a href="#cb415-4" aria-hidden="true" tabindex="-1"></a>      ((<span class="kw">=</span> a <span class="dv">10</span>) <span class="at">&#39;baklava</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb416"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb416-1"><a href="#cb416-1" aria-hidden="true" tabindex="-1"></a><span class="va">nil</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="lambda">lambda</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>You create an anonymous function with lambda. The function can be
+given a name by binding the lambda expression using
+<a href="#define">define</a> or <a href="#let">let</a>. A lambda
+expression has the form <code>(lambda param-list body-expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb417"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb417-1"><a href="#cb417-1" aria-hidden="true" tabindex="-1"></a>(lambda (x)</span>
+<span id="cb417-2"><a href="#cb417-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> x <span class="dv">1</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb418"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb418-1"><a href="#cb418-1" aria-hidden="true" tabindex="-1"></a>(closure (x) </span>
+<span id="cb418-2"><a href="#cb418-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> x <span class="dv">1</span>)</span>
+<span id="cb418-3"><a href="#cb418-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">nil</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb419"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb419-1"><a href="#cb419-1" aria-hidden="true" tabindex="-1"></a>((lambda (x)</span>
+<span id="cb419-2"><a href="#cb419-2" aria-hidden="true" tabindex="-1"></a>   (<span class="kw">+</span> x <span class="dv">1</span>)) <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb420"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb420-1"><a href="#cb420-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>You can give more arguments to a function created using lambda. The
+extra arguments can be accessed in the lambda body by calling the
+<code>rest-args</code> function which gives back auxiliary arguments as
+a list.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb421"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb421-1"><a href="#cb421-1" aria-hidden="true" tabindex="-1"></a>((lambda (x)</span>
+<span id="cb421-2"><a href="#cb421-2" aria-hidden="true" tabindex="-1"></a>   (<span class="kw">cons</span> x (rest-args))) <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb422"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb422-1"><a href="#cb422-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb423"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb423-1"><a href="#cb423-1" aria-hidden="true" tabindex="-1"></a>((lambda (x)</span>
+<span id="cb423-2"><a href="#cb423-2" aria-hidden="true" tabindex="-1"></a>   (<span class="kw">cons</span> x (rest-args))) <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb424"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb424-1"><a href="#cb424-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p><code>rest-args</code> takes an optional numerical argument that is
+used to index into the list containing the rest of the arguments.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb425"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb425-1"><a href="#cb425-1" aria-hidden="true" tabindex="-1"></a>((lambda (x)</span>
+<span id="cb425-2"><a href="#cb425-2" aria-hidden="true" tabindex="-1"></a>   (rest-args <span class="dv">0</span>)) <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb426"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb426-1"><a href="#cb426-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb427"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb427-1"><a href="#cb427-1" aria-hidden="true" tabindex="-1"></a>((lambda (x)</span>
+<span id="cb427-2"><a href="#cb427-2" aria-hidden="true" tabindex="-1"></a>   (rest-args <span class="dv">1</span>)) <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb428"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb428-1"><a href="#cb428-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb429"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb429-1"><a href="#cb429-1" aria-hidden="true" tabindex="-1"></a>((lambda (x)</span>
+<span id="cb429-2"><a href="#cb429-2" aria-hidden="true" tabindex="-1"></a>   (rest-args <span class="dv">2</span>)) <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb430"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb430-1"><a href="#cb430-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb431"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb431-1"><a href="#cb431-1" aria-hidden="true" tabindex="-1"></a>((lambda (x)</span>
+<span id="cb431-2"><a href="#cb431-2" aria-hidden="true" tabindex="-1"></a>   (rest-args <span class="dv">3</span>)) <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb432"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb432-1"><a href="#cb432-1" aria-hidden="true" tabindex="-1"></a><span class="dv">5</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="closure">closure</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>A <a href="#lambda"> lambda </a> expression evaluates into a closure
+which is very similar to a <a href="#lambda">lambda</a> but extended
+with a captured environment for any names unbound in the param-list
+appearing in the body-expr. The form of a closure is
+<code>(closure param-list body-exp environment)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb433"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb433-1"><a href="#cb433-1" aria-hidden="true" tabindex="-1"></a>(lambda (x)</span>
+<span id="cb433-2"><a href="#cb433-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> x <span class="dv">1</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb434"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb434-1"><a href="#cb434-1" aria-hidden="true" tabindex="-1"></a>(closure (x) </span>
+<span id="cb434-2"><a href="#cb434-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> x <span class="dv">1</span>)</span>
+<span id="cb434-3"><a href="#cb434-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">nil</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb435"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb435-1"><a href="#cb435-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> ((a <span class="dv">1</span>))</span>
+<span id="cb435-2"><a href="#cb435-2" aria-hidden="true" tabindex="-1"></a>     (lambda (x)</span>
+<span id="cb435-3"><a href="#cb435-3" aria-hidden="true" tabindex="-1"></a>       (<span class="kw">+</span> a x)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb436"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb436-1"><a href="#cb436-1" aria-hidden="true" tabindex="-1"></a>(closure (x) </span>
+<span id="cb436-2"><a href="#cb436-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> a x)</span>
+<span id="cb436-3"><a href="#cb436-3" aria-hidden="true" tabindex="-1"></a>  ((a . <span class="dv">1</span>)))</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb437"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb437-1"><a href="#cb437-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> ((a <span class="dv">1</span>)</span>
+<span id="cb437-2"><a href="#cb437-2" aria-hidden="true" tabindex="-1"></a>      (b <span class="dv">2</span>))</span>
+<span id="cb437-3"><a href="#cb437-3" aria-hidden="true" tabindex="-1"></a>     (lambda (x)</span>
+<span id="cb437-4"><a href="#cb437-4" aria-hidden="true" tabindex="-1"></a>       (<span class="kw">+</span> a b x)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb438"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb438-1"><a href="#cb438-1" aria-hidden="true" tabindex="-1"></a>(closure (x) </span>
+<span id="cb438-2"><a href="#cb438-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> a b x)</span>
+<span id="cb438-3"><a href="#cb438-3" aria-hidden="true" tabindex="-1"></a>  ((b . <span class="dv">2</span>) (a . <span class="dv">1</span>)))</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="let">let</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>Local environments are created using let. The let binding in lispbm
+allows for mutually recursive bindings. The form of a let is
+<code>(let list-of-bindings body-expr)</code> and evaluating this
+expression means that body-expr is evaluted in an environment extended
+with the list-of-bindings.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb439"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb439-1"><a href="#cb439-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> ((a <span class="dv">1</span>)</span>
+<span id="cb439-2"><a href="#cb439-2" aria-hidden="true" tabindex="-1"></a>      (b <span class="dv">2</span>))</span>
+<span id="cb439-3"><a href="#cb439-3" aria-hidden="true" tabindex="-1"></a>     (<span class="kw">+</span> a b))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb440"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb440-1"><a href="#cb440-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb441"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb441-1"><a href="#cb441-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> ((f (lambda (x)</span>
+<span id="cb441-2"><a href="#cb441-2" aria-hidden="true" tabindex="-1"></a>           (<span class="kw">if</span> (<span class="kw">=</span> x <span class="dv">0</span>) <span class="dv">0</span> (g (<span class="kw">-</span> x <span class="dv">1</span>)))))</span>
+<span id="cb441-3"><a href="#cb441-3" aria-hidden="true" tabindex="-1"></a>      (g (lambda (x)</span>
+<span id="cb441-4"><a href="#cb441-4" aria-hidden="true" tabindex="-1"></a>           (<span class="kw">if</span> (<span class="kw">=</span> x <span class="dv">0</span>) <span class="dv">1</span> (f (<span class="kw">-</span> x <span class="dv">1</span>))))))</span>
+<span id="cb441-5"><a href="#cb441-5" aria-hidden="true" tabindex="-1"></a>     (f <span class="dv">11</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb442"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb442-1"><a href="#cb442-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>You can deconstruct composite values while let binding.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb443"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb443-1"><a href="#cb443-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> (((a b) (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span>)))</span>
+<span id="cb443-2"><a href="#cb443-2" aria-hidden="true" tabindex="-1"></a>     (<span class="kw">+</span> a b))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb444"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb444-1"><a href="#cb444-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb445"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb445-1"><a href="#cb445-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">let</span> (((a . as) (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>)))</span>
+<span id="cb445-2"><a href="#cb445-2" aria-hidden="true" tabindex="-1"></a>     (<span class="kw">cons</span> a (<span class="kw">reverse</span> as)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb446"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb446-1"><a href="#cb446-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">2</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="loop">loop</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>loop allows to repeatedly evaluate an expression for as long as a
+condition holds. The form of a loop is
+<code>(loop list-of-local-bindings condition-exp body-exp)</code>.</p>
+<p>The <code>list-of-local-bindings</code> are very similar to how
+<code>let</code> works, just that here the <code>body-exp</code> is
+repeated.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb447"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb447-1"><a href="#cb447-1" aria-hidden="true" tabindex="-1"></a>(define sum <span class="dv">0</span>)</span>
+<span id="cb447-2"><a href="#cb447-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">loop</span> ((a <span class="dv">0</span>))</span>
+<span id="cb447-3"><a href="#cb447-3" aria-hidden="true" tabindex="-1"></a>      (<span class="kw">&lt;=</span> a <span class="dv">10</span>)</span>
+<span id="cb447-4"><a href="#cb447-4" aria-hidden="true" tabindex="-1"></a>      (progn </span>
+<span id="cb447-5"><a href="#cb447-5" aria-hidden="true" tabindex="-1"></a>          (setq sum (<span class="kw">+</span> sum a))</span>
+<span id="cb447-6"><a href="#cb447-6" aria-hidden="true" tabindex="-1"></a>          (setq a (<span class="kw">+</span> a <span class="dv">1</span>))))</span>
+<span id="cb447-7"><a href="#cb447-7" aria-hidden="true" tabindex="-1"></a>sum</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb448"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb448-1"><a href="#cb448-1" aria-hidden="true" tabindex="-1"></a><span class="dv">55</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="define">define</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>You can give names to values in a global scope by using define. The
+form of define is <code>(define name expr)</code>. The given expression
+is evaluated and the result is stored in the global environment under
+<code>name</code>. In lispbm you can redefine already defined values. It
+is also possible to remove bindings from the global environment, see <a
+href="#undefine"><code>undefine</code></a>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb449"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb449-1"><a href="#cb449-1" aria-hidden="true" tabindex="-1"></a>(define apa <span class="dv">10</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb450"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb450-1"><a href="#cb450-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="setq">setq</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>The <code>setq</code> special-form is similar to <code>set</code> and
+to <code>setvar</code> but expects the first argument to be a symbol.
+The first argument to <code>setq</code> is NOT evaluated.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb451"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb451-1"><a href="#cb451-1" aria-hidden="true" tabindex="-1"></a>(define a <span class="dv">10</span>)</span>
+<span id="cb451-2"><a href="#cb451-2" aria-hidden="true" tabindex="-1"></a>(setq a <span class="dv">20</span>)</span>
+<span id="cb451-3"><a href="#cb451-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb452"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb452-1"><a href="#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>Just like <code>set</code> and <code>setvar</code>, <code>setq</code>
+can be used on variables that are bound locally such as in the body of a
+<code>let</code> or a <code>progn</code>-local variable created using
+<code>var</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb453"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb453-1"><a href="#cb453-1" aria-hidden="true" tabindex="-1"></a>(progn </span>
+<span id="cb453-2"><a href="#cb453-2" aria-hidden="true" tabindex="-1"></a>    (var a <span class="dv">10</span>)</span>
+<span id="cb453-3"><a href="#cb453-3" aria-hidden="true" tabindex="-1"></a>    (setq a <span class="dv">20</span>)</span>
+<span id="cb453-4"><a href="#cb453-4" aria-hidden="true" tabindex="-1"></a>    a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb454"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb454-1"><a href="#cb454-1" aria-hidden="true" tabindex="-1"></a><span class="dv">20</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="progn">progn</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>The progn special form allows you to sequence a number of
+expressions. The form of a progn expression is
+<code>(progn expr1 ... exprN)</code>.</p>
+<p>The evaluation result of a progn sequence is the value that the last
+<code>exprN</code> evaluated to. This is useful for sequencing of
+side-effecting operations.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb455"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb455-1"><a href="#cb455-1" aria-hidden="true" tabindex="-1"></a>(progn </span>
+<span id="cb455-2"><a href="#cb455-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span></span>
+<span id="cb455-3"><a href="#cb455-3" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span></span>
+<span id="cb455-4"><a href="#cb455-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">3</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb456"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb456-1"><a href="#cb456-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb457"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb457-1"><a href="#cb457-1" aria-hidden="true" tabindex="-1"></a>(progn </span>
+<span id="cb457-2"><a href="#cb457-2" aria-hidden="true" tabindex="-1"></a>    (define a <span class="dv">10</span>)</span>
+<span id="cb457-3"><a href="#cb457-3" aria-hidden="true" tabindex="-1"></a>    (define b <span class="dv">20</span>)</span>
+<span id="cb457-4"><a href="#cb457-4" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">+</span> a b))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb458"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb458-1"><a href="#cb458-1" aria-hidden="true" tabindex="-1"></a><span class="dv">30</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="-10">{</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>The curlybrace <code>{</code> syntax is a short-form (syntactic
+sugar) for <code>(progn</code>. The reader replaces occurrences of
+<code>{</code> with <code>(progn</code>. The <code>{</code> should be
+closed with an <code>}</code>.</p>
+<p>These two programs are thus equivalent:</p>
+<div class="sourceCode" id="cb459"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb459-1"><a href="#cb459-1" aria-hidden="true" tabindex="-1"></a> (progn</span>
+<span id="cb459-2"><a href="#cb459-2" aria-hidden="true" tabindex="-1"></a>   (define a <span class="dv">10</span>)</span>
+<span id="cb459-3"><a href="#cb459-3" aria-hidden="true" tabindex="-1"></a>   (define b <span class="dv">20</span>)</span>
+<span id="cb459-4"><a href="#cb459-4" aria-hidden="true" tabindex="-1"></a>   (<span class="kw">+</span> a b))</span></code></pre></div>
+<p>And</p>
+<div class="sourceCode" id="cb460"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb460-1"><a href="#cb460-1" aria-hidden="true" tabindex="-1"></a> {</span>
+<span id="cb460-2"><a href="#cb460-2" aria-hidden="true" tabindex="-1"></a>   (define a <span class="dv">10</span>)</span>
+<span id="cb460-3"><a href="#cb460-3" aria-hidden="true" tabindex="-1"></a>   (define b <span class="dv">20</span>)</span>
+<span id="cb460-4"><a href="#cb460-4" aria-hidden="true" tabindex="-1"></a>   (<span class="kw">+</span> a b)</span>
+<span id="cb460-5"><a href="#cb460-5" aria-hidden="true" tabindex="-1"></a> }</span></code></pre></div>
+<hr />
+<h3 id="-11">}</h3>
+<p>The closing curlybrace <code>}</code> should be used to close an
+opening <code>{</code> but purely for esthetic reasons. The
+<code>}</code> is treated identically to a regular closing parenthesis
+<code>)</code>.</p>
+<p>The opening <code>{</code> and closing <code>}</code> curlybraces are
+used as a short-form for <code>progn</code>-blocks of sequences
+expressions.</p>
+<hr />
+<h3 id="var">var</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>The var special form allows local bindings in a progn expression. A
+var expression is of the form (var symbol expr) and the symbol
+<code>symbol</code> is bound to the value that <code>expr</code>
+evaluates to withing the rest of the progn expression.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb461"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb461-1"><a href="#cb461-1" aria-hidden="true" tabindex="-1"></a>(progn </span>
+<span id="cb461-2"><a href="#cb461-2" aria-hidden="true" tabindex="-1"></a>    (var a <span class="dv">10</span>)</span>
+<span id="cb461-3"><a href="#cb461-3" aria-hidden="true" tabindex="-1"></a>    (var b <span class="dv">20</span>)</span>
+<span id="cb461-4"><a href="#cb461-4" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">+</span> a b))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb462"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb462-1"><a href="#cb462-1" aria-hidden="true" tabindex="-1"></a><span class="dv">30</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb463"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb463-1"><a href="#cb463-1" aria-hidden="true" tabindex="-1"></a>(progn </span>
+<span id="cb463-2"><a href="#cb463-2" aria-hidden="true" tabindex="-1"></a>    (var a <span class="dv">10</span>)</span>
+<span id="cb463-3"><a href="#cb463-3" aria-hidden="true" tabindex="-1"></a>    (var b (<span class="kw">+</span> a <span class="dv">10</span>))</span>
+<span id="cb463-4"><a href="#cb463-4" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">+</span> a b))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb464"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb464-1"><a href="#cb464-1" aria-hidden="true" tabindex="-1"></a><span class="dv">30</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>You can deconstruct composite value while var binding.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb465"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb465-1"><a href="#cb465-1" aria-hidden="true" tabindex="-1"></a>(progn </span>
+<span id="cb465-2"><a href="#cb465-2" aria-hidden="true" tabindex="-1"></a>    (var (a b) (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span>))</span>
+<span id="cb465-3"><a href="#cb465-3" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">+</span> a b))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb466"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb466-1"><a href="#cb466-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb467"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb467-1"><a href="#cb467-1" aria-hidden="true" tabindex="-1"></a>(progn </span>
+<span id="cb467-2"><a href="#cb467-2" aria-hidden="true" tabindex="-1"></a>    (var (a . as) (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>))</span>
+<span id="cb467-3"><a href="#cb467-3" aria-hidden="true" tabindex="-1"></a>    (<span class="kw">cons</span> a (<span class="kw">reverse</span> as)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb468"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb468-1"><a href="#cb468-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">2</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="trap">trap</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p><code>trap</code> lets you catch an error rather than have the
+evaluation context terminate. The form of a trap expression is
+<code>(trap expr)</code>. If expr crashes with an error <code>e</code>
+then <code>(trap expr)</code> evaluates to <code>(exit-error e)</code>.
+If expr successfully runs and returns <code>r</code>, then
+<code>(trap expr)</code> evaluates to <code>(exit-ok r)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb469"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb469-1"><a href="#cb469-1" aria-hidden="true" tabindex="-1"></a>(trap (<span class="kw">/</span> <span class="dv">1</span> <span class="dv">0</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb470"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb470-1"><a href="#cb470-1" aria-hidden="true" tabindex="-1"></a>(exit-error division_by_zero)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb471"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb471-1"><a href="#cb471-1" aria-hidden="true" tabindex="-1"></a>(trap (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb472"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb472-1"><a href="#cb472-1" aria-hidden="true" tabindex="-1"></a>(exit-ok <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p><code>trap</code> catches any error except for fatal errors. A fatal
+error will still lead to the context being terminated.</p>
+<hr />
+<h2 id="lists-and-cons-cells">Lists and cons cells</h2>
+<p>Lists are built using cons cells. A cons cell is represented by the
+lbm_cons_t struct in the implementation and consists of two fields named
+the <code>car</code> and the <code>cdr</code>. There is no special
+meaning associated with the <code>car</code> and the <code>cdr</code>
+each can hold a lbm_value. See <a href="#cons">cons</a> and
+<a href="#list">list</a> for two ways to create structures of cons cells
+on the heap.</p>
+<p><img src="images/cons_cell.png" title="cons cell"
+alt="cons cell" /></p>
+<p>A cons cell can be used to store a pair of values. You create a pair
+by sticking a value in both the car and cdr field of a cons cell using
+either <code>'(1 . 2)</code> or <code>(cons 1 2)</code>.</p>
+<p><img src="images/pair.png" title="pair" alt="pair" /></p>
+<p>A list is a number of cons cells linked together where the car fields
+hold values and the cdr fields hold pointers (the last cdr field is
+nil). The list below can be created either as <code>'(1 2 3)</code> or
+as <code>(list 1 2 3)</code>.</p>
+<p><img src="./images/list_1_2_3.png"
+alt="Graph representation of s-expression" /></p>
+<h3 id="car">car</h3>
+<p>Use <code>car</code> to access the <code>car</code> field of a cons
+cell. A <code>car</code> expression has the form
+<code>(car expr)</code>.</p>
+<p>Taking the <code>car</code> of a number of symbol type is in general
+a <a href="#type_error">type_error</a>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb473"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb473-1"><a href="#cb473-1" aria-hidden="true" tabindex="-1"></a>(car (<span class="kw">cons</span> <span class="dv">1</span> <span class="dv">2</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb474"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb474-1"><a href="#cb474-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb475"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb475-1"><a href="#cb475-1" aria-hidden="true" tabindex="-1"></a>(car (<span class="kw">list</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">7</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb476"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb476-1"><a href="#cb476-1" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="first">first</h3>
+<p><code>first</code> is an alternative name for the <code>car</code>
+operation. Use <code>first</code> to access the first element of a list
+or pair. A <code>first</code> expression has the form
+<code>(first expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb477"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb477-1"><a href="#cb477-1" aria-hidden="true" tabindex="-1"></a>(car (<span class="kw">cons</span> <span class="dv">1</span> <span class="dv">2</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb478"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb478-1"><a href="#cb478-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb479"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb479-1"><a href="#cb479-1" aria-hidden="true" tabindex="-1"></a>(car (<span class="kw">list</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">7</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb480"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb480-1"><a href="#cb480-1" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="cdr">cdr</h3>
+<p>Use <code>cdr</code> to access the <code>cdr</code> field of a cons
+cell. A <code>cdr</code> expression has the form
+<code>(cdr expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb481"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb481-1"><a href="#cb481-1" aria-hidden="true" tabindex="-1"></a>(cdr (<span class="kw">cons</span> <span class="dv">1</span> <span class="dv">2</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb482"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb482-1"><a href="#cb482-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb483"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb483-1"><a href="#cb483-1" aria-hidden="true" tabindex="-1"></a>(cdr (<span class="kw">list</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">7</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb484"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb484-1"><a href="#cb484-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">8</span> <span class="dv">7</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="rest">rest</h3>
+<p><code>rest</code> is an alternative name for the <code>cdr</code>
+operation. Use <code>rest</code> to access all elements except the first
+one of a list, or to access the second element in a pair. A
+<code>rest</code> expression has the form <code>(rest expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb485"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb485-1"><a href="#cb485-1" aria-hidden="true" tabindex="-1"></a>(cdr (<span class="kw">cons</span> <span class="dv">1</span> <span class="dv">2</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb486"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb486-1"><a href="#cb486-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb487"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb487-1"><a href="#cb487-1" aria-hidden="true" tabindex="-1"></a>(cdr (<span class="kw">list</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">7</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb488"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb488-1"><a href="#cb488-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">8</span> <span class="dv">7</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="cons">cons</h3>
+<p>The <code>cons</code> operation allocates a cons cell from the heap
+and populates the <code>car</code> and the <code>cdr</code> fields of
+this cell with its two arguments. The form of a <code>cons</code>
+expression is <code>(cons expr1 expr2)</code>. To build well formed
+lists the innermost cons cell should have nil in the cdr field.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb489"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb489-1"><a href="#cb489-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">cons</span> <span class="dv">1</span> (<span class="kw">cons</span> <span class="dv">2</span> (<span class="kw">cons</span> <span class="dv">3</span> <span class="va">nil</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb490"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb490-1"><a href="#cb490-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb491"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb491-1"><a href="#cb491-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">cons</span> <span class="dv">1</span> <span class="dv">2</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb492"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb492-1"><a href="#cb492-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> . <span class="dv">2</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb493"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb493-1"><a href="#cb493-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">cons</span> <span class="kw">+</span> <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb494"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb494-1"><a href="#cb494-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">+</span> . <span class="dv">1</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb495"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb495-1"><a href="#cb495-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">cons</span> (<span class="kw">cons</span> <span class="dv">1</span> <span class="dv">2</span>) (<span class="kw">cons</span> <span class="dv">3</span> <span class="dv">4</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb496"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb496-1"><a href="#cb496-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">1</span> . <span class="dv">2</span>) <span class="dv">3</span> . <span class="dv">4</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="-12">.</h3>
+<p>The dot, <code>.</code>, operation creates a pair. The form of a dot
+expression is <code>(expr1 . expr2)</code>. By default the evaluator
+will attempt to evaluate the result of <code>(expr1 . expr2)</code>
+unless it is prefixed with <code>'</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb497"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb497-1"><a href="#cb497-1" aria-hidden="true" tabindex="-1"></a>&#39;(<span class="dv">1</span> . <span class="dv">2</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb498"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb498-1"><a href="#cb498-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> . <span class="dv">2</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb499"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb499-1"><a href="#cb499-1" aria-hidden="true" tabindex="-1"></a>&#39;((<span class="dv">1</span> . <span class="dv">2</span>) . <span class="dv">3</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb500"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb500-1"><a href="#cb500-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">1</span> . <span class="dv">2</span>) . <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="list-1">list</h3>
+<p>The <code>list</code> function is used to create proper lists. The
+function takes n arguments and is of the form
+<code>(list expr1 ... exprN)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb501"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb501-1"><a href="#cb501-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb502"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb502-1"><a href="#cb502-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="length">length</h3>
+<p>Computes the length of a list. The <code>length</code> function takes
+one argument and is of the form <code>(length expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb503"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb503-1"><a href="#cb503-1" aria-hidden="true" tabindex="-1"></a>(length (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb504"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb504-1"><a href="#cb504-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="range">range</h3>
+<p>The <code>range</code> function computes a list with integer values
+from a range specified by its endpoints. The form of a range expression
+is <code>(range start-expr end-expr)</code>. The end point in the range
+is excluded.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb505"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb505-1"><a href="#cb505-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">range</span> <span class="dv">4</span> <span class="dv">8</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb506"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb506-1"><a href="#cb506-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb507"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb507-1"><a href="#cb507-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">range</span> <span class="dv">0</span> <span class="dv">10</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb508"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb508-1"><a href="#cb508-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb509"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb509-1"><a href="#cb509-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">range</span> -<span class="dv">4</span> <span class="dv">4</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb510"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb510-1"><a href="#cb510-1" aria-hidden="true" tabindex="-1"></a>(-<span class="dv">4</span> -<span class="dv">3</span> -<span class="dv">2</span> -<span class="dv">1</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="append">append</h3>
+<p>The <code>append</code> function combines two lists into a longer
+list. An <code>append</code> expression is of the form
+<code>(append expr1 expr2)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb511"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb511-1"><a href="#cb511-1" aria-hidden="true" tabindex="-1"></a>(append (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>) (<span class="kw">list</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb512"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb512-1"><a href="#cb512-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="ix">ix</h3>
+<p>Index into a list using the <code>ix</code> function. The form of an
+<code>ix</code> expression is <code>(ix list-expr index-expr)</code>.
+Indexing starts from 0 and if you index out of bounds the result is nil.
+A negative index accesses values starting from the end of the list.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb513"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb513-1"><a href="#cb513-1" aria-hidden="true" tabindex="-1"></a>(ix (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>) <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb514"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb514-1"><a href="#cb514-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb515"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb515-1"><a href="#cb515-1" aria-hidden="true" tabindex="-1"></a>(ix (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>) -<span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb516"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb516-1"><a href="#cb516-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="setix">setix</h3>
+<p>Destructively update an element in a list. The form of a
+<code>setix</code> expression is
+<code>(setix list-expr index-expr value-expr)</code>. Indexing starts
+from 0 and if you index out of bounds the result is nil. A negative
+value -n will update the nth value from the end of the list.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb517"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb517-1"><a href="#cb517-1" aria-hidden="true" tabindex="-1"></a>(setix (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>) <span class="dv">2</span> <span class="dv">77</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb518"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb518-1"><a href="#cb518-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">77</span> <span class="dv">4</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb519"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb519-1"><a href="#cb519-1" aria-hidden="true" tabindex="-1"></a>(setix (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>) -<span class="dv">2</span> <span class="dv">66</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb520"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb520-1"><a href="#cb520-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">66</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="member">member</h3>
+<p>Check if a value is included in list. The form of an
+<code>member</code> expression is
+<code>(member value-expr list-expr)</code>. Equality is checked
+structurally, in the same way as <a href="#eq"><code>eq</code></a>,
+meaning if you're checking numbers the types must match (see the
+following examples).</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb521"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb521-1"><a href="#cb521-1" aria-hidden="true" tabindex="-1"></a>(member <span class="dv">3</span> (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb522"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb522-1"><a href="#cb522-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb523"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb523-1"><a href="#cb523-1" aria-hidden="true" tabindex="-1"></a>(member <span class="dv">3</span>u (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb524"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb524-1"><a href="#cb524-1" aria-hidden="true" tabindex="-1"></a><span class="va">nil</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb525"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb525-1"><a href="#cb525-1" aria-hidden="true" tabindex="-1"></a>(member &#39;(b c) &#39;((a b) (b c)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb526"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb526-1"><a href="#cb526-1" aria-hidden="true" tabindex="-1"></a>((a b) (b c))</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>This function can be used as a readable and efficient way of checking
+if a value is in some constant set of values. This often results in
+significantly less code than unrolling it as a series of <a
+href="#eq"><code>eq</code></a>s inside an <a
+href="#or"><code>or</code></a> expression.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb527"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb527-1"><a href="#cb527-1" aria-hidden="true" tabindex="-1"></a>(defun is-pet? (thing)</span>
+<span id="cb527-2"><a href="#cb527-2" aria-hidden="true" tabindex="-1"></a>  (member thing &#39;(cat dog)))</span>
+<span id="cb527-3"><a href="#cb527-3" aria-hidden="true" tabindex="-1"></a>(is-pet? <span class="at">&#39;cat</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb528"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb528-1"><a href="#cb528-1" aria-hidden="true" tabindex="-1"></a>(cat dog)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb529"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb529-1"><a href="#cb529-1" aria-hidden="true" tabindex="-1"></a>(is-pet? <span class="at">&#39;car</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb530"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb530-1"><a href="#cb530-1" aria-hidden="true" tabindex="-1"></a><span class="va">nil</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb531"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb531-1"><a href="#cb531-1" aria-hidden="true" tabindex="-1"></a>(defun is-pet-unrolled? (thing)</span>
+<span id="cb531-2"><a href="#cb531-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">or</span> (eq thing <span class="at">&#39;cat</span>) (eq thing <span class="at">&#39;dog</span>)))</span>
+<span id="cb531-3"><a href="#cb531-3" aria-hidden="true" tabindex="-1"></a>(eq (is-pet? <span class="at">&#39;cat</span>) (is-pet-unrolled? <span class="at">&#39;cat</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb532"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb532-1"><a href="#cb532-1" aria-hidden="true" tabindex="-1"></a><span class="va">nil</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="setcar">setcar</h3>
+<p>The <code>setcar</code> is a destructive update of the car field of a
+cons-cell.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb533"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb533-1"><a href="#cb533-1" aria-hidden="true" tabindex="-1"></a>(define apa &#39;(<span class="dv">1</span> . <span class="dv">2</span>))</span>
+<span id="cb533-2"><a href="#cb533-2" aria-hidden="true" tabindex="-1"></a>(setcar apa <span class="dv">42</span>)</span>
+<span id="cb533-3"><a href="#cb533-3" aria-hidden="true" tabindex="-1"></a>apa</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb534"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb534-1"><a href="#cb534-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">42</span> . <span class="dv">2</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb535"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb535-1"><a href="#cb535-1" aria-hidden="true" tabindex="-1"></a>(define apa (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>))</span>
+<span id="cb535-2"><a href="#cb535-2" aria-hidden="true" tabindex="-1"></a>(setcar apa <span class="dv">42</span>)</span>
+<span id="cb535-3"><a href="#cb535-3" aria-hidden="true" tabindex="-1"></a>apa</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb536"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb536-1"><a href="#cb536-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">42</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="setcdr">setcdr</h3>
+<p>The <code>setcdr</code> is a destructive update of the cdr field of a
+cons-cell.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb537"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb537-1"><a href="#cb537-1" aria-hidden="true" tabindex="-1"></a>(define apa &#39;(<span class="dv">1</span> . <span class="dv">2</span>))</span>
+<span id="cb537-2"><a href="#cb537-2" aria-hidden="true" tabindex="-1"></a>(setcdr apa <span class="dv">42</span>)</span>
+<span id="cb537-3"><a href="#cb537-3" aria-hidden="true" tabindex="-1"></a>apa</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb538"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb538-1"><a href="#cb538-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> . <span class="dv">42</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb539"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb539-1"><a href="#cb539-1" aria-hidden="true" tabindex="-1"></a>(define apa (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>))</span>
+<span id="cb539-2"><a href="#cb539-2" aria-hidden="true" tabindex="-1"></a>(setcdr apa (<span class="kw">list</span> <span class="dv">99</span> <span class="dv">100</span>))</span>
+<span id="cb539-3"><a href="#cb539-3" aria-hidden="true" tabindex="-1"></a>apa</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb540"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb540-1"><a href="#cb540-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">99</span> <span class="dv">100</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="take">take</h3>
+<p><code>take</code> creates a list containing the <code>n</code> first
+elements of another list. The form of a <code>take</code> expression is
+<code>(take list-exp n-exp)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb541"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb541-1"><a href="#cb541-1" aria-hidden="true" tabindex="-1"></a>(define apa (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>))</span>
+<span id="cb541-2"><a href="#cb541-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">take</span> apa <span class="dv">5</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb542"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb542-1"><a href="#cb542-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="drop">drop</h3>
+<p><code>drop</code> creates a list from another list by dropping the
+<code>n</code> first elements of that list. The form of a
+<code>drop</code> expression is <code>(drop list-exp n-exp)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb543"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb543-1"><a href="#cb543-1" aria-hidden="true" tabindex="-1"></a>(define apa (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>))</span>
+<span id="cb543-2"><a href="#cb543-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">drop</span> apa <span class="dv">5</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb544"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb544-1"><a href="#cb544-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="reverse">reverse</h3>
+<p><code>reverse</code> creates a list containing the same elements as
+an existing list but in reverse order. The form of a
+<code>reverse</code> expression is <code>(reverse list-exp)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb545"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb545-1"><a href="#cb545-1" aria-hidden="true" tabindex="-1"></a>(define apa (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>))</span>
+<span id="cb545-2"><a href="#cb545-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">reverse</span> apa)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb546"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb546-1"><a href="#cb546-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">10</span> <span class="dv">9</span> <span class="dv">8</span> <span class="dv">7</span> <span class="dv">6</span> <span class="dv">5</span> <span class="dv">4</span> <span class="dv">3</span> <span class="dv">2</span> <span class="dv">1</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="rotate">rotate</h3>
+<p><code>rotate</code> creates a list containing the same elements as an
+existing list but rotated some number of step along a direction. The
+form of a <code>rotate</code> expression is
+<code>(rotate list-exp dist-expr)</code>. The sign of the value
+dist-expr evaluates to, decides direction of rotation.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb547"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb547-1"><a href="#cb547-1" aria-hidden="true" tabindex="-1"></a>(define apa (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb548"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb548-1"><a href="#cb548-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb549"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb549-1"><a href="#cb549-1" aria-hidden="true" tabindex="-1"></a>(rotate apa <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb550"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb550-1"><a href="#cb550-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">10</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb551"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb551-1"><a href="#cb551-1" aria-hidden="true" tabindex="-1"></a>(rotate apa -<span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb552"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb552-1"><a href="#cb552-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">1</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb553"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb553-1"><a href="#cb553-1" aria-hidden="true" tabindex="-1"></a>(rotate apa <span class="dv">3</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb554"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb554-1"><a href="#cb554-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb555"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb555-1"><a href="#cb555-1" aria-hidden="true" tabindex="-1"></a>(rotate apa -<span class="dv">3</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb556"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb556-1"><a href="#cb556-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>Rotating a list in the negative direction is slightly faster than
+rotating in the positive direction. The chart below shows the time 1
+Million 3 step rotations take in each direction at varying list lengths.
+The data is collected on x86.</p>
+<p><img src="images/rotate_pos_neg.png"
+title="Performance of list rotate"
+alt="Performance of list rotate" /></p>
+<hr />
+<h3 id="merge">merge</h3>
+<p><code>merge</code> merges two lists that are ordered according to a
+comparator into a single ordered list. The form of a <code>merge</code>
+expression is
+<code>(merge comparator-exp list-exp1 list-exp2)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb557"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb557-1"><a href="#cb557-1" aria-hidden="true" tabindex="-1"></a>(define a (<span class="kw">list</span> <span class="dv">2</span> <span class="dv">4</span> <span class="dv">6</span> <span class="dv">8</span> <span class="dv">10</span> <span class="dv">12</span>))</span>
+<span id="cb557-2"><a href="#cb557-2" aria-hidden="true" tabindex="-1"></a>(define b (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">3</span> <span class="dv">5</span>))</span>
+<span id="cb557-3"><a href="#cb557-3" aria-hidden="true" tabindex="-1"></a>(<span class="kw">merge</span> <span class="kw">&lt;</span> a b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb558"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb558-1"><a href="#cb558-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">8</span> <span class="dv">10</span> <span class="dv">12</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="sort">sort</h3>
+<p><code>sort</code> orders a list of values according to a comparator.
+The sorting algorithm used is an in-place merge-sort. A copy of the
+input list is created at the beginning of the sort to provide a
+functional interface from the user's point of view. The form of a sort
+expression is <code>(sort comparator-exp list-exp)</code></p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb559"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb559-1"><a href="#cb559-1" aria-hidden="true" tabindex="-1"></a>(define a (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">9</span> <span class="dv">2</span> <span class="dv">5</span> <span class="dv">1</span> <span class="dv">8</span> <span class="dv">3</span>))</span>
+<span id="cb559-2"><a href="#cb559-2" aria-hidden="true" tabindex="-1"></a>(<span class="kw">sort</span> <span class="kw">&lt;</span> a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb560"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb560-1"><a href="#cb560-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">5</span> <span class="dv">8</span> <span class="dv">9</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="association-lists-alists">association lists (alists)</h2>
+<p>Association lists (alists) are, just like regular lists, built out of
+cons-cells. The difference is that an alist is a list of pairs where the
+first element in each par can be thought of as a key and the second
+element can be thought of as the value. So alists implement a key-value
+lookup structure.</p>
+<p><code>(list '(1 . horse) '(2 . donkey) '(3 . shark))</code> is an
+example of an alist with integer keys and symbol values.</p>
+<h3 id="acons">acons</h3>
+<p>The <code>acons</code> form is similar to <code>cons</code>, it
+attaches one more element onto an alist. The element that is added
+consists of a key and a value so <code>acons</code> takes one more
+argument than <code>cons</code>. The form of an <code>acons</code>
+expression is <code>(acons key-expr val-expr alist-expr)</code>. The
+<code>alist-expr</code> should evaluate to an alist but there are no
+checks to ensure this.</p>
+<p>Example that adds the key <code>4</code> and associated value
+<code>lemur</code> to an existing alist.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb561"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb561-1"><a href="#cb561-1" aria-hidden="true" tabindex="-1"></a>(acons <span class="dv">4</span> <span class="at">&#39;lemur</span> (<span class="kw">list</span> &#39;(<span class="dv">1</span> . horse) &#39;(<span class="dv">2</span> . donkey) &#39;(<span class="dv">3</span> . shark)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb562"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb562-1"><a href="#cb562-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">4</span> . lemur) (<span class="dv">1</span> . horse) (<span class="dv">2</span> . donkey) (<span class="dv">3</span> . shark))</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="assoc">assoc</h3>
+<p>The <code>assoc</code> function looks up the first value in an alist
+matching a given a key. The form of an <code>assoc</code> expression is
+<code>(assoc alist-expr key-expr)</code></p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb563"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb563-1"><a href="#cb563-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">assoc</span> (<span class="kw">list</span> &#39;(<span class="dv">1</span> . horse) &#39;(<span class="dv">2</span> . donkey) &#39;(<span class="dv">3</span> . shark)) <span class="dv">2</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb564"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb564-1"><a href="#cb564-1" aria-hidden="true" tabindex="-1"></a>donkey</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="cossa">cossa</h3>
+<p>The <code>cossa</code> function looks up the first key in an alist
+that matches a given value. The form of an <code>cossa</code> expression
+is <code>(cossa alist-expr value-expr)</code></p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb565"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb565-1"><a href="#cb565-1" aria-hidden="true" tabindex="-1"></a>(cossa (<span class="kw">list</span> &#39;(<span class="dv">1</span> . horse) &#39;(<span class="dv">2</span> . donkey) &#39;(<span class="dv">3</span> . shark)) <span class="at">&#39;donkey</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb566"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb566-1"><a href="#cb566-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="setassoc">setassoc</h3>
+<p>The <code>setassoc</code> function destructively updates a key-value
+mapping in an alist. The form of a <code>setassoc</code> expression is
+<code>(setassoc alist-expr key-expr value-expr)</code>. If you assign a
+key which doesn't exist in the original alist, it is left unchanged,
+while another association pair is added to the returned list.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb567"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb567-1"><a href="#cb567-1" aria-hidden="true" tabindex="-1"></a>(define apa (<span class="kw">list</span> &#39;(<span class="dv">1</span> . horse) &#39;(<span class="dv">2</span> . donkey) &#39;(<span class="dv">3</span> . shark)))</span>
+<span id="cb567-2"><a href="#cb567-2" aria-hidden="true" tabindex="-1"></a>(setassoc apa <span class="dv">2</span> <span class="at">&#39;llama</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb568"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb568-1"><a href="#cb568-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">1</span> . horse) (<span class="dv">2</span> . llama) (<span class="dv">3</span> . shark))</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb569"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb569-1"><a href="#cb569-1" aria-hidden="true" tabindex="-1"></a>(setassoc apa <span class="dv">4</span> <span class="at">&#39;mouse</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb570"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb570-1"><a href="#cb570-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">4</span> . mouse) (<span class="dv">1</span> . horse) (<span class="dv">2</span> . llama) (<span class="dv">3</span> . shark))</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb571"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb571-1"><a href="#cb571-1" aria-hidden="true" tabindex="-1"></a>apa</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb572"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb572-1"><a href="#cb572-1" aria-hidden="true" tabindex="-1"></a>((<span class="dv">1</span> . horse) (<span class="dv">2</span> . llama) (<span class="dv">3</span> . shark))</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="byte-buffers">Byte buffers</h2>
+<hr />
+<h3 id="bufcreate">bufcreate</h3>
+<p>Create an array of bytes. The form of a <code>bufcreate</code>
+expression is <code>(bufcreate size-expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb573"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb573-1"><a href="#cb573-1" aria-hidden="true" tabindex="-1"></a>(define data (bufcreate <span class="dv">10</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb574"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb574-1"><a href="#cb574-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb575"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb575-1"><a href="#cb575-1" aria-hidden="true" tabindex="-1"></a>(define empty-array (bufcreate <span class="dv">0</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb576"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb576-1"><a href="#cb576-1" aria-hidden="true" tabindex="-1"></a>[]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>Alternatively a buffer can be allocated from a compactable memory
+region (defrag mem).</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb577"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb577-1"><a href="#cb577-1" aria-hidden="true" tabindex="-1"></a>(define dm (dm-create <span class="dv">1000</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb578"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb578-1"><a href="#cb578-1" aria-hidden="true" tabindex="-1"></a>DM</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb579"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb579-1"><a href="#cb579-1" aria-hidden="true" tabindex="-1"></a>(define data-in-dm (bufcreate dm <span class="dv">10</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb580"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb580-1"><a href="#cb580-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>For more information about defragmentable memory see
+<a href=#Defragmentable_memory>Defragmentable memory</a>.</p>
+<hr />
+<h3 id="buflen">buflen</h3>
+<p>Returns the size of a buffer in number of bytes. The form of an
+<code>buflen</code> expression is <code>(buflen buf-expr)</code> where
+buf-expr has to evaluate into a buffer.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb581"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb581-1"><a href="#cb581-1" aria-hidden="true" tabindex="-1"></a>(buflen data)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb582"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb582-1"><a href="#cb582-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bufget-x">bufget-[X]</h3>
+<p>Read a value from a buffer. The contents of a buffer can be read as a
+sized integer or unsigned value using as many bytes from the buffer as
+the X portion of the function name implies. The form of a bufget
+expression is <code>(bufget-[X] buf-expr ix-expr)</code> where
+<code>ix-expr</code> evaluates to a number indicating the byte position
+to start reading from.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb583"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb583-1"><a href="#cb583-1" aria-hidden="true" tabindex="-1"></a>(define data [<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb584"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb584-1"><a href="#cb584-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb585"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb585-1"><a href="#cb585-1" aria-hidden="true" tabindex="-1"></a>(bufget-i8 data <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb586"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb586-1"><a href="#cb586-1" aria-hidden="true" tabindex="-1"></a>-<span class="dv">1</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb587"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb587-1"><a href="#cb587-1" aria-hidden="true" tabindex="-1"></a>(bufget-i16 data <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb588"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb588-1"><a href="#cb588-1" aria-hidden="true" tabindex="-1"></a>-<span class="dv">1</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb589"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb589-1"><a href="#cb589-1" aria-hidden="true" tabindex="-1"></a>(bufget-i32 data <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb590"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb590-1"><a href="#cb590-1" aria-hidden="true" tabindex="-1"></a>-<span class="dv">1</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb591"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb591-1"><a href="#cb591-1" aria-hidden="true" tabindex="-1"></a>(bufget-u8 data <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb592"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb592-1"><a href="#cb592-1" aria-hidden="true" tabindex="-1"></a><span class="dv">255</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb593"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb593-1"><a href="#cb593-1" aria-hidden="true" tabindex="-1"></a>(bufget-u16 data <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb594"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb594-1"><a href="#cb594-1" aria-hidden="true" tabindex="-1"></a><span class="dv">65535</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb595"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb595-1"><a href="#cb595-1" aria-hidden="true" tabindex="-1"></a>(bufget-u32 data <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb596"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb596-1"><a href="#cb596-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4294967295</span>u32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bufset-x">bufset-[X]</h3>
+<p>The <code>bufset</code> functions performs a destructive updates to a
+buffer. The form of a <code>bufset</code> expression is
+<code>(bufset-[X] buf-expr ix-expr val-expr)</code> where
+<code>ix-expr</code> evaluates to a number indicating where in the
+buffer to start writing and <code>val-expr</code> is the value to
+write.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb597"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb597-1"><a href="#cb597-1" aria-hidden="true" tabindex="-1"></a>(define data [<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb598"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb598-1"><a href="#cb598-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb599"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb599-1"><a href="#cb599-1" aria-hidden="true" tabindex="-1"></a>(bufset-i8 data <span class="dv">0</span> <span class="dv">10</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb600"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb600-1"><a href="#cb600-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb601"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb601-1"><a href="#cb601-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb602"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb602-1"><a href="#cb602-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb603"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb603-1"><a href="#cb603-1" aria-hidden="true" tabindex="-1"></a>(bufset-i16 data <span class="dv">0</span> <span class="dv">20</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb604"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb604-1"><a href="#cb604-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb605"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb605-1"><a href="#cb605-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb606"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb606-1"><a href="#cb606-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">20</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb607"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb607-1"><a href="#cb607-1" aria-hidden="true" tabindex="-1"></a>(bufset-i32 data <span class="dv">0</span> -<span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb608"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb608-1"><a href="#cb608-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb609"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb609-1"><a href="#cb609-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb610"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb610-1"><a href="#cb610-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb611"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb611-1"><a href="#cb611-1" aria-hidden="true" tabindex="-1"></a>(bufset-u8 data <span class="dv">0</span> <span class="dv">10</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb612"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb612-1"><a href="#cb612-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb613"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb613-1"><a href="#cb613-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb614"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb614-1"><a href="#cb614-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">10</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb615"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb615-1"><a href="#cb615-1" aria-hidden="true" tabindex="-1"></a>(bufset-u16 data <span class="dv">0</span> <span class="dv">20</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb616"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb616-1"><a href="#cb616-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb617"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb617-1"><a href="#cb617-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb618"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb618-1"><a href="#cb618-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">20</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb619"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb619-1"><a href="#cb619-1" aria-hidden="true" tabindex="-1"></a>(bufset-u32 data <span class="dv">0</span> <span class="dv">4294967295</span>u32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb620"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb620-1"><a href="#cb620-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb621"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb621-1"><a href="#cb621-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb622"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb622-1"><a href="#cb622-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bufclear">bufclear</h3>
+<p>To clear a byte array the function bufclear can be used
+<code>(bufclear arr optByte optStart optLen)</code> Where arr is the
+byte array to clear, optByte is the optional argument of what to clear
+with (default 0), optStart is the optional argument of which position to
+start clearing (default 0) and optLen is the optional argument of how
+many bytes to clear after start (default the entire array). Example:</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb623"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb623-1"><a href="#cb623-1" aria-hidden="true" tabindex="-1"></a>(define data [<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb624"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb624-1"><a href="#cb624-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb625"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb625-1"><a href="#cb625-1" aria-hidden="true" tabindex="-1"></a>(bufclear data)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb626"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb626-1"><a href="#cb626-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb627"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb627-1"><a href="#cb627-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb628"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb628-1"><a href="#cb628-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb629"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb629-1"><a href="#cb629-1" aria-hidden="true" tabindex="-1"></a>(bufclear data <span class="dv">255</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb630"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb630-1"><a href="#cb630-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb631"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb631-1"><a href="#cb631-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb632"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb632-1"><a href="#cb632-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb633"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb633-1"><a href="#cb633-1" aria-hidden="true" tabindex="-1"></a>(bufclear data <span class="dv">1</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb634"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb634-1"><a href="#cb634-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb635"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb635-1"><a href="#cb635-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb636"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb636-1"><a href="#cb636-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb637"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb637-1"><a href="#cb637-1" aria-hidden="true" tabindex="-1"></a>(bufclear data <span class="dv">1</span> <span class="dv">5</span> <span class="dv">8</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb638"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb638-1"><a href="#cb638-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb639"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb639-1"><a href="#cb639-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb640"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb640-1"><a href="#cb640-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">1</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb641"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb641-1"><a href="#cb641-1" aria-hidden="true" tabindex="-1"></a>(bufclear data <span class="dv">170</span> <span class="dv">1</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb642"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb642-1"><a href="#cb642-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb643"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb643-1"><a href="#cb643-1" aria-hidden="true" tabindex="-1"></a>data</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb644"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb644-1"><a href="#cb644-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">255</span> <span class="dv">170</span> <span class="dv">170</span> <span class="dv">170</span> <span class="dv">170</span> <span class="dv">170</span> <span class="dv">1</span> <span class="dv">1</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="byte-buffer-literal-syntax">Byte buffer literal syntax</h3>
+<p>Byte buffer literals can be created using the <code>[</code> and
+<code>]</code> syntax to enclose values to initialize the array with.
+The <code>[</code> and <code>]</code> syntax is complete resolved in the
+reader and thus cannot contain arbitrary lisp terms. the values listed
+between the <code>[</code> and the <code>]</code> must be literals!</p>
+<p>The form of the <code>[</code> and <code>]</code> syntax is
+<code>[ val1 ... valN ]</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb645"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb645-1"><a href="#cb645-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>]</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb646"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb646-1"><a href="#cb646-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="arrays">Arrays</h2>
+<p>LispBM supports arrays of arbitrary lisp values (including other
+arrays).</p>
+<h3 id="array-literals">array literals</h3>
+<p>An array literal are specified as a sequence of lisp values between
+<code>[|</code> and <code>|]</code>. Values in a literal array are not
+evaluated.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb647"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb647-1"><a href="#cb647-1" aria-hidden="true" tabindex="-1"></a>(define my-arr [|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>|])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb648"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb648-1"><a href="#cb648-1" aria-hidden="true" tabindex="-1"></a>[|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>|]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb649"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb649-1"><a href="#cb649-1" aria-hidden="true" tabindex="-1"></a>(define my-arr [|daniel jackson|])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb650"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb650-1"><a href="#cb650-1" aria-hidden="true" tabindex="-1"></a>[|daniel jackson|]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb651"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb651-1"><a href="#cb651-1" aria-hidden="true" tabindex="-1"></a>(define my-arr [|(apa . bepa) (<span class="dv">1</span> . <span class="dv">2</span>)|])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb652"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb652-1"><a href="#cb652-1" aria-hidden="true" tabindex="-1"></a>[|(apa . bepa) (<span class="dv">1</span> . <span class="dv">2</span>)|]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb653"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb653-1"><a href="#cb653-1" aria-hidden="true" tabindex="-1"></a>(define my-arr [|(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>) (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)|])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb654"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb654-1"><a href="#cb654-1" aria-hidden="true" tabindex="-1"></a>[|(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>) (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)|]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb655"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb655-1"><a href="#cb655-1" aria-hidden="true" tabindex="-1"></a>(define my-arr [|[|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>|] [|<span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>|]|])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb656"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb656-1"><a href="#cb656-1" aria-hidden="true" tabindex="-1"></a>[|[|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>|] [|<span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>|]|]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb657"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb657-1"><a href="#cb657-1" aria-hidden="true" tabindex="-1"></a>(ix my-arr <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb658"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb658-1"><a href="#cb658-1" aria-hidden="true" tabindex="-1"></a>[|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>|]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb659"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb659-1"><a href="#cb659-1" aria-hidden="true" tabindex="-1"></a>(ix my-arr <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb660"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb660-1"><a href="#cb660-1" aria-hidden="true" tabindex="-1"></a>[|<span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>|]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb661"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb661-1"><a href="#cb661-1" aria-hidden="true" tabindex="-1"></a>(ix (ix my-arr <span class="dv">0</span>) <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb662"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb662-1"><a href="#cb662-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb663"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb663-1"><a href="#cb663-1" aria-hidden="true" tabindex="-1"></a>(ix (ix my-arr <span class="dv">1</span>) <span class="dv">2</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb664"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb664-1"><a href="#cb664-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>All arrays have an associated heap-cell that acts as a liaison in
+relation to the garbage collector. When garbage collection frees the
+liaison, it also frees the array data in buffers and arrays memory
+(lbm_memory).</p>
+<p><img src="./images/array_literal.png"
+alt="In memory representation of an array" /></p>
+<hr />
+<h3 id="array">array</h3>
+<p><code>array</code> takes n arguments and creates an array holding
+those arguments as values. The form of an <code>array</code> expression
+is <code>(array expr1 ... exprN)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb665"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb665-1"><a href="#cb665-1" aria-hidden="true" tabindex="-1"></a>(define my-arr (array <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb666"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb666-1"><a href="#cb666-1" aria-hidden="true" tabindex="-1"></a>[|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>|]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb667"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb667-1"><a href="#cb667-1" aria-hidden="true" tabindex="-1"></a>(define my-arr (array (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>) (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb668"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb668-1"><a href="#cb668-1" aria-hidden="true" tabindex="-1"></a>[|<span class="dv">3</span> <span class="dv">7</span>|]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="mkarray">mkarray</h3>
+<p>Allocate an array with <code>mkarray</code>. Arrays are allocated in
+arrays and byte buffer memory. The form an <code>mkarray</code>
+expression is <code>(mkarray num-expr)</code>.</p>
+<p>Note that there is currently no literal syntax for arrays.</p>
+<p>The example below allocates an array in "lbm_memory" (arrays and
+byte-buffer memory).</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb669"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb669-1"><a href="#cb669-1" aria-hidden="true" tabindex="-1"></a>(define my-arr (mkarray <span class="dv">10</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb670"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb670-1"><a href="#cb670-1" aria-hidden="true" tabindex="-1"></a>[|<span class="va">nil</span> <span class="va">nil</span> <span class="va">nil</span> <span class="va">nil</span> <span class="va">nil</span> <span class="va">nil</span> <span class="va">nil</span> <span class="va">nil</span> <span class="va">nil</span> <span class="va">nil</span>|]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="ix-1">ix</h3>
+<p>Index into an array using the <code>ix</code> function. The form of
+an <code>ix</code> expression is
+<code>(ix array-expr index-expr)</code>. Indexing starts from 0 and if
+you index out of bounds the result is nil. A negative index accesses
+values starting from the end of the array.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb671"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb671-1"><a href="#cb671-1" aria-hidden="true" tabindex="-1"></a>(ix [|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>|] <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb672"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb672-1"><a href="#cb672-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb673"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb673-1"><a href="#cb673-1" aria-hidden="true" tabindex="-1"></a>(ix [|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>|] -<span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb674"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb674-1"><a href="#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="setix-1">setix</h3>
+<p>Destructively update an element in an array. The form of a
+<code>setix</code> expression is
+<code>(setix arr-expr index-expr value-expr)</code>. Indexing starts
+from 0 and if you index out of bounds the result is nil. A negative
+value -n will update the nth value from the end of the list.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb675"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb675-1"><a href="#cb675-1" aria-hidden="true" tabindex="-1"></a>(setix [|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>|] <span class="dv">2</span> <span class="dv">77</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb676"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb676-1"><a href="#cb676-1" aria-hidden="true" tabindex="-1"></a>[|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">77</span> <span class="dv">4</span> <span class="dv">5</span>|]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb677"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb677-1"><a href="#cb677-1" aria-hidden="true" tabindex="-1"></a>(setix [|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>|] -<span class="dv">2</span> <span class="dv">66</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb678"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb678-1"><a href="#cb678-1" aria-hidden="true" tabindex="-1"></a>[|<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">66</span> <span class="dv">5</span>|]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="defragmentable-memory">Defragmentable memory</h2>
+<p>LBM has two types of memory, the HEAP and the LBM_MEMORY. Lists and
+pairs are all stored on the heap. Arrays and large values (such as 64bit
+numbers are stored on LBM_MEMORY. The HEAP has a nice property that all
+allocations on it are the same size and therefore the HEAP is immune to
+the problems caused by fragmentation. On LBM_MEMORY arbitrarily sized
+arrays can be allocated and fragmentation can cause an allocation to
+fail even though there is enough free bytes.</p>
+<p>One way to resolve the fragmentation problem is to use a compacting
+garbage collector. We have opted to not use a compacting garbage
+collector on the LBM_MEMORY as it is quite complicated. It is extra
+complicated given how this memory is a shared resource between C
+extensions and the lisp runtime system.</p>
+<p>Our solution is to allow the programmer to create a memory block
+inside of the LBM_MEMORY in which we will run a defragmentation routine
+when needed. The defragmentable memory can only be used to allocate
+non-zero sized byte arrays on the lisp side. The idea is that the
+programmer calculates the maximum size of simultaneously used arrays (+
+the overhead of 3 words per allocation) needed for a small critical set
+of arrays used in the program and allocates a defragmentable memory of
+that size.</p>
+<p>The LBM (non-compacting) gabage collector frees arrays from a
+defragmentable memory area automatically. An allocation in the
+defragmentable memory area that fails triggers garbage collection
+followed by compaction (if needed).</p>
+<hr />
+<h3 id="dm-create">dm-create</h3>
+<p><code>dm-create</code> creates a region of defragmentable memory for
+bytearrays within LBM memory. The form of a <code>dm-create</code>
+expression is <code>(dm-create size-expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb679"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb679-1"><a href="#cb679-1" aria-hidden="true" tabindex="-1"></a>(define dm (dm-create <span class="dv">1000</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb680"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb680-1"><a href="#cb680-1" aria-hidden="true" tabindex="-1"></a>DM</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="dm-alloc">dm-alloc</h3>
+<p><code>dm-alloc</code> is used to allocate a byte-array from a region
+of defragmentable memory. The form of a <code>dm-alloc</code> expression
+is <code>(dm-alloc DM-expr size-expr)</code>. where <code>DM-expr</code>
+evaluates to the defragmentable region to allocate from and
+<code>size-expr</code> is the number of bytes to allocate. Each
+allocation uses up 12 extra bytes of header that you do not include in
+<code>size-expr</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb681"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb681-1"><a href="#cb681-1" aria-hidden="true" tabindex="-1"></a>(define arr10 (dm-alloc dm <span class="dv">10</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb682"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb682-1"><a href="#cb682-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb683"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb683-1"><a href="#cb683-1" aria-hidden="true" tabindex="-1"></a>(define arr100 (dm-alloc dm <span class="dv">100</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb684"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb684-1"><a href="#cb684-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="pattern-matching">Pattern-matching</h2>
+<hr />
+<h3 id="match">match</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>Pattern-matching is expressed using match. The form of a match
+expression is <code>(match expr (pat1 expr1) ... (patN exprN))</code>.
+Pattern-matching compares the shape of an expression to each of the
+<code>pat1</code> ... <code>patN</code> and evaluates the expression
+<code>exprM</code> of the pattern that matches. In a pattern you can use
+a number of match-binders or wildcards: <code>_</code>, <code>?</code>,
+<code>?i</code>,<code>?u</code>,<code>?float</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb685"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb685-1"><a href="#cb685-1" aria-hidden="true" tabindex="-1"></a>(match <span class="at">&#39;orange</span></span>
+<span id="cb685-2"><a href="#cb685-2" aria-hidden="true" tabindex="-1"></a>       (green <span class="dv">1</span>)</span>
+<span id="cb685-3"><a href="#cb685-3" aria-hidden="true" tabindex="-1"></a>       (orange <span class="dv">2</span>)</span>
+<span id="cb685-4"><a href="#cb685-4" aria-hidden="true" tabindex="-1"></a>       (blue <span class="dv">3</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb686"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb686-1"><a href="#cb686-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="no_match">no_match</h3>
+<p>The <code>no_match</code> symbol is returned from pattern matching if
+no case matches the expression.</p>
+<ul>
+<li>Add a catch-all case to your pattern-matching. <code>_</code>.</li>
+</ul>
+<hr />
+<h3 id="_">_</h3>
+<p>The underscore pattern matches anything.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb687"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb687-1"><a href="#cb687-1" aria-hidden="true" tabindex="-1"></a>(match <span class="at">&#39;fish</span></span>
+<span id="cb687-2"><a href="#cb687-2" aria-hidden="true" tabindex="-1"></a>       (horse <span class="at">&#39;its-a-horse</span>)</span>
+<span id="cb687-3"><a href="#cb687-3" aria-hidden="true" tabindex="-1"></a>       (pig <span class="at">&#39;its-a-pig</span>)</span>
+<span id="cb687-4"><a href="#cb687-4" aria-hidden="true" tabindex="-1"></a>       (_ <span class="at">&#39;i-dont-know</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb688"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb688-1"><a href="#cb688-1" aria-hidden="true" tabindex="-1"></a>i-dont-know</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="-13">?</h3>
+<p>The <code>?</code> pattern matches anything and binds that anything
+to variable. Using the <code>?</code> pattern is done as
+<code>(? var)</code> and the part of the expression that matches is
+bound to <code>var</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb689"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb689-1"><a href="#cb689-1" aria-hidden="true" tabindex="-1"></a>(match &#39;(orange <span class="dv">17</span>)</span>
+<span id="cb689-2"><a href="#cb689-2" aria-hidden="true" tabindex="-1"></a>       ((green (? n)) (<span class="kw">+</span> n <span class="dv">1</span>))</span>
+<span id="cb689-3"><a href="#cb689-3" aria-hidden="true" tabindex="-1"></a>       ((orange (? n)) (<span class="kw">+</span> n <span class="dv">2</span>))</span>
+<span id="cb689-4"><a href="#cb689-4" aria-hidden="true" tabindex="-1"></a>       ((blue (? n)) (<span class="kw">+</span> n <span class="dv">3</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb690"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb690-1"><a href="#cb690-1" aria-hidden="true" tabindex="-1"></a><span class="dv">19</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="match-with-guards">Match with guards</h3>
+<p>Patterns used in a match expressions can be augmented with a boolean
+guard to further discern between cases. A pattern with a guard is of the
+form <code>(pattern-expr guard-expr expr)</code>. A pattern with a
+guard, matches only if the pattern structurally matches and if the
+guard-expr evaluates to true in the match environment.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb691"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb691-1"><a href="#cb691-1" aria-hidden="true" tabindex="-1"></a>(define x <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb692"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb692-1"><a href="#cb692-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb693"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb693-1"><a href="#cb693-1" aria-hidden="true" tabindex="-1"></a>(match x</span>
+<span id="cb693-2"><a href="#cb693-2" aria-hidden="true" tabindex="-1"></a>       ((? y) (<span class="kw">&lt;</span> y <span class="dv">0</span>) <span class="at">&#39;less-than-zero</span>)</span>
+<span id="cb693-3"><a href="#cb693-3" aria-hidden="true" tabindex="-1"></a>       ((? y) (<span class="kw">&gt;</span> y <span class="dv">0</span>) <span class="at">&#39;greater-than-zero</span>)</span>
+<span id="cb693-4"><a href="#cb693-4" aria-hidden="true" tabindex="-1"></a>       ((? y) (<span class="kw">=</span> y <span class="dv">0</span>) <span class="at">&#39;equal-to-zero</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb694"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb694-1"><a href="#cb694-1" aria-hidden="true" tabindex="-1"></a>greater-than-zero</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="concurrency">Concurrency</h2>
+<p>The concurrency support in LispBM is provided by the set of
+functions, <code>spawn</code>, <code>wait</code>, <code>yield</code> and
+<code>atomic</code> described below. Concurrency in LispBM is scheduled
+by a round-robin scheduler that splits the runtime system evaluator
+fairly (with caveats, below) between all running processes.</p>
+<p>When a process is scheduled to run, made active, it is given a quota
+of evaluator "steps" to use up. The process then runs until that quota
+is exhausted or the process itself has signaled it wants to sleep by
+yielding or blocking (for example by waiting for a message using the
+message passing system).</p>
+<p>A process can also request to not be "pre-empted" while executing a
+certain expression by invoking <code>atomic</code>. One should take care
+to make blocks of atomic code as small as possible as it disrupts the
+fairness of the scheduler. While executing inside of an atomic block the
+process has sole ownership of the shared global environment and can
+perform atomic read-modify-write sequences to global data.</p>
+<hr />
+<h3 id="spawn">spawn</h3>
+<p>Use <code>spawn</code> to launch a concurrent process. Spawn takes a
+closure and arguments to pass to that closure as its arguments. The form
+of a spawn expression is
+<code>(spawn opt-name opt-stack-size closure arg1 ... argN)</code>.</p>
+<p>Each process has a runtime-stack which is used for the evaluation of
+expressions within that process. The stack size needed by a process
+depends on 1. How deeply nested expressions evaluated by the process
+are. 2. Number of recursive calls (Only if a function is NOT
+tail-recursive). 3. The Number of arguments that functions called by the
+process take.</p>
+<p>Having a stack that is too small will result in a
+<code>out_of_stack</code> error.</p>
+<p>The default stack size is 256 words (1K Bytes) and should be more
+than enough for reasonable programs. Many processes will work perfectly
+fine with a lot less stack. You can find a good size by trial and
+error.</p>
+<hr />
+<h3 id="spawn-trap">spawn-trap</h3>
+<p>Use <code>spawn-trap</code> to spawn a child process and enable
+trapping of exit conditions for that child. The form of a
+<code>spawn-trap</code> expression is
+<code>(spawn-trap opt-name opt-stack-size closure arg1 .. argN)</code>.
+If the child process is terminated because of an error, a message is
+sent to the parent process of the form
+<code>(exit-error tid err-val)</code>. If the child process terminates
+successfully a message of the form <code>(exit-ok tid value)</code> is
+sent to the parent.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb695"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb695-1"><a href="#cb695-1" aria-hidden="true" tabindex="-1"></a>(defun thd <span class="va">nil</span></span>
+<span id="cb695-2"><a href="#cb695-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>))</span>
+<span id="cb695-3"><a href="#cb695-3" aria-hidden="true" tabindex="-1"></a>(spawn-trap thd)</span>
+<span id="cb695-4"><a href="#cb695-4" aria-hidden="true" tabindex="-1"></a>(recv ((exit-error (? tid) (? <span class="kw">e</span>)) <span class="at">&#39;crash</span>)</span>
+<span id="cb695-5"><a href="#cb695-5" aria-hidden="true" tabindex="-1"></a>      ((exit-ok (? tid) (? v)) <span class="at">&#39;ok</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb696"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb696-1"><a href="#cb696-1" aria-hidden="true" tabindex="-1"></a>ok</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb697"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb697-1"><a href="#cb697-1" aria-hidden="true" tabindex="-1"></a>(defun thd <span class="va">nil</span></span>
+<span id="cb697-2"><a href="#cb697-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> <span class="dv">1</span> kurt-russel))</span>
+<span id="cb697-3"><a href="#cb697-3" aria-hidden="true" tabindex="-1"></a>(spawn-trap thd)</span>
+<span id="cb697-4"><a href="#cb697-4" aria-hidden="true" tabindex="-1"></a>(recv ((exit-error (? tid) (? <span class="kw">e</span>)) <span class="at">&#39;crash</span>)</span>
+<span id="cb697-5"><a href="#cb697-5" aria-hidden="true" tabindex="-1"></a>      ((exit-ok (? tid) (? v)) <span class="at">&#39;ok</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb698"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb698-1"><a href="#cb698-1" aria-hidden="true" tabindex="-1"></a>crash</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="self">self</h3>
+<p>Use <code>self</code> to obtain the thread-id of the thread in which
+<code>self</code> is evaluated. The form of a <code>self</code>
+expression is <code>(self)</code>. The thread id is of an integer
+type.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb699"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb699-1"><a href="#cb699-1" aria-hidden="true" tabindex="-1"></a>(self)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb700"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb700-1"><a href="#cb700-1" aria-hidden="true" tabindex="-1"></a><span class="dv">4172</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="wait">wait</h3>
+<p>Use <code>wait</code> to wait for a spawned process to finish. The
+argument to <code>wait</code> should be a process id. The
+<code>wait</code> blocks until the process with the given process id
+finishes. When the process with with the given id finishes, the wait
+function returns True.</p>
+<p>Be careful to only wait for processes that actually exist and do
+finish. Otherwise you will wait forever.</p>
+<hr />
+<h3 id="yield">yield</h3>
+<p>To put a process to sleep, call <code>yield</code>. The argument to
+<code>yield</code> is number indicating at least how many microseconds
+the process should sleep.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb701"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb701-1"><a href="#cb701-1" aria-hidden="true" tabindex="-1"></a>(yield <span class="dv">10</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb702"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb702-1"><a href="#cb702-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="sleep">sleep</h3>
+<p>'sleep' puts a thread to sleep and differs from 'yield' only in the
+argument. 'sleep' takes a floating point number indicating how long in
+seconds the thread should sleep at least.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb703"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb703-1"><a href="#cb703-1" aria-hidden="true" tabindex="-1"></a>(sleep <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb704"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb704-1"><a href="#cb704-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="atomic">atomic</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p><code>atomic</code> can be used to execute a LispBM one or more
+expression without allowing the runtime system to switch process during
+that time. <code>atomic</code> is similar to progn with the addition of
+being uninterruptible.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb705"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb705-1"><a href="#cb705-1" aria-hidden="true" tabindex="-1"></a>(atomic (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>)</span>
+<span id="cb705-2"><a href="#cb705-2" aria-hidden="true" tabindex="-1"></a>        (<span class="kw">+</span> <span class="dv">3</span> <span class="dv">4</span>)</span>
+<span id="cb705-3"><a href="#cb705-3" aria-hidden="true" tabindex="-1"></a>        (<span class="kw">+</span> <span class="dv">4</span> <span class="dv">5</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb706"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb706-1"><a href="#cb706-1" aria-hidden="true" tabindex="-1"></a><span class="dv">9</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="exit-ok">exit-ok</h3>
+<p>The <code>exit-ok</code> function terminates the thread in a
+"successful" way and returns a result specified by the programmer. The
+form of an <code>exit-ok</code> expression is
+<code>(exit-ok value)</code>. If the process that calls
+<code>exit-ok</code> was created using <code>spawn-trap</code> a message
+of the form <code>(exit-ok tid value)</code> is be sent to the parent of
+this process.</p>
+<hr />
+<h3 id="exit-error">exit-error</h3>
+<p>The <code>exit-error</code> function terminates the thread with an
+error specified by the programmer. The form of an
+<code>exit-error</code> expression is <code>(exit-error err_val)</code>.
+If the process that calls <code>exit-error</code> was created using
+<code>spawn-trap</code> a message of the form
+<code>(exit-error tid err_val)</code> is sent to the parent of this
+process.</p>
+<hr />
+<h3 id="kill">kill</h3>
+<p>The <code>kill</code> function allows you to force terminate another
+thread. It has the signature
+<code>(kill thread-id-expr val-expr)</code>, where
+<code>thread-id-expr</code> is the thread that you want to terminate,
+and <code>val-expr</code> is the final result the thread dies with.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb707"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb707-1"><a href="#cb707-1" aria-hidden="true" tabindex="-1"></a>(defun f <span class="va">nil</span></span>
+<span id="cb707-2"><a href="#cb707-2" aria-hidden="true" tabindex="-1"></a>  (f))</span>
+<span id="cb707-3"><a href="#cb707-3" aria-hidden="true" tabindex="-1"></a>(define id (spawn f))</span>
+<span id="cb707-4"><a href="#cb707-4" aria-hidden="true" tabindex="-1"></a>(kill id <span class="va">nil</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb708"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb708-1"><a href="#cb708-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>The <code>val-expr</code> can be observed if the thread exit status
+is captured using <code>spawn-trap</code></p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb709"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb709-1"><a href="#cb709-1" aria-hidden="true" tabindex="-1"></a>(defun f <span class="va">nil</span></span>
+<span id="cb709-2"><a href="#cb709-2" aria-hidden="true" tabindex="-1"></a>  (f))</span>
+<span id="cb709-3"><a href="#cb709-3" aria-hidden="true" tabindex="-1"></a>(define id (spawn-trap f))</span>
+<span id="cb709-4"><a href="#cb709-4" aria-hidden="true" tabindex="-1"></a>(kill id <span class="at">&#39;kurt-russel</span>)</span>
+<span id="cb709-5"><a href="#cb709-5" aria-hidden="true" tabindex="-1"></a>(recv ((? x) x))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb710"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb710-1"><a href="#cb710-1" aria-hidden="true" tabindex="-1"></a>(exit-ok <span class="dv">110655</span> kurt-russel)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>The <code>val-expr</code> could be used to communicate to a thread
+monitor that the thread it monitors has been intentionally but
+externally killed.</p>
+<hr />
+<h2 id="message-passing">Message-passing</h2>
+<h3 id="send">send</h3>
+<p>Messages can be sent to a process by using <code>send</code>. The
+form of a <code>send</code> expression is <code>(send pid msg)</code>.
+The message, msg, can be any LispBM value.</p>
+<hr />
+<h3 id="recv">recv</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>To receive a message use the <code>recv</code> command. A process
+will block on a <code>recv</code> until there is a matching message in
+the mailbox. The <code>recv</code> syntax is very similar to <a
+href="#match">match</a>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb711"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb711-1"><a href="#cb711-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">send</span> (self) <span class="dv">28</span>)</span>
+<span id="cb711-2"><a href="#cb711-2" aria-hidden="true" tabindex="-1"></a>(recv ((? n) (<span class="kw">+</span> n <span class="dv">1</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb712"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb712-1"><a href="#cb712-1" aria-hidden="true" tabindex="-1"></a><span class="dv">29</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="recv-to">recv-to</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>Like <a href="#recv">recv</a>, <code>recv-to</code> is used to
+receive messages but <code>recv-to</code> takes an extra timeout
+argument. It then receives a message containing the symbol
+<code>timeout</code> after the timeout period ends.</p>
+<p>The form of an <code>recv-to</code> expression is
+<code>(recv-to timeout-secs (pattern1 exp1) ... (patternN expN))</code></p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb713"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb713-1"><a href="#cb713-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">send</span> (self) <span class="dv">28</span>)</span>
+<span id="cb713-2"><a href="#cb713-2" aria-hidden="true" tabindex="-1"></a>(recv-to <span class="fl">0.100000</span>f32</span>
+<span id="cb713-3"><a href="#cb713-3" aria-hidden="true" tabindex="-1"></a>         (timeout <span class="at">&#39;no-message</span>)</span>
+<span id="cb713-4"><a href="#cb713-4" aria-hidden="true" tabindex="-1"></a>         ((? n) (<span class="kw">+</span> n <span class="dv">1</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb714"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb714-1"><a href="#cb714-1" aria-hidden="true" tabindex="-1"></a><span class="dv">29</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb715"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb715-1"><a href="#cb715-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">send</span> (self) <span class="at">&#39;not-foo</span>)</span>
+<span id="cb715-2"><a href="#cb715-2" aria-hidden="true" tabindex="-1"></a>(recv-to <span class="fl">0.100000</span>f32</span>
+<span id="cb715-3"><a href="#cb715-3" aria-hidden="true" tabindex="-1"></a>         (foo <span class="at">&#39;got-foo</span>)</span>
+<span id="cb715-4"><a href="#cb715-4" aria-hidden="true" tabindex="-1"></a>         (timeout <span class="at">&#39;no-message</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb716"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb716-1"><a href="#cb716-1" aria-hidden="true" tabindex="-1"></a>no-message</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="flat-values">Flat values</h2>
+<p>Lisp values can be "flattened" into an array representation. The flat
+representation of a value contains all information needed so that the
+value can be recreated, "unflattened", in another instance of the
+runtime system (for example running on another microcontroller).</p>
+<p>Not all values can be flattened, custom types for example cannot.</p>
+<p>Flat values are designed for recursive encoding and decoding each
+sub-value contains all information about its size either implicitly or
+explicitly (as is the case with arrays).</p>
+<p>multibyte values are stored in network byte order (big endian).</p>
+<p><strong>Cons</strong> A cons cell is encoded into a byte 0x1 followed
+by the encoding of the car and then the cdr field of that cons cell.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">cons</th>
+<th style="text-align: center;">car value</th>
+<th style="text-align: center;">cdr value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0x1</td>
+<td style="text-align: center;">M bytes</td>
+<td style="text-align: center;">N bytes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Symbol as value</strong> A symbol value can be flattened.
+Note that symbol values only make sense locally. A flattened symbol
+value will only make sense in the same runtime system instance that
+flattened it.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">symbol-value</th>
+<th style="text-align: center;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0x2</td>
+<td style="text-align: center;">4 bytes on 32bit, 8 bytes on 64bit</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Symbol as string</strong> A symbol can be flattened as a
+string and thus make sense across runtime system instances.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">symbol-string</th>
+<th style="text-align: center;">string</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0x3</td>
+<td style="text-align: center;">zero terminated C style string</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Byte Arrays</strong> Byte arrays can be flattened and the
+length is stored explicitly.</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">byte array</th>
+<th style="text-align: center;">size in bytes</th>
+<th style="text-align: center;">data</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0xD</td>
+<td style="text-align: center;">4 bytes</td>
+<td style="text-align: center;">size bytes</td>
+</tr>
+</tbody>
+</table>
+<p>The rest of the atomic types are flattened according to the
+following:</p>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">type</th>
+<th style="text-align: center;">flat-id</th>
+<th style="text-align: center;">value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">byte</td>
+<td style="text-align: center;">0x4</td>
+<td style="text-align: center;">1 Byte</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">i28</td>
+<td style="text-align: center;">0x5</td>
+<td style="text-align: center;">4 Bytes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">u28</td>
+<td style="text-align: center;">0x6</td>
+<td style="text-align: center;">4 Bytes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">i32</td>
+<td style="text-align: center;">0x7</td>
+<td style="text-align: center;">4 Bytes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">u32</td>
+<td style="text-align: center;">0x8</td>
+<td style="text-align: center;">4 Bytes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">float</td>
+<td style="text-align: center;">0x9</td>
+<td style="text-align: center;">4 Bytes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">i64</td>
+<td style="text-align: center;">0xA</td>
+<td style="text-align: center;">8 Bytes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">u64</td>
+<td style="text-align: center;">0xB</td>
+<td style="text-align: center;">8 Bytes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">double</td>
+<td style="text-align: center;">0xC</td>
+<td style="text-align: center;">8 Bytes</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">i56</td>
+<td style="text-align: center;">0xE</td>
+<td style="text-align: center;">8 Bytes</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">u56</td>
+<td style="text-align: center;">0xF</td>
+<td style="text-align: center;">8 Bytes</td>
+</tr>
+</tbody>
+</table>
+<p>Note that some of the types are only present of 32Bit runtime systems
+and some only on 64 bit. i28 is present on 32 bit and i56 on 64 bit.
+likewise for u28 and u56.</p>
+<p>When LispBM unflattens a i56 or u56 on a 32bit system it creates a
+i64 or u64 in its place.</p>
+<p>Symbols as values, are not possible to transfer between runtime
+systems in general and is even more pointless between a 32 and 64 bit
+runtime system.</p>
+<h3 id="flatten">flatten</h3>
+<p>The <code>flatten</code> function takes a value as single argument
+and returns the flat representation if successful. A flatten expression
+has the form <code>(flatten expr)</code>. Note that <code>expr</code> is
+evaluated before the flattening. A flat value can be turned back into a
+normal lisp value applying <code>unflatten</code></p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb717"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb717-1"><a href="#cb717-1" aria-hidden="true" tabindex="-1"></a>(define a (flatten (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb718"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb718-1"><a href="#cb718-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">6</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb719"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb719-1"><a href="#cb719-1" aria-hidden="true" tabindex="-1"></a>(unflatten a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb720"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb720-1"><a href="#cb720-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb721"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb721-1"><a href="#cb721-1" aria-hidden="true" tabindex="-1"></a>(define a (flatten &#39;(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb722"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb722-1"><a href="#cb722-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span> <span class="dv">3</span> <span class="dv">43</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">110</span> <span class="dv">105</span> <span class="dv">108</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb723"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb723-1"><a href="#cb723-1" aria-hidden="true" tabindex="-1"></a>(unflatten a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb724"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb724-1"><a href="#cb724-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<p>A flat value is a byte-array containing an encoding of the value.</p>
+<hr />
+<h3 id="unflatten">unflatten</h3>
+<p><code>unflatten</code> converts a flat value back into a lisp value.
+Te form of an <code>unflatten</code> expression is
+<code>(unflatten flat-value)</code></p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb725"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb725-1"><a href="#cb725-1" aria-hidden="true" tabindex="-1"></a>(define a (flatten (<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb726"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb726-1"><a href="#cb726-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">6</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb727"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb727-1"><a href="#cb727-1" aria-hidden="true" tabindex="-1"></a>(unflatten a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb728"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb728-1"><a href="#cb728-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb729"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb729-1"><a href="#cb729-1" aria-hidden="true" tabindex="-1"></a>(define a (flatten &#39;(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb730"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb730-1"><a href="#cb730-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span> <span class="dv">3</span> <span class="dv">43</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">2</span> <span class="dv">1</span> <span class="dv">5</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">3</span> <span class="dv">110</span> <span class="dv">105</span> <span class="dv">108</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb731"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb731-1"><a href="#cb731-1" aria-hidden="true" tabindex="-1"></a>(unflatten a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb732"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb732-1"><a href="#cb732-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="macros">Macros</h2>
+<p>LispBM macros are created using the <code>macro</code> keyword. A
+macro is quite similar to <a href="#lambda"><code>lambda</code></a> in
+lispBM except that arguments are passed in unevaluated. Together with
+the code-splicing capabilities given by <a
+href="#quasiquotation">quasiquotation</a>, this provides a powerful
+code-generation tool.</p>
+<p>A macro application is run through the interpreter two times. Once to
+evaluate the body of the macro on the unevaluated arguments. The result
+of this first application should be a program. The resulting program
+then goes through the interpreter again to compute final values.</p>
+<p>Given this repeated evaluation, macros are not a performance boost in
+lispbm. Macros are really a feature that should be used to invent new
+programming abstractions in cases where it is ok to pay a little for the
+overhead for benefits in expressivity.</p>
+<h3 id="macro">macro</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>The form of a <code>macro</code> expression is:
+<code>(macro args body)</code></p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb733"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb733-1"><a href="#cb733-1" aria-hidden="true" tabindex="-1"></a>(define defun (macro (<span class="kw">name</span> args body)</span>
+<span id="cb733-2"><a href="#cb733-2" aria-hidden="true" tabindex="-1"></a>                    `(define ,<span class="kw">name</span> (lambda ,args ,body))))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb734"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb734-1"><a href="#cb734-1" aria-hidden="true" tabindex="-1"></a>(macro (<span class="kw">name</span> args body) (append &#39;(define) (<span class="kw">list</span> <span class="kw">name</span>) (<span class="kw">list</span> (append &#39;(lambda) (<span class="kw">list</span> args) (<span class="kw">list</span> body)))))</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb735"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb735-1"><a href="#cb735-1" aria-hidden="true" tabindex="-1"></a>(defun <span class="kw">inc</span> (x)</span>
+<span id="cb735-2"><a href="#cb735-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> x <span class="dv">1</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb736"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb736-1"><a href="#cb736-1" aria-hidden="true" tabindex="-1"></a>(closure (x) </span>
+<span id="cb736-2"><a href="#cb736-2" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">+</span> x <span class="dv">1</span>)</span>
+<span id="cb736-3"><a href="#cb736-3" aria-hidden="true" tabindex="-1"></a>  <span class="va">nil</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb737"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb737-1"><a href="#cb737-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">inc</span> <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb738"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb738-1"><a href="#cb738-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="call-with-current-continuation">Call with current
+continuation</h2>
+<p>"Call with current continuation" is called <code>call-cc</code> in
+LBM. Call with current continuation saves the "current continuation",
+which encodes what the evaluator will do next, into an object in the
+language. This encoded continuation object behaves as a function taking
+one argument.</p>
+<p>The <code>call-cc</code> should be given a function, <code>f</code>,
+as the single argument. This function, <code>f</code>, should also take
+a single argument, the continuation. At any point in the body of
+<code>f</code> the continuation can be applied to a value, in essense
+replacing the entire <code>call-cc</code> with that value. All
+side-effecting operations operations up until the application of the
+continuation will take effect.</p>
+<p>From within a <code>call-cc</code> application it is possible to bind
+the continuation to a global variable which will allow some pretty
+arbitrary control flow.</p>
+<p>The example below creates a macro for a <code>progn</code> facility
+that allows returning at an arbitrary point.</p>
+<div class="sourceCode" id="cb739"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb739-1"><a href="#cb739-1" aria-hidden="true" tabindex="-1"></a>(define <span class="kw">do</span> (macro (body)</span>
+<span id="cb739-2"><a href="#cb739-2" aria-hidden="true" tabindex="-1"></a>                  `(call-cc (lambda (return) (progn ,<span class="at">@body</span>)))))</span></code></pre></div>
+<p>The example using <code>do</code> below makes use of
+<code>print</code> which is not a built-in feature of lispBM. There are
+just to many different ways a programmer may want to implement
+<code>print</code> on an microcontroller. Use the lispBM extensions
+framework to implement your own version of <code>print</code></p>
+<div class="sourceCode" id="cb740"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb740-1"><a href="#cb740-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">do</span> ((<span class="kw">print</span> <span class="dv">10</span>)</span>
+<span id="cb740-2"><a href="#cb740-2" aria-hidden="true" tabindex="-1"></a>     (return <span class="at">&#39;t</span>)</span>
+<span id="cb740-3"><a href="#cb740-3" aria-hidden="true" tabindex="-1"></a>     (<span class="kw">print</span> <span class="dv">20</span>)))</span></code></pre></div>
+<p>In the example above only "10" will be printed. Below is an example
+that conditionally returns.</p>
+<div class="sourceCode" id="cb741"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb741-1"><a href="#cb741-1" aria-hidden="true" tabindex="-1"></a>(define f (lambda (x)</span>
+<span id="cb741-2"><a href="#cb741-2" aria-hidden="true" tabindex="-1"></a>            (<span class="kw">do</span> ((<span class="kw">print</span> <span class="st">&quot;hello world&quot;</span>)</span>
+<span id="cb741-3"><a href="#cb741-3" aria-hidden="true" tabindex="-1"></a>                 (<span class="kw">if</span> (<span class="kw">=</span> x <span class="dv">1</span>)</span>
+<span id="cb741-4"><a href="#cb741-4" aria-hidden="true" tabindex="-1"></a>                     (return <span class="at">&#39;t</span>)</span>
+<span id="cb741-5"><a href="#cb741-5" aria-hidden="true" tabindex="-1"></a>                     <span class="va">nil</span>)</span>
+<span id="cb741-6"><a href="#cb741-6" aria-hidden="true" tabindex="-1"></a>                 (<span class="kw">print</span> <span class="st">&quot;Gizmo!&quot;</span>)))))</span></code></pre></div>
+<h3 id="call-cc">call-cc</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>The form of a <code>call-cc</code> expression is
+<code>(call-cc f)</code>, where f is a function taking a continuation k.
+In code most uses of call-cc will have the form
+<code>(call-cc (lambda (k) expr ))</code>. When using
+<code>call-cc</code> the expr above is allowed to bind <code>k</code> to
+a global variable.</p>
+<hr />
+<h3 id="call-cc-unsafe">call-cc-unsafe</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p><code>call-cc-unsafe</code> is similar to <code>call-cc</code> in
+form. <code>(call-cc-unsafe f)</code> and in code usually as
+<code>(call-cc-unsafe (lambda (k) expr))</code>. When using
+call-cc-unsafe you must NOT let the <code>k</code> leak out of the scope
+created by the enclosing <code>call-cc-unsafe</code>! That is, if
+<code>k</code> is used at all, it must be within <code>expr</code>.
+Binding <code>k</code> (directly or indirectly) to a global is a
+violation of the trust I am putting in you.</p>
+<hr />
+<h2 id="error-handling">Error handling</h2>
+<p>If an error occurs while evaluating a program, the process that runs
+that program is killed. The result of the killed process is set to an
+error symbol indicating what went wrong.</p>
+<p>If the process was created using <code>spawn</code> (or equivalently,
+started by a issuing a command in the repl), the process dies and an
+error message is presented over the registered printing callback
+(dependent on how LispBM is integrated into your system). The
+<code>ctx_done_callback</code> is also called and performs other
+integration dependent tasks related to the shutting down of a
+process.</p>
+<p>If the process was created using <code>spawn-trap</code>, in addition
+to the above, a message is sent to the parent process (the process that
+executed the spawn-trap) containing information about the process that
+struck an error. See <a href="#spawn-trap">spawn-trap</a>. The parent
+process can now choose to restart the process that crashed or to take
+some other action.</p>
+<p>Another way to catch errors is to use <code>trap</code> which works
+similar to <code>spawn-trap</code> but it does not spawn a thread.
+<code>trap</code> takes one argument which is an expressions. The
+expression is evaluated and if it fails <code>(trap expr)</code> returns
+an object representing the error. For more information on
+<code>trap</code>, see <a href="#trap">trap</a>.</p>
+<h3 id="read_error">read_error</h3>
+<p>The <code>read_error</code> symbol is returned if the reader cannot
+parse the input code. Read errors are most likely caused by
+syntactically incorrect input programs.</p>
+<ul>
+<li>Check that all opening parenthesis are properly closed.</li>
+</ul>
+<hr />
+<h3 id="type_error">type_error</h3>
+<p>The <code>type_error</code> symbol is returned by built-in functions
+or extensions if the values passed in are of incompatible types.</p>
+<hr />
+<h3 id="eval_error">eval_error</h3>
+<p>The <code>eval_error</code> symbol is returned if evaluation could
+not proceed to evaluate the expression. This could be because the
+expression is malformed.</p>
+<p>Evaluation error happens on programs that may be syntactically
+correct (LispBM has a very low bar for what is considered syntactically
+correct), but semantically nonsensical.</p>
+<ul>
+<li>Check the program for mistakes.</li>
+<li>Are your parenthesis enclosing the correct subterms?</li>
+<li>Check that you haven't written, for example, (1 + 2) where it should
+be (+ 1 2).</li>
+</ul>
+<hr />
+<h3 id="out_of_memory">out_of_memory</h3>
+<p>The <code>out_of_memory</code> symbol is returned if the heap is full
+and running the garbage collector was not able to free any memory
+up.</p>
+<p>The program you have written requires more memory.</p>
+<ul>
+<li>Increase the heap size.</li>
+<li>Rewrite the application to use less memory.</li>
+</ul>
+<hr />
+<h3 id="fatal_error">fatal_error</h3>
+<p>The <code>fatal_error</code> symbol is returned in cases where the
+LispBM runtime system cannot proceed. Something is corrupt and it is not
+safe to continue.</p>
+<ul>
+<li>If this happens please send the program and the full error message
+to <a
+href="mailto:blog.joel.svensson@gmail.com">blog.joel.svensson@gmail.com</a>.
+It will be much appreciated.</li>
+</ul>
+<hr />
+<h3 id="out_of_stack">out_of_stack</h3>
+<p>The <code>out_of_stack</code> symbol is returned if the evaluator
+runs out of continuation stack (this is its runtime-stack). You are most
+likely writing a non-tail-recursive function that is exhausting all the
+resources.</p>
+<ul>
+<li>Check your program for recursive functions that are not
+tail-recursive Rewrite these in tail-recursive form.</li>
+<li>If you spawned this process in a small stack. For example (spawn 10
+prg), try to spawn it with a larger stack.</li>
+</ul>
+<hr />
+<h3 id="division_by_zero">division_by_zero</h3>
+<p>The <code>division_by_zero</code> symbol is returned when dividing by
+zero.</p>
+<ul>
+<li>Check your math.</li>
+<li>Add 0-checks into your code at a strategic position.</li>
+</ul>
+<hr />
+<h3 id="variable_not_bound">variable_not_bound</h3>
+<p>The <code>variable_not_bound</code> symbol is returned when
+evaluating a variable (symbol) that is neighter bound nor special
+(built-in function).</p>
+<hr />
+<h2 id="flash-memory">Flash memory</h2>
+<p>Flash memory can be used to store data and functions that are
+constant. Things can be moved to flash explicitly using the
+<code>move-to-flash</code> function or as part of the reading procedure.
+To move things automatically to flash during reading, there are
+<code>@</code>directives.</p>
+<hr />
+<h3 id="const-start">@const-start</h3>
+<p><code>@const-start</code> opens a block of code where each global
+definition is moved to constant memory (flash) automatically. This can
+be used only together with the incremental reader (such as
+<code>read-eval-program</code>).</p>
+<p>A <code>@const-start</code> opened block should be closed with a
+<code>@const-end</code>. Constant blocks cannot be nested.</p>
+<div class="sourceCode" id="cb742"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb742-1"><a href="#cb742-1" aria-hidden="true" tabindex="-1"></a><span class="at">@const-start</span></span>
+<span id="cb742-2"><a href="#cb742-2" aria-hidden="true" tabindex="-1"></a>(defun f (x) (<span class="kw">+</span> x <span class="dv">1</span>))</span>
+<span id="cb742-3"><a href="#cb742-3" aria-hidden="true" tabindex="-1"></a><span class="at">@const-end</span></span>
+<span id="cb742-4"><a href="#cb742-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb742-5"><a href="#cb742-5" aria-hidden="true" tabindex="-1"></a>(<span class="kw">+</span> (f <span class="dv">1</span>) <span class="dv">2</span>)</span></code></pre></div>
+<hr />
+<h3 id="const-end">@const-end</h3>
+<p><code>@const-end</code> closes an block opened by
+<code>@const-start</code>.</p>
+<hr />
+<h3 id="move-to-flash">move-to-flash</h3>
+<blockquote>
+<p><em><strong>Special form</strong></em></p>
+</blockquote>
+<p>A value can be moved to flash storage to save space on the normal
+evaluation heap or lbm memory. A <code>move-to-flash</code> expression
+is of the form <code>(move-to-flash sym opt-sym1 ... opt-symN)</code>.
+The symbols <code>sym</code>, <code>opt-sym1 ... opt-symN</code> should
+be globally bound to the values you want moved to flash. After the value
+has been moved, the environment binding is updated to point into flash
+memory. <strong>CAUTION</strong> This function should be used carefully.
+Ideally a value should be moved to flash immediately after it is created
+so there is no chance that other references to original value
+exists.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb743"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb743-1"><a href="#cb743-1" aria-hidden="true" tabindex="-1"></a>(define a [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>])</span>
+<span id="cb743-2"><a href="#cb743-2" aria-hidden="true" tabindex="-1"></a>(move-to-flash a)</span>
+<span id="cb743-3"><a href="#cb743-3" aria-hidden="true" tabindex="-1"></a>a</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb744"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb744-1"><a href="#cb744-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb745"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb745-1"><a href="#cb745-1" aria-hidden="true" tabindex="-1"></a>(define ls &#39;(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>))</span>
+<span id="cb745-2"><a href="#cb745-2" aria-hidden="true" tabindex="-1"></a>(move-to-flash ls)</span>
+<span id="cb745-3"><a href="#cb745-3" aria-hidden="true" tabindex="-1"></a>ls</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb746"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb746-1"><a href="#cb746-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="type-convertions">Type convertions</h2>
+<h3 id="to-byte">to-byte</h3>
+<p>Convert any numerical value to a byte. If the input is not a number
+the output of this function will be 0.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb747"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb747-1"><a href="#cb747-1" aria-hidden="true" tabindex="-1"></a>(to-byte <span class="dv">1234</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb748"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb748-1"><a href="#cb748-1" aria-hidden="true" tabindex="-1"></a><span class="dv">210</span>b</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb749"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb749-1"><a href="#cb749-1" aria-hidden="true" tabindex="-1"></a>(to-byte <span class="fl">3.14</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb750"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb750-1"><a href="#cb750-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>b</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb751"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb751-1"><a href="#cb751-1" aria-hidden="true" tabindex="-1"></a>(to-byte <span class="at">&#39;apa</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb752"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb752-1"><a href="#cb752-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>b</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="to-i">to-i</h3>
+<p>Convert a value of any numerical type to an integer. The resulting
+integer is a 28bit value on 32bit platforms and 56 bits on 64 bit
+platforms. If the input is not a number the output of this function will
+be 0.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb753"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb753-1"><a href="#cb753-1" aria-hidden="true" tabindex="-1"></a>(to-i <span class="dv">25</span>b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb754"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb754-1"><a href="#cb754-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb755"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb755-1"><a href="#cb755-1" aria-hidden="true" tabindex="-1"></a>(to-i <span class="fl">3.14</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb756"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb756-1"><a href="#cb756-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb757"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb757-1"><a href="#cb757-1" aria-hidden="true" tabindex="-1"></a>(to-i <span class="at">&#39;apa</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb758"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb758-1"><a href="#cb758-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="to-u">to-u</h3>
+<p>Convert a value of any numerical type to an unsigned integer. The
+resulting integer is a 28bit value on 32bit platforms and 56 bits on 64
+bit platforms. If the input is not a number the output of this function
+will be 0.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb759"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb759-1"><a href="#cb759-1" aria-hidden="true" tabindex="-1"></a>(to-u <span class="dv">25</span>b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb760"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb760-1"><a href="#cb760-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span>u</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb761"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb761-1"><a href="#cb761-1" aria-hidden="true" tabindex="-1"></a>(to-u <span class="fl">3.14</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb762"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb762-1"><a href="#cb762-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>u</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb763"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb763-1"><a href="#cb763-1" aria-hidden="true" tabindex="-1"></a>(to-u <span class="at">&#39;apa</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb764"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb764-1"><a href="#cb764-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>u</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="to-i32">to-i32</h3>
+<p>Convert any numerical value to a 32bit int. If the input is not a
+number the output of this function will be 0.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb765"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb765-1"><a href="#cb765-1" aria-hidden="true" tabindex="-1"></a>(to-i32 <span class="dv">25</span>b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb766"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb766-1"><a href="#cb766-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span>i32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb767"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb767-1"><a href="#cb767-1" aria-hidden="true" tabindex="-1"></a>(to-i32 <span class="fl">3.14</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb768"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb768-1"><a href="#cb768-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>i32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb769"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb769-1"><a href="#cb769-1" aria-hidden="true" tabindex="-1"></a>(to-i32 <span class="at">&#39;apa</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb770"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb770-1"><a href="#cb770-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>i32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="to-u32">to-u32</h3>
+<p>Convert any numerical value to a 32bit unsigned int.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb771"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb771-1"><a href="#cb771-1" aria-hidden="true" tabindex="-1"></a>(to-u32 <span class="dv">25</span>b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb772"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb772-1"><a href="#cb772-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span>u32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb773"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb773-1"><a href="#cb773-1" aria-hidden="true" tabindex="-1"></a>(to-u32 <span class="fl">3.14</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb774"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb774-1"><a href="#cb774-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>u32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb775"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb775-1"><a href="#cb775-1" aria-hidden="true" tabindex="-1"></a>(to-u32 <span class="at">&#39;apa</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb776"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb776-1"><a href="#cb776-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>u32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="to-float">to-float</h3>
+<p>Convert any numerical value to a single precision floating point
+value. If the input is not a number the output of this function will be
+0.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb777"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb777-1"><a href="#cb777-1" aria-hidden="true" tabindex="-1"></a>(to-float <span class="dv">25</span>b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb778"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb778-1"><a href="#cb778-1" aria-hidden="true" tabindex="-1"></a><span class="fl">25.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb779"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb779-1"><a href="#cb779-1" aria-hidden="true" tabindex="-1"></a>(to-float <span class="fl">3.14</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb780"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb780-1"><a href="#cb780-1" aria-hidden="true" tabindex="-1"></a><span class="fl">3.140000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb781"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb781-1"><a href="#cb781-1" aria-hidden="true" tabindex="-1"></a>(to-float <span class="at">&#39;apa</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb782"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb782-1"><a href="#cb782-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="to-i64">to-i64</h3>
+<p>Convert any numerical value to a 64bit int. If the input is not a
+number the output of this function will be 0.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb783"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb783-1"><a href="#cb783-1" aria-hidden="true" tabindex="-1"></a>(to-i64 <span class="dv">25</span>b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb784"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb784-1"><a href="#cb784-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span>i64</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb785"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb785-1"><a href="#cb785-1" aria-hidden="true" tabindex="-1"></a>(to-i64 <span class="fl">3.14</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb786"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb786-1"><a href="#cb786-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>i64</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb787"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb787-1"><a href="#cb787-1" aria-hidden="true" tabindex="-1"></a>(to-i64 <span class="at">&#39;apa</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb788"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb788-1"><a href="#cb788-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>i64</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="to-u64">to-u64</h3>
+<p>Convert any numerical value to a 64bit unsigned int. If the input is
+not a number the output of this function will be 0.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb789"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb789-1"><a href="#cb789-1" aria-hidden="true" tabindex="-1"></a>(to-u64 <span class="dv">25</span>b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb790"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb790-1"><a href="#cb790-1" aria-hidden="true" tabindex="-1"></a><span class="dv">25</span>u64</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb791"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb791-1"><a href="#cb791-1" aria-hidden="true" tabindex="-1"></a>(to-u64 <span class="fl">3.14</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb792"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb792-1"><a href="#cb792-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span>u64</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb793"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb793-1"><a href="#cb793-1" aria-hidden="true" tabindex="-1"></a>(to-u64 <span class="at">&#39;apa</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb794"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb794-1"><a href="#cb794-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>u64</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="to-double">to-double</h3>
+<p>Convert any numerical value to a double precision floating point
+value. If the input is not a number the output of this function will be
+0.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb795"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb795-1"><a href="#cb795-1" aria-hidden="true" tabindex="-1"></a>(to-double <span class="dv">25</span>b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb796"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb796-1"><a href="#cb796-1" aria-hidden="true" tabindex="-1"></a><span class="fl">25.000000</span>f64</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb797"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb797-1"><a href="#cb797-1" aria-hidden="true" tabindex="-1"></a>(to-double <span class="fl">3.14</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb798"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb798-1"><a href="#cb798-1" aria-hidden="true" tabindex="-1"></a><span class="fl">3.140000</span>f64</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb799"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb799-1"><a href="#cb799-1" aria-hidden="true" tabindex="-1"></a>(to-double <span class="at">&#39;apa</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb800"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb800-1"><a href="#cb800-1" aria-hidden="true" tabindex="-1"></a><span class="fl">0.000000</span>f64</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<p>This document was generated by LispBM version 0.34.2</p>
 </div> <!-- Close container -->
 
 <footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
