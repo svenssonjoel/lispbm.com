@@ -8,11 +8,12 @@ Allow: /
 Allow: /index.html
 Allow: /pages/
 Allow: /cdocs/
-Allow: /testlogs/
+#Allow: /testlogs/
 Allow: /images/
 Allow: /code/
 
 # Block crawling of build artifacts and temporary files
+Disallow: /testlogs/
 Disallow: /pages/src/
 Disallow: /*.md~
 Disallow: /#*#
