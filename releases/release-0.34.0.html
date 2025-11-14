@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM version 0.34.0 release notes and changelog">
+  <meta name="keywords" content="lispbm, lisp, release, version 0.34.0, changelog">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LispBM 0.34.0 Release</title>
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/releases/release-0.34.0.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM 0.34.0 Release">
+  <meta property="og:description" content="Release notes and changelog for LispBM version 0.34.0">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/releases/release-0.34.0.html">
+  <meta property="og:type" content="article">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="../ico/favicon.ico">
+
+  <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <h1>LispBM 0.34.0</h1>
+    </div>
+
+    <div id="content">
+      <p><strong>Released:</strong> Oct 27 2025</p>
+
+      <p>
+        <a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.34.0" target="_blank" rel="noopener noreferrer">
+          View on GitHub →
+        </a>
+      </p>
+
+      <h2>Changelog</h2>
+      <ul>
+      <li>Optimization of a bunch of typechecking bitmagic-functions in heap.h
+</li>
+      <li>Platform_thread for linux, windows, chibios, freertos, zephyr (need help testing all variants).
+</li>
+      <li>Example project for Chibios 21.11.3.
+</li>
+      <li>Accessor for the const_heap_index can be used to check if a loaded image is likely good or bad.
+</li>
+      <li>dsp_extensions.c/h (first attempt at these).
+</li>
+      <li>Inverting num_alloc logic used to check if allocations will succeed (optimization)
+</li>
+      <li>Libfreetype support in the ttf_extensions.
+</li>
+      <li>Additional testing of images
+</li>
+      <li>Bugfix in GC traversal of arrays (arrays with cycles and sharing).
+</li>
+      <li>Bugfix in Linux REPL that did not print bytearrays properly.
+</li>
+      <li>Bugfix in lbm_image when it comes to recreation of the next_symbol_id upon image load.
+</li>
+      <li>Bugfix in math_extensions that can be triggered using constant floats.
+</li>
+      <li>Bugfix in Linux REPL so that results from -s and -e arguments are shown.
+</li>
+      <li>Macros now support arbitrary number of arguments using rest-args. (compile with LBM_USE_MACRO_REST_ARGS).
+</li>
+      </ul>
+
+      <hr>
+
+      <p>
+        <a href="https://www.lispbm.com/">← Back to LispBM Home</a> |
+        <a href="https://github.com/svenssonjoel/lispBM">GitHub Repository</a>
+      </p>
+    </div>
+
+    <div id="footer">
+      <p>&copy; 2025 Bo Joel Svensson</p>
+    </div>
+  </div>
+</body>
+</html>

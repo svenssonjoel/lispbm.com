@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM version 0.5.4 release notes and changelog">
+  <meta name="keywords" content="lispbm, lisp, release, version 0.5.4, changelog">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LispBM 0.5.4 Release</title>
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/releases/release-0.5.4.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM 0.5.4 Release">
+  <meta property="og:description" content="Release notes and changelog for LispBM version 0.5.4">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/releases/release-0.5.4.html">
+  <meta property="og:type" content="article">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="../ico/favicon.ico">
+
+  <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <h1>LispBM 0.5.4</h1>
+    </div>
+
+    <div id="content">
+      <p><strong>Released:</strong> Jul 4 2022</p>
+
+
+
+      <h2>Changelog</h2>
+      <ul>
+      <li>Easing use of the LBM library from C++ code.
+</li>
+      <li>lbm_define can now create variables (#var) in variable memory from
+ the C side of things.
+</li>
+      <li>Simple namespaces.
+</li>
+      <li>Added pattern matching support for i64, u64 and double.
+</li>
+      <li>Fixed issue with pattern matching on i32, u32.
+</li>
+      <li>Refactoring with readability in focus.
+</li>
+      <li>Computing encodings of commonly used symbol constants (for eval_cps) at compile time
+ rather then repeatedly at runtime.
+</li>
+      <li>Added function that lookups based on the second field in assoc structures.
+ Called it "cossa" as it is like assoc but backwards.
+</li>
+      <li>Added possibility to partially apply closures. A partially applied closure
+ is again a closure.
+</li>
+      </ul>
+
+      <hr>
+
+      <p>
+        <a href="https://www.lispbm.com/">← Back to LispBM Home</a> |
+        <a href="https://github.com/svenssonjoel/lispBM">GitHub Repository</a>
+      </p>
+    </div>
+
+    <div id="footer">
+      <p>&copy; 2025 Bo Joel Svensson</p>
+    </div>
+  </div>
+</body>
+</html>
