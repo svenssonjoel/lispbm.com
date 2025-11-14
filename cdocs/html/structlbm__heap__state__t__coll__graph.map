@@ -1,5 +1,7 @@
 <map id="lbm_heap_state_t" name="lbm_heap_state_t">
-<area shape="rect" id="node1" title=" " alt="" coords="47,95,172,121"/>
-<area shape="rect" id="node2" href="$structlbm__stack__t.html" title=" " alt="" coords="5,5,99,32"/>
-<area shape="rect" id="node3" href="$structlbm__cons__t.html" title=" " alt="" coords="123,5,213,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="45,93,184,119"/>
+<area shape="rect" id="Node000002" href="$structlbm__cons__t.html" title=" " alt="" coords="5,5,101,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="72,41,108,91,104,94,68,44"/>
+<area shape="rect" id="Node000003" href="$structlbm__stack__t.html" title=" " alt="" coords="125,5,227,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="162,44,125,94,121,91,157,41"/>
 </map>

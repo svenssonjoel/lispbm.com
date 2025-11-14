@@ -1,4 +1,5 @@
 <map id="flatten_node_meta_data" name="flatten_node_meta_data">
-<area shape="rect" id="node1" title=" " alt="" coords="5,95,167,121"/>
-<area shape="rect" id="node2" href="$structsharing__table.html" title=" " alt="" coords="37,5,135,32"/>
+<area shape="rect" id="Node000001" title=" " alt="" coords="5,93,185,119"/>
+<area shape="rect" id="Node000002" href="$structsharing__table.html" title=" " alt="" coords="40,5,151,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="98,45,98,93,93,93,93,45"/>
 </map>
