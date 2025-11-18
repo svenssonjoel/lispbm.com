@@ -210,6 +210,12 @@ Functions</h2></td></tr>
 <tr class="separator:ac8a3a0e489ab2914e43109aed5db3fc4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab635ae796710c337307eec1727819712" id="r_ab635ae796710c337307eec1727819712"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#ab635ae796710c337307eec1727819712">lbm_enc_u32</a> (uint32_t x)</td></tr>
 <tr class="separator:ab635ae796710c337307eec1727819712"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab4fc368d5b9bc94890ebcc1d8198d895" id="r_ab4fc368d5b9bc94890ebcc1d8198d895"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#ab4fc368d5b9bc94890ebcc1d8198d895">lbm_set_u32</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> v, uint32_t x)</td></tr>
+<tr class="separator:ab4fc368d5b9bc94890ebcc1d8198d895"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8229b4eb9068cfe6ce480ba0962ed9a8" id="r_a8229b4eb9068cfe6ce480ba0962ed9a8"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#a8229b4eb9068cfe6ce480ba0962ed9a8">lbm_set_i32</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> v, int32_t x)</td></tr>
+<tr class="separator:a8229b4eb9068cfe6ce480ba0962ed9a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a128f15d5576a0109beccb0296fb4da24" id="r_a128f15d5576a0109beccb0296fb4da24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#a128f15d5576a0109beccb0296fb4da24">lbm_set_float</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> v, float x)</td></tr>
+<tr class="separator:a128f15d5576a0109beccb0296fb4da24"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a34b909cbdee7ba50cfba19c864c5dac7" id="r_a34b909cbdee7ba50cfba19c864c5dac7"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#a34b909cbdee7ba50cfba19c864c5dac7">lbm_enc_float</a> (float x)</td></tr>
 <tr class="separator:a34b909cbdee7ba50cfba19c864c5dac7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa17d599958b3379f787aa09f57e021fa" id="r_aa17d599958b3379f787aa09f57e021fa"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="heap_8c.html#aa17d599958b3379f787aa09f57e021fa">enc_64_on_32</a> (uint8_t *source, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> type_qual, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> type)</td></tr>
@@ -1576,7 +1582,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Performs lbm_gc_mark_phase on all the values of an array. This function is similar to lbm_gc_mark_roots but performs extra checks to not traverse into non-standard values. TODO: Check if this function is really needed. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Performs lbm_gc_mark_phase on all the values of an array. This function is similar to lbm_gc_mark_roots but performs extra checks to not traverse into non-standard values. TODO: Check if this function is really needed.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Internal:</b> For internal use only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">data</td><td>Array of roots to traverse from. </td></tr>
     <tr><td class="paramname">n</td><td>Number of elements in roots-array. </td></tr>
@@ -1601,7 +1609,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Mark all heap cells reachable from an environment. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Mark all heap cells reachable from an environment.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Internal:</b> For internal use only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">environment.</td><td></td></tr>
   </table>
@@ -1625,7 +1635,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Mark heap cells reachable from the lbm_value v. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Mark heap cells reachable from the lbm_value v.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Internal:</b> For internal use only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">root</td><td></td></tr>
   </table>
@@ -1659,7 +1671,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Performs lbm_gc_mark_phase on all the values in the roots array. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Performs lbm_gc_mark_phase on all the values in the roots array.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Internal:</b> For internal use only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">roots</td><td>pointer to array of roots. </td></tr>
     <tr><td class="paramname">num_roots</td><td>size of array of roots. </td></tr>
@@ -1684,7 +1698,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Increment the counter that is counting the number of times GC ran </p>
+<p>Increment the counter that is counting the number of times GC ran</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Internal:</b> For internal use only. </dd></dl>
 
 </div>
 </div>
@@ -1704,6 +1719,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Sweep up all non marked heap cells and place them on the free list.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Internal:</b> For internal use only.</dd></dl>
 <dl class="section return"><dt>Returns</dt><dd>1 </dd></dl>
 
 </div>
@@ -1943,6 +1959,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Allocate an <a class="el" href="structlbm__cons__t.html">lbm_cons_t</a> cell from the heap.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">type</td><td>A type that can be encoded onto the cell (most often LBM_PTR_TYPE_CONS). </td></tr>
@@ -2006,13 +2023,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Allocate a list of n heap-cells. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Allocate a list of n heap-cells.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>The number of heap-cells to allocate. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>A list of heap-cells of Memory error if unable to allocate. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>A list of heap-cells or Memory error if unable to allocate. </dd></dl>
 
 </div>
 </div>
@@ -2041,7 +2060,9 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Allocate a list of n heap-cells and initialize the values. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Allocate a list of n heap-cells and initialize the values.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">n</td><td>The length of list to allocate. </td></tr>
     <tr><td class="paramname">...</td><td>The values to initialize the list with. </td></tr>
@@ -2077,14 +2098,17 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Allocate a list of n heap-cells and initialize the values. \pram ls The result list is passed through this ptr. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Allocate a list of n heap-cells and initialize the values.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">ls</td><td>The result list is passed through this ptr. </td></tr>
     <tr><td class="paramname">n</td><td>The length of list to allocate. </td></tr>
     <tr><td class="paramname">valist</td><td>The values in a va_list to initialize the list with. </td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section return"><dt>Returns</dt><dd>True of False depending on success of allocation. </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>An initialized list of heap-cells or Memory error if unable to allocate. </dd></dl>
 
 </div>
 </div>
@@ -2193,7 +2217,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Initialize heap storage. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Initialize heap storage. <br  />
+ </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">addr</td><td>Pointer to an array of <a class="el" href="structlbm__cons__t.html">lbm_cons_t</a> elements. This array must at least be aligned 4. </td></tr>
     <tr><td class="paramname">num_cells</td><td>Number of <a class="el" href="structlbm__cons__t.html">lbm_cons_t</a> elements in the array. </td></tr>
@@ -2220,7 +2245,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Add a new free_list length to the heap_stats. Calculates a new freelist length and updates the GC statistics. </p>
+<p>Add a new free_list length to the heap_stats. Calculates a new freelist length and updates the GC statistics.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Internal:</b> For internal use only. </dd></dl>
 
 </div>
 </div>
@@ -2390,6 +2416,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>A destructive append of two lists</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Termination:</b> This is a dangerous function that should be used carefully. Cyclic structures on the heap may lead to the function not terminating. </dd>
+<dd>
+<b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">list1</td><td>A list </td></tr>
@@ -2426,7 +2455,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Copy a list </p><dl class="section warning"><dt>Warning</dt><dd>This is a dangerous function that should be used carefully. Cyclic structures on the heap may lead to the function not terminating.</dd></dl>
+<p>Copy a list</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Termination:</b> This is a dangerous function that should be used carefully. Cyclic structures on the heap may lead to the function not terminating. </dd>
+<dd>
+<b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">m</td><td>Number of elements to copy or -1 for all. If 1, m will be updated with the length of the list </td></tr>
@@ -2453,7 +2485,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Reverse a proper list destroying the original. </p><dl class="section warning"><dt>Warning</dt><dd>This is a dangerous function that should be used carefully. Cyclic structures on the heap may lead to the function not terminating.</dd></dl>
+<p>Reverse a proper list destroying the original.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Termination:</b> This is a dangerous function that should be used carefully. Cyclic structures on the heap may lead to the function not terminating. </dd>
+<dd>
+<b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">list</td><td>A list </td></tr>
@@ -2515,7 +2550,10 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Calculate the length of a proper list </p><dl class="section warning"><dt>Warning</dt><dd>This is a dangerous function that should be used carefully. Cyclic structures on the heap may lead to the function not terminating.</dd></dl>
+<p>Calculate the length of a proper list</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Termination:</b> This is a dangerous function that should be used carefully. Cyclic structures on the heap may lead to the function not terminating. </dd>
+<dd>
+<b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">c</td><td>A list </td></tr>
@@ -2541,7 +2579,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Set the freelist to NIL. Means that no memory will be available until after a garbage collection. </p>
+<p>Set the freelist to NIL. Means that no memory will be available until after a garbage collection.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Internal:</b> For internal use only. </dd></dl>
 
 </div>
 </div>
@@ -2584,6 +2623,42 @@ Variables</h2></td></tr>
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a128f15d5576a0109beccb0296fb4da24" name="a128f15d5576a0109beccb0296fb4da24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a128f15d5576a0109beccb0296fb4da24">&#9670;&#160;</a></span>lbm_set_float()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> lbm_set_float </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set a known float value to a different u32 payload </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Value to update. </td></tr>
+    <tr><td class="paramname">x</td><td>new float payload. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>updated value. </dd></dl>
 
 </div>
 </div>
@@ -2636,6 +2711,78 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a8229b4eb9068cfe6ce480ba0962ed9a8" name="a8229b4eb9068cfe6ce480ba0962ed9a8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8229b4eb9068cfe6ce480ba0962ed9a8">&#9670;&#160;</a></span>lbm_set_i32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> lbm_set_i32 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int32_t&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set a known i32 value to a different u32 payload </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Value to update. </td></tr>
+    <tr><td class="paramname">x</td><td>new int32_t payload. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>updated value. </dd></dl>
+
+</div>
+</div>
+<a id="ab4fc368d5b9bc94890ebcc1d8198d895" name="ab4fc368d5b9bc94890ebcc1d8198d895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab4fc368d5b9bc94890ebcc1d8198d895">&#9670;&#160;</a></span>lbm_set_u32()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> lbm_set_u32 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
+          <td class="paramname"><em>v</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>x</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Set a known u32 value to a different u32 payload </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Value to update. </td></tr>
+    <tr><td class="paramname">x</td><td>new uint32_t payload. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>updated value. </dd></dl>
 
 </div>
 </div>
