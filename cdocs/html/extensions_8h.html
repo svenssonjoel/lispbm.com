@@ -785,6 +785,16 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create a list.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num</td><td>The number of elements to allocate space for. </td></tr>
+    <tr><td class="paramname">...</td><td>The elements to initialize the list with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the list or MERROR. </dd></dl>
 
 </div>
 </div>
@@ -811,6 +821,15 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create a call-cc given a body expression. The body should be a lambda expression taking a continuation.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">body</td><td>Call-cc body expression. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Call-cc expression or MERROR. </dd></dl>
 
 </div>
 </div>
@@ -837,6 +856,15 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create an expression that takes the car of an expression</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Value expression. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Expression that takes the car or the value. </dd></dl>
 
 </div>
 </div>
@@ -863,6 +891,15 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create an expression that takes the cdr of an expression</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Value expression. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Expression that takes the cdr or the value. </dd></dl>
 
 </div>
 </div>
@@ -899,6 +936,16 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create an expression that compares equality</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Value expression. </td></tr>
+    <tr><td class="paramname">b</td><td>Value expression. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>equality comparison expression or MERROR. </dd></dl>
 
 </div>
 </div>
@@ -941,6 +988,17 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create an if expression given condition, then-branch and else-branch</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">cond</td><td>Boolean condition expression. </td></tr>
+    <tr><td class="paramname">tb</td><td>Then-branch expression. </td></tr>
+    <tr><td class="paramname">fb</td><td>Else-branch expression. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If expression or MERROR. </dd></dl>
 
 </div>
 </div>
@@ -967,6 +1025,15 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create an expression that adds one to a value.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">v</td><td>Value to add one to. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>increment expression or MERROR. </dd></dl>
 
 </div>
 </div>
@@ -1003,6 +1070,16 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create a lambda given argument list and body</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">args</td><td>Argument list. </td></tr>
+    <tr><td class="paramname">body</td><td>Function body. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Lambda or MERROR. </dd></dl>
 
 </div>
 </div>
@@ -1039,6 +1116,16 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create a let expression given bindings list and body</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bindings</td><td>List of bindings. </td></tr>
+    <tr><td class="paramname">body</td><td>Expression to evaluate in the extended environment. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Let expression or MERROR. </dd></dl>
 
 </div>
 </div>
@@ -1075,6 +1162,16 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Create an expression that compares less-than</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Value expression. </td></tr>
+    <tr><td class="paramname">b</td><td>Value expression. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>less-than comparison expression or MERROR. </dd></dl>
 
 </div>
 </div>
@@ -1111,6 +1208,15 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Compare strings for equality Compares two strings up to the length of the first of string arguments.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str1</td><td>First string to match against a prefix of second. </td></tr>
+    <tr><td class="paramname">str2</td><td>Second string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true is str1 matches the prefix of str2. </dd></dl>
 
 </div>
 </div>

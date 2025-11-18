@@ -77,9 +77,29 @@ $(function() {
 <p><a href="https://github.com/svenssonjoel/lispBM">https://github.com/svenssonjoel/lispBM</a></p>
 <h2>Build LispBM </h2>
 <p>Building instructions: <a class="el" href="Building.html">Building LispBM</a></p>
+<h2>Important for Integration </h2>
+<p><b>Thread Safety:</b> It is very likely that an integration of LispBM will run on an RTOS and have multiple threads running in parallel with the LispBM evaluator. In such a situation external threads must <b>pause the evaluator</b> before calling most LispBM API functions.</p>
+<p>The LispBM documentation marks functions with </p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
+<p>or with </p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<p>To highlight that they one needs to consider that they read or write data that can change at any time in the LispBM evaluation thread, unless paused. </p>
+<p>Calling heap or environment functions from external threads without pausing causes <b>undefined behavior and data corruption</b>.</p>
+<p><b>Example - Pausing the evaluator from an external thread:</b></p>
+<div class="fragment"><div class="line"><a class="code hl_function" href="eval__cps_8h.html#ae89afeb0e3d8021f6cb521e68f5ff912">lbm_pause_eval</a>();</div>
+<div class="line"><span class="keywordflow">while</span> (<a class="code hl_function" href="eval__cps_8h.html#acba5ff074e742c34305bda154100f6bc">lbm_get_eval_state</a>() != <a class="code hl_define" href="eval__cps_8h.html#af349dccfc71abb0f2ccee6a24409460e">EVAL_CPS_STATE_PAUSED</a>) {</div>
+<div class="line">  sleep_callback(1000);</div>
+<div class="line">}</div>
+<div class="line"><span class="comment">// Now safe to call LispBM functions</span></div>
+<div class="line"><span class="comment">// ... your code here ...</span></div>
+<div class="line"><a class="code hl_function" href="eval__cps_8h.html#a28f76b9b7315dc307d7301becdd76330">lbm_continue_eval</a>();</div>
+<div class="ttc" id="aeval__cps_8h_html_a28f76b9b7315dc307d7301becdd76330"><div class="ttname"><a href="eval__cps_8h.html#a28f76b9b7315dc307d7301becdd76330">lbm_continue_eval</a></div><div class="ttdeci">void lbm_continue_eval(void)</div><div class="ttdef"><b>Definition</b> eval_cps.c:5922</div></div>
+<div class="ttc" id="aeval__cps_8h_html_acba5ff074e742c34305bda154100f6bc"><div class="ttname"><a href="eval__cps_8h.html#acba5ff074e742c34305bda154100f6bc">lbm_get_eval_state</a></div><div class="ttdeci">uint32_t lbm_get_eval_state(void)</div><div class="ttdef"><b>Definition</b> eval_cps.c:5932</div></div>
+<div class="ttc" id="aeval__cps_8h_html_ae89afeb0e3d8021f6cb521e68f5ff912"><div class="ttname"><a href="eval__cps_8h.html#ae89afeb0e3d8021f6cb521e68f5ff912">lbm_pause_eval</a></div><div class="ttdeci">void lbm_pause_eval(void)</div><div class="ttdef"><b>Definition</b> eval_cps.c:5910</div></div>
+<div class="ttc" id="aeval__cps_8h_html_af349dccfc71abb0f2ccee6a24409460e"><div class="ttname"><a href="eval__cps_8h.html#af349dccfc71abb0f2ccee6a24409460e">EVAL_CPS_STATE_PAUSED</a></div><div class="ttdeci">#define EVAL_CPS_STATE_PAUSED</div><div class="ttdef"><b>Definition</b> eval_cps.h:32</div></div>
+</div><!-- fragment --><p>For example, most functions in <a class="el" href="lbm__c__interop_8h.html">lbm_c_interop.h</a> require the evaluator to be paused.</p>
 <h2>Implementation documentation </h2>
-<p>C Interoperation: <a class="el" href="lbm__c__interop_8h.html">lbm_c_interop.h</a> <a class="el" href="lbm__c__interop_8c.html">lbm_c_interop.c</a> <br  />
- Environment: <a class="el" href="env_8h.html">env.h</a> <a class="el" href="env_8c.html">env.c</a> <br  />
+<p>Environment: <a class="el" href="env_8h.html">env.h</a> <a class="el" href="env_8c.html">env.c</a> <br  />
  Evaluator: <a class="el" href="eval__cps_8h.html">eval_cps.h</a> <a class="el" href="eval__cps_8c.html">eval_cps.c</a> <br  />
  Extensions: <a class="el" href="extensions_8h.html">extensions.h</a> <a class="el" href="extensions_8c.html">extensions.c</a> <br  />
  Fundamental operations: <a class="el" href="fundamental_8h.html">fundamental.h</a> <a class="el" href="fundamental_8c.html">fundamental.c</a> <br  />
@@ -90,7 +110,6 @@ $(function() {
  Custom types: <a class="el" href="lbm__custom__type_8h.html">lbm_custom_type.h</a> <a class="el" href="lbm__custom__type_8c.html">lbm_custom_type.c</a> <br  />
  Global definitons: <a class="el" href="lbm__defines_8h.html">lbm_defines.h</a> lbm_defines.c <br  />
  Compactible memory region: <a class="el" href="lbm__defrag__mem_8h.html">lbm_defrag_mem.h</a> <a class="el" href="lbm__defrag__mem_8c.html">lbm_defrag_mem.c</a> <br  />
- Flags: lbm_flags.h lbm_flags.c <br  />
  Flat values: <a class="el" href="lbm__flat__value_8h.html">lbm_flat_value.h</a> <a class="el" href="lbm__flat__value_8c.html">lbm_flat_value.c</a> <br  />
  Arrays and boxed value memory: <a class="el" href="lbm__memory_8h.html">lbm_memory.h</a> <a class="el" href="lbm__memory_8c.html">lbm_memory.c</a> <br  />
  Profiler: <a class="el" href="lbm__prof_8h.html">lbm_prof.h</a> <a class="el" href="lbm__prof_8c.html">lbm_prof.c</a> <br  />
@@ -100,10 +119,10 @@ $(function() {
  LispBM: <a class="el" href="lispbm_8h.html">lispbm.h</a> <a class="el" href="lispbm_8c.html">lispbm.c</a> <br  />
  Printing values: <a class="el" href="print_8h.html">print.h</a> <a class="el" href="print_8c.html">print.c</a> <br  />
  Stacks: <a class="el" href="stack_8h.html">stack.h</a> <a class="el" href="stack_8c.html">stack.c</a> <br  />
- channels: <a class="el" href="lbm__channel_8h.html">lbm_channel.h</a> <a class="el" href="lbm__channel_8c.html">lbm_channel.c</a> <br  />
  Symbol table: <a class="el" href="symrepr_8h.html">symrepr.h</a> <a class="el" href="symrepr_8c.html">symrepr.c</a> <br  />
  Tokeniser: <a class="el" href="tokpar_8h.html">tokpar.h</a> <a class="el" href="tokpar_8c.html">tokpar.c</a> <br  />
  Image: <a class="el" href="lbm__image_8h.html">lbm_image.h</a> <a class="el" href="lbm__image_8c.html">lbm_image.c</a> <br  />
+ Buffer: <a class="el" href="buffer_8h.html">buffer.h</a> <a class="el" href="buffer_8c.html">buffer.c</a> <br  />
 </p>
 <div class="image">
 <img src="lispbm_llama_small.png" alt=""/>

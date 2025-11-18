@@ -634,6 +634,16 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create a list.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">num</td><td>The number of elements to allocate space for. </td></tr>
+    <tr><td class="paramname">...</td><td>The elements to initialize the list with. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>the list or MERROR. </dd></dl>
 
 </div>
 </div>
@@ -662,6 +672,15 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Compare strings for equality Compares two strings up to the length of the first of string arguments.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">str1</td><td>First string to match against a prefix of second. </td></tr>
+    <tr><td class="paramname">str2</td><td>Second string. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>true is str1 matches the prefix of str2. </dd></dl>
 
 </div>
 </div>

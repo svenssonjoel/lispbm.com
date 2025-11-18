@@ -258,6 +258,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Create an array to access from both LBM and C. This function should be called while the evaluator is paused and the array should be bound to something before un-pausing. Send the array in a message with <a class="el" href="lbm__c__interop_8h.html#abc7593014573a937957a9984be564cd1">lbm_send_message</a> or define it in the global with <a class="el" href="lbm__c__interop_8h.html#a60f218abc8d94c2b8b33c9ae76c3760a">lbm_define</a>. The data is stored in lbm_memory as C values (not encoded as lbm values).</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>Result array value. </td></tr>
@@ -294,6 +295,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Add a definition to the global environment</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">symbol</td><td>Name to bind the data to. </td></tr>
@@ -321,6 +323,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Create a context for a bound expression and schedule it for execution</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">symbol</td><td>The name of the binding to schedule for execution. </td></tr>
@@ -347,6 +350,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Create a context for a bound program and schedule it for execution</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">symbol</td><td>The name of the binding to schedule for execution. </td></tr>
@@ -389,6 +393,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Flattens one of the fields of the environment hash-map. Evaluator should be paused when calling this. All processing of data and size should be performed before unpausing the evaluator. Unpausing the evaluator enables reclamation of data by GC.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">index</td><td>Value between 0 and GLOBAL_ENV_ROOTS-1 </td></tr>
@@ -426,6 +431,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Load an expression and bind it to a symbol in the environment.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tokenizer</td><td>The tokenizer to read the expression from. </td></tr>
@@ -463,6 +469,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Load a program and bind it to a symbol in the environment.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tokenizer</td><td>The tokenizer to read the program from. </td></tr>
@@ -490,6 +497,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Load and schedule an expression for execution.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tokenizer</td><td>The tokenizer to read the expression from. </td></tr>
@@ -526,6 +534,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Load and schedule a program for execution.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tokenizer</td><td>The tokenizer to read the program from. </td></tr>
@@ -563,6 +572,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Load a program while evaluating incrementally.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">tokenizer</td><td>The tokenizer to read the program from. </td></tr>
@@ -600,6 +610,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Send a message to a process running in the evaluator.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">cid</td><td>Context id of the process to send a message to. </td></tr>
@@ -643,6 +654,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Share a C array with LBM. The array should be created while the evaluator is paused and the array should be bound to something before un-pausing. Send the array in a message with <a class="el" href="lbm__c__interop_8h.html#abc7593014573a937957a9984be564cd1">lbm_send_message</a> or define it in the global with <a class="el" href="lbm__c__interop_8h.html#a60f218abc8d94c2b8b33c9ae76c3760a">lbm_define</a>. The data is stored in the array as C values (not encoded as lbm values).</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>Result array value. </td></tr>
@@ -686,6 +698,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Share a C array stored in flash with LBM. Creates lbm_array_header in flash as well.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">value</td><td>Pointer to a heap-cell allocated in flash. </td></tr>
@@ -714,6 +727,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Remove a definition from the global environment.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">symbol</td><td>Name of symbol to undefine in the environment. </td></tr>
