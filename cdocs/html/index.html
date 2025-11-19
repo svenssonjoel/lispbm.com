@@ -83,7 +83,7 @@ $(function() {
 <dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <p>or with </p>
 <dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only.</dd></dl>
-<p>To highlight that they one needs to consider that they read or write data that can change at any time in the LispBM evaluation thread, unless paused. </p>
+<p>To highlight that they one needs to consider that these functions read or write data that can change at any time in the LispBM evaluation thread, unless paused. </p>
 <p>Calling heap or environment functions from external threads without pausing causes <b>undefined behavior and data corruption</b>.</p>
 <p><b>Example - Pausing the evaluator from an external thread:</b></p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="eval__cps_8h.html#ae89afeb0e3d8021f6cb521e68f5ff912">lbm_pause_eval</a>();</div>
@@ -96,7 +96,7 @@ $(function() {
 <div class="ttc" id="aeval__cps_8h_html_a28f76b9b7315dc307d7301becdd76330"><div class="ttname"><a href="eval__cps_8h.html#a28f76b9b7315dc307d7301becdd76330">lbm_continue_eval</a></div><div class="ttdeci">void lbm_continue_eval(void)</div><div class="ttdef"><b>Definition</b> eval_cps.c:5922</div></div>
 <div class="ttc" id="aeval__cps_8h_html_acba5ff074e742c34305bda154100f6bc"><div class="ttname"><a href="eval__cps_8h.html#acba5ff074e742c34305bda154100f6bc">lbm_get_eval_state</a></div><div class="ttdeci">uint32_t lbm_get_eval_state(void)</div><div class="ttdef"><b>Definition</b> eval_cps.c:5932</div></div>
 <div class="ttc" id="aeval__cps_8h_html_ae89afeb0e3d8021f6cb521e68f5ff912"><div class="ttname"><a href="eval__cps_8h.html#ae89afeb0e3d8021f6cb521e68f5ff912">lbm_pause_eval</a></div><div class="ttdeci">void lbm_pause_eval(void)</div><div class="ttdef"><b>Definition</b> eval_cps.c:5910</div></div>
-<div class="ttc" id="aeval__cps_8h_html_af349dccfc71abb0f2ccee6a24409460e"><div class="ttname"><a href="eval__cps_8h.html#af349dccfc71abb0f2ccee6a24409460e">EVAL_CPS_STATE_PAUSED</a></div><div class="ttdeci">#define EVAL_CPS_STATE_PAUSED</div><div class="ttdef"><b>Definition</b> eval_cps.h:32</div></div>
+<div class="ttc" id="aeval__cps_8h_html_af349dccfc71abb0f2ccee6a24409460e"><div class="ttname"><a href="eval__cps_8h.html#af349dccfc71abb0f2ccee6a24409460e">EVAL_CPS_STATE_PAUSED</a></div><div class="ttdeci">#define EVAL_CPS_STATE_PAUSED</div><div class="ttdef"><b>Definition</b> eval_cps.h:36</div></div>
 </div><!-- fragment --><p>For example, most functions in <a class="el" href="lbm__c__interop_8h.html">lbm_c_interop.h</a> require the evaluator to be paused.</p>
 <h2>Implementation documentation </h2>
 <p>Environment: <a class="el" href="env_8h.html">env.h</a> <a class="el" href="env_8c.html">env.c</a> <br  />
