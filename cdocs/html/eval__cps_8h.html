@@ -198,6 +198,9 @@ Data Structures</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr class="memitem:abea64d191c781a725eac0c166780415d" id="r_abea64d191c781a725eac0c166780415d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#abea64d191c781a725eac0c166780415d">EVAL_CPS_DEFAULT_MAILBOX_SIZE</a>&#160;&#160;&#160;10</td></tr>
+<tr class="separator:abea64d191c781a725eac0c166780415d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Evaluator States</div></td></tr>
 <tr class="memitem:aef483a53e5a2fe46c02d2641c22a97e6" id="r_aef483a53e5a2fe46c02d2641c22a97e6"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#aef483a53e5a2fe46c02d2641c22a97e6">EVAL_CPS_STATE_NONE</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:aef483a53e5a2fe46c02d2641c22a97e6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af349dccfc71abb0f2ccee6a24409460e" id="r_af349dccfc71abb0f2ccee6a24409460e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#af349dccfc71abb0f2ccee6a24409460e">EVAL_CPS_STATE_PAUSED</a>&#160;&#160;&#160;1</td></tr>
@@ -210,8 +213,7 @@ Macros</h2></td></tr>
 <tr class="separator:adfffa6dc072b6426475b3a7a8a915ea2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abaff3190385d2e79b0d6f4382ea0604d" id="r_abaff3190385d2e79b0d6f4382ea0604d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#abaff3190385d2e79b0d6f4382ea0604d">EVAL_CPS_STATE_RESET</a>&#160;&#160;&#160;16</td></tr>
 <tr class="separator:abaff3190385d2e79b0d6f4382ea0604d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abea64d191c781a725eac0c166780415d" id="r_abea64d191c781a725eac0c166780415d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#abea64d191c781a725eac0c166780415d">EVAL_CPS_DEFAULT_MAILBOX_SIZE</a>&#160;&#160;&#160;10</td></tr>
-<tr class="separator:abea64d191c781a725eac0c166780415d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Evaluator Context Flags</div></td></tr>
 <tr class="memitem:a56c2f65bdc2ac54591119d54b036c942" id="r_a56c2f65bdc2ac54591119d54b036c942"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#a56c2f65bdc2ac54591119d54b036c942">EVAL_CPS_CONTEXT_FLAG_NOTHING</a>&#160;&#160;&#160;(uint32_t)0x00</td></tr>
 <tr class="separator:a56c2f65bdc2ac54591119d54b036c942"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeff5a36d5f7f03ecf6463b47a81ad3a0" id="r_aeff5a36d5f7f03ecf6463b47a81ad3a0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#aeff5a36d5f7f03ecf6463b47a81ad3a0">EVAL_CPS_CONTEXT_FLAG_TRAP</a>&#160;&#160;&#160;(uint32_t)0x01</td></tr>
@@ -226,6 +228,7 @@ Macros</h2></td></tr>
 <tr class="separator:ac979bc89539d1e110346c6d536d7121d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a29a1a372a88f30fda1ae699e64f1082f" id="r_a29a1a372a88f30fda1ae699e64f1082f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#a29a1a372a88f30fda1ae699e64f1082f">EVAL_CPS_CONTEXT_READER_FLAGS_MASK</a>&#160;&#160;&#160;(<a class="el" href="eval__cps_8h.html#a7a2a871d124451d4d723777d10209a9c">EVAL_CPS_CONTEXT_FLAG_CONST</a> | <a class="el" href="eval__cps_8h.html#aea1bbf5b9907cfc50f896c33023b1621">EVAL_CPS_CONTEXT_FLAG_CONST_SYMBOL_STRINGS</a> | <a class="el" href="eval__cps_8h.html#af25f8ec8e74cef63b809fbda125b6a42">EVAL_CPS_CONTEXT_FLAG_INCREMENTAL_READ</a>)</td></tr>
 <tr class="separator:a29a1a372a88f30fda1ae699e64f1082f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Thread States</div></td></tr>
 <tr class="memitem:adc3cdd248c8051174c60f6bbcea0ff28" id="r_adc3cdd248c8051174c60f6bbcea0ff28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#adc3cdd248c8051174c60f6bbcea0ff28">LBM_THREAD_STATE_READY</a>&#160;&#160;&#160;(uint32_t)0u</td></tr>
 <tr class="separator:adc3cdd248c8051174c60f6bbcea0ff28"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1fcb05fe5cb16ef32758e104e2018bab" id="r_a1fcb05fe5cb16ef32758e104e2018bab"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#a1fcb05fe5cb16ef32758e104e2018bab">LBM_THREAD_STATE_BLOCKED</a>&#160;&#160;&#160;(uint32_t)1u</td></tr>
@@ -240,6 +243,7 @@ Macros</h2></td></tr>
 <tr class="separator:aa9ccb4da9170043e085d09318ec29a59"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a22f4983863f1ffe14df3cbde649dcade" id="r_a22f4983863f1ffe14df3cbde649dcade"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#a22f4983863f1ffe14df3cbde649dcade">LBM_THREAD_STATE_GC_BIT</a>&#160;&#160;&#160;(uint32_t)(1u &lt;&lt; 31)</td></tr>
 <tr class="separator:a22f4983863f1ffe14df3cbde649dcade"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Thread State Groups</div></td></tr>
 <tr class="memitem:af9dd3ffa110785b9eb69ef640d8df2ec" id="r_af9dd3ffa110785b9eb69ef640d8df2ec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#af9dd3ffa110785b9eb69ef640d8df2ec">LBM_IS_STATE_TIMEOUT</a>(X)&#160;&#160;&#160;(X &amp; (<a class="el" href="eval__cps_8h.html#a760c2b9386c94f5f7560775cac67368a">LBM_THREAD_STATE_TIMEOUT</a> | <a class="el" href="eval__cps_8h.html#aa9ccb4da9170043e085d09318ec29a59">LBM_THREAD_STATE_RECV_TO</a>))</td></tr>
 <tr class="separator:af9dd3ffa110785b9eb69ef640d8df2ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2c22e11124a8438e773c33d7f1174462" id="r_a2c22e11124a8438e773c33d7f1174462"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8h.html#a2c22e11124a8438e773c33d7f1174462">LBM_IS_STATE_WAKE_UP_WAKABLE</a>(X)&#160;&#160;&#160;(X &amp; (<a class="el" href="eval__cps_8h.html#a972fc95b4c26c04bbc5d0a6a338f5834">LBM_THREAD_STATE_SLEEPING</a> | <a class="el" href="eval__cps_8h.html#af9dd3ffa110785b9eb69ef640d8df2ec">LBM_IS_STATE_TIMEOUT</a>(X)))</td></tr>
@@ -684,7 +688,6 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>The eval_context_t struct represents a lispbm process. </p>
 
 </div>
 </div>
@@ -783,6 +786,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Represents an evaluation context (a thread) </p>
 
 </div>
 </div>

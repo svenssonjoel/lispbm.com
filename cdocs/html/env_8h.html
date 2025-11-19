@@ -166,6 +166,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Symbol to hashtable entry hashfunction </p>
 
 </div>
 </div>
@@ -180,6 +181,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Global environment hashtable size </p>
 
 </div>
 </div>
@@ -200,6 +202,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Copy the spine of an environment. The list structure is recreated but the values themselves are not copied but rather just referenced.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Internal:</b> For internal use only.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">env</td><td>Environment to copy. </td></tr>
@@ -235,7 +238,9 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Removes a binding (destructively) from the input environment. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Removes a binding (destructively) from the input environment.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">env</td><td>Environment to modify. </td></tr>
     <tr><td class="paramname">key</td><td>Key to remove from environment. </td></tr>
@@ -277,7 +282,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Lookup a value in an environment. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Lookup a value in an environment. </p><dl class="section note"><dt>Note</dt><dd><b>Recommendation:</b> If called from an external thread, pausing the evaluator is recommended. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">res</td><td>Result stored here </td></tr>
     <tr><td class="paramname">sym</td><td>The key to look for in the environment </td></tr>
@@ -320,16 +326,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Create a new binding on the environment without destroying the old value. If the old value is unused (the key-value pair) it will be freed by GC at next convenience.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">env</td><td>Environment to modify. </td></tr>
-    <tr><td class="paramname">key</td><td>A symbol to associate with a value. </td></tr>
-    <tr><td class="paramname">val</td><td>The value. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section return"><dt>Returns</dt><dd>The modified environment or lbm_enc_sym(SYM_MERROR) if GC needs to be run. Modifies an existing binding on the environment.</dd></dl>
+<p>Modifies an existing binding on the environment.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">env</td><td>The environment to modify. </td></tr>
@@ -374,6 +371,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Create a new binding on the environment or replace an old binding.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">env</td><td>Environment to modify. </td></tr>
@@ -401,7 +399,7 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<dl class="section return"><dt>Returns</dt><dd>the global environment </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the global environment </dd></dl>
 
 </div>
 </div>
@@ -449,7 +447,8 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Lookup a value in the global environment. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Lookup a value in the global environment. </p><dl class="section note"><dt>Note</dt><dd><b>Recommendation:</b> If called from an external thread, pausing the evaluator is recommended. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">res</td><td>Result stored here </td></tr>
     <tr><td class="paramname">sym</td><td>The key to look for in the environment </td></tr>
