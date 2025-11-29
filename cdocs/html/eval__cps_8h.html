@@ -817,6 +817,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Event types </p>
 <table class="fieldtable">
 <tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a0129b6bb854ffdfc778c3ad2d32a8d62ab65f2e88b57046bb05c061944a519bca" name="a0129b6bb854ffdfc778c3ad2d32a8d62ab65f2e88b57046bb05c061944a519bca"></a>LBM_EVENT_FOR_HANDLER&#160;</td><td class="fielddoc"></td></tr>
 <tr><td class="fieldname"><a id="a0129b6bb854ffdfc778c3ad2d32a8d62abcdb73ff5ab7f89210bd78640574f332" name="a0129b6bb854ffdfc778c3ad2d32a8d62abcdb73ff5ab7f89210bd78640574f332"></a>LBM_EVENT_UNBLOCK_CTX&#160;</td><td class="fielddoc"></td></tr>
@@ -923,7 +924,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Block a context from an extension </p>
+<p>Block a context from an extension </p><dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only. </dd></dl>
 
 </div>
 </div>
@@ -942,7 +943,8 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Block a context from an extension with a timeout. </p><dl class="params"><dt>Parameters</dt><dd>
+<p>Block a context from an extension with a timeout. </p><dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only. </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">s</td><td>Timeout in seconds. </td></tr>
   </table>
@@ -1051,6 +1053,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p>Create a context and enqueue it as runnable.</p>
+<dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called in the same thread as the evaluator OR the evaluator must be paused.</dd></dl>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">program</td><td>The program to evaluate in the context. </td></tr>
@@ -2058,7 +2061,7 @@ Variables</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Undo a previous call to lbm_block_ctx_from_extension. </p>
+<p>Undo a previous call to lbm_block_ctx_from_extension. </p><dl class="section warning"><dt>Warning</dt><dd><b>Thread Requirement:</b> This function MUST be called from the LBM evaluator thread only. </dd></dl>
 
 </div>
 </div>
@@ -2110,6 +2113,7 @@ Variables</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>Table of function pointers implementing the fundamental operations </p>
 
 </div>
 </div>

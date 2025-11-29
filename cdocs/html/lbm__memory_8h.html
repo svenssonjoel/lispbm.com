@@ -74,7 +74,6 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#define-members">Macros</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">lbm_memory.h File Reference</div></div>
 </div><!--header-->
@@ -205,10 +204,23 @@ This graph shows which files directly or indirectly include this file:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
 Macros</h2></td></tr>
+<tr><td colspan="2"><div class="groupHeader">Memory size macros</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><p>Convert number of memory blocks to number of memory words The block size is determined from the number of status bitpatterns that fit within one bitmap word.</p>
+<p>Status bit patterns are 2 bits, so in 32bits (one word on 32bit platform) you have 16 status patterns =&gt; block size is 16.</p>
+<p>On 64-bit platforms, LBM_MEMORY_BITMAP_SIZE divides by 2 because one 64-bit bitmap word can track 32 memory words (vs 16 on 32-bit).</p>
+<p>LBM_MEMORY is allocated as a number of whole WORDS (not bytes). So the thing that decides the possible sizes are really the bitmap sizes. Bitmaps have to be a multiple of words</p>
+<p>Memory sizes that make sense (32-bit): bitmap size words | memory size words | memory size bytes 1 | 1*16 = 16 | 64 2 | 2*16 = 32 | 128 10 | 10*16 = 160 | 640 64 | 64*16 = 1024 | 4096 100 | 100*16 1600 | 6400</p>
+<p>There is a minimal viable size of lbm_memory but it depends on space used byt symbol representations and printing stack, gc stack. things like that. The minimal viable is likely about 4KB (to have approx 2KB lbm_mem avail at runtime) </p>
+</div></td></tr>
+<tr class="memitem:aa946aba2285134e7df93796dc6dccdc3" id="r_aa946aba2285134e7df93796dc6dccdc3"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__memory_8h.html#aa946aba2285134e7df93796dc6dccdc3">LBM_MEMORY_SIZE_BLOCKS_TO_WORDS</a>(X)&#160;&#160;&#160;(16*(X))</td></tr>
+<tr class="separator:aa946aba2285134e7df93796dc6dccdc3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0ec871c24027c41ebb48db376de835f" id="r_ae0ec871c24027c41ebb48db376de835f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__memory_8h.html#ae0ec871c24027c41ebb48db376de835f">LBM_MEMORY_SIZE_64BYTES_TIMES_X</a>(X)&#160;&#160;&#160;(16*(X))</td></tr>
 <tr class="separator:ae0ec871c24027c41ebb48db376de835f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a203509bcb9bf6d5cbe4c22687d4e6933" id="r_a203509bcb9bf6d5cbe4c22687d4e6933"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__memory_8h.html#a203509bcb9bf6d5cbe4c22687d4e6933">LBM_MEMORY_BITMAP_SIZE</a>(X)&#160;&#160;&#160;(X)</td></tr>
 <tr class="separator:a203509bcb9bf6d5cbe4c22687d4e6933"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr><td colspan="2"><div class="groupHeader">Legacy Size Macros (deprecated)</div></td></tr>
+<tr><td colspan="2"><div class="groupText"><dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>These macros are named for 32-bit byte sizes. On 64-bit platforms, actual byte size is 2× the name. Prefer specifying memory size in bytes directly. Use <a class="el" href="lbm__memory_8h.html#aa946aba2285134e7df93796dc6dccdc3">LBM_MEMORY_SIZE_BLOCKS_TO_WORDS()</a> and <a class="el" href="lbm__memory_8h.html#a203509bcb9bf6d5cbe4c22687d4e6933">LBM_MEMORY_BITMAP_SIZE()</a> for platform-independent sizing.</dd></dl>
+</div></td></tr>
 <tr class="memitem:a3efc82ee0172751f9d333e8e40553e8b" id="r_a3efc82ee0172751f9d333e8e40553e8b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__memory_8h.html#a3efc82ee0172751f9d333e8e40553e8b">LBM_MEMORY_SIZE_512</a>&#160;&#160;&#160;<a class="el" href="lbm__memory_8h.html#ae0ec871c24027c41ebb48db376de835f">LBM_MEMORY_SIZE_64BYTES_TIMES_X</a>(8)</td></tr>
 <tr class="separator:a3efc82ee0172751f9d333e8e40553e8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aee8087f504bac33c5eace11a5c5da397" id="r_aee8087f504bac33c5eace11a5c5da397"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="lbm__memory_8h.html#aee8087f504bac33c5eace11a5c5da397">LBM_MEMORY_SIZE_1K</a>&#160;&#160;&#160;<a class="el" href="lbm__memory_8h.html#ae0ec871c24027c41ebb48db376de835f">LBM_MEMORY_SIZE_64BYTES_TIMES_X</a>(16)</td></tr>
@@ -628,6 +640,24 @@ Functions</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define LBM_MEMORY_SIZE_8K&#160;&#160;&#160;<a class="el" href="lbm__memory_8h.html#ae0ec871c24027c41ebb48db376de835f">LBM_MEMORY_SIZE_64BYTES_TIMES_X</a>(128)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aa946aba2285134e7df93796dc6dccdc3" name="aa946aba2285134e7df93796dc6dccdc3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa946aba2285134e7df93796dc6dccdc3">&#9670;&#160;</a></span>LBM_MEMORY_SIZE_BLOCKS_TO_WORDS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LBM_MEMORY_SIZE_BLOCKS_TO_WORDS</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">X</td><td>)</td>
+          <td>&#160;&#160;&#160;(16*(X))</td>
         </tr>
       </table>
 </div><div class="memdoc">
