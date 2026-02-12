@@ -5,13 +5,21 @@
     <link>https://www.lispbm.com/</link>
     <description>LispBM is a Lisp/Scheme dialect for microcontrollers with concurrency and message passing. Stay updated on releases, features, and community projects.</description>
     <language>en-us</language>
-    <lastBuildDate>Sat, 14 Dec 2025 00:00:00 GMT</lastBuildDate>
+    <lastBuildDate>Thu, 12 Feb 2026 00:00:00 GMT</lastBuildDate>
     <atom:link href="https://www.lispbm.com/feed.xml" rel="self" type="application/rss+xml" />
     <image>
       <url>https://www.lispbm.com/images/lispbm_llama_small.png</url>
       <title>LispBM</title>
       <link>https://www.lispbm.com/</link>
     </image>
+
+    <item>
+      <title>LispBM 0.36.0 Released</title>
+      <link>https://www.lispbm.com/releases/release-0.36.0.html</link>
+      <description>LispBM version 0.36.0 is now available with reader refactoring and bugfixes in various parts.</description>
+      <pubDate>Thu, 12 Feb 2026 00:00:00 GMT</pubDate>
+      <guid>https://www.lispbm.com/releases/release-0.36.0.html</guid>
+    </item>
 
     <item>
       <title>LispBM 0.35.0 Released</title>
