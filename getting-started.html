@@ -5,7 +5,7 @@
 
   <meta charset="UTF-8">
   <meta name="description" content="Learn functional programming for microcontrollers with LispBM. Step-by-step guides for Lisp on ESP32, STM32F4, VESC Express, NRF52, and more embedded systems. Get started with Lisp for ESP32C3, STM32, Linux, and Windows.">
-  <meta name="keywords" content="lisp for esp32, lisp for stm32, functional programming microcontrollers, esp32 lisp, stm32 lisp, lisp embedded systems, lispbm esp32c3, scheme microcontroller, lisp for nrf52, functional programming embedded, lispbm getting started, vesc lisp programming, embedded functional programming">
+  <meta name="keywords" content="lisp for esp32, lisp for stm32, functional programming microcontrollers, esp32 lisp, stm32 lisp, lisp embedded systems, lispbm esp32c3, scheme microcontroller, lisp for nrf52, functional programming embedded, lispbm getting started, vesc lisp programming, embedded functional programming, zynq ultrascale lisp, xilinx lisp, fpga lisp">
   <meta name="author" content="Bo Joel Svensson">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -335,6 +335,14 @@
     </div>
 
     <div class="platform-card">
+      <h3>Zynq UltraScale+</h3>
+      <span class="difficulty moderate">Moderate</span>
+      <p><strong>Best for:</strong> FPGA projects, Xilinx/AMD Zynq platforms, high-performance embedded</p>
+      <p>FreeRTOS-based setup for Zynq UltraScale+ A53 64-bit processors using Vitis.</p>
+      <p><a href="#getting-started-zynq-ultrascale">Jump to guide →</a></p>
+    </div>
+
+    <div class="platform-card">
       <h3>Windows</h3>
       <span class="difficulty easy">Easy</span>
       <p><strong>Best for:</strong> Windows users, testing without Linux</p>
@@ -410,6 +418,14 @@
        targeting the <a href="https://www.st.com/en/evaluation-tools/stm32f4discovery.html">stm32f407G-disc1</a> (available on  <a href="https://www.mouser.se/ProductDetail/STMicroelectronics/STM32F407G-DISC1?qs=mKNKSX85ZJejxc9JOGT45A%3D%3D">Mouser</a>) and ChibiOS.</p>
     <p>This is a suitable starting point for integrating LispBM scripting for audio generation on your own ChibiOS based projects.</p>
     <p>Prerequisites and building instructions are available in the README.md file in the <code>examples/stm32f4-discovery-i2s</code> directory.</p>
+  </section>
+
+  <!-- Zynq UltraScale+ -->
+  <section id="getting-started-zynq-ultrascale">
+    <h2>Getting Started on Zynq UltraScale+</h2>
+    <p>In the directory <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/zynq-ultrascale"><code>examples/zynq-ultrascale</code></a> there is an example setup
+       for running LispBM on a Zynq UltraScale+ platform (A53 64-bit processor) with FreeRTOS. This sets up a thread for running LispBM programs concurrently to the main application written in C.</p>
+    <p>Prerequisites and building instructions are available in the <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/zynq-ultrascale">README.md</a> file in the <code>examples/zynq-ultrascale</code> directory.</p>
   </section>
 
   <!-- Roll Your Own -->
