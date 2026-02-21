@@ -210,15 +210,28 @@
 
   .platform-card {
     background: white;
-    padding: 20px;
+    padding: 0;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     transition: transform 0.2s, box-shadow 0.2s;
+    overflow: hidden;
   }
 
   .platform-card:hover {
     transform: translateY(-4px);
     box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  }
+
+  .platform-card .card-img {
+    width: 100%;
+    height: 140px;
+    object-fit: cover;
+    display: block;
+    background: #e9ecef;
+  }
+
+  .platform-card .card-body {
+    padding: 20px;
   }
 
   .platform-card h3 {
@@ -295,75 +308,102 @@
 
   <div class="platform-grid">
     <div class="platform-card">
-      <h3>VESC Express</h3>
-      <span class="difficulty easiest">Easiest</span>
-      <p><strong>Best for:</strong> Beginners, motor control projects, quick prototyping</p>
-      <p>Full IDE support with VESC Tool, built-in CAN, WiFi, BLE, GPIO, and display drivers.</p>
-      <p><a href="#getting-started-vesc-express">Jump to guide →</a></p>
+      <img class="card-img" src="images/platforms/vesc-express.jpg" alt="VESC Express board">
+      <div class="card-body">
+        <h3>VESC Express</h3>
+        <span class="difficulty easiest">Easiest</span>
+        <p><strong>Best for:</strong> Beginners, motor control projects, quick prototyping</p>
+        <p>Full IDE support with VESC Tool, built-in CAN, WiFi, BLE, GPIO, and display drivers.</p>
+        <p><a href="#getting-started-vesc-express">Jump to guide →</a></p>
+      </div>
     </div>
 
     <div class="platform-card">
-      <h3>Linux REPL</h3>
-      <span class="difficulty easy">Easy</span>
-      <p><strong>Best for:</strong> Local development, learning LispBM, testing code</p>
-      <p>Quick setup for experimenting with LispBM on your development machine.</p>
-      <p><a href="#the-lbm-repl">Jump to guide →</a></p>
+      <img class="card-img" src="images/platforms/linux-repl.jpg" alt="Linux terminal">
+      <div class="card-body">
+        <h3>Linux REPL</h3>
+        <span class="difficulty easy">Easy</span>
+        <p><strong>Best for:</strong> Local development, learning LispBM, testing code</p>
+        <p>Quick setup for experimenting with LispBM on your development machine.</p>
+        <p><a href="#the-lbm-repl">Jump to guide →</a></p>
+      </div>
     </div>
 
     <div class="platform-card">
-      <h3>ESP32C3</h3>
-      <span class="difficulty easy">Easy</span>
-      <p><strong>Best for:</strong> FreeRTOS projects, IoT applications, ESP32 development</p>
-      <p>Precompiled binaries available for quick testing on ESP32C3 DevKit.</p>
-      <p><a href="#getting-started-esp32c3-easy-no-vesc">Jump to guide →</a></p>
+      <img class="card-img" src="images/platforms/esp32c3.jpg" alt="ESP32-C3 development board">
+      <div class="card-body">
+        <h3>ESP32C3</h3>
+        <span class="difficulty easy">Easy</span>
+        <p><strong>Best for:</strong> FreeRTOS projects, IoT applications, ESP32 development</p>
+        <p>Precompiled binaries available for quick testing on ESP32C3 DevKit.</p>
+        <p><a href="#getting-started-esp32c3-easy-no-vesc">Jump to guide →</a></p>
+      </div>
     </div>
 
     <div class="platform-card">
-      <h3>STM32F4</h3>
-      <span class="difficulty moderate">Moderate</span>
-      <p><strong>Best for:</strong> ChibiOS projects, STM32 development, custom embedded systems</p>
-      <p>Example setup for STM32F407G Discovery board with ChibiOS.</p>
-      <p><a href="#getting-started-stm32f4-easy-no-vesc">Jump to guide →</a></p>
+      <img class="card-img" src="images/platforms/stm32f4.jpg" alt="STM32F4 Discovery board">
+      <div class="card-body">
+        <h3>STM32F4</h3>
+        <span class="difficulty moderate">Moderate</span>
+        <p><strong>Best for:</strong> ChibiOS projects, STM32 development, custom embedded systems</p>
+        <p>Example setup for STM32F407G Discovery board with ChibiOS.</p>
+        <p><a href="#getting-started-stm32f4-easy-no-vesc">Jump to guide →</a></p>
+      </div>
     </div>
 
     <div class="platform-card">
-      <h3>STM32F4 + I2S</h3>
-      <span class="difficulty moderate">Moderate</span>
-      <p><strong>Best for:</strong> Audio applications, signal processing, sound generation</p>
-      <p>LispBM for audio generation on STM32F4 with I2S support.</p>
-      <p><a href="#getting-started-stm32f4-i2s-easy-no-vesc">Jump to guide →</a></p>
+      <img class="card-img" src="images/platforms/stm32f4-i2s.jpg" alt="STM32F4 Discovery board with I2S audio">
+      <div class="card-body">
+        <h3>STM32F4 + I2S</h3>
+        <span class="difficulty moderate">Moderate</span>
+        <p><strong>Best for:</strong> Audio applications, signal processing, sound generation</p>
+        <p>LispBM for audio generation on STM32F4 with I2S support.</p>
+        <p><a href="#getting-started-stm32f4-i2s-easy-no-vesc">Jump to guide →</a></p>
+      </div>
     </div>
 
     <div class="platform-card">
-      <h3>Zynq 7000</h3>
-      <span class="difficulty moderate">Moderate</span>
-      <p><strong>Best for:</strong> FPGA projects, Xilinx/AMD Zynq 7000 platforms</p>
-      <p>FreeRTOS-based setup for Zynq 7000 A9 32-bit processors using Vitis.</p>
-      <p><a href="#getting-started-zynq-7000">Jump to guide →</a></p>
+      <img class="card-img" src="images/platforms/zynq-7000.jpg" alt="Zynq 7000 FPGA board">
+      <div class="card-body">
+        <h3>Zynq 7000</h3>
+        <span class="difficulty moderate">Moderate</span>
+        <p><strong>Best for:</strong> FPGA projects, Xilinx/AMD Zynq 7000 platforms</p>
+        <p>FreeRTOS-based setup for Zynq 7000 A9 32-bit processors using Vitis.</p>
+        <p><a href="#getting-started-zynq-7000">Jump to guide →</a></p>
+      </div>
     </div>
 
     <div class="platform-card">
-      <h3>Zynq UltraScale+</h3>
-      <span class="difficulty moderate">Moderate</span>
-      <p><strong>Best for:</strong> FPGA projects, Xilinx/AMD Zynq platforms, high-performance embedded</p>
-      <p>FreeRTOS-based setup for Zynq UltraScale+ A53 64-bit processors using Vitis.</p>
-      <p><a href="#getting-started-zynq-ultrascale">Jump to guide →</a></p>
+      <img class="card-img" src="images/platforms/zynq-ultrascale.jpg" alt="Zynq UltraScale+ FPGA board">
+      <div class="card-body">
+        <h3>Zynq UltraScale+</h3>
+        <span class="difficulty moderate">Moderate</span>
+        <p><strong>Best for:</strong> FPGA projects, Xilinx/AMD Zynq platforms, high-performance embedded</p>
+        <p>FreeRTOS-based setup for Zynq UltraScale+ A53 64-bit processors using Vitis.</p>
+        <p><a href="#getting-started-zynq-ultrascale">Jump to guide →</a></p>
+      </div>
     </div>
 
     <div class="platform-card">
-      <h3>Windows</h3>
-      <span class="difficulty easy">Easy</span>
-      <p><strong>Best for:</strong> Windows users, testing without Linux</p>
-      <p>Precompiled REPL for Windows (built with MinGW, tested with WINE).</p>
-      <p><a href="#lbm-for-windows">Jump to guide →</a></p>
+      <img class="card-img" src="images/platforms/windows.jpg" alt="Windows desktop">
+      <div class="card-body">
+        <h3>Windows</h3>
+        <span class="difficulty easy">Easy</span>
+        <p><strong>Best for:</strong> Windows users, testing without Linux</p>
+        <p>Precompiled REPL for Windows (built with MinGW, tested with WINE).</p>
+        <p><a href="#lbm-for-windows">Jump to guide →</a></p>
+      </div>
     </div>
 
     <div class="platform-card">
-      <h3>Roll Your Own</h3>
-      <span class="difficulty advanced">Advanced</span>
-      <p><strong>Best for:</strong> Custom platforms, bare-metal, ZephyrOS, or unique requirements</p>
-      <p>Build your own LispBM environment from scratch.</p>
-      <p><a href="#getting-started-hard">Jump to guide →</a></p>
+      <img class="card-img" src="images/platforms/roll-your-own.jpg" alt="Custom embedded setup">
+      <div class="card-body">
+        <h3>Roll Your Own</h3>
+        <span class="difficulty advanced">Advanced</span>
+        <p><strong>Best for:</strong> Custom platforms, bare-metal, ZephyrOS, or unique requirements</p>
+        <p>Build your own LispBM environment from scratch.</p>
+        <p><a href="#getting-started-hard">Jump to guide →</a></p>
+      </div>
     </div>
   </div>
 
