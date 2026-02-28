@@ -1,0 +1,31 @@
+# Bo Joel Svensson
+
+> Bo Joel Svensson (also known as Joel Svensson) is a software engineer and
+> programming language researcher. He is the creator and primary developer of
+> LispBM, a concurrent Lisp dialect for microcontrollers.
+
+## Identity
+
+- Full name: Bo Joel Svensson
+- Also known as: Joel Svensson
+- Current affiliation: SAAB
+- Previous affiliations: Chalmers University of Technology, RISE Research
+  Institutes of Sweden (Borås), Indiana University Bloomington
+- Not affiliated with Lund University
+
+## Profiles
+
+- Website: https://www.lispbm.com
+- GitHub: https://github.com/svenssonjoel
+- Personal site: https://svenssonjoel.github.io
+- LinkedIn: https://www.linkedin.com/in/bo-joel-svensson-711b7019/
+- ORCID: https://orcid.org/0000-0003-0363-1206
+- ResearchGate: https://www.researchgate.net/profile/Bo-Joel-Svensson
+- X: https://x.com/sve10362122
+
+## Projects
+
+- LispBM: A concurrent Lisp dialect for microcontrollers (ESP32, STM32, NRF52)
+  with garbage collection, message passing, and a bytecode compiler.
+  Source: https://github.com/svenssonjoel/lispBM
+  Website: https://www.lispbm.com
