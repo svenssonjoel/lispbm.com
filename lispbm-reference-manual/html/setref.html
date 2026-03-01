@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM Reference Documentation - LispBM Set Extensions Reference Manual">
+  <meta name="keywords" content="lispbm, lisp, reference, documentation, embedded lisp, microcontroller, LispBM Set Extensions Reference Manual">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+
+  <link rel="canonical" href="https://www.lispbm.com/lispbm-reference-manual/setref/" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+
+  <meta property="og:title" content="LispBM Set Extensions Reference Manual">
+  <meta property="og:description" content="LispBM Reference Documentation - LispBM Set Extensions Reference Manual">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/lispbm-reference-manual/setref/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM Set Extensions Reference Manual">
+  <meta name="twitter:description" content="LispBM Reference Documentation - LispBM Set Extensions Reference Manual">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.lispbm.com/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.lispbm.com/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.lispbm.com/ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
+
+  <link rel="stylesheet" href="reference.css">
+
+  <title>LispBM Set Extensions Reference Manual</title>
+</head>
+
+<body>
+
+<div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+  <div style="margin-bottom: 20px;">
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a>
+  </div>
+
+<!-- Content starts here -->
+
+<div data-pagefind-body>
+<div data-pagefind-filter="Platform">Core LispBM</div>
+<div data-pagefind-filter="Document">Setref</div>
+# LispBM Set Extensions Reference Manual
+
+<p>The set extensions provide operations for working with sets represented as lists of unique elements. These extensions may or may not be present depending on the platform and configuration of LispBM.</p>
+<h2 id="set-operations">Set Operations</h2>
+<h3 id="member">member</h3>
+<p><code>member</code> checks if a value is an element of a list. The form of a <code>member</code> expression is <code>(member value list)</code>. Returns <code>list</code> if <code>value</code> is found anywhere in it, or <code>nil</code> if not found. Equality is tested structurally in the same way as <code>eq</code>, so number types must match. Note that <code>member</code> is part of core LispBM and is always available.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>(member <span class="dv">3</span> (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb3"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>(member 3u (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb4"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="va">nil</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb5"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>(member <span class="at">&#39;x</span> (<span class="kw">list</span> <span class="at">&#39;a</span> <span class="at">&#39;b</span> <span class="at">&#39;x</span> <span class="at">&#39;y</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>(a b x y)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb7"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>(member <span class="at">&#39;z</span> (<span class="kw">list</span> <span class="at">&#39;a</span> <span class="at">&#39;b</span> <span class="at">&#39;x</span> <span class="at">&#39;y</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb8"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="va">nil</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="set-insert">set-insert</h3>
+<p><code>set-insert</code> inserts a value into a set. Sets are represented as lists with no duplicate elements. The form of a <code>set-insert</code> expression is <code>(set-insert set value)</code>. If <code>value</code> is already a member of <code>set</code> the original set is returned unchanged. Otherwise a copy of the set is returned with <code>value</code> appended. Membership is tested using structural equality.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb9"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>(set-insert <span class="va">nil</span> <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb10"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>(<span class="dv">1</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb11"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>(set-insert (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>) <span class="dv">4</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb12"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb13"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>(set-insert (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>) <span class="dv">2</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb14"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="set-union">set-union</h3>
+<p><code>set-union</code> computes the union of two sets. Sets are represented as lists with no duplicate elements. The form of a <code>set-union</code> expression is <code>(set-union set1 set2)</code>. Returns a set containing all elements from both <code>set1</code> and <code>set2</code> with no duplicates. Membership is tested using structural equality.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb15"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>(set-union (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>) (<span class="kw">list</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb16"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>(<span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb17"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>(set-union (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>) (<span class="kw">list</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb18"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>(<span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">1</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb19"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a>(set-union <span class="va">nil</span> (<span class="kw">list</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb20"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>(<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<p>This document was generated by LispBM version 0.36.0</p>
+</div> <!-- Close pagefind-body -->
+</div> <!-- Close container -->
+
+<footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
+  <p>
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a> |
+    <a href="https://www.lispbm.com/" style="color: #007bff; text-decoration: none;">LispBM Home</a>
+  </p>
+
+  <p>
+    Please contact me with questions, suggestions or feedback at blog
+    (dot) joel (dot) svensson (at) gmail (dot) com or join the
+    <a href="https://discord.gg/KgD4WcnFjv">Discord server</a>.
+  </p>
+
+  <p>&copy; Copyright 2026 Bo Joel Svensson</p>
+
+  <p><small>This page was generated using <a href="https://pandoc.org/">Pandoc</a>.</small></p>
+</footer>
+
+</body>
+</html>

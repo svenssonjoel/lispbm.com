@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM Reference Documentation - LispBM Mutex Extensions Reference Manual">
+  <meta name="keywords" content="lispbm, lisp, reference, documentation, embedded lisp, microcontroller, LispBM Mutex Extensions Reference Manual">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+
+  <link rel="canonical" href="https://www.lispbm.com/lispbm-reference-manual/mutexref/" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+
+  <meta property="og:title" content="LispBM Mutex Extensions Reference Manual">
+  <meta property="og:description" content="LispBM Reference Documentation - LispBM Mutex Extensions Reference Manual">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/lispbm-reference-manual/mutexref/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM Mutex Extensions Reference Manual">
+  <meta name="twitter:description" content="LispBM Reference Documentation - LispBM Mutex Extensions Reference Manual">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.lispbm.com/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.lispbm.com/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.lispbm.com/ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
+
+  <link rel="stylesheet" href="reference.css">
+
+  <title>LispBM Mutex Extensions Reference Manual</title>
+</head>
+
+<body>
+
+<div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+  <div style="margin-bottom: 20px;">
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a>
+  </div>
+
+<!-- Content starts here -->
+
+<div data-pagefind-body>
+<div data-pagefind-filter="Platform">Core LispBM</div>
+<div data-pagefind-filter="Document">Mutexref</div>
+# LispBM Mutex Extensions Reference Manual
+
+<p>The mutex extensions provide mutual exclusion primitives for synchronising concurrent LispBM processes. These extensions may or may not be present depending on the platform and configuration of LispBM.</p>
+<h2 id="mutual-exclusion">Mutual Exclusion</h2>
+<h3 id="mutex-create">mutex-create</h3>
+<p><code>mutex-create</code> creates a mutex for mutual exclusion between concurrent LispBM processes. The form of a <code>mutex-create</code> expression is <code>(mutex-create)</code>. Returns a mutex object. Internally the mutex is represented as a dotted pair used as a queue of waiting process IDs, and can be accidentally destroyed by standard list operations.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>(define m (mutex-create))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>(<span class="va">nil</span>)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="mutex-lock">mutex-lock</h3>
+<p><code>mutex-lock</code> acquires a mutex. The form of a <code>mutex-lock</code> expression is <code>(mutex-lock mutex)</code>. If the mutex is unlocked, the calling process acquires it and returns <code>t</code>. If the mutex is already held by another process, the calling process is blocked until the mutex becomes available. A process must not attempt to lock a mutex it already holds, as this will cause a deadlock. It is recommended to use <code>mutex-lock</code> and <code>mutex-unlock</code> together in a wrapper that guarantees unlocking, for example:</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb3"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>(define m (mutex-create))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb4"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>(<span class="va">nil</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb5"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>(define with-mutex-do (lambda (mutex expr)</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>                        (progn </span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>                            (mutex-lock mutex)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>                            (<span class="kw">eval</span> expr)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>                            (mutex-unlock mutex))))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>(closure (mutex expr) </span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true"></a>  (progn </span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true"></a>      (mutex-lock mutex)</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true"></a>      (<span class="kw">eval</span> expr)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true"></a>      (mutex-unlock mutex))</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true"></a>  <span class="va">nil</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb7"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>(with-mutex-do m &#39;(<span class="kw">+</span> <span class="dv">1</span> <span class="dv">2</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb8"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="mutex-unlock">mutex-unlock</h3>
+<p><code>mutex-unlock</code> releases a mutex. The form of a <code>mutex-unlock</code> expression is <code>(mutex-unlock mutex)</code>. Must be called by the same process that holds the lock. Returns <code>t</code> on success and unblocks the next waiting process if any. Returns an error if the mutex is not currently locked.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb9"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>(define m (mutex-create))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb10"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>(<span class="va">nil</span>)</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb11"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>(mutex-lock m)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb12"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb13"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>(mutex-unlock m)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb14"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<p>This document was generated by LispBM version 0.36.0</p>
+</div> <!-- Close pagefind-body -->
+</div> <!-- Close container -->
+
+<footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
+  <p>
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a> |
+    <a href="https://www.lispbm.com/" style="color: #007bff; text-decoration: none;">LispBM Home</a>
+  </p>
+
+  <p>
+    Please contact me with questions, suggestions or feedback at blog
+    (dot) joel (dot) svensson (at) gmail (dot) com or join the
+    <a href="https://discord.gg/KgD4WcnFjv">Discord server</a>.
+  </p>
+
+  <p>&copy; Copyright 2026 Bo Joel Svensson</p>
+
+  <p><small>This page was generated using <a href="https://pandoc.org/">Pandoc</a>.</small></p>
+</footer>
+
+</body>
+</html>

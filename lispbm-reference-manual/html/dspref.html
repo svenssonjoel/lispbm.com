@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM Reference Documentation - LispBM DSP Extensions Reference Manual">
+  <meta name="keywords" content="lispbm, lisp, reference, documentation, embedded lisp, microcontroller, LispBM DSP Extensions Reference Manual">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+
+  <link rel="canonical" href="https://www.lispbm.com/lispbm-reference-manual/dspref/" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+
+  <meta property="og:title" content="LispBM DSP Extensions Reference Manual">
+  <meta property="og:description" content="LispBM Reference Documentation - LispBM DSP Extensions Reference Manual">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/lispbm-reference-manual/dspref/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM DSP Extensions Reference Manual">
+  <meta name="twitter:description" content="LispBM Reference Documentation - LispBM DSP Extensions Reference Manual">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.lispbm.com/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.lispbm.com/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.lispbm.com/ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
+
+  <link rel="stylesheet" href="reference.css">
+
+  <title>LispBM DSP Extensions Reference Manual</title>
+</head>
+
+<body>
+
+<div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+  <div style="margin-bottom: 20px;">
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a>
+  </div>
+
+<!-- Content starts here -->
+
+<div data-pagefind-body>
+<div data-pagefind-filter="Platform">Core LispBM</div>
+<div data-pagefind-filter="Document">Dspref</div>
+# LispBM DSP Extensions Reference Manual
+
+<p>The DSP extensions provide digital signal processing functions such as correlation, convolution and fast Fourier transform. These extensions may or may not be present depending on the platform and configuration of LispBM.</p>
+<p>All DSP functions operate on byte arrays containing 32-bit floats. The byte order of float data in the arrays can be specified with the <code>'little-endian</code> symbol. If not specified, big-endian is assumed. On most embedded platforms (ARM, x86) floats are stored in little-endian byte order, so <code>'little-endian</code> should typically be passed.</p>
+<h2 id="real-valued-operations">Real-valued Operations</h2>
+<h3 id="correlate">correlate</h3>
+<p><code>correlate</code> computes the cross-correlation of two real-valued signals. The form is <code>(correlate s1 s2)</code> or <code>(correlate s1 s2 'little-endian)</code>. Both <code>s1</code> and <code>s2</code> must be byte arrays containing 32-bit floats. Returns a new byte array of floats with length <code>(+ (len s1) (len s2) -1)</code>, where lengths are measured in number of floats. Cross-correlation measures the similarity between two signals as a function of the time-lag applied to one of them.</p>
+<p>The optional <code>'little-endian</code> argument specifies the byte order of the float data in the input arrays. If omitted the data is assumed to be big-endian. On most embedded systems floats are stored in little-endian format, so <code>'little-endian</code> should typically be passed.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>(define s1 (bufcreate <span class="dv">16</span>))</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true"></a>(bufset-f32 s1 <span class="dv">0</span> <span class="fl">1.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true"></a>(bufset-f32 s1 <span class="dv">4</span> <span class="fl">2.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true"></a>(bufset-f32 s1 <span class="dv">8</span> <span class="fl">3.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true"></a>(bufset-f32 s1 <span class="dv">12</span> <span class="fl">4.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true"></a>(define s2 (bufcreate <span class="dv">8</span>))</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true"></a>(bufset-f32 s2 <span class="dv">0</span> <span class="fl">1.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true"></a>(bufset-f32 s2 <span class="dv">4</span> <span class="fl">1.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true"></a>(correlate s1 s2 <span class="at">&#39;little-endian</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">64</span> <span class="dv">64</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">160</span> <span class="dv">64</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">224</span> <span class="dv">64</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">128</span> <span class="dv">64</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb3"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>(define s1 (bufcreate <span class="dv">16</span>))</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true"></a>(bufset-f32 s1 <span class="dv">0</span> <span class="fl">1.000000</span>f32)</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true"></a>(bufset-f32 s1 <span class="dv">4</span> <span class="fl">2.000000</span>f32)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true"></a>(bufset-f32 s1 <span class="dv">8</span> <span class="fl">3.000000</span>f32)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true"></a>(bufset-f32 s1 <span class="dv">12</span> <span class="fl">4.000000</span>f32)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true"></a>(define s2 (bufcreate <span class="dv">8</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true"></a>(bufset-f32 s2 <span class="dv">0</span> <span class="fl">1.000000</span>f32)</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true"></a>(bufset-f32 s2 <span class="dv">4</span> <span class="fl">1.000000</span>f32)</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true"></a>(correlate s1 s2)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb4"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>[<span class="dv">64</span> <span class="dv">64</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">64</span> <span class="dv">160</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">64</span> <span class="dv">224</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">64</span> <span class="dv">128</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="convolve">convolve</h3>
+<p><code>convolve</code> computes the convolution of a signal with a filter kernel. The form is <code>(convolve signal filter)</code> or <code>(convolve signal filter 'little-endian)</code>. Both arguments must be byte arrays containing 32-bit floats. Returns a new byte array of floats with length <code>(+ (len signal) (len filter) -1)</code>, where lengths are measured in number of floats. Convolution is commonly used for applying FIR filters to signals.</p>
+<p>The optional <code>'little-endian</code> argument specifies the byte order of the float data in the input arrays. If omitted the data is assumed to be big-endian.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb5"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>(define signal (bufcreate <span class="dv">16</span>))</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true"></a>(bufset-f32 signal <span class="dv">0</span> <span class="fl">1.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true"></a>(bufset-f32 signal <span class="dv">4</span> <span class="fl">2.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true"></a>(bufset-f32 signal <span class="dv">8</span> <span class="fl">3.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true"></a>(bufset-f32 signal <span class="dv">12</span> <span class="fl">4.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true"></a>(define kernel (bufcreate <span class="dv">8</span>))</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true"></a>(bufset-f32 kernel <span class="dv">0</span> <span class="fl">0.500000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true"></a>(bufset-f32 kernel <span class="dv">4</span> <span class="fl">0.500000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true"></a>(convolve signal kernel <span class="at">&#39;little-endian</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">63</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">192</span> <span class="dv">63</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">32</span> <span class="dv">64</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">96</span> <span class="dv">64</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">64</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb7"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>(define signal (bufcreate <span class="dv">16</span>))</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true"></a>(bufset-f32 signal <span class="dv">0</span> <span class="fl">1.000000</span>f32)</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true"></a>(bufset-f32 signal <span class="dv">4</span> <span class="fl">2.000000</span>f32)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true"></a>(bufset-f32 signal <span class="dv">8</span> <span class="fl">3.000000</span>f32)</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true"></a>(bufset-f32 signal <span class="dv">12</span> <span class="fl">4.000000</span>f32)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true"></a>(define kernel (bufcreate <span class="dv">8</span>))</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true"></a>(bufset-f32 kernel <span class="dv">0</span> <span class="fl">0.500000</span>f32)</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true"></a>(bufset-f32 kernel <span class="dv">4</span> <span class="fl">0.500000</span>f32)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true"></a>(convolve signal kernel)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb8"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>[<span class="dv">63</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">63</span> <span class="dv">192</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">64</span> <span class="dv">32</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">64</span> <span class="dv">96</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">64</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="complex-valued-operations">Complex-valued Operations</h2>
+<h3 id="complex-correlate">complex-correlate</h3>
+<p><code>complex-correlate</code> computes the cross-correlation of two complex-valued signals. The form is <code>(complex-correlate s1-re s1-im s2-re s2-im)</code> or with an optional <code>'little-endian</code> as a fifth argument. All four arguments must be byte arrays of equal length containing 32-bit floats, representing the real and imaginary parts of the two signals. Returns a cons pair <code>(output-re . output-im)</code> of byte arrays. The correlation uses the conjugate of <code>s2</code>, consistent with the standard definition of complex cross-correlation.</p>
+<p>The real and imaginary arrays of each signal must have the same length. The optional <code>'little-endian</code> argument specifies the byte order of the float data.</p>
+<hr />
+<h3 id="complex-convolve">complex-convolve</h3>
+<p><code>complex-convolve</code> computes the convolution of two complex-valued signals. The form is <code>(complex-convolve sig-re sig-im fil-re fil-im)</code> or with an optional <code>'little-endian</code> as a fifth argument. All four arguments must be byte arrays of equal length containing 32-bit floats, representing the real and imaginary parts of the signal and filter. Returns a cons pair <code>(output-re . output-im)</code> of byte arrays.</p>
+<p>The real and imaginary arrays of each input must have the same length. The optional <code>'little-endian</code> argument specifies the byte order of the float data.</p>
+<hr />
+<h2 id="fourier-transform">Fourier Transform</h2>
+<h3 id="fft">fft</h3>
+<p><code>fft</code> computes the Fast Fourier Transform of a signal. The form is <code>(fft real-arr imag-arr)</code> with optional additional arguments. Both <code>real-arr</code> and <code>imag-arr</code> must be byte arrays of equal size containing 32-bit floats, representing the real and imaginary parts of the input signal. Returns a cons pair <code>(real-output . imag-output)</code> of byte arrays.</p>
+<p>If the input length is not a power of two, the arrays are zero-padded to the next power of two before the transform is applied. The output length will therefore be at least as large as the input.</p>
+<p>Optional arguments:</p>
+<ul>
+<li>Pass <code>'inverse</code> to compute the inverse FFT. The result is scaled by 1/N.</li>
+<li>Pass <code>'little-endian</code> to specify that float data is in little-endian byte order.</li>
+<li>Both can be combined: <code>(fft re im 'inverse 'little-endian)</code>.</li>
+</ul>
+<p>For a real-valued signal, set all values in <code>imag-arr</code> to zero.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb9"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>(define n <span class="dv">8</span>)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true"></a>(define re (bufcreate (<span class="kw">*</span> n <span class="dv">4</span>)))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true"></a>(define im (bufcreate (<span class="kw">*</span> n <span class="dv">4</span>)))</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true"></a>(bufset-f32 re <span class="dv">0</span> <span class="fl">1.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true"></a>(bufset-f32 re <span class="dv">4</span> <span class="fl">1.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true"></a>(bufset-f32 re <span class="dv">8</span> <span class="fl">1.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true"></a>(bufset-f32 re <span class="dv">12</span> <span class="fl">1.000000</span>f32 <span class="at">&#39;little-endian</span>)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true"></a>(define result (fft re im <span class="at">&#39;little-endian</span>))</span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true"></a>(car result)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb10"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">128</span> <span class="dv">64</span> <span class="dv">254</span> <span class="dv">255</span> <span class="dv">127</span> <span class="dv">63</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">128</span> <span class="dv">63</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">128</span> <span class="dv">63</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">128</span> <span class="dv">63</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb11"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>(define n <span class="dv">8</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true"></a>(define re (bufcreate (<span class="kw">*</span> n <span class="dv">4</span>)))</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true"></a>(define im (bufcreate (<span class="kw">*</span> n <span class="dv">4</span>)))</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true"></a>(bufset-f32 re <span class="dv">0</span> <span class="fl">1.000000</span>f32)</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true"></a>(bufset-f32 re <span class="dv">4</span> <span class="fl">1.000000</span>f32)</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true"></a>(bufset-f32 re <span class="dv">8</span> <span class="fl">1.000000</span>f32)</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true"></a>(bufset-f32 re <span class="dv">12</span> <span class="fl">1.000000</span>f32)</span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true"></a>(define result (fft re im))</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true"></a>(car result)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb12"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>[<span class="dv">64</span> <span class="dv">128</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">63</span> <span class="dv">127</span> <span class="dv">255</span> <span class="dv">254</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">63</span> <span class="dv">128</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">63</span> <span class="dv">128</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">63</span> <span class="dv">128</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<p>This document was generated by LispBM version 0.36.0</p>
+</div> <!-- Close pagefind-body -->
+</div> <!-- Close container -->
+
+<footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
+  <p>
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a> |
+    <a href="https://www.lispbm.com/" style="color: #007bff; text-decoration: none;">LispBM Home</a>
+  </p>
+
+  <p>
+    Please contact me with questions, suggestions or feedback at blog
+    (dot) joel (dot) svensson (at) gmail (dot) com or join the
+    <a href="https://discord.gg/KgD4WcnFjv">Discord server</a>.
+  </p>
+
+  <p>&copy; Copyright 2026 Bo Joel Svensson</p>
+
+  <p><small>This page was generated using <a href="https://pandoc.org/">Pandoc</a>.</small></p>
+</footer>
+
+</body>
+</html>
