@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM Reference Documentation - LispBM Math Extensions Reference Manual">
+  <meta name="keywords" content="lispbm, lisp, reference, documentation, embedded lisp, microcontroller, LispBM Math Extensions Reference Manual">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+
+  <link rel="canonical" href="https://www.lispbm.com/lispbm-reference-manual/mathref/" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+
+  <meta property="og:title" content="LispBM Math Extensions Reference Manual">
+  <meta property="og:description" content="LispBM Reference Documentation - LispBM Math Extensions Reference Manual">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/lispbm-reference-manual/mathref/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM Math Extensions Reference Manual">
+  <meta name="twitter:description" content="LispBM Reference Documentation - LispBM Math Extensions Reference Manual">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.lispbm.com/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.lispbm.com/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.lispbm.com/ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
+
+  <link rel="stylesheet" href="reference.css">
+
+  <title>LispBM Math Extensions Reference Manual</title>
+</head>
+
+<body>
+
+<div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+  <div style="margin-bottom: 20px;">
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a>
+  </div>
+
+<!-- Content starts here -->
+
+<div data-pagefind-body>
+<div data-pagefind-filter="Platform">Core LispBM</div>
+<div data-pagefind-filter="Document">Mathref</div>
+# LispBM Math Extensions Reference Manual
+
+<p>The math extensions provide mathematical functions such as trigonometry, logarithms, rounding and related utilities. These extensions may or may not be present depending on the platform and configuration of LispBM.</p>
+<h2 id="trigonometry">Trigonometry</h2>
+<h3 id="sin">sin</h3>
+<p>Computes the sine of a given angle (in radians). The form of a <code>sin</code> expression is <code>(sin expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>(sin <span class="fl">0.500000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a><span class="fl">0.479426</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb3"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>(sin <span class="fl">3.141593</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb4"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a><span class="fl">0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb5"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>(sin (<span class="kw">*</span> <span class="fl">0.500000</span>f32 <span class="fl">3.141592</span>f32))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="fl">1.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="cos">cos</h3>
+<p>Computes the cosine of a given angle (in radians). The form of a <code>cos</code> expression is <code>(cos expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb7"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>(cos <span class="fl">0.500000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb8"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="fl">0.877583</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb9"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>(cos <span class="fl">3.141593</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb10"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="fl">-1.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb11"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>(cos (<span class="kw">*</span> <span class="fl">0.500000</span>f32 <span class="fl">3.141592</span>f32))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb12"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="fl">0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="tan">tan</h3>
+<p>Computes the tangent of a given angle (in radians). The form of a <code>tan</code> expression is <code>(tan expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb13"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>(tan <span class="fl">0.500000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb14"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="fl">0.546302</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb15"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>(tan <span class="fl">3.141593</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb16"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="fl">-0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb17"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>(tan (<span class="kw">*</span> <span class="fl">0.500000</span>f32 <span class="fl">3.141592</span>f32))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb18"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="fl">3185560.750000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="asin">asin</h3>
+<p>Computes the arcsine of a value, returning an angle in radians. The form of an <code>asin</code> expression is <code>(asin expr)</code>. The argument should be in the range [-1, 1].</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb19"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a>(asin <span class="fl">0.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb20"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="fl">0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb21"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>(asin <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb22"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="fl">1.570796</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb23"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a>(asin <span class="fl">0.500000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb24"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="fl">0.523599</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="acos">acos</h3>
+<p>Computes the arccosine of a value, returning an angle in radians. The form of an <code>acos</code> expression is <code>(acos expr)</code>. The argument should be in the range [-1, 1].</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb25"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a>(acos <span class="fl">0.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb26"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="fl">1.570796</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb27"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>(acos <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb28"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="fl">0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb29"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a>(acos <span class="fl">0.500000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb30"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a><span class="fl">1.047198</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="atan">atan</h3>
+<p>Computes the arctangent of a value, returning an angle in radians. The form of an <code>atan</code> expression is <code>(atan expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb31"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a>(atan <span class="fl">0.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb32"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a><span class="fl">0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb33"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a>(atan <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb34"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a><span class="fl">0.785398</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb35"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a>(atan <span class="fl">-1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb36"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a><span class="fl">-0.785398</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="atan2">atan2</h3>
+<p>Computes the arctangent of <code>y/x</code>, using the signs of both arguments to determine the correct quadrant. Returns an angle in radians in the range [-pi, pi]. The form of an <code>atan2</code> expression is <code>(atan2 y x)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb37"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a>(atan2 <span class="fl">1.000000</span>f32 <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb38"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a><span class="fl">0.785398</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb39"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a>(atan2 <span class="fl">0.000000</span>f32 <span class="fl">-1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb40"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a><span class="fl">3.141593</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb41"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a>(atan2 <span class="fl">-1.000000</span>f32 <span class="fl">0.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb42"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a><span class="fl">-1.570796</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="exponential-and-logarithm">Exponential and Logarithm</h2>
+<h3 id="pow">pow</h3>
+<p>Raises a base to a given exponent. The form of a <code>pow</code> expression is <code>(pow base exponent)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb43"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a>(pow <span class="fl">2.000000</span>f32 <span class="fl">10.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb44"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="fl">1024.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb45"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a>(pow <span class="fl">3.000000</span>f32 <span class="fl">3.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb46"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="fl">27.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb47"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a>(pow <span class="fl">2.000000</span>f32 <span class="fl">0.500000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb48"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="fl">1.414214</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="exp">exp</h3>
+<p>Computes the exponential function e raised to the power of the argument. The form of an <code>exp</code> expression is <code>(exp expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb49"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a>(exp <span class="fl">0.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb50"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a><span class="fl">1.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb51"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true"></a>(exp <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb52"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a><span class="fl">2.718282</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb53"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true"></a>(exp <span class="fl">-1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb54"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a><span class="fl">0.367879</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="sqrt">sqrt</h3>
+<p>Computes the square root of a number. The form of a <code>sqrt</code> expression is <code>(sqrt expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb55"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true"></a>(sqrt <span class="fl">4.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb56"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true"></a><span class="fl">2.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb57"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true"></a>(sqrt <span class="fl">2.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb58"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true"></a><span class="fl">1.414214</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb59"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true"></a>(sqrt <span class="fl">0.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb60"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true"></a><span class="fl">0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="log">log</h3>
+<p>Computes the natural logarithm (base e) of a number. The form of a <code>log</code> expression is <code>(log expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb61"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true"></a>(log <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb62"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true"></a><span class="fl">0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb63"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true"></a>(log <span class="fl">2.718282</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb64"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true"></a><span class="fl">1.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb65"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true"></a>(log <span class="fl">10.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb66"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true"></a><span class="fl">2.302585</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="log10">log10</h3>
+<p>Computes the base-10 logarithm of a number. The form of a <code>log10</code> expression is <code>(log10 expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb67"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true"></a>(log10 <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb68"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true"></a><span class="fl">0.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb69"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true"></a>(log10 <span class="fl">10.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb70"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true"></a><span class="fl">1.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb71"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true"></a>(log10 <span class="fl">100.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb72"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true"></a><span class="fl">2.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="rounding">Rounding</h2>
+<h3 id="floor">floor</h3>
+<p>Rounds a number down to the nearest integer, returning a float. The form of a <code>floor</code> expression is <code>(floor expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb73"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true"></a>(floor <span class="fl">1.600000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb74"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true"></a><span class="fl">1.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb75"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true"></a>(floor <span class="fl">-1.600000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb76"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true"></a><span class="fl">-2.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb77"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb77-1"><a href="#cb77-1" aria-hidden="true"></a>(floor <span class="fl">2.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb78"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true"></a><span class="fl">2.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="ceil">ceil</h3>
+<p>Rounds a number up to the nearest integer, returning a float. The form of a <code>ceil</code> expression is <code>(ceil expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb79"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb79-1"><a href="#cb79-1" aria-hidden="true"></a>(ceil <span class="fl">1.200000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb80"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb80-1"><a href="#cb80-1" aria-hidden="true"></a><span class="fl">2.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb81"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true"></a>(ceil <span class="fl">-1.200000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb82"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true"></a><span class="fl">-1.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb83"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb83-1"><a href="#cb83-1" aria-hidden="true"></a>(ceil <span class="fl">2.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb84"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true"></a><span class="fl">2.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="round">round</h3>
+<p>Rounds a number to the nearest integer, returning a float. Halfway cases are rounded away from zero. The form of a <code>round</code> expression is <code>(round expr)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb85"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true"></a>(round <span class="fl">1.400000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb86"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true"></a><span class="fl">1.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb87"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true"></a>(round <span class="fl">1.500000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb88"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb88-1"><a href="#cb88-1" aria-hidden="true"></a><span class="fl">2.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb89"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb89-1"><a href="#cb89-1" aria-hidden="true"></a>(round <span class="fl">-1.500000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb90"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb90-1"><a href="#cb90-1" aria-hidden="true"></a><span class="fl">-2.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="angle-conversion">Angle Conversion</h2>
+<h3 id="deg2rad">deg2rad</h3>
+<p>Converts degrees to radians. When called with a single argument the form is <code>(deg2rad expr)</code>. When called with multiple arguments, each is converted and the results are returned as a list.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb91"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb91-1"><a href="#cb91-1" aria-hidden="true"></a>(deg2rad <span class="fl">180.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb92"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb92-1"><a href="#cb92-1" aria-hidden="true"></a><span class="fl">3.141593</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb93"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb93-1"><a href="#cb93-1" aria-hidden="true"></a>(deg2rad <span class="fl">90.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb94"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb94-1"><a href="#cb94-1" aria-hidden="true"></a><span class="fl">1.570796</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb95"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb95-1"><a href="#cb95-1" aria-hidden="true"></a>(deg2rad <span class="fl">0.000000</span>f32 <span class="fl">90.000000</span>f32 <span class="fl">180.000000</span>f32 <span class="fl">270.000000</span>f32 <span class="fl">360.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb96"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb96-1"><a href="#cb96-1" aria-hidden="true"></a>(<span class="fl">0.000000</span>f32 <span class="fl">1.570796</span>f32 <span class="fl">3.141593</span>f32 <span class="fl">4.712389</span>f32 <span class="fl">6.283185</span>f32)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="rad2deg">rad2deg</h3>
+<p>Converts radians to degrees. When called with a single argument the form is <code>(rad2deg expr)</code>. When called with multiple arguments, each is converted and the results are returned as a list.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb97"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb97-1"><a href="#cb97-1" aria-hidden="true"></a>(rad2deg <span class="fl">3.141592</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb98"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb98-1"><a href="#cb98-1" aria-hidden="true"></a><span class="fl">179.999969</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb99"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb99-1"><a href="#cb99-1" aria-hidden="true"></a>(rad2deg <span class="fl">1.570796</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb100"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb100-1"><a href="#cb100-1" aria-hidden="true"></a><span class="fl">90.000000</span>f32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb101"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true"></a>(rad2deg <span class="fl">0.000000</span>f32 <span class="fl">1.570796</span>f32 <span class="fl">3.141592</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb102"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true"></a>(<span class="fl">0.000000</span>f32 <span class="fl">90.000000</span>f32 <span class="fl">179.999969</span>f32)</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="floating-point-predicates">Floating-point Predicates</h2>
+<h3 id="is-nan">is-nan</h3>
+<p><code>is-nan</code> checks whether a floating-point value is NaN (not a number). Returns <code>t</code> if the value is NaN and <code>nil</code> otherwise. The form of an <code>is-nan</code> expression is <code>(is-nan expr)</code>. Only <code>float</code> and <code>double</code> values can be NaN; any other number type returns <code>nil</code>. NaN can arise from operations such as <code>(sqrt -1.0)</code> or <code>(asin 2.0)</code>. Note that division by zero is an error in LispBM and does not produce NaN.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb103"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true"></a>(is-nan (sqrt <span class="fl">-1.000000</span>f32))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb104"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb105"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true"></a>(is-nan (asin <span class="fl">2.000000</span>f32))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb106"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb107"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true"></a>(is-nan <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb108"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true"></a><span class="va">nil</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="is-inf">is-inf</h3>
+<p><code>is-inf</code> checks whether a floating-point value is infinite. Returns <code>t</code> if the value is positive or negative infinity, <code>nil</code> otherwise. The form of an <code>is-inf</code> expression is <code>(is-inf expr)</code>. Only <code>float</code> and <code>double</code> values can be infinite; any other number type returns <code>nil</code>. Infinity can arise from operations such as <code>(exp 1000.0)</code> or <code>(log 0.0)</code>. Note that division by zero is an error in LispBM and does not produce infinity.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb109"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb109-1"><a href="#cb109-1" aria-hidden="true"></a>(is-inf (exp <span class="fl">1000.000000</span>f32))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb110"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb111"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true"></a>(is-inf (log <span class="fl">0.000000</span>f32))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb112"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb113"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb113-1"><a href="#cb113-1" aria-hidden="true"></a>(is-inf <span class="fl">1.000000</span>f32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb114"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true"></a><span class="va">nil</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<p>This document was generated by LispBM version 0.36.0</p>
+</div> <!-- Close pagefind-body -->
+</div> <!-- Close container -->
+
+<footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
+  <p>
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a> |
+    <a href="https://www.lispbm.com/" style="color: #007bff; text-decoration: none;">LispBM Home</a>
+  </p>
+
+  <p>
+    Please contact me with questions, suggestions or feedback at blog
+    (dot) joel (dot) svensson (at) gmail (dot) com or join the
+    <a href="https://discord.gg/KgD4WcnFjv">Discord server</a>.
+  </p>
+
+  <p>&copy; Copyright 2026 Bo Joel Svensson</p>
+
+  <p><small>This page was generated using <a href="https://pandoc.org/">Pandoc</a>.</small></p>
+</footer>
+
+</body>
+</html>

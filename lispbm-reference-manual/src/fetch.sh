@@ -6,6 +6,14 @@ cp ../../../lispbm/doc/dynref.md .
 cp ../../../lispbm/doc/lbmref.md .
 cp ../../../lispbm/doc/runtimeref.md .
 cp ../../../lispbm/doc/ttfref.md .
+cp ../../../lispbm/doc/arrayref.md .
+cp ../../../lispbm/doc/dspref.md .
+cp ../../../lispbm/doc/mathref.md .
+cp ../../../lispbm/doc/mutexref.md .
+cp ../../../lispbm/doc/setref.md .
+cp ../../../lispbm/doc/stringref.md .
+cp ../../../lispbm/doc/randomref.md .
+
 
 # Get the  vesc express display manual
 wget https://raw.githubusercontent.com/vedderb/vesc_express/refs/heads/main/main/display/README.md
