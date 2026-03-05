@@ -19,5 +19,19 @@
   <p><small>This page was generated using <a href="https://pandoc.org/">Pandoc</a>.</small></p>
 </footer>
 
+<script>
+function toggleDarkMode() {
+  var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('lbm-refman-theme', next);
+  updateDarkModeButton();
+}
+function updateDarkModeButton() {
+  var btn = document.getElementById('darkModeToggle');
+  if (btn) btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '\u2600 Light' : '\u263e Dark';
+}
+document.addEventListener('DOMContentLoaded', updateDarkModeButton);
+</script>
+
 </body>
 </html>

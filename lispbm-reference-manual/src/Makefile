@@ -33,6 +33,9 @@ copy: $(HTML)
 	@cp $(HTML) ../html/
 	@cp index.html ../html/
 	@cp reference.css ../html/
+	@cp darkmode.css ../html/
+	@[ -d images ] && cp -r images ../html/ || true
+	@[ -d resources ] && cp -r resources ../html/ || true
 
 index: copy
 	@echo "Building search index with Pagefind..."

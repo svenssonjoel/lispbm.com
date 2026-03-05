@@ -2,6 +2,7 @@
 <html lang="en-US">
 
 <head>
+  <script>(function(){var t=localStorage.getItem('lbm-refman-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
   <meta charset="UTF-8">
   <meta name="description" content="###456###">
   <meta name="keywords" content="###789###">
@@ -36,6 +37,7 @@
   <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
 
   <link rel="stylesheet" href="reference.css">
+  <link rel="stylesheet" href="darkmode.css">
 
   <title>###123###</title>
 </head>
@@ -43,8 +45,9 @@
 <body>
 
 <div style="max-width: 900px; margin: 0 auto; padding: 20px;">
-  <div style="margin-bottom: 20px;">
+  <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
     <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">&#9790; Dark</button>
   </div>
 
 <!-- Content starts here -->
