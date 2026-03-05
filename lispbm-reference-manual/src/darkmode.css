@@ -133,7 +133,7 @@ html[data-theme="dark"] {
 
 
 /* ---- Pagefind UI dark mode direct overrides ---- */
-/* pagefind uses all:unset on child elements which can break color inheritance */
+/* Use explicit hex values rather than var() to avoid variable resolution issues */
 
 [data-theme="dark"] .pagefind-ui__result-excerpt,
 [data-theme="dark"] .pagefind-ui__result-title,
@@ -141,18 +141,24 @@ html[data-theme="dark"] {
 [data-theme="dark"] .pagefind-ui__message,
 [data-theme="dark"] .pagefind-ui__filter-label,
 [data-theme="dark"] .pagefind-ui__filter-name {
-  color: var(--ref-text) !important;
+  color: #d0d0e0 !important;
 }
 
 [data-theme="dark"] .pagefind-ui__search-input {
-  background-color: var(--ref-code-bg) !important;
-  color: var(--ref-text) !important;
-  border-color: var(--ref-border) !important;
+  background-color: #252540 !important;
+  color: #d0d0e0 !important;
+  border-color: #3a3a5a !important;
 }
 
 [data-theme="dark"] .pagefind-ui__search-clear {
-  background-color: var(--ref-code-bg) !important;
-  color: var(--ref-text) !important;
+  background-color: #252540 !important;
+  color: #d0d0e0 !important;
+}
+
+/* mark element: browser default is black-on-yellow, fix for dark backgrounds */
+[data-theme="dark"] mark {
+  background-color: #5c4400;
+  color: #ffd966;
 }
 
 /* ---- Dark mode toggle button ---- */
