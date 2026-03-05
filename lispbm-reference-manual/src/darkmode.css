@@ -1,0 +1,167 @@
+/* Dark mode support for LispBM Reference Manual */
+
+:root {
+  --ref-bg: #ffffff;
+  --ref-text: #333333;
+  --ref-text-muted: #666666;
+  --ref-h1-border: #007bff;
+  --ref-h2-border: #dee2e6;
+  --ref-h3-color: #007bff;
+  --ref-link: #007bff;
+  --ref-border: #dee2e6;
+  --ref-code-bg: #f8f9fa;
+  --ref-blockquote-color: #666666;
+  --ref-blockquote-border: #007bff;
+  --ref-th-bg: #f8f9fa;
+  --ref-card-bg: #ffffff;
+  --ref-search-bg: #f8f9fa;
+  --ref-footer-bg: #f8f9fa;
+  --ref-footer-border: #dee2e6;
+}
+
+[data-theme="dark"] {
+  --ref-bg: #1a1a2e;
+  --ref-text: #d0d0e0;
+  --ref-text-muted: #9090a8;
+  --ref-h1-border: #4d8fd1;
+  --ref-h2-border: #3a3a5a;
+  --ref-h3-color: #5aafff;
+  --ref-link: #6ab4ff;
+  --ref-border: #3a3a5a;
+  --ref-code-bg: #252540;
+  --ref-blockquote-color: #9090a8;
+  --ref-blockquote-border: #4d8fd1;
+  --ref-th-bg: #1e1e38;
+  --ref-card-bg: #252540;
+  --ref-search-bg: #1e1e38;
+  --ref-footer-bg: #161625;
+  --ref-footer-border: #3a3a5a;
+}
+
+/* ---- Dark mode overrides for reference page elements ---- */
+
+[data-theme="dark"] body {
+  background-color: var(--ref-bg);
+  color: var(--ref-text);
+}
+
+[data-theme="dark"] h1 {
+  border-bottom-color: var(--ref-h1-border);
+}
+
+[data-theme="dark"] h2 {
+  border-bottom-color: var(--ref-h2-border);
+  color: var(--ref-text);
+}
+
+[data-theme="dark"] h3 {
+  color: var(--ref-h3-color);
+}
+
+[data-theme="dark"] a {
+  color: var(--ref-link) !important;
+}
+
+[data-theme="dark"] code {
+  background-color: var(--ref-code-bg);
+  color: var(--ref-text);
+}
+
+[data-theme="dark"] pre {
+  background-color: var(--ref-code-bg);
+  border-color: var(--ref-border);
+  color: var(--ref-text);
+}
+
+[data-theme="dark"] th {
+  background-color: var(--ref-th-bg);
+  color: var(--ref-text);
+}
+
+[data-theme="dark"] th,
+[data-theme="dark"] td {
+  border-color: var(--ref-border);
+}
+
+[data-theme="dark"] blockquote {
+  border-left-color: var(--ref-blockquote-border);
+  color: var(--ref-blockquote-color);
+}
+
+[data-theme="dark"] footer {
+  background: var(--ref-footer-bg) !important;
+  border-top-color: var(--ref-footer-border) !important;
+  color: var(--ref-text);
+}
+
+/* ---- Dark mode overrides for index.html specific elements ---- */
+
+[data-theme="dark"] body.with-background {
+  background-color: var(--ref-bg) !important;
+}
+
+[data-theme="dark"] section {
+  background: var(--ref-card-bg) !important;
+}
+
+[data-theme="dark"] section h1,
+[data-theme="dark"] section h2 {
+  color: var(--ref-h3-color);
+  border-bottom-color: var(--ref-h1-border);
+}
+
+[data-theme="dark"] .reference-card {
+  background: var(--ref-card-bg) !important;
+  border-color: var(--ref-border) !important;
+  color: var(--ref-text);
+}
+
+[data-theme="dark"] .reference-card p {
+  color: var(--ref-text-muted) !important;
+}
+
+[data-theme="dark"] .search-section {
+  background: var(--ref-search-bg) !important;
+  color: var(--ref-text);
+}
+
+/* Pagefind UI dark mode */
+[data-theme="dark"] {
+  --pagefind-ui-primary: #6ab4ff;
+  --pagefind-ui-text: #d0d0e0;
+  --pagefind-ui-background: #252540;
+  --pagefind-ui-border: #3a3a5a;
+  --pagefind-ui-tag: #1e1e38;
+}
+
+/* ---- Dark mode toggle button ---- */
+
+.dark-mode-toggle {
+  background: transparent;
+  border: 1px solid #aaaaaa;
+  color: inherit;
+  padding: 5px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+}
+
+.dark-mode-toggle:hover {
+  background: #007bff;
+  color: #ffffff;
+  border-color: #007bff;
+}
+
+[data-theme="dark"] .dark-mode-toggle {
+  border-color: var(--ref-border);
+  color: var(--ref-text);
+}
+
+[data-theme="dark"] .dark-mode-toggle:hover {
+  background: var(--ref-h3-color);
+  border-color: var(--ref-h3-color);
+  color: #ffffff;
+}
