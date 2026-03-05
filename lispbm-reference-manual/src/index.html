@@ -1,6 +1,7 @@
 <HTML lang="en-US">
 
 <HEAD>
+  <script>(function(){var t=localStorage.getItem('lbm-refman-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
 
   <meta charset="UTF-8">
   <meta name="description" content="LispBM Reference Manual - Searchable documentation for LispBM functions and features">
@@ -36,6 +37,7 @@
   <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
 
   <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="darkmode.css">
 
   <!-- Pagefind CSS -->
   <link href="./pagefind/pagefind-ui.css" rel="stylesheet">
@@ -101,8 +103,9 @@
 <div class="container">
   <div class="banner"></div>
 
-  <div class="nav-menu">
+  <div class="nav-menu" style="display: flex; justify-content: space-between; align-items: center;">
     <a href="https://www.lispbm.com/" class="back-link">← Back to LispBM Home</a>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">&#9790; Dark</button>
   </div>
 
 
@@ -317,6 +320,20 @@
   <p>&copy; Copyright 2025 Bo Joel Svensson</p>
   
 </footer>
+
+<script>
+function toggleDarkMode() {
+  var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('lbm-refman-theme', next);
+  updateDarkModeButton();
+}
+function updateDarkModeButton() {
+  var btn = document.getElementById('darkModeToggle');
+  if (btn) btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '\u2600 Light' : '\u263e Dark';
+}
+document.addEventListener('DOMContentLoaded', updateDarkModeButton);
+</script>
 
 </BODY>
 </HTML>
