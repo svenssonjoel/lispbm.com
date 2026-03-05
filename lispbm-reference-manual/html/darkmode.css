@@ -132,6 +132,29 @@ html[data-theme="dark"] {
 }
 
 
+/* ---- Pagefind UI dark mode direct overrides ---- */
+/* pagefind uses all:unset on child elements which can break color inheritance */
+
+[data-theme="dark"] .pagefind-ui__result-excerpt,
+[data-theme="dark"] .pagefind-ui__result-title,
+[data-theme="dark"] .pagefind-ui__result-link,
+[data-theme="dark"] .pagefind-ui__message,
+[data-theme="dark"] .pagefind-ui__filter-label,
+[data-theme="dark"] .pagefind-ui__filter-name {
+  color: var(--ref-text) !important;
+}
+
+[data-theme="dark"] .pagefind-ui__search-input {
+  background-color: var(--ref-code-bg) !important;
+  color: var(--ref-text) !important;
+  border-color: var(--ref-border) !important;
+}
+
+[data-theme="dark"] .pagefind-ui__search-clear {
+  background-color: var(--ref-code-bg) !important;
+  color: var(--ref-text) !important;
+}
+
 /* ---- Dark mode toggle button ---- */
 
 .dark-mode-toggle {
