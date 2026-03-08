@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+
+<head>
+  <script>(function(){var t=localStorage.getItem('lbm-refman-theme')||(window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light');document.documentElement.setAttribute('data-theme',t);})();</script>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM Reference Documentation - LispBM Crypto Extensions Reference Manual">
+  <meta name="keywords" content="lispbm, lisp, reference, documentation, embedded lisp, microcontroller, LispBM Crypto Extensions Reference Manual">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- SEO Meta Tags -->
+
+  <link rel="canonical" href="https://www.lispbm.com/lispbm-reference-manual/cryptref/" />
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+
+  <meta property="og:title" content="LispBM Crypto Extensions Reference Manual">
+  <meta property="og:description" content="LispBM Reference Documentation - LispBM Crypto Extensions Reference Manual">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/lispbm-reference-manual/cryptref/">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM Crypto Extensions Reference Manual">
+  <meta name="twitter:description" content="LispBM Reference Documentation - LispBM Crypto Extensions Reference Manual">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="https://www.lispbm.com/ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="https://www.lispbm.com/ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="https://www.lispbm.com/ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="icon" href="https://www.lispbm.com/ico/favicon.ico">
+  <link rel="manifest" href="https://www.lispbm.com/ico/site.webmanifest">
+
+  <link rel="stylesheet" href="reference.css">
+  <link rel="stylesheet" href="darkmode.css">
+
+  <title>LispBM Crypto Extensions Reference Manual</title>
+</head>
+
+<body>
+
+<div style="max-width: 900px; margin: 0 auto; padding: 20px;">
+  <div style="margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;">
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a>
+    <button class="dark-mode-toggle" id="darkModeToggle" onclick="toggleDarkMode()" aria-label="Toggle dark mode">&#9790; Dark</button>
+  </div>
+
+<!-- Content starts here -->
+
+<div data-pagefind-body>
+<div data-pagefind-filter="Platform">Core LispBM</div>
+<div data-pagefind-filter="Document">Cryptref</div>
+# LispBM Crypto Extensions Reference Manual
+
+<p>The crypto extensions provide cryptographic hash and block cipher primitives. These are low-level building blocks — padding, block chaining modes and higher-level constructions are left to the caller. These extensions may or may not be present depending on the platform and configuration of LispBM.</p>
+<h2 id="sha-256">SHA-256</h2>
+<h3 id="sha256">sha256</h3>
+<p><code>sha256</code> computes the SHA-256 hash of a byte array. The form of a <code>sha256</code> expression is <code>(sha256 buf)</code> where <code>buf</code> is a byte array of any length. Returns a 32-byte array containing the hash. Specified in FIPS PUB 180-4.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>(sha256 [])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb2"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>[<span class="dv">227</span> <span class="dv">176</span> <span class="dv">196</span> <span class="dv">66</span> <span class="dv">152</span> <span class="dv">252</span> <span class="dv">28</span> <span class="dv">20</span> <span class="dv">154</span> <span class="dv">251</span> <span class="dv">244</span> <span class="dv">200</span> <span class="dv">153</span> <span class="dv">111</span> <span class="dv">185</span> <span class="dv">36</span> <span class="dv">39</span> <span class="dv">174</span> <span class="dv">65</span> <span class="dv">228</span> <span class="dv">100</span> <span class="dv">155</span> <span class="dv">147</span> <span class="dv">76</span> <span class="dv">164</span> <span class="dv">149</span> <span class="dv">153</span> <span class="dv">27</span> <span class="dv">120</span> <span class="dv">82</span> <span class="dv">184</span> <span class="dv">85</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb3"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>(sha256 [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb4"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>[<span class="dv">3</span> <span class="dv">144</span> <span class="dv">88</span> <span class="dv">198</span> <span class="dv">242</span> <span class="dv">192</span> <span class="dv">203</span> <span class="dv">73</span> <span class="dv">44</span> <span class="dv">83</span> <span class="dv">59</span> <span class="dv">10</span> <span class="dv">77</span> <span class="dv">20</span> <span class="dv">239</span> <span class="dv">119</span> <span class="dv">204</span> <span class="dv">15</span> <span class="dv">120</span> <span class="dv">171</span> <span class="dv">204</span> <span class="dv">206</span> <span class="dv">213</span> <span class="dv">40</span> <span class="dv">125</span> <span class="dv">132</span> <span class="dv">161</span> <span class="dv">162</span> <span class="dv">1</span> <span class="dv">28</span> <span class="dv">251</span> <span class="dv">129</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb5"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>(bytes-to-hex (sha256 []))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb6"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a><span class="st">&quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb7"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>(bytes-to-hex (sha256 [<span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span>]))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb8"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a><span class="st">&quot;039058c6f2c0cb492c533b0a4d14ef77cc0f78abccced5287d84a1a2011cfb81&quot;</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="sha256-str">sha256-str</h3>
+<p><code>sha256-str</code> computes the SHA-256 hash of a string. The form of a <code>sha256-str</code> expression is <code>(sha256-str str)</code> where <code>str</code> is a string. The null terminator is not included in the hash. Returns a 32-byte array containing the hash. Specified in FIPS PUB 180-4.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb9"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>(bytes-to-hex (sha256-str [<span class="dv">0</span>]))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb10"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a><span class="st">&quot;e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855&quot;</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb11"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>(bytes-to-hex (sha256-str <span class="st">&quot;abc&quot;</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb12"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a><span class="st">&quot;ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad&quot;</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb13"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>(bytes-to-hex (sha256-str <span class="st">&quot;hello world&quot;</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb14"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a><span class="st">&quot;b94d27b9934d3e08a52e52d7da7dabfac484efe37a5380ee9088f7ace2efcde9&quot;</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="aes-block-cipher">AES Block Cipher</h2>
+<h3 id="aes128-enc">aes128-enc</h3>
+<p><code>aes128-enc</code> encrypts a single 16-byte block using AES-128. The form of an <code>aes128-enc</code> expression is <code>(aes128-enc key data)</code> where <code>key</code> is a 16-byte array and <code>data</code> is a 16-byte array. Returns a 16-byte array containing the encrypted block. This is a raw block cipher — the caller is responsible for padding and any block chaining mode. Specified in FIPS 197.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb15"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>(bytes-to-hex (aes128-enc [<span class="dv">43</span> <span class="dv">126</span> <span class="dv">21</span> <span class="dv">22</span> <span class="dv">40</span> <span class="dv">174</span> <span class="dv">210</span> <span class="dv">166</span> <span class="dv">171</span> <span class="dv">247</span> <span class="dv">21</span> <span class="dv">136</span> <span class="dv">9</span> <span class="dv">207</span> <span class="dv">79</span> <span class="dv">60</span>] [<span class="dv">50</span> <span class="dv">67</span> <span class="dv">246</span> <span class="dv">168</span> <span class="dv">136</span> <span class="dv">90</span> <span class="dv">48</span> <span class="dv">141</span> <span class="dv">49</span> <span class="dv">49</span> <span class="dv">152</span> <span class="dv">162</span> <span class="dv">224</span> <span class="dv">55</span> <span class="dv">7</span> <span class="dv">52</span>]))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb16"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a><span class="st">&quot;3925841d02dc09fbdc118597196a0b32&quot;</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="aes128-dec">aes128-dec</h3>
+<p><code>aes128-dec</code> decrypts a single 16-byte block using AES-128. The form of an <code>aes128-dec</code> expression is <code>(aes128-dec key data)</code> where <code>key</code> is a 16-byte array and <code>data</code> is a 16-byte array. Returns a 16-byte array containing the decrypted block. This is a raw block cipher — the caller is responsible for unpadding and any block chaining mode. Specified in FIPS 197.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb17"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>(bytes-to-hex (aes128-dec [<span class="dv">43</span> <span class="dv">126</span> <span class="dv">21</span> <span class="dv">22</span> <span class="dv">40</span> <span class="dv">174</span> <span class="dv">210</span> <span class="dv">166</span> <span class="dv">171</span> <span class="dv">247</span> <span class="dv">21</span> <span class="dv">136</span> <span class="dv">9</span> <span class="dv">207</span> <span class="dv">79</span> <span class="dv">60</span>] [<span class="dv">57</span> <span class="dv">37</span> <span class="dv">132</span> <span class="dv">29</span> <span class="dv">2</span> <span class="dv">220</span> <span class="dv">9</span> <span class="dv">251</span> <span class="dv">220</span> <span class="dv">17</span> <span class="dv">133</span> <span class="dv">151</span> <span class="dv">25</span> <span class="dv">106</span> <span class="dv">11</span> <span class="dv">50</span>]))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb18"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a><span class="st">&quot;3243f6a8885a308d313198a2e0370734&quot;</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="aes256-enc">aes256-enc</h3>
+<p><code>aes256-enc</code> encrypts a single 16-byte block using AES-256. The form of an <code>aes256-enc</code> expression is <code>(aes256-enc key data)</code> where <code>key</code> is a 32-byte array and <code>data</code> is a 16-byte array. Returns a 16-byte array containing the encrypted block. This is a raw block cipher — the caller is responsible for padding and any block chaining mode. Specified in FIPS 197.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb19"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a>(bytes-to-hex (aes256-enc [<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">16</span> <span class="dv">17</span> <span class="dv">18</span> <span class="dv">19</span> <span class="dv">20</span> <span class="dv">21</span> <span class="dv">22</span> <span class="dv">23</span> <span class="dv">24</span> <span class="dv">25</span> <span class="dv">26</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">30</span> <span class="dv">31</span>] [<span class="dv">0</span> <span class="dv">17</span> <span class="dv">34</span> <span class="dv">51</span> <span class="dv">68</span> <span class="dv">85</span> <span class="dv">102</span> <span class="dv">119</span> <span class="dv">136</span> <span class="dv">153</span> <span class="dv">170</span> <span class="dv">187</span> <span class="dv">204</span> <span class="dv">221</span> <span class="dv">238</span> <span class="dv">255</span>]))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb20"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a><span class="st">&quot;8ea2b7ca516745bfeafc49904b496089&quot;</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="aes256-dec">aes256-dec</h3>
+<p><code>aes256-dec</code> decrypts a single 16-byte block using AES-256. The form of an <code>aes256-dec</code> expression is <code>(aes256-dec key data)</code> where <code>key</code> is a 32-byte array and <code>data</code> is a 16-byte array. Returns a 16-byte array containing the decrypted block. This is a raw block cipher — the caller is responsible for unpadding and any block chaining mode. Specified in FIPS 197.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb21"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>(bytes-to-hex (aes256-dec [<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">4</span> <span class="dv">5</span> <span class="dv">6</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">10</span> <span class="dv">11</span> <span class="dv">12</span> <span class="dv">13</span> <span class="dv">14</span> <span class="dv">15</span> <span class="dv">16</span> <span class="dv">17</span> <span class="dv">18</span> <span class="dv">19</span> <span class="dv">20</span> <span class="dv">21</span> <span class="dv">22</span> <span class="dv">23</span> <span class="dv">24</span> <span class="dv">25</span> <span class="dv">26</span> <span class="dv">27</span> <span class="dv">28</span> <span class="dv">29</span> <span class="dv">30</span> <span class="dv">31</span>] [<span class="dv">142</span> <span class="dv">162</span> <span class="dv">183</span> <span class="dv">202</span> <span class="dv">81</span> <span class="dv">103</span> <span class="dv">69</span> <span class="dv">191</span> <span class="dv">234</span> <span class="dv">252</span> <span class="dv">73</span> <span class="dv">144</span> <span class="dv">75</span> <span class="dv">73</span> <span class="dv">96</span> <span class="dv">137</span>]))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb22"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true"></a><span class="st">&quot;00112233445566778899aabbccddeeff&quot;</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="utility-functions">Utility functions</h2>
+<h3 id="bytes-to-hex">bytes-to-hex</h3>
+<p><code>bytes-to-hex</code> converts a byte array to a lowercase hexadecimal string. The form of a <code>bytes-to-hex</code> expression is <code>(bytes-to-hex buf)</code> where <code>buf</code> is a byte array. Each byte is represented as exactly two hex digits. Returns a string of length <code>2 * (buflen buf)</code>.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb23"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true"></a>(bytes-to-hex [<span class="dv">222</span> <span class="dv">173</span> <span class="dv">190</span> <span class="dv">239</span>])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb24"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true"></a><span class="st">&quot;deadbeef&quot;</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb25"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true"></a>(bytes-to-hex [<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">3</span> <span class="dv">255</span>])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb26"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true"></a><span class="st">&quot;00010203ff&quot;</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb27"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true"></a>(bytes-to-hex (sha256-str <span class="st">&quot;abc&quot;</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb28"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true"></a><span class="st">&quot;ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad&quot;</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="hex-to-bytes">hex-to-bytes</h3>
+<p><code>hex-to-bytes</code> converts a lowercase or uppercase hexadecimal string to a byte array. The form of a <code>hex-to-bytes</code> expression is <code>(hex-to-bytes str)</code> where <code>str</code> is a string containing an even number of hex digits.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+
+</div> <!-- Close pagefind-body -->
+</div> <!-- Close container -->
+
+<footer style="margin-top: 50px; padding: 20px; background: #f8f9fa; border-top: 1px solid #dee2e6; text-align: center;">
+  <p>
+    <a href="index.html" style="color: #007bff; text-decoration: none;">← Back to Reference Manual Index</a> |
+    <a href="https://www.lispbm.com/" style="color: #007bff; text-decoration: none;">LispBM Home</a>
+  </p>
+
+  <p>
+    Please contact me with questions, suggestions or feedback at blog
+    (dot) joel (dot) svensson (at) gmail (dot) com or join the
+    <a href="https://discord.gg/KgD4WcnFjv">Discord server</a>.
+  </p>
+
+  <p>&copy; Copyright 2026 Bo Joel Svensson</p>
+
+  <p><small>This page was generated using <a href="https://pandoc.org/">Pandoc</a>.</small></p>
+</footer>
+
+<script>
+function toggleDarkMode() {
+  var next = document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('lbm-refman-theme', next);
+  updateDarkModeButton();
+}
+function updateDarkModeButton() {
+  var btn = document.getElementById('darkModeToggle');
+  if (btn) btn.textContent = document.documentElement.getAttribute('data-theme') === 'dark' ? '\u2600 Light' : '\u263e Dark';
+}
+document.addEventListener('DOMContentLoaded', updateDarkModeButton);
+</script>
+
+</body>
+</html>

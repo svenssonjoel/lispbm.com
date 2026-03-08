@@ -13,6 +13,7 @@ cp ../../../lispbm/doc/mutexref.md .
 cp ../../../lispbm/doc/setref.md .
 cp ../../../lispbm/doc/stringref.md .
 cp ../../../lispbm/doc/randomref.md .
+cp ../../../lispbm/doc/cryptref.md .
 
 # Copy images from lispbm doc
 cp -r ../../../lispbm/doc/images ./images
