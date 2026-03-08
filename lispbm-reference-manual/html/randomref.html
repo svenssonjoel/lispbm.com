@@ -61,14 +61,10 @@
 <div data-pagefind-filter="Document">Randomref</div>
 # LispBM Random Extensions Reference Manual
 
-<p>The random extensions provide functions for seeding and generating
-pseudo-random numbers. These extensions may or may not be present
-depending on the platform and configuration of LispBM.</p>
+<p>The random extensions provide functions for seeding and generating pseudo-random numbers. These extensions may or may not be present depending on the platform and configuration of LispBM.</p>
 <h2 id="random-number-generation">Random Number Generation</h2>
 <h3 id="seed">seed</h3>
-<p><code>seed</code> sets the seed of the random number generator. The
-form of a <code>seed</code> expression is <code>(seed expr)</code> where
-<code>expr</code> must evaluate to a number. Returns <code>t</code>.</p>
+<p><code>seed</code> sets the seed of the random number generator. The form of a <code>seed</code> expression is <code>(seed expr)</code> where <code>expr</code> must evaluate to a number. Returns <code>t</code>.</p>
 <table>
 <tr>
 <td> Example </td> <td> Result </td>
@@ -76,38 +72,28 @@ form of a <code>seed</code> expression is <code>(seed expr)</code> where
 <tr>
 <td>
 
-<div class="sourceCode" id="cb1"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>(seed <span class="dv">42</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a>(seed <span class="dv">42</span>)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb2"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb3"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(seed <span class="dv">177739</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>(seed <span class="dv">177739</span>)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb4"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
 
 <hr />
 <h3 id="random">random</h3>
-<p><code>random</code> generates the next pseudo-random number. The form
-of a <code>random</code> expression is <code>(random)</code>. Returns an
-unsigned integer (<code>type-u</code>). The range of values and the
-algorithm used are platform-dependent. In the LispBM reference
-implementation a linear congruential generator is used and values are in
-the range 0 to 268435182, chosen to fit within the 28-bit value range of
-<code>type-u</code> on 32-bit platforms.</p>
+<p><code>random</code> generates the next pseudo-random number. The form of a <code>random</code> expression is <code>(random)</code>. Returns an unsigned integer (<code>type-u</code>). The range of values and the algorithm used are platform-dependent. In the LispBM reference implementation a linear congruential generator is used and values are in the range 0 to 268435182, chosen to fit within the 28-bit value range of <code>type-u</code> on 32-bit platforms.</p>
 <table>
 <tr>
 <td> Example </td> <td> Result </td>
@@ -115,49 +101,41 @@ the range 0 to 268435182, chosen to fit within the 28-bit value range of
 <tr>
 <td>
 
-<div class="sourceCode" id="cb5"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(random)</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>(random)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb6"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">195031745</span>u</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>195031745u</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb7"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(random)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>(random)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb8"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="dv">250962429</span>u</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>250962429u</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb9"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(random)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>(random)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb10"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="dv">237040791</span>u</span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>237040791u</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb11"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">mod</span> (random) <span class="dv">11</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>(<span class="kw">mod</span> (random) <span class="dv">11</span>)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb12"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="dv">6</span>u</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>6u</span></code></pre></div>
 </td>
 </tr>
 </table>
