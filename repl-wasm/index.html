@@ -173,7 +173,7 @@
       input.focus();
       status.textContent = 'Ready';
 
-      const STEPS_PER_FRAME = 50;
+      const STEPS_PER_FRAME = 500;
       function loop() {
         try {
           lbm.ccall('lbm_wasm_run', null, ['number'], [STEPS_PER_FRAME]);
