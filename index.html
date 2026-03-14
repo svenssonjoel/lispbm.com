@@ -129,44 +129,19 @@
 <style type="text/css">
   /* Index-specific styles */
 
-  .nav-menu {
-      margin-bottom: 30px;
-      position: relative;
+  .page-layout {
+      display: flex;
+      gap: 24px;
+      align-items: flex-start;
   }
 
-  .menu-toggle {
-      background: #007bff;
-      color: white;
-      border: none;
-      padding: 15px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      font-weight: 500;
-      transition: background-color 0.2s;
-      width: 100%;
-      text-align: center;
-  }
-
-  .menu-toggle:hover {
-      background: #0056b3;
-  }
-
-  .nav-links {
-      display: none;
-      position: absolute;
-      top: 100%;
-      left: 0;
-      right: 0;
+  .sidebar-nav {
+      width: 190px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 20px;
       background: #000080;
       border: 2px solid #00ffff;
-      box-shadow: none;
-      z-index: 1000;
-      list-style: none;
-      margin: 10px 0 0 0;
-      padding: 1px;
-      max-height: 400px;
-      overflow-y: auto;
       font-family: 'IBM Plex Mono', 'Consolas', 'Liberation Mono', 'Lucida Console', monospace;
       font-size: 12px;
       font-weight: 700;
@@ -174,10 +149,15 @@
       text-rendering: optimizeSpeed;
       -webkit-font-smoothing: none;
       -moz-osx-font-smoothing: unset;
+      max-height: calc(100vh - 40px);
+      overflow-y: auto;
   }
 
-  .nav-links.show {
+  .nav-links {
       display: block;
+      list-style: none;
+      margin: 0;
+      padding: 1px;
   }
 
   .nav-links li {
@@ -221,10 +201,22 @@
   }
 
   .main-content {
+      flex: 1;
+      min-width: 0;
       margin: 0;
       padding: 0;
-      max-width: 100%;
       box-sizing: border-box;
+  }
+
+  @media (max-width: 900px) {
+      .page-layout {
+          flex-direction: column;
+      }
+      .sidebar-nav {
+          width: 100%;
+          position: static;
+          max-height: none;
+      }
   }
 
   pre {
@@ -278,15 +270,6 @@
 
   /* Responsive design - index-specific */
   @media (max-width: 768px) {
-      .nav-menu {
-          padding: 10px;
-      }
-
-      .nav-menu a {
-          margin: 5px 10px;
-          font-size: 0.9em;
-      }
-
       .banner {
           margin-bottom: 15px;
       }
@@ -301,9 +284,9 @@
 <BODY class="with-background">
 
 <div class="container">
-  <nav class="nav-menu" aria-label="Main navigation">
-    <button class="menu-toggle" aria-label="Toggle menu" onclick="toggleMenu()">☰ Menu</button>
-    <ul class="nav-links" id="navLinks">
+  <div class="page-layout">
+  <nav class="sidebar-nav" aria-label="Main navigation">
+    <ul class="nav-links">
       <li><a href="#about-the-author">About the Author</a></li>
       <li><a href="why-lisp.html">Why Lisp?</a></li>
       <li><a href="contributors.html">Community & Contribution</a></li>
@@ -725,29 +708,6 @@ async function initRandomImage() {
 
 window.addEventListener('load', initRandomImage);
 
-// Navigation menu toggle
-function toggleMenu() {
-  const navLinks = document.getElementById('navLinks');
-  navLinks.classList.toggle('show');
-}
-
-// Close menu when clicking outside
-document.addEventListener('click', function(event) {
-  const navMenu = document.querySelector('.nav-menu');
-  const navLinks = document.getElementById('navLinks');
-
-  if (!navMenu.contains(event.target)) {
-    navLinks.classList.remove('show');
-  }
-});
-
-// Close menu when clicking on a link
-document.querySelectorAll('.nav-links a').forEach(link => {
-  link.addEventListener('click', function() {
-    document.getElementById('navLinks').classList.remove('show');
-  });
-});
-
 // Video modal functions
 function openVideoModal() {
   const modal = document.getElementById('videoModal');
@@ -773,6 +733,7 @@ document.addEventListener('keydown', function(event) {
 </script>
 
   </main>
+  </div>
 </div>
 
 </BODY>
