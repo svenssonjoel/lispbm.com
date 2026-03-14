@@ -140,15 +140,10 @@
       flex-shrink: 0;
       position: sticky;
       top: 20px;
-      background: #000080;
-      border: 2px solid #00ffff;
-      font-family: 'IBM Plex Mono', 'Consolas', 'Liberation Mono', 'Lucida Console', monospace;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      text-rendering: optimizeSpeed;
-      -webkit-font-smoothing: none;
-      -moz-osx-font-smoothing: unset;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      font-size: 14px;
       max-height: calc(100vh - 40px);
       overflow-y: auto;
   }
@@ -157,7 +152,7 @@
       display: block;
       list-style: none;
       margin: 0;
-      padding: 1px;
+      padding: 8px 0;
   }
 
   .nav-links li {
@@ -167,32 +162,27 @@
 
   .nav-links a {
       display: block;
-      color: #00ffff;
+      color: #0056b3;
       text-decoration: none;
-      padding: 2px 8px;
-      background: #000080;
-      transition: none;
-      line-height: 1.2;
+      padding: 5px 14px;
+      transition: background 0.15s;
+      line-height: 1.4;
   }
 
   .nav-links a:hover {
-      background-color: #00ffff;
-      color: #000080;
-      text-decoration: none;
+      background: #e7f3ff;
+      color: #004085;
   }
 
   .nav-divider {
-      background: #000080;
-      color: #ffff00;
-      padding: 2px 8px;
-      font-size: 12px;
+      color: #444;
+      background: #e8edf2;
+      padding: 4px 14px;
+      font-size: 13px;
       font-weight: bold;
       text-transform: uppercase;
-      letter-spacing: 1px;
-      border-top: 1px solid #008080;
-      border-bottom: 1px solid #008080;
-      margin: 1px 0;
-      line-height: 1.2;
+      letter-spacing: 0.08em;
+      margin-top: 4px;
   }
 
   .nav-divider:first-child {
@@ -307,6 +297,7 @@
       <li><a href="https://github.com/svenssonjoel/lispBM">GitHub</a></li>
       <li><a href="https://discord.gg/KgD4WcnFjv">Discord</a></li>
     </ul>
+    <img src="images/lispbm_llama.png" alt="LispBM Llama" style="width:100%; display:block; margin-top:10px;">
   </nav>
 
   <main class="main-content">
