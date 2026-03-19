@@ -352,6 +352,17 @@
     </div>
 
     <div class="platform-card">
+      <img class="card-img" src="images/platforms/esp32c3-st7789.jpg" alt="ESP32-C3 with ST7789 display">
+      <div class="card-body">
+        <h3>ESP32C3 + ST7789</h3>
+        <span class="difficulty easy">Easy</span>
+        <p><strong>Best for:</strong> FreeRTOS projects with display output, IoT with UI</p>
+        <p>LispBM REPL on ESP32C3 with a 240x240 ST7789 display over SPI.</p>
+        <p><a href="#getting-started-esp32c3-st7789">Jump to guide →</a></p>
+      </div>
+    </div>
+
+    <div class="platform-card">
       <img class="card-img" src="images/platforms/stm32f4.jpg" alt="STM32F4 Discovery board">
       <div class="card-body">
         <h3>STM32F4</h3>
@@ -459,6 +470,39 @@
     <pre>idf.py monitor</pre>
 
     <p>You can now interact with a simple REPL on your ESP32C3.</p>
+  </section>
+
+  <!-- ESP32C3 + ST7789 -->
+  <section id="getting-started-esp32c3-st7789">
+    <h2>Getting Started on ESP32C3 + ST7789</h2>
+    <p>In the directory <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/esp32c3-st7789"><code>examples/esp32c3-st7789</code></a> there is an example setup
+       targeting the <a href="https://docs.espressif.com/projects/esp-dev-kits/en/latest/esp32c3/esp32-c3-devkitm-1/index.html">esp32c3-devkitm-mini1</a> and FreeRTOS with a 240x240 ST7789 display connected over SPI.</p>
+    <p>The display driver is borrowed and updated from the VESC Express codebase. The <code>disp-load-st7789</code> function takes extra arguments specifying display resolution. Developed using ESP-IDF v5.5.3.</p>
+
+    <h3>Building and Flashing</h3>
+    <p>Process the flash partition table:</p>
+    <pre>idf.py partition-table</pre>
+
+    <p>Build the project:</p>
+    <pre>idf.py build</pre>
+
+    <p>Flash the firmware to your ESP32C3:</p>
+    <pre>idf.py flash</pre>
+
+    <p>Connect to the board using a serial terminal or run:</p>
+    <pre>idf.py monitor</pre>
+
+    <p>For a more pleasant REPL experience (with line editing), disable character echoing in <code>main.c</code> and use:</p>
+    <pre>rlwrap picocom /dev/ttyUSB0 -b 115200</pre>
+    <p>Exit with <code>CTRL-a</code> then <code>CTRL-x</code>.</p>
+
+    <h3>Display Usage</h3>
+    <p>Once connected, you can initialize and use the display from the REPL:</p>
+    <pre>(disp-load-st7789 6 4 7 8 5 40 240 240)
+(disp-reset)
+(disp-clear 0xff0000)</pre>
+    <p>The arguments to <code>disp-load-st7789</code> specify the SPI pin assignments, display offsets, and resolution (240x240).</p>
+    <p>Full details and prerequisites are in the <a href="https://github.com/svenssonjoel/lispBM/tree/master/examples/esp32c3-st7789">README.md</a> in the <code>examples/esp32c3-st7789</code> directory.</p>
   </section>
 
   <!-- STM32F4 -->
