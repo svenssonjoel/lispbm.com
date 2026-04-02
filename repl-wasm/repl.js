@@ -53,7 +53,6 @@ function createEditorTab(name) {
   editorTabSeq++;
   const id = 'et' + editorTabSeq;
 
-  /* Tab button */
   const btn = document.createElement('button');
   btn.className   = 'tab-btn';
   btn.dataset.tab = id;
@@ -72,7 +71,7 @@ function createEditorTab(name) {
 
   const closeEl = document.createElement('span');
   closeEl.className   = 'tab-close';
-  closeEl.textContent = '×';
+  closeEl.textContent = '\u2297';
   closeEl.addEventListener('click', e => { e.stopPropagation(); closeEditorTab(id); });
 
   btn.appendChild(labelEl);
@@ -80,14 +79,12 @@ function createEditorTab(name) {
   document.getElementById('editor-tab-bar').insertBefore(
     btn, document.getElementById('btn-new-editor-tab'));
 
-  /* Editor pane */
   const pane     = document.createElement('div');
   pane.className = 'editor-pane';
   const textarea = document.createElement('textarea');
   pane.appendChild(textarea);
   document.getElementById('editor-tab-contents').appendChild(pane);
 
-  /* CodeMirror instance */
   const cm = CodeMirror.fromTextArea(textarea, {
     mode: 'scheme',
     theme: 'dracula',
@@ -151,26 +148,23 @@ document.getElementById('btn-new-editor-tab').addEventListener('click', () => {
   if (n !== null) createEditorTab(n.trim() || 'untitled');
 });
 
-/* Create the initial editor tab */
 createEditorTab('untitled');
 
-/* --- Open file into active editor tab --- */
 const fileInput = document.getElementById('file-input');
 document.getElementById('btn-open').addEventListener('click', () => fileInput.click());
 fileInput.addEventListener('change', () => {
   const file = fileInput.files[0];
-  if (!file || !activeEditor) return;
+  if (!file) return;
   const reader = new FileReader();
   reader.onload = e => {
+    createEditorTab(file.name);
     activeEditor.cm.setValue(e.target.result);
-    activeEditor.labelEl.textContent = file.name;
     activeEditor.filename = file.name;
   };
   reader.readAsText(file);
-  fileInput.value = ''; /* allow re-opening same file */
+  fileInput.value = '';
 });
 
-/* --- Save / Save As --- */
 function downloadFile(filename, content) {
   const blob = new Blob([content], { type: 'text/plain' });
   const url  = URL.createObjectURL(blob);
@@ -188,8 +182,6 @@ document.getElementById('btn-save').addEventListener('click', () => {
   downloadFile(filename, content);
 });
 
-
-/* --- LispBM init --- */
 LispBM().then(lbm => {
   const btnEval     = document.getElementById('btn-eval');
   const btnLoad     = document.getElementById('btn-load');
@@ -210,11 +202,10 @@ LispBM().then(lbm => {
     }
   }
 
-  /* Called by the wasm-plot extension via EM_JS */
   window.createPlotTab = function(slot, nbytes, title) {
     const ptr    = lbm.ccall('lbm_wasm_buf_ptr', 'number', ['number'], [slot]);
     const nFloat = (nbytes / 4) | 0;
-    /* Zero-copy view into WASM linear memory */
+      
     const floats = new Float32Array(lbm.HEAP8.buffer, ptr, nFloat);
     const ys     = Array.from(floats);
     const xs     = Array.from({length: ys.length}, (_, i) => i);
@@ -223,7 +214,6 @@ LispBM().then(lbm => {
     const id    = 'plot-' + plotCount;
     const label = (title && title.length) ? title : ('Plot ' + plotCount);
 
-    /* Tab button */
     const btn = document.createElement('button');
     btn.className   = 'tab-btn';
     btn.dataset.tab = id;
@@ -232,19 +222,17 @@ LispBM().then(lbm => {
     labelEl.textContent = label;
     const closeEl = document.createElement('span');
     closeEl.className   = 'tab-close';
-    closeEl.textContent = '×';
+    closeEl.textContent = '\u2297';
     closeEl.addEventListener('click', e => { e.stopPropagation(); closeTab(id); });
     btn.appendChild(labelEl);
     btn.appendChild(closeEl);
     document.getElementById('output-tab-bar').appendChild(btn);
 
-    /* Tab pane */
     const pane = document.createElement('div');
     pane.id        = 'output-tab-' + id;
     pane.className = 'tab-pane plot-pane';
     document.getElementById('output-tab-contents').appendChild(pane);
 
-    /* Switch first so the pane has real dimensions */
     switchTab(id);
 
     const rect = document.getElementById('output-tab-contents').getBoundingClientRect();
@@ -318,7 +306,6 @@ LispBM().then(lbm => {
     if (!activeEditor) return;
     const code = activeEditor.cm.getValue().trim();
     if (!code) return;
-    appendOutput('-- load --\n');
     lbm.ccall('lbm_wasm_eval_program', null, ['string'], [code]);
   }
 
