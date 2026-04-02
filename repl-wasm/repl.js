@@ -256,6 +256,69 @@ LispBM().then(lbm => {
     }, [xs, ys], pane);
   };
 
+  const SERIES_COLORS = ['#4ec9b0', '#569cd6', '#ce9178', '#dcdcaa', '#c586c0', '#f44747', '#b5cea8', '#9cdcfe'];
+
+  window.createMultiPlotTab = function(slotsJson, title) {
+    const slots = JSON.parse(slotsJson);
+
+    plotCount++;
+    const id    = 'plot-' + plotCount;
+    const label = (title && title.length) ? title : ('Plot ' + plotCount);
+
+    const btn = document.createElement('button');
+    btn.className   = 'tab-btn';
+    btn.dataset.tab = id;
+    btn.addEventListener('click', () => switchTab(id));
+    const labelEl = document.createElement('span');
+    labelEl.textContent = label;
+    const closeEl = document.createElement('span');
+    closeEl.className   = 'tab-close';
+    closeEl.textContent = '\u2297';
+    closeEl.addEventListener('click', e => { e.stopPropagation(); closeTab(id); });
+    btn.appendChild(labelEl);
+    btn.appendChild(closeEl);
+    document.getElementById('output-tab-bar').appendChild(btn);
+
+    const pane = document.createElement('div');
+    pane.id        = 'output-tab-' + id;
+    pane.className = 'tab-pane plot-pane';
+    document.getElementById('output-tab-contents').appendChild(pane);
+
+    switchTab(id);
+
+    const rect = document.getElementById('output-tab-contents').getBoundingClientRect();
+    const w    = Math.max(rect.width  - 16, 300);
+    const h    = Math.max(rect.height - 16, 200);
+
+    let maxLen = 0;
+    const yArrays = slots.map(({slot, nbytes}) => {
+      const ptr    = lbm.ccall('lbm_wasm_buf_ptr', 'number', ['number'], [slot]);
+      const nFloat = (nbytes / 4) | 0;
+      const ys     = Array.from(new Float32Array(lbm.HEAP8.buffer, ptr, nFloat));
+      if (ys.length > maxLen) maxLen = ys.length;
+      return ys;
+    });
+    const xs = Array.from({length: maxLen}, (_, i) => i);
+
+    const series = [{}];
+    slots.forEach(({slot}, i) => {
+      series.push({ label: 'slot ' + slot, stroke: SERIES_COLORS[i % SERIES_COLORS.length], width: 2 });
+    });
+
+    new uPlot({
+      title:  label,
+      width:  w,
+      height: h,
+      series,
+      axes: [
+        { stroke: '#666', grid: { stroke: '#222' }, ticks: { stroke: '#222' } },
+        { stroke: '#666', grid: { stroke: '#222' }, ticks: { stroke: '#222' } },
+      ],
+      scales: { x: { time: false } },
+      cursor: { stroke: '#569cd6', width: 1 },
+    }, [xs, ...yArrays], pane);
+  };
+
   console.log('calling lbm_wasm_init...');
   const ok = lbm.ccall('lbm_wasm_init', 'number', [], []);
   console.log('lbm_wasm_init returned:', ok);
