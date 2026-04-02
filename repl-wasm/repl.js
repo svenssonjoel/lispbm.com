@@ -202,11 +202,11 @@ LispBM().then(lbm => {
     }
   }
 
-  window.createPlotTab = function(slot, nbytes, title) {
-    const ptr    = lbm.ccall('lbm_wasm_buf_ptr', 'number', ['number'], [slot]);
+  window.createPlotTab = function(buf, nbytes, title) {
+    //const ptr    = lbm.ccall('lbm_wasm_buf_ptr', 'number', ['number'], [slot]);
     const nFloat = (nbytes / 4) | 0;
       
-    const floats = new Float32Array(lbm.HEAP8.buffer, ptr, nFloat);
+    const floats = new Float32Array(lbm.HEAP8.buffer, buf, nFloat);
     const ys     = Array.from(floats);
     const xs     = Array.from({length: ys.length}, (_, i) => i);
 
@@ -259,7 +259,6 @@ LispBM().then(lbm => {
   const SERIES_COLORS = ['#4ec9b0', '#569cd6', '#ce9178', '#dcdcaa', '#c586c0', '#f44747', '#b5cea8', '#9cdcfe'];
 
   window.createMultiPlotTab = function(slotsJson, title) {
-    const slots = JSON.parse(slotsJson);
 
     plotCount++;
     const id    = 'plot-' + plotCount;
@@ -290,9 +289,9 @@ LispBM().then(lbm => {
     const w    = Math.max(rect.width  - 16, 300);
     const h    = Math.max(rect.height - 16, 200);
 
+    const bufs = JSON.parse(slotsJson);
     let maxLen = 0;
-    const yArrays = slots.map(({slot, nbytes}) => {
-      const ptr    = lbm.ccall('lbm_wasm_buf_ptr', 'number', ['number'], [slot]);
+    const yArrays = bufs.map(({ptr, nbytes}) => {
       const nFloat = (nbytes / 4) | 0;
       const ys     = Array.from(new Float32Array(lbm.HEAP8.buffer, ptr, nFloat));
       if (ys.length > maxLen) maxLen = ys.length;
@@ -301,8 +300,8 @@ LispBM().then(lbm => {
     const xs = Array.from({length: maxLen}, (_, i) => i);
 
     const series = [{}];
-    slots.forEach(({slot}, i) => {
-      series.push({ label: 'slot ' + slot, stroke: SERIES_COLORS[i % SERIES_COLORS.length], width: 2 });
+    bufs.forEach((_, i) => {
+      series.push({ label: 'series ' + i, stroke: SERIES_COLORS[i % SERIES_COLORS.length], width: 2 });
     });
 
     new uPlot({
