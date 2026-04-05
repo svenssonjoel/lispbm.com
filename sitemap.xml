@@ -45,6 +45,14 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- WebAssembly REPL -->
+  <url>
+    <loc>https://www.lispbm.com/repl-wasm/index.html</loc>
+    <lastmod>2026-04-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- C API Documentation -->
   <url>
     <loc>https://www.lispbm.com/cdocs/html/index.html</loc>
