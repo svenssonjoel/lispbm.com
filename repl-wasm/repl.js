@@ -182,6 +182,46 @@ document.getElementById('btn-save').addEventListener('click', () => {
   downloadFile(filename, content);
 });
 
+const busyLed    = document.getElementById('busy-led');
+const statusText = document.getElementById('status-text');
+
+const examplesModal = document.getElementById('examples-modal');
+const examplesList  = document.getElementById('examples-list');
+
+document.getElementById('btn-examples').addEventListener('click', () => {
+  examplesList.innerHTML = '';
+  fetch('examples/index.json')
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(examples => {
+      examples.forEach(ex => {
+        const item = document.createElement('div');
+        item.className = 'example-item';
+        item.innerHTML = '<div class="ex-name">' + ex.name + '</div>' +
+                         '<div class="ex-desc">' + (ex.description || '') + '</div>';
+        item.addEventListener('click', () => {
+          fetch('examples/' + ex.file)
+            .then(r => r.text())
+            .then(code => {
+              const tab = createEditorTab(ex.name);
+              tab.cm.setValue(code);
+              examplesModal.classList.remove('open');
+            });
+        });
+        examplesList.appendChild(item);
+      });
+      examplesModal.classList.add('open');
+    })
+    .catch(e => { alert('Failed to load examples: ' + e.message); });
+});
+
+document.getElementById('examples-close').addEventListener('click', () => {
+  examplesModal.classList.remove('open');
+});
+
+examplesModal.addEventListener('click', e => {
+  if (e.target === examplesModal) examplesModal.classList.remove('open');
+});
+
 LispBM().then(lbm => {
   const btnEval     = document.getElementById('btn-eval');
   const btnLoad     = document.getElementById('btn-load');
@@ -200,6 +240,81 @@ LispBM().then(lbm => {
       appendOutput(text);
       lbm.ccall('lbm_wasm_clear_output', null, [], []);
     }
+  }
+
+  const wheelZoomPlugin = {
+    hooks: {
+      ready(u) {
+        const over = u.over;
+        over.addEventListener('wheel', e => {
+          e.preventDefault();
+          const factor = e.deltaY < 0 ? 0.75 : 1.33;
+          const left   = u.cursor.left;
+          const xMin   = u.scales.x.min, xMax = u.scales.x.max;
+          const range  = (xMax - xMin) * factor;
+          const mid    = u.posToVal(left, 'x');
+          u.setScale('x', { min: mid - range / 2, max: mid + range / 2 });
+        });
+
+        let panning = false, dragStartX, scaleMin, scaleMax;
+        window.addEventListener('keydown', e => {
+          if (e.key === 'Shift') u.cursor.drag.x = false;
+        });
+        window.addEventListener('keyup', e => {
+          if (e.key === 'Shift') u.cursor.drag.x = true;
+        });
+        over.addEventListener('mousedown', e => {
+          if (!e.shiftKey) return;
+          e.preventDefault();
+          panning    = true;
+          dragStartX = e.clientX;
+          scaleMin   = u.scales.x.min;
+          scaleMax   = u.scales.x.max;
+        });
+        window.addEventListener('mousemove', e => {
+          if (!panning) return;
+          const dx    = dragStartX - e.clientX;
+          const range = scaleMax - scaleMin;
+          const shift = (dx / u.width) * range;
+          u.setScale('x', { min: scaleMin + shift, max: scaleMax + shift });
+        });
+        window.addEventListener('mouseup', () => { panning = false; });
+      }
+    }
+  };
+
+  function addPlotToolbar(pane, label, getDataFn) {
+    const toolbar = document.createElement('div');
+    toolbar.style.cssText = 'display:flex;gap:6px;padding:4px 8px;';
+
+    const pngBtn = document.createElement('button');
+    pngBtn.textContent = 'Save PNG';
+    pngBtn.addEventListener('click', () => {
+      const canvas = pane.querySelector('canvas');
+      if (!canvas) return;
+      const a = document.createElement('a');
+      a.href     = canvas.toDataURL('image/png');
+      a.download = label + '.png';
+      a.click();
+    });
+
+    const csvBtn = document.createElement('button');
+    csvBtn.textContent = 'Save CSV';
+    csvBtn.addEventListener('click', () => {
+      const { xs, yArrays } = getDataFn();
+      const headers = ['x', ...yArrays.map((_, i) => 'y' + (yArrays.length > 1 ? i : ''))].join(',');
+      const rows    = xs.map((x, i) => [x, ...yArrays.map(y => y[i] ?? '')].join(','));
+      const blob    = new Blob([headers + '\n' + rows.join('\n')], { type: 'text/csv' });
+      const a       = document.createElement('a');
+      a.href        = URL.createObjectURL(blob);
+      a.download    = label + '.csv';
+      a.click();
+      URL.revokeObjectURL(a.href);
+    });
+
+    toolbar.appendChild(pngBtn);
+    toolbar.appendChild(csvBtn);
+    pane.appendChild(toolbar);
   }
 
   window.createPlotTab = function(buf, nbytes, title) {
@@ -235,9 +350,11 @@ LispBM().then(lbm => {
 
     switchTab(id);
 
+    addPlotToolbar(pane, label, () => ({ xs, yArrays: [ys] }));
+
     const rect = document.getElementById('output-tab-contents').getBoundingClientRect();
     const w    = Math.max(rect.width  - 16, 300);
-    const h    = Math.max(rect.height - 16, 200);
+    const h    = Math.max(rect.height - 48, 200);
 
     new uPlot({
       title:  label,
@@ -253,6 +370,60 @@ LispBM().then(lbm => {
       ],
       scales: { x: { time: false } },
       cursor: { stroke: '#569cd6', width: 1 },
+      plugins: [wheelZoomPlugin],
+    }, [xs, ys], pane);
+  };
+
+  window.createXYPlotTab = function(xbuf, xbytes, ybuf, ybytes, title) {
+    const xs = Array.from(new Float32Array(lbm.HEAP8.buffer, xbuf, (xbytes / 4) | 0));
+    const ys = Array.from(new Float32Array(lbm.HEAP8.buffer, ybuf, (ybytes / 4) | 0));
+
+    plotCount++;
+    const id    = 'plot-' + plotCount;
+    const label = (title && title.length) ? title : ('Plot ' + plotCount);
+
+    const btn = document.createElement('button');
+    btn.className   = 'tab-btn';
+    btn.dataset.tab = id;
+    btn.addEventListener('click', () => switchTab(id));
+    const labelEl = document.createElement('span');
+    labelEl.textContent = label;
+    const closeEl = document.createElement('span');
+    closeEl.className   = 'tab-close';
+    closeEl.textContent = '\u2297';
+    closeEl.addEventListener('click', e => { e.stopPropagation(); closeTab(id); });
+    btn.appendChild(labelEl);
+    btn.appendChild(closeEl);
+    document.getElementById('output-tab-bar').appendChild(btn);
+
+    const pane = document.createElement('div');
+    pane.id        = 'output-tab-' + id;
+    pane.className = 'tab-pane plot-pane';
+    document.getElementById('output-tab-contents').appendChild(pane);
+
+    switchTab(id);
+
+    addPlotToolbar(pane, label, () => ({ xs, yArrays: [ys] }));
+
+    const rect = document.getElementById('output-tab-contents').getBoundingClientRect();
+    const w    = Math.max(rect.width  - 16, 300);
+    const h    = Math.max(rect.height - 48, 200);
+
+    new uPlot({
+      title:  label,
+      width:  w,
+      height: h,
+      series: [
+        {},
+        { label: 'y', stroke: '#4ec9b0', width: 2 }
+      ],
+      axes: [
+        { stroke: '#666', grid: { stroke: '#222' }, ticks: { stroke: '#222' } },
+        { stroke: '#666', grid: { stroke: '#222' }, ticks: { stroke: '#222' } },
+      ],
+      scales: { x: { time: false } },
+      cursor: { stroke: '#569cd6', width: 1 },
+      plugins: [wheelZoomPlugin],
     }, [xs, ys], pane);
   };
 
@@ -287,7 +458,7 @@ LispBM().then(lbm => {
 
     const rect = document.getElementById('output-tab-contents').getBoundingClientRect();
     const w    = Math.max(rect.width  - 16, 300);
-    const h    = Math.max(rect.height - 16, 200);
+    const h    = Math.max(rect.height - 48, 200);
 
     const bufs = JSON.parse(slotsJson);
     let maxLen = 0;
@@ -298,6 +469,8 @@ LispBM().then(lbm => {
       return ys;
     });
     const xs = Array.from({length: maxLen}, (_, i) => i);
+
+    addPlotToolbar(pane, label, () => ({ xs, yArrays }));
 
     const series = [{}];
     bufs.forEach((_, i) => {
@@ -315,6 +488,7 @@ LispBM().then(lbm => {
       ],
       scales: { x: { time: false } },
       cursor: { stroke: '#569cd6', width: 1 },
+      plugins: [wheelZoomPlugin],
     }, [xs, ...yArrays], pane);
   };
 
@@ -323,7 +497,7 @@ LispBM().then(lbm => {
   console.log('lbm_wasm_init returned:', ok);
   if (!ok) {
     appendOutput('Failed to initialise LispBM.\n');
-    status.textContent = 'Init failed';
+    statusText.textContent = 'Init failed';
     return;
   }
 
@@ -332,25 +506,43 @@ LispBM().then(lbm => {
   const input = document.getElementById('input');
   input.disabled = false;
   input.focus();
-  status.textContent = 'Ready';
+  statusText.textContent = 'Ready';
+
+  let ledState    = false;
+  let lastLedFlip = 0;
 
   function loop() {
-    const deadline = performance.now() + 8;
+    const now      = performance.now();
+    const deadline = now + 8;
+    let   anyBusy  = false;
     try {
       while (performance.now() < deadline) {
-        lbm.ccall('lbm_wasm_run', null, ['number'], [100]);
+        const busy = lbm.ccall('lbm_wasm_run', 'number', ['number'], [100]);
+        if (busy) anyBusy = true;
+        if (!busy) break;
       }
     } catch(e) {
       appendOutput('CRASH in step: ' + e + '\n');
-      status.textContent = 'Crashed';
+      statusText.textContent = 'Crashed';
       return;
     }
     try {
       pollOutput();
     } catch(e) {
       appendOutput('CRASH in pollOutput: ' + e + '\n');
-      status.textContent = 'Crashed';
+      statusText.textContent = 'Crashed';
       return;
+    }
+    if (anyBusy) {
+      const t = performance.now();
+      if (t - lastLedFlip > 150) {
+        ledState    = !ledState;
+        lastLedFlip = t;
+        busyLed.classList.toggle('on', ledState);
+      }
+    } else {
+      ledState = false;
+      busyLed.classList.remove('on');
     }
     setTimeout(loop, 0);
   }
