@@ -143,6 +143,19 @@ function closeEditorTab(id) {
   }
 }
 
+function tabMatchesFilename(t, filename) {
+  return t.filename === filename || t.labelEl.textContent === filename;
+}
+
+window.countEditorTabMatches = function(filename) {
+  return editorTabs.filter(t => tabMatchesFilename(t, filename)).length;
+};
+
+window.getEditorTabContent = function(filename) {
+  const tab = editorTabs.find(t => tabMatchesFilename(t, filename));
+  return tab ? tab.cm.getValue() : null;
+};
+
 document.getElementById('btn-new-editor-tab').addEventListener('click', () => {
   const n = prompt('Tab name:', 'untitled');
   if (n !== null) createEditorTab(n.trim() || 'untitled');
@@ -184,13 +197,14 @@ document.getElementById('btn-save').addEventListener('click', () => {
 
 const busyLed    = document.getElementById('busy-led');
 const statusText = document.getElementById('status-text');
+const stepsSelect = document.getElementById('steps-select');
 
 const examplesModal = document.getElementById('examples-modal');
 const examplesList  = document.getElementById('examples-list');
 
 document.getElementById('btn-examples').addEventListener('click', () => {
   examplesList.innerHTML = '';
-  fetch('examples/index.json')
+  fetch('examples/index.json?v=' + Date.now())
     .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
     .then(examples => {
       examples.forEach(ex => {
@@ -517,9 +531,8 @@ LispBM().then(lbm => {
     let   anyBusy  = false;
     try {
       while (performance.now() < deadline) {
-        const busy = lbm.ccall('lbm_wasm_run', 'number', ['number'], [100]);
+        const busy = lbm.ccall('lbm_wasm_run', 'number', ['number'], [parseInt(stepsSelect.value)]);
         if (busy) anyBusy = true;
-        if (!busy) break;
       }
     } catch(e) {
       appendOutput('CRASH in step: ' + e + '\n');
