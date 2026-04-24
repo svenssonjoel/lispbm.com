@@ -274,7 +274,342 @@
 <tr>
 <td> Example </td> <td> Result </td>
 </tr>
+<tr>
+<td>
 
+<div class="sourceCode" id="cb29"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true"></a>(hex-to-bytes <span class="st">&quot;deadbeef&quot;</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb30"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true"></a>[<span class="dv">222</span> <span class="dv">173</span> <span class="dv">190</span> <span class="dv">239</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb31"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true"></a>(hex-to-bytes <span class="st">&quot;DEADBEEF&quot;</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb32"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true"></a>[<span class="dv">222</span> <span class="dv">173</span> <span class="dv">190</span> <span class="dv">239</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb33"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true"></a>(hex-to-bytes <span class="st">&quot;000102ff&quot;</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb34"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true"></a>[<span class="dv">0</span> <span class="dv">1</span> <span class="dv">2</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb35"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true"></a>(hex-to-bytes (bytes-to-hex (sha256-str <span class="st">&quot;abc&quot;</span>)))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb36"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true"></a>[<span class="dv">186</span> <span class="dv">120</span> <span class="dv">22</span> <span class="dv">191</span> <span class="dv">143</span> <span class="dv">1</span> <span class="dv">207</span> <span class="dv">234</span> <span class="dv">65</span> <span class="dv">65</span> <span class="dv">64</span> <span class="dv">222</span> <span class="dv">93</span> <span class="dv">174</span> <span class="dv">34</span> <span class="dv">35</span> <span class="dv">176</span> <span class="dv">3</span> <span class="dv">97</span> <span class="dv">163</span> <span class="dv">150</span> <span class="dv">23</span> <span class="dv">122</span> <span class="dv">156</span> <span class="dv">180</span> <span class="dv">16</span> <span class="dv">255</span> <span class="dv">97</span> <span class="dv">242</span> <span class="dv">0</span> <span class="dv">21</span> <span class="dv">173</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h2 id="bignum-library">Bignum Library</h2>
+<p>The bignum library is meant as an entry point for implementation of, for example, RSA Crypto. This can be used for encrypted data transfers or for cryptographically signed files for Integrity and Authenticity!</p>
+<h3 id="bn-add">bn-add</h3>
+<p><code>bn-add</code> adds two bignum values The form of a <code>bn-add</code> expression is <code>(bn-add a b)</code> where <code>a</code> and <code>b</code> are bignum.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb37"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true"></a>(bn-add a b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb38"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true"></a>[<span class="dv">102</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb39"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true"></a>(bn-add (bn-from-u32 4294967295u32) (bn-from-u32 <span class="dv">102</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb40"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true"></a>[<span class="dv">101</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb41"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true"></a>(bn-add (bn-from-bytes (hex-to-bytes <span class="st">&quot;FFFFFFFF&quot;</span>)) (bn-from-u32 <span class="dv">102</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb42"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true"></a>[<span class="dv">101</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bn-cmp">bn-cmp</h3>
+<p><code>bn-cmp</code> compares two bignum values and return 1,0 or -1 depending on if the first argument is larger, equal, smaller than the second. The form of a <code>bn-cmp</code> expression is <code>(bn-cmp a b)</code> where <code>a</code> and ´b` are bignum.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb43"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true"></a>(bn-cmp a b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb44"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true"></a><span class="dv">-1</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb45"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true"></a>(bn-cmp b a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb46"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true"></a><span class="dv">1</span></span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb47"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true"></a>(bn-cmp a a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb48"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true"></a><span class="dv">0</span></span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bn-divmod">bn-divmod</h3>
+<p><code>bn-divmod</code> computes the quotient and remainder of an bignum (integer) division. The form of a <code>bn-divmod</code> expression is <code>(bn-divmod a b)</code> where <code>a</code> and <code>b</code> are bignum.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb49"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true"></a>(bn-divmod a b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb50"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true"></a>([<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>] . [<span class="dv">102</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>])</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb51"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true"></a>(bn-divmod b a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb52"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true"></a>([<span class="dv">130</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span>] . [<span class="dv">52</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>])</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bn-from-bytes">bn-from-bytes</h3>
+<p><code>bn-from-bytes</code> creates a bignum from a bytearray. The internal representation of a bignum is as a little-endian value for implementation efficiency reasons and converting a bytearray to a bignum reverses the byte order The form of a <code>bn-from-bytes</code> expression is <code>(bn-from-bytes ba)</code> where <code>ba</code> is a bytearray that is a multiple of 4 bytes long</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb53"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true"></a>(bn-from-bytes [<span class="dv">255</span> <span class="dv">170</span> <span class="dv">0</span> <span class="dv">17</span>])</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb54"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true"></a>[<span class="dv">17</span> <span class="dv">0</span> <span class="dv">170</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bn-from-u32">bn-from-u32</h3>
+<p><code>bn-from-u32</code> creates a bignum from an u 32. The form of a <code>bn-from-u32</code> expression is <code>(bn-from-u32 a)</code> where <code>a</code> is a number that will be interpreted as a u32.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb55"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true"></a>(bn-from-u32 <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb56"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true"></a>[<span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb57"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true"></a>(bn-from-u32 4294967295u32)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb58"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true"></a>[<span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bn-modexp">bn-modexp</h3>
+<p><code>bn-modexp</code> computes bignum exponentiation modulo a modulus. The form of a <code>bn-modexp</code> expression is <code>(bn-modexp a e m)</code> where a is a bignum value, e is bignum exponent and m is bignum modulo.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb59"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true"></a>(bn-modexp a b c)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb60"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true"></a>[<span class="dv">24</span> <span class="dv">2</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bn-mul">bn-mul</h3>
+<p><code>bn-mul</code> multiplies two bignum values The form of a <code>bn-mul</code> expression is <code>(bn-mul a b)</code> where <code>a</code> and <code>b</code> are bignum.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb61"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true"></a>(bn-mul a b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb62"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb62-1"><a href="#cb62-1" aria-hidden="true"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">102</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb63"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb63-1"><a href="#cb63-1" aria-hidden="true"></a>(bn-mul (bn-from-u32 4294967295u32) (bn-from-u32 <span class="dv">102</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb64"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb64-1"><a href="#cb64-1" aria-hidden="true"></a>[<span class="dv">154</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">101</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb65"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb65-1"><a href="#cb65-1" aria-hidden="true"></a>(bn-mul (bn-from-bytes (hex-to-bytes <span class="st">&quot;FFFFFFFF&quot;</span>)) (bn-from-u32 <span class="dv">102</span>))</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb66"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true"></a>[<span class="dv">154</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">255</span> <span class="dv">101</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bn-sub">bn-sub</h3>
+<p><code>bn-sub</code> subtracts a bignum from another bignum value The form of a <code>bn-sub</code> expression is <code>(bn-sub a b)</code> where <code>a</code> and <code>b</code> are bignum. Requires that the first argument is larger than the second.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb67"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb67-1"><a href="#cb67-1" aria-hidden="true"></a>(bn-sub b a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb68"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb68-1"><a href="#cb68-1" aria-hidden="true"></a>[<span class="dv">154</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bn-to-bytes">bn-to-bytes</h3>
+<p><code>bn-to-bytes</code> converts a bignum to a bytearray that is compatible with <code>bn-from-bytes</code>. the form of a <code>bn-to-bytes</code> expression is <code>(bn-to-bytes a)</code> where <code>a</code> is a bignum.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb69"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb69-1"><a href="#cb69-1" aria-hidden="true"></a>(bn-to-bytes a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb70"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true"></a>[<span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">102</span>]</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb71"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb71-1"><a href="#cb71-1" aria-hidden="true"></a>(bn-to-bytes b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb72"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true"></a>[<span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<h3 id="bn-to-u32">bn-to-u32</h3>
+<p><code>bn-to-u32</code> converts a bignum to a u32 value. the form of a <code>bn-to-u32</code> expression is <code>(bn-to-u32 a)</code> where <code>a</code> is a bignum. Note that this requires that the bignum is a so-called single-limb value, that is it needs to &lt;= 0xFFFFFFFF.</p>
+<table>
+<tr>
+<td> Example </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb73"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb73-1"><a href="#cb73-1" aria-hidden="true"></a>(bn-to-u32 a)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb74"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true"></a>102u32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb75"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb75-1"><a href="#cb75-1" aria-hidden="true"></a>(bn-to-u32 b)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb76"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true"></a>65536u32</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<p>This document was generated by LispBM version 0.36.0</p>
 </div> <!-- Close pagefind-body -->
 </div> <!-- Close container -->
 
