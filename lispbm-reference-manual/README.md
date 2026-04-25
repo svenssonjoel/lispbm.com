@@ -1,26 +1,26 @@
 
-# searchable documentation based on the mark down files.
+# LispBM Searchable Reference Manual
 
-uses pandoc to generate HTML from md
-uses pagefind to create an index of the HTML files.
+Searchable HTML reference manual built from Markdown source files.
 
+Uses Pandoc to generate HTML from Markdown and Pagefind to build a search index.
 
-## Custom filters
+## Updating the reference manual
 
-Add custom filters to the md documentation like this.
-The html tags can be added verbatim into the md and pandoc will
-just copy them over as is into the target html.
+From the `src/` directory:
 
-```
-<div data-pagefind-filter="Section">List Operations</div>
-<div>
+1. Fetch the latest Markdown sources:
+   ```
+   bash fetch.sh
+   ```
+   This pulls documentation from the lispbm repo and VESC repos.
 
-### car
-Returns the first element...
+2. Build the HTML and search index:
+   ```
+   make
+   ```
+   Generated HTML and the Pagefind index are written to `html/`.
 
-### cdr
-Returns the rest...
-
-</div>
-```
+**Note:** Adding a new manual does not automatically add a reference card to
+`src/index.html`. That card must be added manually.
 
