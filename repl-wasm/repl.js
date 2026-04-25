@@ -221,7 +221,7 @@ async function docsSearch(query) {
       item.className = 'docs-result';
       item.innerHTML = '<div class="docs-result-title">' + (r.meta.title || r.url) + '</div>' +
                        '<div class="docs-result-excerpt">' + r.excerpt + '</div>';
-      item.addEventListener('click', () => window.open(r.url, '_blank'));
+      item.addEventListener('click', () => openDocPage(r.url));
       docsResults.appendChild(item);
     });
   } catch(e) {
@@ -230,6 +230,39 @@ async function docsSearch(query) {
 }
 
 docsSearchInput.addEventListener('input', () => docsSearch(docsSearchInput.value));
+
+let docsIframe = null;
+let docsBackBtn = null;
+
+function openDocPage(url) {
+  docsSearchInput.style.display = 'none';
+  docsResults.style.display = 'none';
+
+  if (!docsBackBtn) {
+    docsBackBtn = document.createElement('button');
+    docsBackBtn.textContent = '\u2190 Back to results';
+    docsBackBtn.style.cssText = 'align-self:flex-start;background:#3a3a3a;border:1px solid #555;color:#d4d4d4;font-size:12px;padding:3px 10px;flex-shrink:0;';
+    docsBackBtn.addEventListener('click', () => {
+      docsIframe.style.display = 'none';
+      docsBackBtn.style.display = 'none';
+      docsSearchInput.style.display = '';
+      docsResults.style.display = '';
+    });
+    docsPane.appendChild(docsBackBtn);
+  } else {
+    docsBackBtn.style.display = '';
+  }
+
+  if (!docsIframe) {
+    docsIframe = document.createElement('iframe');
+    docsIframe.style.cssText = 'flex:1;border:none;background:#fff;';
+    docsPane.appendChild(docsIframe);
+  } else {
+    docsIframe.style.display = '';
+  }
+
+  docsIframe.src = url;
+}
 
 // ------------------------------------------------------------
 // Canvas tabs
