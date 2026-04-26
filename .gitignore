@@ -1,0 +1,6 @@
+# Emacs backup and auto-save files
+*~
+\#*#
+
+# Reference manual source directory
+lispbm-reference-manual/src/
