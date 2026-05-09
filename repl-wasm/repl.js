@@ -38,11 +38,10 @@ consoleCurrentLine.appendChild(consoleInputDisplay);
 consoleCurrentLine.appendChild(consoleCursor);
 consolePane.appendChild(consoleCurrentLine);
 
-const consoleInput = document.createElement('input');
-consoleInput.type = 'text';
+const consoleInput = document.createElement('textarea');
 consoleInput.autocomplete = 'off';
 consoleInput.disabled = true;
-consoleInput.style.cssText = 'position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:-1px;left:-1px;';
+consoleInput.style.cssText = 'position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:-1px;left:-1px;resize:none;';
 document.body.appendChild(consoleInput);
 
 consolePane.addEventListener('click', () => consoleInput.focus());
@@ -1022,7 +1021,12 @@ LispBM().then(lbm => {
     refreshFsBrowser();
   });
 
-  consoleInput.addEventListener('keydown', e => { if (e.key === 'Enter') evalExpr(); });
+  consoleInput.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      evalExpr();
+    }
+  });
   btnLoad.addEventListener('click', loadEditor);
 
 }).catch(err => {
