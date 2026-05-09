@@ -399,6 +399,12 @@ window.getEditorTabContent = function(filename) {
   return tab ? tab.cm.getValue() : null;
 };
 
+window.openFileInTab = function(filename, content) {
+  const tab = createEditorTab(filename);
+  tab.cm.setValue(content);
+  tab.filename = filename;
+};
+
 document.getElementById('btn-new-editor-tab').addEventListener('click', () => {
   const n = prompt('Tab name:', 'untitled');
   if (n !== null) createEditorTab(n.trim() || 'untitled');
