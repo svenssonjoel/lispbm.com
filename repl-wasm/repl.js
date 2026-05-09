@@ -169,8 +169,14 @@ document.getElementById('output-tab-bar').appendChild(rtsTabBtn);
 const rtsPane = document.createElement('div');
 rtsPane.id        = 'output-tab-rts';
 rtsPane.className = 'tab-pane';
-rtsPane.style.cssText = 'padding:10px;';
+rtsPane.style.cssText = 'padding:10px;overflow:auto;';
 document.getElementById('output-tab-contents').appendChild(rtsPane);
+
+const rtsLiveDiv = document.createElement('div');
+rtsPane.appendChild(rtsLiveDiv);
+
+const rtsFsDiv = document.createElement('div');
+rtsPane.appendChild(rtsFsDiv);
 
 // Docs tab (permanent)
 const docsTabBtn = document.createElement('button');
@@ -631,7 +637,7 @@ LispBM().then(lbm => {
   };
 
   function refreshRTS() {
-    rtsPane.innerHTML = '';
+    rtsLiveDiv.innerHTML = '';
 
     // --- Stats ---
     const statsJson = lbm.ccall('lbm_wasm_get_stats', 'string', [], []);
@@ -668,11 +674,11 @@ LispBM().then(lbm => {
         grid.appendChild(vEl);
       });
 
-      rtsPane.appendChild(grid);
+      rtsLiveDiv.appendChild(grid);
 
       const div = document.createElement('div');
       div.style.cssText = 'border-top:1px solid #333;margin-bottom:10px;';
-      rtsPane.appendChild(div);
+      rtsLiveDiv.appendChild(div);
     }
 
     // --- Thread list ---
@@ -684,7 +690,7 @@ LispBM().then(lbm => {
       const msg = document.createElement('div');
       msg.style.cssText = 'color:#666;font-size:12px;';
       msg.textContent = 'No running threads.';
-      rtsPane.appendChild(msg);
+      rtsLiveDiv.appendChild(msg);
     }
 
     if (ctxs.length > 0) {
@@ -721,13 +727,15 @@ LispBM().then(lbm => {
       table.appendChild(tr);
     });
 
-    rtsPane.appendChild(table);
+    rtsLiveDiv.appendChild(table);
     } // end ctxs.length > 0
+  }
 
-    // --- Filesystem browser ---
+  function refreshFsBrowser() {
+    rtsFsDiv.innerHTML = '';
     const fsSep = document.createElement('div');
     fsSep.style.cssText = 'border-top:1px solid #333;margin:10px 0;';
-    rtsPane.appendChild(fsSep);
+    rtsFsDiv.appendChild(fsSep);
 
     const fsHeader = document.createElement('div');
     fsHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:6px;';
@@ -748,7 +756,7 @@ LispBM().then(lbm => {
     fsHeader.appendChild(fsTitle);
     fsHeader.appendChild(fsPath);
     fsHeader.appendChild(fsUploadBtn);
-    rtsPane.appendChild(fsHeader);
+    rtsFsDiv.appendChild(fsHeader);
 
     let entries;
     try { entries = lbm.FS.readdir(fsBrowserPath); } catch(e) { entries = []; }
@@ -765,7 +773,7 @@ LispBM().then(lbm => {
       nameEl.textContent = (isDir ? '\u{1F4C1} ' : '\u{1F4C4} ') + name;
       nameEl.style.cssText = isDir ? 'color:#dcdcaa;cursor:pointer;' : 'color:#d4d4d4;';
       if (isDir) {
-        nameEl.addEventListener('click', () => { fsBrowserPath = fullPath; });
+        nameEl.addEventListener('click', () => { fsBrowserPath = fullPath; refreshFsBrowser(); });
       }
       row.appendChild(nameEl);
 
@@ -784,7 +792,7 @@ LispBM().then(lbm => {
         row.appendChild(dlBtn);
       }
 
-      rtsPane.appendChild(row);
+      rtsFsDiv.appendChild(row);
     });
 
     if (fsBrowserPath !== '/') {
@@ -793,12 +801,14 @@ LispBM().then(lbm => {
       upRow.style.cssText = 'color:#888;font-size:12px;cursor:pointer;padding:2px 4px;';
       upRow.addEventListener('click', () => {
         fsBrowserPath = fsBrowserPath.substring(0, fsBrowserPath.lastIndexOf('/')) || '/';
+        refreshFsBrowser();
       });
-      rtsPane.insertBefore(upRow, fsHeader.nextSibling);
+      rtsFsDiv.insertBefore(upRow, fsHeader.nextSibling);
     }
   }
 
   let fsBrowserPath = '/';
+  refreshFsBrowser();
 
   setInterval(() => {
     if (rtsTabBtn.classList.contains('active')) refreshRTS();
@@ -876,18 +886,24 @@ LispBM().then(lbm => {
 
   const fsUploadInput = document.createElement('input');
   fsUploadInput.type = 'file';
+  fsUploadInput.multiple = true;
   fsUploadInput.style.display = 'none';
   document.body.appendChild(fsUploadInput);
   fsUploadInput.addEventListener('change', () => {
-    const file = fsUploadInput.files[0];
-    if (!file) return;
-    const reader = new FileReader();
-    reader.onload = e => {
-      const data = new Uint8Array(e.target.result);
-      lbm.FS.writeFile('/' + file.name, data);
-      appendOutput('Uploaded "' + file.name + '" to MEMFS (' + data.length + ' bytes)\n');
-    };
-    reader.readAsArrayBuffer(file);
+    const files = Array.from(fsUploadInput.files);
+    if (!files.length) return;
+    let done = 0;
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = e => {
+        const data = new Uint8Array(e.target.result);
+        const dest = (fsBrowserPath === '/' ? '' : fsBrowserPath) + '/' + file.name;
+        lbm.FS.writeFile(dest, data);
+        appendOutput('Uploaded "' + file.name + '" to MEMFS ' + dest + ' (' + data.length + ' bytes)\n');
+        if (++done === files.length) refreshFsBrowser();
+      };
+      reader.readAsArrayBuffer(file);
+    });
     fsUploadInput.value = '';
   });
 
