@@ -88,30 +88,14 @@
       overflow: auto;
     }
     .tab-pane.active { display: block; }
-    #output-tab-console.active { display: flex !important; flex-direction: column; }
-    #console-output {
-      flex: 1;
-      overflow-y: auto;
-      white-space: pre;
-      padding: 10px;
-    }
-    #console-prompt-row {
-      display: flex;
-      align-items: center;
-      padding: 2px 10px 6px;
-      flex-shrink: 0;
-      border-top: 1px solid #222;
-    }
+    #output-tab-console { padding: 10px; cursor: text; }
+    #console-current-line { display: flex; white-space: pre; }
     #console-prompt { color: #569cd6; }
-    #console-input {
-      flex: 1;
-      background: transparent;
-      border: none;
-      color: #d4d4d4;
-      font-family: "Courier New", monospace;
-      font-size: 14px;
-      outline: none;
+    #console-cursor {
+      border-left: 2px solid #d4d4d4;
+      animation: blink 1s step-end infinite;
     }
+    @keyframes blink { 50% { opacity: 0; } }
     .plot-pane { padding: 8px; }
     /* uPlot dark theme overrides */
     .uplot .u-title  { color: #d4d4d4 !important; font-family: "Courier New", monospace; font-size: 13px; }

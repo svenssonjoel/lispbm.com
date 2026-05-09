@@ -20,24 +20,35 @@ consolePane.id = 'output-tab-console';
 consolePane.className = 'tab-pane active';
 document.getElementById('output-tab-contents').appendChild(consolePane);
 
-const consoleOutput = document.createElement('div');
-consoleOutput.id = 'console-output';
-consolePane.appendChild(consoleOutput);
+const consoleHistory = document.createElement('span');
+consoleHistory.style.cssText = 'white-space:pre;display:block;';
+consolePane.appendChild(consoleHistory);
 
-const consolePromptRow = document.createElement('div');
-consolePromptRow.id = 'console-prompt-row';
+const consoleCurrentLine = document.createElement('div');
+consoleCurrentLine.id = 'console-current-line';
 const consolePromptSpan = document.createElement('span');
 consolePromptSpan.id = 'console-prompt';
 consolePromptSpan.textContent = '# ';
+const consoleInputDisplay = document.createElement('span');
+const consoleCursor = document.createElement('span');
+consoleCursor.id = 'console-cursor';
+consoleCursor.textContent = ' ';
+consoleCurrentLine.appendChild(consolePromptSpan);
+consoleCurrentLine.appendChild(consoleInputDisplay);
+consoleCurrentLine.appendChild(consoleCursor);
+consolePane.appendChild(consoleCurrentLine);
+
 const consoleInput = document.createElement('input');
-consoleInput.id = 'console-input';
 consoleInput.type = 'text';
 consoleInput.autocomplete = 'off';
 consoleInput.disabled = true;
-consoleInput.placeholder = 'Enter expression...';
-consolePromptRow.appendChild(consolePromptSpan);
-consolePromptRow.appendChild(consoleInput);
-consolePane.appendChild(consolePromptRow);
+consoleInput.style.cssText = 'position:fixed;opacity:0;pointer-events:none;width:1px;height:1px;top:-1px;left:-1px;';
+document.body.appendChild(consoleInput);
+
+consolePane.addEventListener('click', () => consoleInput.focus());
+consoleInput.addEventListener('input', () => {
+  consoleInputDisplay.textContent = consoleInput.value;
+});
 
 function switchTab(id) {
 
@@ -525,8 +536,8 @@ LispBM().then(lbm => {
   const status  = document.getElementById('status');
 
   function appendOutput(text) {
-    consoleOutput.textContent += text;
-    consoleOutput.scrollTop = consoleOutput.scrollHeight;
+    consoleHistory.textContent += text;
+    consolePane.scrollTop = consolePane.scrollHeight;
   }
 
   function pollOutput() {
@@ -914,6 +925,8 @@ LispBM().then(lbm => {
   consoleInput.disabled = false;
   consoleInput.focus();
   statusText.textContent = 'Activity';
+  document.querySelector('#output-tab-bar .tab-btn[data-tab="console"]')
+    .addEventListener('click', () => consoleInput.focus());
 
   const fsUploadInput = document.createElement('input');
   fsUploadInput.type = 'file';
@@ -978,11 +991,12 @@ LispBM().then(lbm => {
   setTimeout(loop, 0);
 
   function evalExpr() {
-    const code = consoleInput.value.trim();
-    if (!code) return;
-    appendOutput('# ' + code + '\n');
-    lbm.ccall('lbm_wasm_eval', null, ['string'], [code]);
+    const code = consoleInput.value;
+    consoleHistory.textContent += '# ' + code + '\n';
     consoleInput.value = '';
+    consoleInputDisplay.textContent = '';
+    consolePane.scrollTop = consolePane.scrollHeight;
+    if (code.trim()) lbm.ccall('lbm_wasm_eval', null, ['string'], [code]);
   }
 
   function loadEditor() {
