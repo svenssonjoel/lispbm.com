@@ -232,6 +232,96 @@ const docsResults = document.createElement('div');
 docsResults.id = 'docs-results';
 docsPane.appendChild(docsResults);
 
+// About tab (permanent)
+const aboutTabBtn = document.createElement('button');
+aboutTabBtn.className = 'tab-btn';
+aboutTabBtn.dataset.tab = 'about';
+aboutTabBtn.addEventListener('click', () => switchTab('about'));
+const aboutLabelEl = document.createElement('span');
+aboutLabelEl.textContent = 'About';
+aboutTabBtn.appendChild(aboutLabelEl);
+document.getElementById('output-tab-bar').appendChild(aboutTabBtn);
+
+const aboutPane = document.createElement('div');
+aboutPane.id = 'output-tab-about';
+aboutPane.className = 'tab-pane';
+aboutPane.innerHTML = `
+<h2>LispBM WebAssembly REPL</h2>
+<p>
+  LispBM is an embeddable Lisp/Scheme for microcontrollers, running here via WebAssembly.
+  Write code in the editor tabs on the right, then press <code>Load</code> to evaluate the whole buffer,
+  or type expressions directly into the console.
+  Use <code>Shift+Enter</code> in the console for multi-line input.
+</p>
+<p>
+  Files live in an in-memory filesystem (MEMFS). Use the <strong>RTS</strong> tab to browse, upload,
+  and download files. The <code>/libs</code> directory is pre-populated at startup.
+  Import from MEMFS with absolute paths: <code>(import "/libs/dsp_lang.lisp" 'dsp)</code>.
+</p>
+
+<h2>Time</h2>
+<table class="about-table">
+  <tr><th>Extension</th><th>Signature</th><th>Description</th></tr>
+  <tr><td>systime</td><td>(systime)</td><td>Current time as u32 milliseconds</td></tr>
+  <tr><td>secs-since</td><td>(secs-since t0)</td><td>Seconds elapsed since t0 as float</td></tr>
+</table>
+
+<h2>Output</h2>
+<table class="about-table">
+  <tr><th>Extension</th><th>Signature</th><th>Description</th></tr>
+  <tr><td>print</td><td>(print val ...)</td><td>Print values to console with newline</td></tr>
+</table>
+
+<h2>Plotting &amp; Canvas</h2>
+<table class="about-table">
+  <tr><th>Extension</th><th>Signature</th><th>Description</th></tr>
+  <tr><td>wasm-plot</td><td>(wasm-plot buf "title")</td><td>Plot tab from a float32 byte array</td></tr>
+  <tr><td>wasm-plot-multi</td><td>(wasm-plot-multi '(buf ...) "title")</td><td>Multi-series plot from a list of float32 arrays</td></tr>
+  <tr><td>wasm-plot-xy</td><td>(wasm-plot-xy xbuf ybuf "title")</td><td>XY plot from two float32 byte arrays</td></tr>
+  <tr><td>wasm-create-canvas</td><td>(wasm-create-canvas w h ["title"])</td><td>Canvas tab for display library drawing</td></tr>
+</table>
+
+<h2>Import</h2>
+<table class="about-table">
+  <tr><th>Extension</th><th>Signature</th><th>Description</th></tr>
+  <tr><td>import</td><td>(import "/path/or/url" 'sym)</td><td>Load a file into sym: absolute URL &rarr; relative URL (if base set) &rarr; editor tab &rarr; MEMFS</td></tr>
+</table>
+
+<h2>File I/O (MEMFS)</h2>
+<table class="about-table">
+  <tr><th>Extension</th><th>Signature</th><th>Description</th></tr>
+  <tr><td>fopen</td><td>(fopen "path" "mode")</td><td>Open a MEMFS file, returns file handle or nil</td></tr>
+  <tr><td>fclose</td><td>(fclose fh)</td><td>Close a file handle</td></tr>
+  <tr><td>load-file</td><td>(load-file fh)</td><td>Read entire file into a byte array</td></tr>
+  <tr><td>fread</td><td>(fread fh buf)</td><td>Read into a byte array, returns bytes read</td></tr>
+  <tr><td>fread-byte</td><td>(fread-byte fh)</td><td>Read one byte as char, nil at EOF</td></tr>
+  <tr><td>fwrite</td><td>(fwrite fh buf)</td><td>Write a byte array (full contents, including nulls)</td></tr>
+  <tr><td>fwrite-str</td><td>(fwrite-str fh str)</td><td>Write a string up to its null terminator</td></tr>
+  <tr><td>fwrite-value</td><td>(fwrite-value fh val)</td><td>Write a flattened LispBM value</td></tr>
+  <tr><td>fseek</td><td>(fseek fh offset 'seek-set|'seek-cur|'seek-end)</td><td>Seek within a file</td></tr>
+  <tr><td>ftell</td><td>(ftell fh)</td><td>Current file position as i64</td></tr>
+  <tr><td>flist</td><td>(flist ["path"])</td><td>List of filenames in a directory (default: /)</td></tr>
+  <tr><td>wasm-save-file</td><td>(wasm-save-file "path" ["download-name"])</td><td>Download a MEMFS file to the user's disk</td></tr>
+</table>
+
+<h2>Filesystem Operations</h2>
+<table class="about-table">
+  <tr><th>Extension</th><th>Signature</th><th>Description</th></tr>
+  <tr><td>fs-pwd</td><td>(fs-pwd)</td><td>Current working directory as a string</td></tr>
+  <tr><td>fs-cd</td><td>(fs-cd "path")</td><td>Change directory, returns t or nil</td></tr>
+  <tr><td>fs-mkdir</td><td>(fs-mkdir "path")</td><td>Create a directory, returns t or nil</td></tr>
+  <tr><td>fs-rm</td><td>(fs-rm "path")</td><td>Remove a file, returns t or nil</td></tr>
+  <tr><td>fs-mv</td><td>(fs-mv "src" "dst")</td><td>Rename or move a file, returns t or nil</td></tr>
+  <tr><td>fs-exists</td><td>(fs-exists "path")</td><td>t if path exists, else nil</td></tr>
+  <tr><td>fs-stat</td><td>(fs-stat "path")</td><td>(size is-dir) tuple, or nil if not found</td></tr>
+  <tr><td>fs-ls</td><td>(fs-ls ["path"])</td><td>List of (name size is-dir) tuples (default: cwd)</td></tr>
+  <tr><td>fs-open</td><td>(fs-open "path")</td><td>Open a MEMFS file in a new editor tab</td></tr>
+</table>
+
+<p style="color:#555;font-size:11px;">Symbols for fseek: <code>'seek-set</code> &nbsp; <code>'seek-cur</code> &nbsp; <code>'seek-end</code></p>
+`;
+document.getElementById('output-tab-contents').appendChild(aboutPane);
+
 let pagefind = null;
 async function initPagefind() {
   if (pagefind) return pagefind;
