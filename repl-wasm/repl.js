@@ -160,7 +160,7 @@ function tabMatchesFilename(t, filename) {
 const rtsTabBtn = document.createElement('button');
 rtsTabBtn.className = 'tab-btn';
 rtsTabBtn.dataset.tab = 'rts';
-rtsTabBtn.addEventListener('click', () => switchTab('rts'));
+rtsTabBtn.addEventListener('click', () => { switchTab('rts'); if (typeof refreshFsBrowser === 'function') refreshFsBrowser(); });
 const rtsLabelEl = document.createElement('span');
 rtsLabelEl.textContent = 'RTS';
 rtsTabBtn.appendChild(rtsLabelEl);
@@ -771,9 +771,16 @@ LispBM().then(lbm => {
 
       const nameEl = document.createElement('span');
       nameEl.textContent = (isDir ? '\u{1F4C1} ' : '\u{1F4C4} ') + name;
-      nameEl.style.cssText = isDir ? 'color:#dcdcaa;cursor:pointer;' : 'color:#d4d4d4;';
+      nameEl.style.cssText = isDir ? 'color:#dcdcaa;cursor:pointer;' : 'color:#d4d4d4;cursor:pointer;';
       if (isDir) {
         nameEl.addEventListener('click', () => { fsBrowserPath = fullPath; refreshFsBrowser(); });
+      } else {
+        nameEl.addEventListener('dblclick', () => {
+          const content = lbm.FS.readFile(fullPath, {encoding: 'utf8'});
+          const tab = createEditorTab(name);
+          tab.cm.setValue(content);
+          tab.filename = name;
+        });
       }
       row.appendChild(nameEl);
 
@@ -861,11 +868,12 @@ LispBM().then(lbm => {
     .then(r => r.json())
     .then(files => {
       try { lbm.FS.mkdir('/libs'); } catch(e) {}
-      files.forEach(f => {
+      const fetches = files.map(f =>
         fetch('libs/' + f)
           .then(r => r.arrayBuffer())
-          .then(buf => lbm.FS.writeFile('/libs/' + f, new Uint8Array(buf)));
-      });
+          .then(buf => lbm.FS.writeFile('/libs/' + f, new Uint8Array(buf)))
+      );
+      Promise.all(fetches).then(() => refreshFsBrowser());
     });
 
   console.log('calling lbm_wasm_init...');
