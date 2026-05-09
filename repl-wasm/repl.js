@@ -20,6 +20,25 @@ consolePane.id = 'output-tab-console';
 consolePane.className = 'tab-pane active';
 document.getElementById('output-tab-contents').appendChild(consolePane);
 
+const consoleOutput = document.createElement('div');
+consoleOutput.id = 'console-output';
+consolePane.appendChild(consoleOutput);
+
+const consolePromptRow = document.createElement('div');
+consolePromptRow.id = 'console-prompt-row';
+const consolePromptSpan = document.createElement('span');
+consolePromptSpan.id = 'console-prompt';
+consolePromptSpan.textContent = '# ';
+const consoleInput = document.createElement('input');
+consoleInput.id = 'console-input';
+consoleInput.type = 'text';
+consoleInput.autocomplete = 'off';
+consoleInput.disabled = true;
+consoleInput.placeholder = 'Enter expression...';
+consolePromptRow.appendChild(consolePromptSpan);
+consolePromptRow.appendChild(consoleInput);
+consolePane.appendChild(consolePromptRow);
+
 function switchTab(id) {
 
   // Set active on the on the button switched to and remove active
@@ -502,15 +521,12 @@ function mkPlotTab(title) {
 // value is then a handle through which all interaction with
 // lispbm runtime happens.
 LispBM().then(lbm => {
-  const btnEval     = document.getElementById('btn-eval');
-  const btnLoad     = document.getElementById('btn-load');
-  const status      = document.getElementById('status');
+  const btnLoad = document.getElementById('btn-load');
+  const status  = document.getElementById('status');
 
   function appendOutput(text) {
-    consolePane.textContent += text;
-    if (consolePane.classList.contains('active')) {
-      consolePane.scrollTop = consolePane.scrollHeight;
-    }
+    consoleOutput.textContent += text;
+    consoleOutput.scrollTop = consoleOutput.scrollHeight;
   }
 
   function pollOutput() {
@@ -894,11 +910,9 @@ LispBM().then(lbm => {
     return;
   }
 
-  btnEval.disabled = false;
   btnLoad.disabled = false;
-  const input = document.getElementById('input');
-  input.disabled = false;
-  input.focus();
+  consoleInput.disabled = false;
+  consoleInput.focus();
   statusText.textContent = 'Activity';
 
   const fsUploadInput = document.createElement('input');
@@ -964,11 +978,11 @@ LispBM().then(lbm => {
   setTimeout(loop, 0);
 
   function evalExpr() {
-    const code = input.value.trim();
+    const code = consoleInput.value.trim();
     if (!code) return;
     appendOutput('# ' + code + '\n');
     lbm.ccall('lbm_wasm_eval', null, ['string'], [code]);
-    input.value = '';
+    consoleInput.value = '';
   }
 
   function loadEditor() {
@@ -994,8 +1008,7 @@ LispBM().then(lbm => {
     refreshFsBrowser();
   });
 
-  btnEval.addEventListener('click', evalExpr);
-  input.addEventListener('keydown', e => { if (e.key === 'Enter') evalExpr(); });
+  consoleInput.addEventListener('keydown', e => { if (e.key === 'Enter') evalExpr(); });
   btnLoad.addEventListener('click', loadEditor);
 
 }).catch(err => {
