@@ -786,7 +786,7 @@ LispBM().then(lbm => {
 
       if (!isDir) {
         const dlBtn = document.createElement('button');
-        dlBtn.textContent = 'Save';
+        dlBtn.textContent = 'Download';
         dlBtn.style.cssText = 'background:#3a3a3a;border:1px solid #555;color:#d4d4d4;padding:1px 8px;font-size:11px;';
         dlBtn.addEventListener('click', () => {
           const data = lbm.FS.readFile(fullPath);
