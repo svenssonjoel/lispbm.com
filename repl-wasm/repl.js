@@ -417,12 +417,6 @@ document.getElementById('btn-open-url').addEventListener('click', () => {
     .catch(e => alert('Failed to open URL: ' + e.message));
 });
 
-document.getElementById('btn-save').addEventListener('click', () => {
-  if (!activeEditor) return;
-  const content  = activeEditor.cm.getValue();
-  const filename = activeEditor.filename || 'untitled.lisp';
-  downloadFile(filename, content);
-});
 
 const busyLed    = document.getElementById('busy-led');
 const statusText = document.getElementById('status-text');
@@ -984,6 +978,21 @@ LispBM().then(lbm => {
     window.currentBaseUrl = activeEditor.baseUrl || null;
     lbm.ccall('lbm_wasm_eval_program', null, ['string'], [code]);
   }
+
+  document.getElementById('btn-save').addEventListener('click', () => {
+    if (!activeEditor) return;
+    let filename = activeEditor.filename;
+    if (!filename) {
+      filename = prompt('Save as:');
+      if (!filename || !filename.trim()) return;
+      filename = filename.trim();
+      activeEditor.filename = filename;
+      activeEditor.labelEl.textContent = filename;
+    }
+    const dest = (fsBrowserPath === '/' ? '' : fsBrowserPath) + '/' + filename;
+    lbm.FS.writeFile(dest, activeEditor.cm.getValue());
+    refreshFsBrowser();
+  });
 
   btnEval.addEventListener('click', evalExpr);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') evalExpr(); });
