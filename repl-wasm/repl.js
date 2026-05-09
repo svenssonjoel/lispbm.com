@@ -722,7 +722,82 @@ LispBM().then(lbm => {
     });
 
     rtsPane.appendChild(table);
+
+    // --- Filesystem browser ---
+    const fsSep = document.createElement('div');
+    fsSep.style.cssText = 'border-top:1px solid #333;margin:10px 0;';
+    rtsPane.appendChild(fsSep);
+
+    const fsHeader = document.createElement('div');
+    fsHeader.style.cssText = 'display:flex;align-items:center;gap:8px;margin-bottom:6px;';
+
+    const fsTitle = document.createElement('span');
+    fsTitle.textContent = 'MEMFS:';
+    fsTitle.style.cssText = 'color:#569cd6;font-size:12px;';
+
+    const fsPath = document.createElement('span');
+    fsPath.textContent = fsBrowserPath;
+    fsPath.style.cssText = 'color:#888;font-size:12px;flex:1;';
+
+    const fsUploadBtn = document.createElement('button');
+    fsUploadBtn.textContent = 'Upload';
+    fsUploadBtn.style.cssText = 'background:#3a3a3a;border:1px solid #555;color:#d4d4d4;padding:1px 8px;font-size:11px;';
+    fsUploadBtn.addEventListener('click', () => fsUploadInput.click());
+
+    fsHeader.appendChild(fsTitle);
+    fsHeader.appendChild(fsPath);
+    fsHeader.appendChild(fsUploadBtn);
+    rtsPane.appendChild(fsHeader);
+
+    let entries;
+    try { entries = lbm.FS.readdir(fsBrowserPath); } catch(e) { entries = []; }
+
+    entries.filter(e => e !== '.' && e !== '..').forEach(name => {
+      const fullPath = (fsBrowserPath === '/' ? '' : fsBrowserPath) + '/' + name;
+      let isDir = false;
+      try { isDir = lbm.FS.isDir(lbm.FS.stat(fullPath).mode); } catch(e) {}
+
+      const row = document.createElement('div');
+      row.style.cssText = 'display:flex;align-items:center;justify-content:space-between;padding:2px 4px;font-size:12px;border-bottom:1px solid #1a1a1a;';
+
+      const nameEl = document.createElement('span');
+      nameEl.textContent = (isDir ? '\u{1F4C1} ' : '\u{1F4C4} ') + name;
+      nameEl.style.cssText = isDir ? 'color:#dcdcaa;cursor:pointer;' : 'color:#d4d4d4;';
+      if (isDir) {
+        nameEl.addEventListener('click', () => { fsBrowserPath = fullPath; });
+      }
+      row.appendChild(nameEl);
+
+      if (!isDir) {
+        const dlBtn = document.createElement('button');
+        dlBtn.textContent = 'Save';
+        dlBtn.style.cssText = 'background:#3a3a3a;border:1px solid #555;color:#d4d4d4;padding:1px 8px;font-size:11px;';
+        dlBtn.addEventListener('click', () => {
+          const data = lbm.FS.readFile(fullPath);
+          const blob = new Blob([data], {type: 'application/octet-stream'});
+          const url  = URL.createObjectURL(blob);
+          const a    = document.createElement('a');
+          a.href = url; a.download = name; a.click();
+          URL.revokeObjectURL(url);
+        });
+        row.appendChild(dlBtn);
+      }
+
+      rtsPane.appendChild(row);
+    });
+
+    if (fsBrowserPath !== '/') {
+      const upRow = document.createElement('div');
+      upRow.textContent = '↑ ..';
+      upRow.style.cssText = 'color:#888;font-size:12px;cursor:pointer;padding:2px 4px;';
+      upRow.addEventListener('click', () => {
+        fsBrowserPath = fsBrowserPath.substring(0, fsBrowserPath.lastIndexOf('/')) || '/';
+      });
+      rtsPane.insertBefore(upRow, fsHeader.nextSibling);
+    }
   }
+
+  let fsBrowserPath = '/';
 
   setInterval(() => {
     if (rtsTabBtn.classList.contains('active')) refreshRTS();
@@ -793,16 +868,17 @@ LispBM().then(lbm => {
 
   btnEval.disabled = false;
   btnLoad.disabled = false;
-  document.getElementById('btn-upload-fs').disabled = false;
   const input = document.getElementById('input');
   input.disabled = false;
   input.focus();
   statusText.textContent = 'Activity';
 
-  const fsFileInput = document.getElementById('fs-file-input');
-  document.getElementById('btn-upload-fs').addEventListener('click', () => fsFileInput.click());
-  fsFileInput.addEventListener('change', () => {
-    const file = fsFileInput.files[0];
+  const fsUploadInput = document.createElement('input');
+  fsUploadInput.type = 'file';
+  fsUploadInput.style.display = 'none';
+  document.body.appendChild(fsUploadInput);
+  fsUploadInput.addEventListener('change', () => {
+    const file = fsUploadInput.files[0];
     if (!file) return;
     const reader = new FileReader();
     reader.onload = e => {
@@ -811,7 +887,7 @@ LispBM().then(lbm => {
       appendOutput('Uploaded "' + file.name + '" to MEMFS (' + data.length + ' bytes)\n');
     };
     reader.readAsArrayBuffer(file);
-    fsFileInput.value = '';
+    fsUploadInput.value = '';
   });
 
   let ledState    = false;
