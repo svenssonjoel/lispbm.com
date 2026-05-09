@@ -685,9 +685,9 @@ LispBM().then(lbm => {
       msg.style.cssText = 'color:#666;font-size:12px;';
       msg.textContent = 'No running threads.';
       rtsPane.appendChild(msg);
-      return;
     }
 
+    if (ctxs.length > 0) {
     const table = document.createElement('table');
     table.style.cssText = 'width:100%;border-collapse:collapse;font-size:12px;';
 
@@ -722,6 +722,7 @@ LispBM().then(lbm => {
     });
 
     rtsPane.appendChild(table);
+    } // end ctxs.length > 0
 
     // --- Filesystem browser ---
     const fsSep = document.createElement('div');
