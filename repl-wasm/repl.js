@@ -121,7 +121,7 @@ function createEditorTab(name) {
   cm.setSize('100%', '100%');
   cm.on('paste', () => setTimeout(() => cm.focus(), 20));
 
-  const tab = { id, btn, pane, cm, labelEl, filename: null };
+  const tab = { id, btn, pane, cm, labelEl, filename: null, baseUrl: null };
   editorTabs.push(tab);
   switchEditorTab(id);
   return tab;
@@ -401,6 +401,21 @@ function downloadFile(filename, content) {
   a.click();
   URL.revokeObjectURL(url);
 }
+
+document.getElementById('btn-open-url').addEventListener('click', () => {
+  const url = prompt('Open URL:');
+  if (!url || !url.trim()) return;
+  fetch(url.trim())
+    .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.text(); })
+    .then(code => {
+      const name = url.trim().split('/').pop() || 'untitled';
+      const tab = createEditorTab(name);
+      tab.cm.setValue(code);
+      tab.filename = name;
+      tab.baseUrl  = url.trim();
+    })
+    .catch(e => alert('Failed to open URL: ' + e.message));
+});
 
 document.getElementById('btn-save').addEventListener('click', () => {
   if (!activeEditor) return;
@@ -966,6 +981,7 @@ LispBM().then(lbm => {
     if (!activeEditor) return;
     const code = activeEditor.cm.getValue().trim();
     if (!code) return;
+    window.currentBaseUrl = activeEditor.baseUrl || null;
     lbm.ccall('lbm_wasm_eval_program', null, ['string'], [code]);
   }
 
