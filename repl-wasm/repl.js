@@ -82,7 +82,7 @@ function drawGpioTrace(pin, canvas) {
   ctx.fillStyle = '#0a0a0a';
   ctx.fillRect(0, 0, w, 16);
 
-  const windowMs = 5000;
+  const windowMs = 2000;
   const now = performance.now();
   const tMin = now - windowMs;
   const series = state.timeSeries;
@@ -326,8 +326,12 @@ window.gpioWrite = function(pin, value) {
   const state = gpioState[pin];
   if (!state) return;
   state.value = value;
-  state.timeSeries.push({ t: performance.now(), v: value });
-  if (state.timeSeries.length > 2000) state.timeSeries.shift();
+  const series = state.timeSeries;
+  const last = series[series.length - 1];
+  if (!last || last.v !== value) {
+    series.push({ t: performance.now(), v: value });
+    if (series.length > 500) series.shift();
+  }
   refreshGpioLeds(pin);
 };
 
@@ -1304,7 +1308,7 @@ LispBM().then(lbm => {
         if (row.canvasEl) drawGpioTrace(pin, row.canvasEl);
       });
     });
-  }, 100);
+  }, 50);
 
   window.canvasPutImage = function(canvasId, rgbaPtr, w, h, x, y) {
     const tab = canvasTabs[canvasId];
