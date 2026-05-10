@@ -235,7 +235,7 @@
     #sim-menu-container { position:relative; margin-left:4px; flex-shrink:0; }
     #sim-menu-btn { background:#222; color:#888; border:1px solid #383838; padding:2px 8px; font-family:inherit; font-size:13px; cursor:pointer; line-height:1; }
     #sim-menu-btn:hover { color:#d4d4d4; background:#333; }
-    #sim-dropdown { display:none; position:absolute; top:100%; right:0; background:#1e1e1e; border:1px solid #444; z-index:300; min-width:150px; padding:2px 0; }
+    #sim-dropdown { display:none; position:absolute; bottom:100%; right:0; background:#1e1e1e; border:1px solid #444; z-index:1000; min-width:150px; padding:2px 0; margin-bottom:2px; }
     #sim-dropdown.open { display:block; }
     .sim-dropdown-item { padding:5px 12px; cursor:pointer; font-size:12px; color:#d4d4d4; white-space:nowrap; }
     .sim-dropdown-item:hover { background:#2a2a2a; }
@@ -287,13 +287,6 @@
     <div id="editor-panel">
       <div id="editor-tab-bar">
         <button id="btn-new-editor-tab">+</button>
-        <div id="sim-menu-container">
-          <button id="sim-menu-btn">Sim &#9660;</button>
-          <div id="sim-dropdown">
-            <div class="sim-dropdown-item" data-sim="bldc">GPIO BLDC</div>
-            <div class="sim-dropdown-item" data-sim="express">GPIO Express</div>
-          </div>
-        </div>
       </div>
       <div id="editor-tab-contents"></div>
       <div id="editor-btn-row">
@@ -302,6 +295,13 @@
         <button id="btn-open-url">Open URL</button>
         <button id="btn-save">Save</button>
         <button id="btn-load" disabled>Load</button>
+        <div id="sim-menu-container">
+          <button id="sim-menu-btn">Sim &#9650;</button>
+          <div id="sim-dropdown">
+            <div class="sim-dropdown-item" data-sim="bldc">GPIO BLDC</div>
+            <div class="sim-dropdown-item" data-sim="express">GPIO Express</div>
+          </div>
+        </div>
       </div>
       <input type="file" id="file-input" accept=".lisp,.lbm" style="display:none">
     </div>
