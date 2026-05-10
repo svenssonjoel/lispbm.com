@@ -170,6 +170,17 @@
     #btn-run-sim:hover { background: #1e3028; }
     #btn-run-sim.sim-running { background: #281515; color: #e06c75; border-color: #502a2a; }
     #sim-loop-label { font-size: 12px; color: #888; display: flex; align-items: center; gap: 3px; cursor: pointer; }
+    .sim-value-pane { padding: 8px; overflow-y: auto; }
+    .sim-value-table { width: 100%; border-collapse: collapse; font-size: 12px; }
+    .sim-value-table th { text-align: left; color: #569cd6; padding: 4px 8px; border-bottom: 1px solid #333; }
+    .sim-value-table td { padding: 2px 4px; border-bottom: 1px solid #1a1a1a; }
+    .sim-value-key { color: #4ec9b0; font-family: "Courier New", monospace; white-space: nowrap; padding-right: 16px; }
+    .sim-value-input { background: #1e1e1e; color: #d4d4d4; border: 1px solid #383838; font-size: 12px; width: 100%; box-sizing: border-box; padding: 2px 6px; }
+    .sim-value-add { display: flex; gap: 4px; padding: 8px 4px 4px; align-items: center; }
+    .sim-value-key-inp { background: #1e1e1e; color: #d4d4d4; border: 1px solid #383838; font-size: 12px; padding: 2px 6px; flex: 1; min-width: 0; width: 0; }
+    .sim-value-add .sim-value-input { width: 80px; flex: none; }
+    .sim-type-select { background: #1e1e1e; color: #888; border: 1px solid #383838; font-size: 11px; padding: 1px 2px; cursor: pointer; }
+    .sim-type-select:focus { outline: none; color: #d4d4d4; }
     #examples-modal {
       display: none;
       position: fixed;
@@ -302,6 +313,8 @@
             <div id="sim-dropdown">
               <div class="sim-dropdown-item" data-sim="bldc">GPIO BLDC</div>
               <div class="sim-dropdown-item" data-sim="express">GPIO Express</div>
+              <div class="sim-dropdown-item" data-sim="bms">BMS Sim</div>
+              <div class="sim-dropdown-item" data-sim="config">Config Sim</div>
             </div>
           </div>
           <label id="sim-loop-label"><input type="checkbox" id="sim-loop-chk"> loop</label>

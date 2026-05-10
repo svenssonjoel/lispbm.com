@@ -352,6 +352,322 @@ window.gpioRead = function(pin) {
 };
 
 // ------------------------------------------------------------
+// BMS and Config simulation state
+// ------------------------------------------------------------
+window.bmsState = {
+  'v-tot':            { val: 42.0,  type: 'f32' },
+  'v-min':            { val: 3.5,   type: 'f32' },
+  'v-max':            { val: 3.7,   type: 'f32' },
+  'i-in':             { val: 0.0,   type: 'f32' },
+  'i-in-ic':          { val: 0.0,   type: 'f32' },
+  'ah-cnt':           { val: 0.0,   type: 'f32' },
+  'ah-cnt-chg-total': { val: 0.0,   type: 'f32' },
+  'wh-cnt':           { val: 0.0,   type: 'f32' },
+  'wh-cnt-chg-total': { val: 0.0,   type: 'f32' },
+  'soc':              { val: 100.0, type: 'f32' },
+  'soh':              { val: 100.0, type: 'f32' },
+  'temp-adc-0':       { val: 25.0,  type: 'f32' },
+  'temp-adc-1':       { val: 25.0,  type: 'f32' },
+  'temp-adc-2':       { val: 25.0,  type: 'f32' },
+  'num-cell-groups':  { val: 12,    type: 'i'   },
+  'cell-num':         { val: 12,    type: 'i'   },
+  'balancing':        { val: 0,     type: 'i'   },
+  'is-balancing':     { val: 0,     type: 'i'   },
+  'can-id':           { val: 10,    type: 'i'   },
+};
+
+window.configState = {
+  // Limits
+  'l-current-min':          { val: -60.0,    type: 'f32' },
+  'l-current-max':          { val:  60.0,    type: 'f32' },
+  'l-current-min-scale':    { val:   1.0,    type: 'f32' },
+  'l-current-max-scale':    { val:   1.0,    type: 'f32' },
+  'l-in-current-min':       { val: -30.0,    type: 'f32' },
+  'l-in-current-max':       { val:  30.0,    type: 'f32' },
+  'l-abs-current-max':      { val: 130.0,    type: 'f32' },
+  'l-min-erpm':             { val: -100000.0,type: 'f32' },
+  'l-max-erpm':             { val:  100000.0,type: 'f32' },
+  'l-erpm-start':           { val:   0.9,    type: 'f32' },
+  'l-min-vin':              { val:   8.0,    type: 'f32' },
+  'l-max-vin':              { val:  57.0,    type: 'f32' },
+  'l-min-duty':             { val:   0.005,  type: 'f32' },
+  'l-max-duty':             { val:   0.95,   type: 'f32' },
+  'l-watt-min':             { val: -500.0,   type: 'f32' },
+  'l-watt-max':             { val:  500.0,   type: 'f32' },
+  'l-battery-cut-start':    { val:  36.0,    type: 'f32' },
+  'l-battery-cut-end':      { val:  34.0,    type: 'f32' },
+  'l-temp-motor-start':     { val:  85.0,    type: 'f32' },
+  'l-temp-motor-end':       { val:  95.0,    type: 'f32' },
+  'l-temp-accel-dec':       { val:   1.0,    type: 'f32' },
+  // BMS limits
+  'bms-limit-mode':         { val:  0,       type: 'i'   },
+  'bms-t-limit-start':      { val:  45.0,    type: 'f32' },
+  'bms-t-limit-end':        { val:  65.0,    type: 'f32' },
+  'bms-vmin-limit-start':   { val:   3.3,    type: 'f32' },
+  'bms-vmin-limit-end':     { val:   3.0,    type: 'f32' },
+  'bms-vmax-limit-start':   { val:   4.1,    type: 'f32' },
+  'bms-vmax-limit-end':     { val:   4.2,    type: 'f32' },
+  // Motor
+  'motor-type':             { val:  2,       type: 'i'   },
+  'm-invert-direction':     { val:  0,       type: 'i'   },
+  'm-out-aux-mode':         { val:  0,       type: 'i'   },
+  'm-motor-temp-sens-type': { val:  0,       type: 'i'   },
+  'm-ntc-motor-beta':       { val:  3380.0,  type: 'f32' },
+  'm-ptc-motor-coeff':      { val:  0.0,     type: 'f32' },
+  'm-ntcx-ptcx-temp-base':  { val:  25.0,    type: 'f32' },
+  'm-ntcx-ptcx-res':        { val:  10000.0, type: 'f32' },
+  'm-encoder-counts':       { val:  8192,    type: 'i'   },
+  'm-sensor-port-mode':     { val:  0,       type: 'i'   },
+  'm-fault-stop-time-ms':   { val:  500,     type: 'i'   },
+  // SI / System
+  'si-motor-poles':         { val:  14,      type: 'i'   },
+  'si-gear-ratio':          { val:   1.0,    type: 'f32' },
+  'si-wheel-diameter':      { val:   0.083,  type: 'f32' },
+  'si-battery-cells':       { val:  12,      type: 'i'   },
+  'si-battery-ah':          { val:  18.0,    type: 'f32' },
+  'min-speed':              { val: -30.0,    type: 'f32' },
+  'max-speed':              { val:  30.0,    type: 'f32' },
+  // FOC
+  'foc-sensor-mode':        { val:  0,       type: 'i'   },
+  'foc-encoder-offset':     { val:  0.0,     type: 'f32' },
+  'foc-encoder-inverted':   { val:  0,       type: 'i'   },
+  'foc-encoder-ratio':      { val:  1.0,     type: 'f32' },
+  'foc-current-kp':         { val:  0.01,    type: 'f32' },
+  'foc-current-ki':         { val:  20.0,    type: 'f32' },
+  'foc-f-zv':               { val:  40000.0, type: 'f32' },
+  'foc-motor-l':            { val:  10.0,    type: 'f32' },
+  'foc-motor-ld-lq-diff':   { val:  0.0,     type: 'f32' },
+  'foc-motor-r':            { val:  50.0,    type: 'f32' },
+  'foc-motor-flux-linkage': { val:  15.0,    type: 'f32' },
+  'foc-observer-gain':      { val:   2.0,    type: 'f32' },
+  'foc-observer-type':      { val:  0,       type: 'i'   },
+  'foc-mtpa-mode':          { val:  0,       type: 'i'   },
+  'foc-hfi-amb-mode':       { val:  0,       type: 'i'   },
+  'foc-hfi-amb-current':    { val:  2.0,     type: 'f32' },
+  'foc-hfi-amb-tres':       { val:  0.02,    type: 'f32' },
+  'foc-hfi-voltage-start':  { val:  4.0,     type: 'f32' },
+  'foc-hfi-voltage-run':    { val:  2.0,     type: 'f32' },
+  'foc-hfi-voltage-max':    { val:  6.0,     type: 'f32' },
+  'foc-sl-erpm':            { val:  4000.0,  type: 'f32' },
+  'foc-sl-erpm-start':      { val:  1000.0,  type: 'f32' },
+  'foc-hall-t0':            { val:  255,     type: 'i'   },
+  'foc-hall-t1':            { val:  255,     type: 'i'   },
+  'foc-hall-t2':            { val:  255,     type: 'i'   },
+  'foc-hall-t3':            { val:  255,     type: 'i'   },
+  'foc-hall-t4':            { val:  255,     type: 'i'   },
+  'foc-hall-t5':            { val:  255,     type: 'i'   },
+  'foc-hall-t6':            { val:  255,     type: 'i'   },
+  'foc-hall-t7':            { val:  255,     type: 'i'   },
+  'foc-sl-erpm-hfi':        { val:  3000.0,  type: 'f32' },
+  'foc-hfi-reset-erpm':     { val:   600.0,  type: 'f32' },
+  'foc-openloop-rpm':       { val:   700.0,  type: 'f32' },
+  'foc-openloop-rpm-low':   { val:   100.0,  type: 'f32' },
+  'foc-sl-openloop-time-lock':  { val: 0.0,  type: 'f32' },
+  'foc-sl-openloop-time-ramp':  { val: 0.3,  type: 'f32' },
+  'foc-sl-openloop-time':   { val:  0.5,     type: 'f32' },
+  'foc-temp-comp':          { val:  0,       type: 'i'   },
+  'foc-temp-comp-base-temp':{ val:  25.0,    type: 'f32' },
+  'foc-offsets-cal-on-boot':{ val:  0,       type: 'i'   },
+  'foc-offsets-cal-mode':   { val:  0,       type: 'i'   },
+  'foc-fw-current-max':     { val:  0.0,     type: 'f32' },
+  'foc-fw-duty-start':      { val:  0.9,     type: 'f32' },
+  'foc-short-ls-on-zero-duty': { val: 0,     type: 'i'   },
+  'foc-overmod-factor':     { val:  1.0,     type: 'f32' },
+  // App / comms
+  'app-to-use':             { val:  0,       type: 'i'   },
+  'controller-id':          { val:  0,       type: 'i'   },
+  'timeout-msec':           { val:  1000,    type: 'i'   },
+  'can-baud-rate':          { val:  2,       type: 'i'   },
+  'can-mode':               { val:  1,       type: 'i'   },
+  'can-status-rate-1':      { val:  50.0,    type: 'f32' },
+  'can-status-msgs-r1':     { val:  0,       type: 'i'   },
+  'can-status-rate-2':      { val:  5.0,     type: 'f32' },
+  'can-status-msgs-r2':     { val:  0,       type: 'i'   },
+  'can-status-rate-hz':     { val:  50.0,    type: 'f32' },
+  // PPM
+  'ppm-ctrl-type':          { val:  0,       type: 'i'   },
+  'ppm-pulse-start':        { val:  1.0,     type: 'f32' },
+  'ppm-pulse-end':          { val:  2.0,     type: 'f32' },
+  'ppm-pulse-center':       { val:  1.5,     type: 'f32' },
+  'ppm-ramp-time-pos':      { val:  0.4,     type: 'f32' },
+  'ppm-ramp-time-neg':      { val:  0.2,     type: 'f32' },
+  'ppm-hyst':               { val:  0.15,    type: 'f32' },
+  // ADC
+  'adc-ctrl-type':          { val:  0,       type: 'i'   },
+  'adc-ramp-time-pos':      { val:  0.3,     type: 'f32' },
+  'adc-ramp-time-neg':      { val:  0.3,     type: 'f32' },
+  'adc-thr-hyst':           { val:  0.05,    type: 'f32' },
+  'adc-v1-start':           { val:  0.9,     type: 'f32' },
+  'adc-v1-end':             { val:  4.1,     type: 'f32' },
+  'adc-v1-min':             { val:  0.3,     type: 'f32' },
+  'adc-v1-max':             { val:  4.5,     type: 'f32' },
+  'pas-current-scaling':    { val:  1.0,     type: 'f32' },
+  // Express / WiFi / BLE
+  'wifi-mode':              { val:  0,         type: 'i'   },
+  'wifi-sta-ssid':          { val:  '',        type: 'str' },
+  'wifi-sta-key':           { val:  '',        type: 'str' },
+  'wifi-ap-ssid':           { val:  'VESC',    type: 'str' },
+  'wifi-ap-key':            { val:  '',        type: 'str' },
+  'use-tcp-local':          { val:  0,         type: 'i'   },
+  'use-tcp-hub':            { val:  0,         type: 'i'   },
+  'tcp-hub-url':            { val:  '',        type: 'str' },
+  'tcp-hub-port':           { val:  8000,      type: 'i'   },
+  'tcp-hub-id':             { val:  '',        type: 'str' },
+  'tcp-hub-pass':           { val:  '',        type: 'str' },
+  'ble-mode':               { val:  0,         type: 'i'   },
+  'ble-name':               { val:  'VESC',    type: 'str' },
+  'ble-pin':                { val:  1234,      type: 'i'   },
+  'ble-service-capacity':   { val:  10,        type: 'i'   },
+  'ble-chr-descr-capacity': { val:  50,        type: 'i'   },
+};
+
+let confValRefresh = null;
+window.setConfVal = (key, val) => {
+  if (window.configState) {
+    if (window.configState[key]) window.configState[key].val = val;
+    else window.configState[key] = { val, type: 'f64' };
+  }
+  if (confValRefresh) confValRefresh(key, val);
+};
+
+function createSimValueTab(label, stateObj) {
+  editorTabSeq++;
+  const id = 'et' + editorTabSeq;
+  const inputRefs = {}; // key -> { setVal }
+
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn';
+  btn.dataset.tab = id;
+  btn.addEventListener('click', () => switchEditorTab(id));
+  const labelEl = document.createElement('span');
+  labelEl.textContent = label;
+  const closeEl = document.createElement('span');
+  closeEl.className = 'tab-close';
+  closeEl.textContent = '⊗';
+  closeEl.addEventListener('click', e => { e.stopPropagation(); closeEditorTab(id); });
+  btn.appendChild(labelEl);
+  btn.appendChild(closeEl);
+  document.getElementById('editor-tab-bar').insertBefore(btn, document.getElementById('btn-new-editor-tab'));
+
+  const pane = document.createElement('div');
+  pane.className = 'sim-pane sim-value-pane';
+
+  const table = document.createElement('table');
+  table.className = 'sim-value-table';
+  const thead = document.createElement('thead');
+  const hrow = document.createElement('tr');
+  ['Key', 'Type', 'Value'].forEach(t => {
+    const th = document.createElement('th'); th.textContent = t; hrow.appendChild(th);
+  });
+  thead.appendChild(hrow);
+  table.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  table.appendChild(tbody);
+  pane.appendChild(table);
+
+  const SIM_TYPES = ['i', 'u', 'i32', 'u32', 'f32', 'f64', 'symbol', 'str'];
+
+  function makeTypeSelect(entry) {
+    const sel = document.createElement('select');
+    sel.className = 'sim-type-select';
+    SIM_TYPES.forEach(t => {
+      const o = document.createElement('option');
+      o.value = t; o.textContent = t;
+      if (t === entry.type) o.selected = true;
+      sel.appendChild(o);
+    });
+    return sel;
+  }
+
+  function makeValInput(entry) {
+    const inp = document.createElement('input');
+    inp.className = 'sim-value-input';
+    if (entry.type === 'symbol' || entry.type === 'str') {
+      inp.type = 'text';
+      inp.value = entry.val || '';
+      inp.addEventListener('change', () => { entry.val = inp.value; });
+    } else {
+      inp.type = 'number'; inp.step = 'any';
+      inp.value = entry.val;
+      inp.addEventListener('change', () => { entry.val = parseFloat(inp.value) || 0; });
+    }
+    return inp;
+  }
+
+  function addRow(key, entry) {
+    if (!entry || typeof entry !== 'object') entry = { val: entry, type: 'f64' };
+    const tr = document.createElement('tr');
+
+    const tdKey = document.createElement('td');
+    tdKey.className = 'sim-value-key';
+    tdKey.textContent = key;
+
+    const tdType = document.createElement('td');
+    const typeSelect = makeTypeSelect(entry);
+    tdType.appendChild(typeSelect);
+
+    const tdVal = document.createElement('td');
+    let inp = makeValInput(entry);
+    tdVal.appendChild(inp);
+
+    typeSelect.addEventListener('change', () => {
+      entry.type = typeSelect.value;
+      const newInp = makeValInput(entry);
+      tdVal.replaceChild(newInp, inp);
+      inp = newInp;
+    });
+
+    tr.appendChild(tdKey); tr.appendChild(tdType); tr.appendChild(tdVal);
+    tbody.appendChild(tr);
+    inputRefs[key] = { setVal: (v) => { entry.val = v; inp.value = v; } };
+  }
+
+  Object.entries(stateObj).forEach(([k, e]) => addRow(k, e));
+
+  const addArea = document.createElement('div');
+  addArea.className = 'sim-value-add';
+  const keyInp = document.createElement('input');
+  keyInp.type = 'text'; keyInp.placeholder = 'key'; keyInp.className = 'sim-value-key-inp';
+  const addTypeSelect = makeTypeSelect({ type: 'f32' });
+  const valInp = document.createElement('input');
+  valInp.type = 'number'; valInp.step = 'any'; valInp.placeholder = '0';
+  valInp.className = 'sim-value-input';
+  addTypeSelect.addEventListener('change', () => {
+    const t = addTypeSelect.value;
+    valInp.type = (t === 'symbol' || t === 'str') ? 'text' : 'number';
+  });
+  const addBtn = document.createElement('button');
+  addBtn.textContent = '+ Add';
+  addBtn.addEventListener('click', () => {
+    const k = keyInp.value.trim();
+    if (!k) return;
+    const t = addTypeSelect.value;
+    const v = (t === 'symbol' || t === 'str') ? (valInp.value || '') : (parseFloat(valInp.value) || 0);
+    const entry = { val: v, type: t };
+    stateObj[k] = entry;
+    if (inputRefs[k]) inputRefs[k].setVal(v);
+    else addRow(k, entry);
+    keyInp.value = ''; valInp.value = '';
+  });
+  addArea.appendChild(keyInp);
+  addArea.appendChild(addTypeSelect);
+  addArea.appendChild(valInp);
+  addArea.appendChild(addBtn);
+  pane.appendChild(addArea);
+
+  document.getElementById('editor-tab-contents').appendChild(pane);
+
+  const tab = { id, btn, pane, cm: null, labelEl, filename: null, baseUrl: null, isSim: true };
+  editorTabs.push(tab);
+  switchEditorTab(id);
+
+  return (key, val) => {
+    if (!stateObj[key]) { stateObj[key] = { val, type: 'f64' }; addRow(key, stateObj[key]); }
+    else { stateObj[key].val = val; if (inputRefs[key]) inputRefs[key].setVal(val); }
+  };
+}
+
+// ------------------------------------------------------------
 // Left pane. The output/results tabs
 // ------------------------------------------------------------
 let plotCount = 0;
@@ -901,7 +1217,17 @@ const simDropdown = document.getElementById('sim-dropdown');
 simMenuBtn.addEventListener('click', e => { e.stopPropagation(); simDropdown.classList.toggle('open'); });
 document.addEventListener('click', () => simDropdown.classList.remove('open'));
 document.querySelectorAll('.sim-dropdown-item').forEach(item => {
-  item.addEventListener('click', () => { createGpioTab(item.dataset.sim); simDropdown.classList.remove('open'); });
+  item.addEventListener('click', () => {
+    const type = item.dataset.sim;
+    if (type === 'bms') {
+      createSimValueTab('BMS Sim', window.bmsState);
+    } else if (type === 'config') {
+      confValRefresh = createSimValueTab('Config Sim', window.configState);
+    } else {
+      createGpioTab(type);
+    }
+    simDropdown.classList.remove('open');
+  });
 });
 
 const runSimBtn  = document.getElementById('btn-run-sim');
