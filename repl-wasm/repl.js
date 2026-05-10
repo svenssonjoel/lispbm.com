@@ -511,7 +511,6 @@ function closeEditorTab(id) {
   if (!tab.isSim && editorTabs.filter(t => !t.isSim).length <= 1) return;
   const idx = editorTabs.findIndex(t => t.id === id);
   if (idx < 0) return;
-  const tab = editorTabs[idx];
   tab.btn.remove();
   tab.pane.remove();
   editorTabs.splice(idx, 1);
