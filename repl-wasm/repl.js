@@ -1,4 +1,341 @@
 // ------------------------------------------------------------
+// GPIO simulation
+// ------------------------------------------------------------
+const GPIO_BLDC_PINS = [
+  'pin-rx', 'pin-tx', 'pin-swdio', 'pin-swclk',
+  'pin-hall1', 'pin-hall2', 'pin-hall3',
+  'pin-adc1', 'pin-adc2', 'pin-adc3', 'pin-adc4',
+  'pin-ppm', 'pin-hw-1', 'pin-hw-2'
+];
+
+const gpioState = {}; // pin -> { mode, value, timeSeries, inputCtrl, seqText, ... }
+
+function gpioModeClass(m) {
+  if (!m) return '';
+  if (m==='pin-mode-out'||m==='pin-mode-od'||m==='pin-mode-od-pu'||m==='pin-mode-od-pd') return 'gpio-mode-out';
+  if (m==='pin-mode-in' ||m==='pin-mode-in-pu'||m==='pin-mode-in-pd') return 'gpio-mode-in';
+  if (m==='pin-mode-analog') return 'gpio-mode-analog';
+  return '';
+}
+function gpioIsOutput(m) { return m==='pin-mode-out'||m==='pin-mode-od'||m==='pin-mode-od-pu'||m==='pin-mode-od-pd'; }
+function gpioIsInput(m)  { return m==='pin-mode-in' ||m==='pin-mode-in-pu'||m==='pin-mode-in-pd'; }
+
+function parseGpioSeq(text) {
+  return text.split('\n').map(l => l.trim()).filter(Boolean).map(l => {
+    const [a, b] = l.split(/\s+/);
+    return { v: parseInt(a) || 0, d: parseInt(b) || 500 };
+  });
+}
+
+function refreshGpioLeds(pin) {
+  const state = gpioState[pin];
+  if (!state) return;
+  editorTabs.forEach(tab => {
+    if (!tab.isSim || !tab.gpioRows || !tab.gpioRows[pin]) return;
+    const row = tab.gpioRows[pin];
+    row.ledEl.classList.toggle('on', !!state.value);
+    if (row.seqToggleBtn) row.seqToggleBtn.textContent = state.value ? '1' : '0';
+  });
+}
+
+function refreshGpioPlayBtns(pin, playing) {
+  editorTabs.forEach(tab => {
+    if (!tab.isSim || !tab.gpioRows || !tab.gpioRows[pin]) return;
+    const row = tab.gpioRows[pin];
+    if (row.playBtn) {
+      row.playBtn.textContent = playing ? '■ Stop' : '▶ Play';
+      row.playBtn.classList.toggle('playing', playing);
+    }
+  });
+}
+
+function stepGpioSeq(pin) {
+  const state = gpioState[pin];
+  if (!state || !state.playing) return;
+  const { v, d } = state.parsedSeq[state.seqIndex];
+  state.value = v;
+  refreshGpioLeds(pin);
+  state.seqIndex++;
+  if (state.seqIndex >= state.parsedSeq.length) {
+    if (state.looping) { state.seqIndex = 0; }
+    else { state.playing = false; refreshGpioPlayBtns(pin, false); return; }
+  }
+  state.seqTimeout = setTimeout(() => stepGpioSeq(pin), d);
+}
+
+function stopGpioSeq(pin) {
+  const state = gpioState[pin];
+  if (!state) return;
+  clearTimeout(state.seqTimeout);
+  state.playing = false;
+  state.seqIndex = 0;
+}
+
+function drawGpioTrace(pin, canvas) {
+  const state = gpioState[pin];
+  if (!state || !state.timeSeries.length) return;
+  const w = canvas.offsetWidth;
+  if (w === 0) return;
+  if (canvas.width !== w) canvas.width = w;
+  if (canvas.height !== 16) canvas.height = 16;
+  const ctx = canvas.getContext('2d');
+  ctx.fillStyle = '#0a0a0a';
+  ctx.fillRect(0, 0, w, 16);
+
+  const windowMs = 5000;
+  const now = performance.now();
+  const tMin = now - windowMs;
+  const series = state.timeSeries;
+
+  let initV = 0;
+  for (const s of series) { if (s.t <= tMin) initV = s.v; }
+
+  ctx.strokeStyle = '#4ec9b0';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  const yHi = 2.5, yLo = 13.5;
+  let cy = initV ? yHi : yLo;
+  ctx.moveTo(0, cy);
+  for (const { t, v } of series) {
+    if (t < tMin) continue;
+    const x = ((t - tMin) / windowMs) * w;
+    const ny = v ? yHi : yLo;
+    if (ny !== cy) { ctx.lineTo(x, cy); ctx.lineTo(x, ny); cy = ny; }
+    else ctx.lineTo(x, cy);
+  }
+  ctx.lineTo(w, cy);
+  ctx.stroke();
+}
+
+function buildGpioCtrlCell(pin, cell) {
+  cell.innerHTML = '';
+  const state = gpioState[pin];
+  if (!state || !state.mode) return {};
+
+  if (gpioIsOutput(state.mode)) {
+    const canvas = document.createElement('canvas');
+    canvas.className = 'gpio-trace-canvas';
+    cell.appendChild(canvas);
+    return { canvasEl: canvas };
+  }
+
+  if (gpioIsInput(state.mode)) {
+    const sel = document.createElement('select');
+    sel.className = 'gpio-input-mode-select';
+    ['toggle', 'sequence'].forEach(m => {
+      const o = document.createElement('option');
+      o.value = m; o.textContent = m;
+      if (m === (state.inputCtrl || 'toggle')) o.selected = true;
+      sel.appendChild(o);
+    });
+
+    const toggleWrap = document.createElement('span');
+    const toggleBtn = document.createElement('button');
+    toggleBtn.className = 'gpio-toggle-btn';
+    toggleBtn.textContent = state.value ? '1' : '0';
+    toggleBtn.addEventListener('click', () => {
+      state.value ^= 1;
+      toggleBtn.textContent = state.value ? '1' : '0';
+      refreshGpioLeds(pin);
+    });
+    toggleWrap.appendChild(toggleBtn);
+
+    const seqWrap = document.createElement('div');
+    const ta = document.createElement('textarea');
+    ta.className = 'gpio-seq-textarea';
+    ta.value = state.seqText || '0 500\n1 500';
+    ta.rows = 3;
+    ta.spellcheck = false;
+    ta.addEventListener('input', () => { state.seqText = ta.value; });
+
+    const seqCtrl = document.createElement('div');
+    seqCtrl.className = 'gpio-seq-controls';
+
+    const loopLbl = document.createElement('label');
+    loopLbl.className = 'gpio-loop-label';
+    const loopChk = document.createElement('input');
+    loopChk.type = 'checkbox';
+    loopChk.checked = state.looping !== false;
+    loopChk.addEventListener('change', () => { state.looping = loopChk.checked; });
+    loopLbl.appendChild(loopChk);
+    loopLbl.append(' loop');
+
+    const playBtn = document.createElement('button');
+    playBtn.className = 'gpio-play-btn' + (state.playing ? ' playing' : '');
+    playBtn.textContent = state.playing ? '■ Stop' : '▶ Play';
+    playBtn.addEventListener('click', () => {
+      if (state.playing) {
+        stopGpioSeq(pin);
+        refreshGpioPlayBtns(pin, false);
+      } else {
+        state.parsedSeq = parseGpioSeq(ta.value);
+        state.seqText = ta.value;
+        if (!state.parsedSeq.length) return;
+        state.playing = true;
+        state.seqIndex = 0;
+        state.looping = loopChk.checked;
+        refreshGpioPlayBtns(pin, true);
+        stepGpioSeq(pin);
+      }
+    });
+
+    seqCtrl.appendChild(loopLbl);
+    seqCtrl.appendChild(playBtn);
+    seqWrap.appendChild(ta);
+    seqWrap.appendChild(seqCtrl);
+
+    const showCtrl = (mode) => {
+      state.inputCtrl = mode;
+      toggleWrap.style.display = mode === 'toggle' ? 'inline' : 'none';
+      seqWrap.style.display   = mode === 'sequence' ? 'block'  : 'none';
+    };
+    showCtrl(state.inputCtrl || 'toggle');
+    sel.addEventListener('change', () => showCtrl(sel.value));
+
+    cell.appendChild(sel);
+    cell.appendChild(toggleWrap);
+    cell.appendChild(seqWrap);
+    return { seqToggleBtn: toggleBtn, playBtn };
+  }
+
+  return {};
+}
+
+function addGpioRow(pin, tab) {
+  if (!gpioState[pin]) {
+    gpioState[pin] = {
+      mode: null, value: 0,
+      inputCtrl: 'toggle', seqText: '0 500\n1 500',
+      parsedSeq: [], looping: true, playing: false,
+      seqIndex: 0, seqTimeout: null, timeSeries: [],
+    };
+  }
+  const state = gpioState[pin];
+
+  const tr = document.createElement('tr');
+  if (!state.mode) tr.className = 'gpio-unconfigured';
+
+  const tdPin = document.createElement('td');
+  tdPin.className = 'gpio-pin-name';
+  tdPin.textContent = pin;
+  tr.appendChild(tdPin);
+
+  const tdMode = document.createElement('td');
+  const badge = document.createElement('span');
+  badge.className = 'gpio-mode-badge' + (state.mode ? ' ' + gpioModeClass(state.mode) : '');
+  badge.textContent = state.mode ? state.mode.replace('pin-mode-', '') : '—';
+  tdMode.appendChild(badge);
+  tr.appendChild(tdMode);
+
+  const tdLed = document.createElement('td');
+  const led = document.createElement('span');
+  led.className = 'gpio-led' + (state.value ? ' on' : '');
+  tdLed.appendChild(led);
+  tr.appendChild(tdLed);
+
+  const tdCtrl = document.createElement('td');
+  tdCtrl.className = 'gpio-ctrl-cell';
+  const ctrlRefs = buildGpioCtrlCell(pin, tdCtrl);
+  tr.appendChild(tdCtrl);
+
+  tab.tbody.appendChild(tr);
+  tab.gpioRows[pin] = { rowEl: tr, modeEl: badge, ledEl: led, ctrlCell: tdCtrl, ...ctrlRefs };
+}
+
+function createGpioTab(type) {
+  editorTabSeq++;
+  const id = 'et' + editorTabSeq;
+  const label = type === 'bldc' ? 'GPIO BLDC' : 'GPIO Express';
+
+  const btn = document.createElement('button');
+  btn.className = 'tab-btn';
+  btn.dataset.tab = id;
+  btn.addEventListener('click', () => switchEditorTab(id));
+  const labelEl = document.createElement('span');
+  labelEl.textContent = label;
+  const closeEl = document.createElement('span');
+  closeEl.className = 'tab-close';
+  closeEl.textContent = '⊗';
+  closeEl.addEventListener('click', e => { e.stopPropagation(); closeEditorTab(id); });
+  btn.appendChild(labelEl);
+  btn.appendChild(closeEl);
+  document.getElementById('editor-tab-bar').insertBefore(btn, document.getElementById('btn-new-editor-tab'));
+
+  const pane = document.createElement('div');
+  pane.className = 'sim-pane';
+
+  const table = document.createElement('table');
+  table.className = 'gpio-table';
+  const thead = document.createElement('thead');
+  const hrow = document.createElement('tr');
+  ['Pin', 'Mode', '●', 'Control'].forEach((h, i) => {
+    const th = document.createElement('th');
+    th.textContent = h;
+    if (i === 3) th.style.width = '99%';
+    hrow.appendChild(th);
+  });
+  thead.appendChild(hrow);
+  table.appendChild(thead);
+  const tbody = document.createElement('tbody');
+  table.appendChild(tbody);
+  pane.appendChild(table);
+  document.getElementById('editor-tab-contents').appendChild(pane);
+
+  const tab = {
+    id, btn, pane, cm: null, labelEl,
+    filename: null, baseUrl: null,
+    isSim: true, gpioType: type, tbody, gpioRows: {}
+  };
+  editorTabs.push(tab);
+  if (type === 'bldc') GPIO_BLDC_PINS.forEach(pin => addGpioRow(pin, tab));
+  switchEditorTab(id);
+  return tab;
+}
+
+window.gpioSetMode = function(pin, mode) {
+  if (!gpioState[pin]) {
+    gpioState[pin] = {
+      mode: null, value: 0, inputCtrl: 'toggle', seqText: '0 500\n1 500',
+      parsedSeq: [], looping: true, playing: false,
+      seqIndex: 0, seqTimeout: null, timeSeries: [],
+    };
+  }
+  const state = gpioState[pin];
+  const changed = state.mode !== mode;
+  state.mode = mode;
+  if (changed) state.timeSeries = [];
+
+  editorTabs.forEach(tab => {
+    if (!tab.isSim || !tab.gpioRows) return;
+    if (tab.gpioType === 'express' && !tab.gpioRows[pin]) {
+      addGpioRow(pin, tab);
+      return;
+    }
+    if (!changed) return;
+    const row = tab.gpioRows[pin];
+    if (!row) return;
+    row.rowEl.className = '';
+    row.modeEl.className = 'gpio-mode-badge ' + gpioModeClass(mode);
+    row.modeEl.textContent = mode.replace('pin-mode-', '');
+    const newRefs = buildGpioCtrlCell(pin, row.ctrlCell);
+    Object.assign(row, newRefs);
+  });
+};
+
+window.gpioWrite = function(pin, value) {
+  const state = gpioState[pin];
+  if (!state) return;
+  state.value = value;
+  state.timeSeries.push({ t: performance.now(), v: value });
+  if (state.timeSeries.length > 2000) state.timeSeries.shift();
+  refreshGpioLeds(pin);
+};
+
+window.gpioRead = function(pin) {
+  return gpioState[pin] ? gpioState[pin].value : 0;
+};
+
+// ------------------------------------------------------------
 // Left pane. The output/results tabs
 // ------------------------------------------------------------
 let plotCount = 0;
@@ -163,13 +500,15 @@ function switchEditorTab(id) {
     t.pane.classList.toggle('active', active);
     if (active) {
       activeEditor = t;
-      t.cm.refresh();
+      if (t.cm) t.cm.refresh();
     }
   });
 }
 
 function closeEditorTab(id) {
-  if (editorTabs.length <= 1) return;
+  const tab = editorTabs.find(t => t.id === id);
+  if (!tab) return;
+  if (!tab.isSim && editorTabs.filter(t => !t.isSim).length <= 1) return;
   const idx = editorTabs.findIndex(t => t.id === id);
   if (idx < 0) return;
   const tab = editorTabs[idx];
@@ -485,7 +824,7 @@ window.countEditorTabMatches = function(filename) {
 };
 
 window.getEditorTabContent = function(filename) {
-  const tab = editorTabs.find(t => tabMatchesFilename(t, filename));
+  const tab = editorTabs.find(t => !t.isSim && tabMatchesFilename(t, filename));
   return tab ? tab.cm.getValue() : null;
 };
 
@@ -542,6 +881,13 @@ document.getElementById('btn-open-url').addEventListener('click', () => {
     .catch(e => alert('Failed to open URL: ' + e.message));
 });
 
+const simMenuBtn  = document.getElementById('sim-menu-btn');
+const simDropdown = document.getElementById('sim-dropdown');
+simMenuBtn.addEventListener('click', e => { e.stopPropagation(); simDropdown.classList.toggle('open'); });
+document.addEventListener('click', () => simDropdown.classList.remove('open'));
+document.querySelectorAll('.sim-dropdown-item').forEach(item => {
+  item.addEventListener('click', () => { createGpioTab(item.dataset.sim); simDropdown.classList.remove('open'); });
+});
 
 const busyLed    = document.getElementById('busy-led');
 const statusText = document.getElementById('status-text');
@@ -952,6 +1298,15 @@ LispBM().then(lbm => {
     if (rtsTabBtn.classList.contains('active')) refreshRTS();
   }, 500);
 
+  setInterval(() => {
+    editorTabs.forEach(tab => {
+      if (!tab.isSim || !tab.gpioRows) return;
+      Object.entries(tab.gpioRows).forEach(([pin, row]) => {
+        if (row.canvasEl) drawGpioTrace(pin, row.canvasEl);
+      });
+    });
+  }, 100);
+
   window.canvasPutImage = function(canvasId, rgbaPtr, w, h, x, y) {
     const tab = canvasTabs[canvasId];
     if (!tab) return;
@@ -1095,7 +1450,7 @@ LispBM().then(lbm => {
   }
 
   function loadEditor() {
-    if (!activeEditor) return;
+    if (!activeEditor || activeEditor.isSim) return;
     const code = activeEditor.cm.getValue().trim();
     if (!code) return;
     window.currentBaseUrl = activeEditor.baseUrl || null;
@@ -1103,7 +1458,7 @@ LispBM().then(lbm => {
   }
 
   document.getElementById('btn-save').addEventListener('click', () => {
-    if (!activeEditor) return;
+    if (!activeEditor || activeEditor.isSim) return;
     let filename = activeEditor.filename;
     if (!filename) {
       filename = prompt('Save as:');

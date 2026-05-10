@@ -231,6 +231,39 @@
     .docs-result-title { color: #569cd6; font-size: 12px; margin-bottom: 4px; }
     .docs-result-excerpt { color: #888; font-size: 11px; line-height: 1.4; }
     .docs-result-excerpt mark { background: none; color: #dcdcaa; }
+    /* Sim dropdown */
+    #sim-menu-container { position:relative; margin-left:4px; flex-shrink:0; }
+    #sim-menu-btn { background:#222; color:#888; border:1px solid #383838; padding:2px 8px; font-family:inherit; font-size:13px; cursor:pointer; line-height:1; }
+    #sim-menu-btn:hover { color:#d4d4d4; background:#333; }
+    #sim-dropdown { display:none; position:absolute; top:100%; right:0; background:#1e1e1e; border:1px solid #444; z-index:300; min-width:150px; padding:2px 0; }
+    #sim-dropdown.open { display:block; }
+    .sim-dropdown-item { padding:5px 12px; cursor:pointer; font-size:12px; color:#d4d4d4; white-space:nowrap; }
+    .sim-dropdown-item:hover { background:#2a2a2a; }
+    /* GPIO sim pane */
+    .sim-pane { display:none; width:100%; height:100%; overflow:auto; padding:8px; box-sizing:border-box; font-size:12px; }
+    .sim-pane.active { display:block; }
+    .gpio-table { width:100%; border-collapse:collapse; }
+    .gpio-table th { color:#569cd6; text-align:left; padding:3px 6px; border-bottom:1px solid #333; font-size:11px; position:sticky; top:0; background:#111; z-index:1; }
+    .gpio-table td { padding:2px 6px; border-bottom:1px solid #161616; vertical-align:middle; }
+    .gpio-pin-name { color:#d4d4d4; white-space:nowrap; font-family:"Courier New",monospace; }
+    tr.gpio-unconfigured td { color:#383838; }
+    tr.gpio-unconfigured .gpio-pin-name { color:#383838; }
+    .gpio-mode-badge { font-size:10px; padding:1px 5px; border:1px solid #2a2a2a; background:#1a1a1a; color:#555; white-space:nowrap; display:inline-block; }
+    .gpio-mode-out    { background:#152218; color:#4ec9b0; border-color:#2a5040; }
+    .gpio-mode-in     { background:#151c28; color:#569cd6; border-color:#2a3a55; }
+    .gpio-mode-analog { background:#251a10; color:#ce9178; border-color:#50381a; }
+    .gpio-led { width:8px; height:8px; border-radius:50%; background:#222; display:inline-block; border:1px solid #2a2a2a; }
+    .gpio-led.on { background:#4ec9b0; box-shadow:0 0 3px #4ec9b0; border-color:#4ec9b0; }
+    .gpio-trace-canvas { display:block; width:100%; height:16px; }
+    .gpio-ctrl-cell { width:99%; }
+    .gpio-input-mode-select { background:#1a1a1a; color:#888; border:1px solid #2a2a2a; font-size:11px; margin-right:4px; font-family:inherit; }
+    .gpio-toggle-btn { background:#222; border:1px solid #383838; color:#d4d4d4; padding:1px 12px; font-size:12px; cursor:pointer; font-family:"Courier New",monospace; min-width:32px; }
+    .gpio-toggle-btn:hover { background:#2e2e2e; }
+    .gpio-seq-textarea { font-family:"Courier New",monospace; font-size:11px; background:#0d0d0d; color:#d4d4d4; border:1px solid #2a2a2a; width:100%; resize:vertical; padding:3px 4px; display:block; margin-bottom:3px; box-sizing:border-box; }
+    .gpio-seq-controls { display:flex; align-items:center; gap:6px; }
+    .gpio-play-btn { background:#152218; border:1px solid #2a5040; color:#4ec9b0; padding:1px 8px; font-size:11px; cursor:pointer; font-family:inherit; }
+    .gpio-play-btn.playing { background:#281515; border-color:#502a2a; color:#e06c75; }
+    .gpio-loop-label { font-size:11px; color:#666; display:flex; align-items:center; gap:3px; cursor:pointer; user-select:none; }
     #output-tab-about.active { display: block !important; overflow: auto; padding: 16px; }
     #output-tab-about h2 { font-size: 13px; color: #569cd6; margin: 16px 0 6px; }
     #output-tab-about h2:first-child { margin-top: 0; }
@@ -254,6 +287,13 @@
     <div id="editor-panel">
       <div id="editor-tab-bar">
         <button id="btn-new-editor-tab">+</button>
+        <div id="sim-menu-container">
+          <button id="sim-menu-btn">Sim &#9660;</button>
+          <div id="sim-dropdown">
+            <div class="sim-dropdown-item" data-sim="bldc">GPIO BLDC</div>
+            <div class="sim-dropdown-item" data-sim="express">GPIO Express</div>
+          </div>
+        </div>
       </div>
       <div id="editor-tab-contents"></div>
       <div id="editor-btn-row">
