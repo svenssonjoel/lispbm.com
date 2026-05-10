@@ -38,16 +38,8 @@ function refreshGpioLeds(pin) {
   });
 }
 
-function refreshGpioPlayBtns(pin, playing) {
-  editorTabs.forEach(tab => {
-    if (!tab.isSim || !tab.gpioRows || !tab.gpioRows[pin]) return;
-    const row = tab.gpioRows[pin];
-    if (row.playBtn) {
-      row.playBtn.textContent = playing ? '■ Stop' : '▶ Play';
-      row.playBtn.classList.toggle('playing', playing);
-    }
-  });
-}
+let simRunning = false;
+let simLooping = false;
 
 function stepGpioSeq(pin) {
   const state = gpioState[pin];
@@ -57,8 +49,18 @@ function stepGpioSeq(pin) {
   refreshGpioLeds(pin);
   state.seqIndex++;
   if (state.seqIndex >= state.parsedSeq.length) {
-    if (state.looping) { state.seqIndex = 0; }
-    else { state.playing = false; refreshGpioPlayBtns(pin, false); return; }
+    if (simLooping) {
+      state.seqIndex = 0;
+    } else {
+      state.seqTimeout = setTimeout(() => {
+        state.playing = false;
+        if (!Object.values(gpioState).some(s => s.playing)) {
+          simRunning = false;
+          updateRunSimBtn();
+        }
+      }, d);
+      return;
+    }
   }
   state.seqTimeout = setTimeout(() => stepGpioSeq(pin), d);
 }
@@ -69,6 +71,51 @@ function stopGpioSeq(pin) {
   clearTimeout(state.seqTimeout);
   state.playing = false;
   state.seqIndex = 0;
+}
+
+function startAllSims() {
+  const seqs = Object.entries(gpioState).filter(([, s]) =>
+    s.inputCtrl === 'sequence' && s.seqText && parseGpioSeq(s.seqText).length > 0);
+  if (seqs.length === 0) { simRunning = false; updateRunSimBtn(); return; }
+  // Pass 1: apply step 0 for all sequences synchronously so they start phase-aligned.
+  seqs.forEach(([pin, state]) => {
+    state.parsedSeq = parseGpioSeq(state.seqText);
+    state.playing = true;
+    state.value = state.parsedSeq[0].v;
+    refreshGpioLeds(pin);
+  });
+  // Pass 2: schedule step 1 for all in the same JS turn.
+  seqs.forEach(([pin, state]) => {
+    const { d } = state.parsedSeq[0];
+    state.seqIndex = 1;
+    if (state.seqIndex >= state.parsedSeq.length) {
+      if (simLooping) {
+        state.seqIndex = 0;
+        state.seqTimeout = setTimeout(() => stepGpioSeq(pin), d);
+      } else {
+        state.seqTimeout = setTimeout(() => {
+          state.playing = false;
+          if (!Object.values(gpioState).some(s => s.playing)) {
+            simRunning = false;
+            updateRunSimBtn();
+          }
+        }, d);
+      }
+    } else {
+      state.seqTimeout = setTimeout(() => stepGpioSeq(pin), d);
+    }
+  });
+}
+
+function stopAllSims() {
+  Object.keys(gpioState).forEach(pin => stopGpioSeq(pin));
+}
+
+function updateRunSimBtn() {
+  const btn = document.getElementById('btn-run-sim');
+  if (!btn) return;
+  btn.textContent = simRunning ? '■ Stop Sim' : '▶ Run Sim';
+  btn.classList.toggle('sim-running', simRunning);
 }
 
 function drawGpioTrace(pin, canvas) {
@@ -147,42 +194,7 @@ function buildGpioCtrlCell(pin, cell) {
     ta.rows = 3;
     ta.spellcheck = false;
     ta.addEventListener('input', () => { state.seqText = ta.value; });
-
-    const seqCtrl = document.createElement('div');
-    seqCtrl.className = 'gpio-seq-controls';
-
-    const loopLbl = document.createElement('label');
-    loopLbl.className = 'gpio-loop-label';
-    const loopChk = document.createElement('input');
-    loopChk.type = 'checkbox';
-    loopChk.checked = state.looping !== false;
-    loopChk.addEventListener('change', () => { state.looping = loopChk.checked; });
-    loopLbl.appendChild(loopChk);
-    loopLbl.append(' loop');
-
-    const playBtn = document.createElement('button');
-    playBtn.className = 'gpio-play-btn' + (state.playing ? ' playing' : '');
-    playBtn.textContent = state.playing ? '■ Stop' : '▶ Play';
-    playBtn.addEventListener('click', () => {
-      if (state.playing) {
-        stopGpioSeq(pin);
-        refreshGpioPlayBtns(pin, false);
-      } else {
-        state.parsedSeq = parseGpioSeq(ta.value);
-        state.seqText = ta.value;
-        if (!state.parsedSeq.length) return;
-        state.playing = true;
-        state.seqIndex = 0;
-        state.looping = loopChk.checked;
-        refreshGpioPlayBtns(pin, true);
-        stepGpioSeq(pin);
-      }
-    });
-
-    seqCtrl.appendChild(loopLbl);
-    seqCtrl.appendChild(playBtn);
     seqWrap.appendChild(ta);
-    seqWrap.appendChild(seqCtrl);
 
     const showCtrl = (mode) => {
       state.inputCtrl = mode;
@@ -195,7 +207,7 @@ function buildGpioCtrlCell(pin, cell) {
     cell.appendChild(sel);
     cell.appendChild(toggleWrap);
     cell.appendChild(seqWrap);
-    return { seqToggleBtn: toggleBtn, playBtn };
+    return { seqToggleBtn: toggleBtn };
   }
 
   return {};
@@ -890,6 +902,20 @@ simMenuBtn.addEventListener('click', e => { e.stopPropagation(); simDropdown.cla
 document.addEventListener('click', () => simDropdown.classList.remove('open'));
 document.querySelectorAll('.sim-dropdown-item').forEach(item => {
   item.addEventListener('click', () => { createGpioTab(item.dataset.sim); simDropdown.classList.remove('open'); });
+});
+
+const runSimBtn  = document.getElementById('btn-run-sim');
+const simLoopChk = document.getElementById('sim-loop-chk');
+simLoopChk.addEventListener('change', () => { simLooping = simLoopChk.checked; });
+runSimBtn.addEventListener('click', () => {
+  if (simRunning) {
+    stopAllSims();
+    simRunning = false;
+  } else {
+    simRunning = true;
+    startAllSims();
+  }
+  updateRunSimBtn();
 });
 
 const busyLed    = document.getElementById('busy-led');

@@ -156,14 +156,20 @@
     .CodeMirror-focused { outline: 1px solid #569cd6; }
     #editor-btn-row {
       display: flex;
-      justify-content: flex-end;
+      justify-content: space-between;
       gap: 4px;
       margin-top: 4px;
     }
+    #sim-controls { display: flex; align-items: center; gap: 4px; }
+    #editor-file-btns { display: flex; gap: 4px; }
     #btn-load:disabled { background: #333; color: #666; cursor: default; }
     #btn-load:hover:not(:disabled) { background: #1177bb; }
     #btn-open, #btn-open-url, #btn-save, #btn-examples { background: #3a3a3a; color: #d4d4d4; border: 1px solid #555; }
     #btn-open:hover, #btn-open-url:hover, #btn-save:hover, #btn-examples:hover { background: #4a4a4a; }
+    #btn-run-sim { background: #152218; color: #4ec9b0; border: 1px solid #2a5040; }
+    #btn-run-sim:hover { background: #1e3028; }
+    #btn-run-sim.sim-running { background: #281515; color: #e06c75; border-color: #502a2a; }
+    #sim-loop-label { font-size: 12px; color: #888; display: flex; align-items: center; gap: 3px; cursor: pointer; }
     #examples-modal {
       display: none;
       position: fixed;
@@ -290,17 +296,23 @@
       </div>
       <div id="editor-tab-contents"></div>
       <div id="editor-btn-row">
-        <button id="btn-examples">Examples</button>
-        <button id="btn-open">Open</button>
-        <button id="btn-open-url">Open URL</button>
-        <button id="btn-save">Save</button>
-        <button id="btn-load" disabled>Load</button>
-        <div id="sim-menu-container">
-          <button id="sim-menu-btn">Sim &#9650;</button>
-          <div id="sim-dropdown">
-            <div class="sim-dropdown-item" data-sim="bldc">GPIO BLDC</div>
-            <div class="sim-dropdown-item" data-sim="express">GPIO Express</div>
+        <div id="sim-controls">
+          <div id="sim-menu-container">
+            <button id="sim-menu-btn">Sim &#9650;</button>
+            <div id="sim-dropdown">
+              <div class="sim-dropdown-item" data-sim="bldc">GPIO BLDC</div>
+              <div class="sim-dropdown-item" data-sim="express">GPIO Express</div>
+            </div>
           </div>
+          <label id="sim-loop-label"><input type="checkbox" id="sim-loop-chk"> loop</label>
+          <button id="btn-run-sim">&#9654; Run Sim</button>
+        </div>
+        <div id="editor-file-btns">
+          <button id="btn-examples">Examples</button>
+          <button id="btn-open">Open</button>
+          <button id="btn-open-url">Open URL</button>
+          <button id="btn-save">Save</button>
+          <button id="btn-load" disabled>Load</button>
         </div>
       </div>
       <input type="file" id="file-input" accept=".lisp,.lbm" style="display:none">
