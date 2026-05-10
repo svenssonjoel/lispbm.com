@@ -1220,9 +1220,9 @@ document.querySelectorAll('.sim-dropdown-item').forEach(item => {
   item.addEventListener('click', () => {
     const type = item.dataset.sim;
     if (type === 'bms') {
-      createSimValueTab('BMS Sim', window.bmsState);
+      createSimValueTab('BMS', window.bmsState);
     } else if (type === 'config') {
-      confValRefresh = createSimValueTab('Config Sim', window.configState);
+      confValRefresh = createSimValueTab('Config', window.configState);
     } else {
       createGpioTab(type);
     }
