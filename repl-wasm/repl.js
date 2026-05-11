@@ -521,6 +521,19 @@ window.configState = {
   'ble-chr-descr-capacity': { val:  50,        type: 'i'   },
 };
 
+window.eepromState = {};
+let eepromRefresh = null;
+
+window.gnssState = {
+  'gnss-lat-lon':   { val: [{val: 0.0, type: 'f64'}, {val: 0.0, type: 'f64'}], type: 'list' },
+  'gnss-height':    { val: 0.0,  type: 'f32' },
+  'gnss-speed':     { val: 0.0,  type: 'f32' },
+  'gnss-hdop':      { val: 1.0,  type: 'f32' },
+  'gnss-date-time': { val: [{val: 2024, type: 'i32'}, {val: 1, type: 'i32'}, {val: 1, type: 'i32'},
+                             {val: 0,    type: 'i32'}, {val: 0, type: 'i32'}, {val: 0, type: 'i32'}], type: 'list' },
+  'gnss-age':       { val: 0.0,  type: 'f32' },
+};
+
 let confValRefresh = null;
 window.setConfVal = (key, val) => {
   if (window.configState) {
@@ -530,10 +543,16 @@ window.setConfVal = (key, val) => {
   if (confValRefresh) confValRefresh(key, val);
 };
 
-function createSimValueTab(label, stateObj) {
+function createSimValueTab(label, stateObj, opts) {
+  opts = opts || {};
+  const SIM_TYPES    = opts.types          || ['i', 'u', 'i32', 'u32', 'f32', 'f64', 'symbol', 'str', 'list'];
+  const defaultType  = opts.defaultType    || 'f64';
+  const keyLabel     = opts.keyLabel       || 'Key';
+  const keyInputType = opts.keyType        || 'text';
+
   editorTabSeq++;
   const id = 'et' + editorTabSeq;
-  const inputRefs = {}; // key -> { setVal }
+  const inputRefs = {}; // key -> { setVal, setType }
 
   const btn = document.createElement('button');
   btn.className = 'tab-btn';
@@ -556,7 +575,7 @@ function createSimValueTab(label, stateObj) {
   table.className = 'sim-value-table';
   const thead = document.createElement('thead');
   const hrow = document.createElement('tr');
-  ['Key', 'Type', 'Value'].forEach(t => {
+  [keyLabel, 'Type', 'Value'].forEach(t => {
     const th = document.createElement('th'); th.textContent = t; hrow.appendChild(th);
   });
   thead.appendChild(hrow);
@@ -564,8 +583,6 @@ function createSimValueTab(label, stateObj) {
   const tbody = document.createElement('tbody');
   table.appendChild(tbody);
   pane.appendChild(table);
-
-  const SIM_TYPES = ['i', 'u', 'i32', 'u32', 'f32', 'f64', 'symbol', 'str'];
 
   function makeTypeSelect(entry) {
     const sel = document.createElement('select');
@@ -594,9 +611,35 @@ function createSimValueTab(label, stateObj) {
     return inp;
   }
 
+  function makeSubRow(elem, idx, insertAfter) {
+    const sr = document.createElement('tr');
+    sr.className = 'sim-list-subrow';
+    const tdIdx = document.createElement('td');
+    tdIdx.className = 'sim-value-key sim-list-idx';
+    tdIdx.textContent = '[' + idx + ']';
+    const tdType = document.createElement('td');
+    const sel = makeTypeSelect(elem);
+    tdType.appendChild(sel);
+    const tdVal = document.createElement('td');
+    let inp = makeValInput(elem);
+    tdVal.appendChild(inp);
+    sel.addEventListener('change', () => {
+      elem.type = sel.value;
+      const n = makeValInput(elem);
+      tdVal.replaceChild(n, inp);
+      inp = n;
+    });
+    sr.appendChild(tdIdx); sr.appendChild(tdType); sr.appendChild(tdVal);
+    insertAfter.insertAdjacentElement('afterend', sr);
+    return sr;
+  }
+
   function addRow(key, entry) {
-    if (!entry || typeof entry !== 'object') entry = { val: entry, type: 'f64' };
+    if (!entry || typeof entry !== 'object') entry = { val: entry, type: defaultType };
+    if (entry.type === 'list' && !Array.isArray(entry.val)) entry.val = [];
+
     const tr = document.createElement('tr');
+    let subRows = [];
 
     const tdKey = document.createElement('td');
     tdKey.className = 'sim-value-key';
@@ -607,19 +650,54 @@ function createSimValueTab(label, stateObj) {
     tdType.appendChild(typeSelect);
 
     const tdVal = document.createElement('td');
-    let inp = makeValInput(entry);
-    tdVal.appendChild(inp);
-
-    typeSelect.addEventListener('change', () => {
-      entry.type = typeSelect.value;
-      const newInp = makeValInput(entry);
-      tdVal.replaceChild(newInp, inp);
-      inp = newInp;
-    });
-
     tr.appendChild(tdKey); tr.appendChild(tdType); tr.appendChild(tdVal);
     tbody.appendChild(tr);
-    inputRefs[key] = { setVal: (v) => { entry.val = v; inp.value = v; } };
+
+    function renderVal() {
+      while (tdVal.firstChild) tdVal.removeChild(tdVal.firstChild);
+      subRows.forEach(sr => tbody.removeChild(sr));
+      subRows = [];
+
+      if (entry.type === 'list') {
+        if (!Array.isArray(entry.val)) entry.val = [];
+        const lenInp = document.createElement('input');
+        lenInp.type = 'number'; lenInp.min = 0; lenInp.max = 64; lenInp.step = 1;
+        lenInp.value = entry.val.length;
+        lenInp.className = 'sim-list-len';
+        lenInp.addEventListener('change', () => {
+          const n = Math.max(0, Math.min(64, parseInt(lenInp.value) || 0));
+          lenInp.value = n;
+          while (entry.val.length < n) entry.val.push({ val: 0, type: SIM_TYPES[0] });
+          while (entry.val.length > n) entry.val.pop();
+          subRows.forEach(sr => tbody.removeChild(sr));
+          subRows = [];
+          let after = tr;
+          entry.val.forEach((elem, i) => { const sr = makeSubRow(elem, i, after); after = sr; subRows.push(sr); });
+        });
+        tdVal.appendChild(lenInp);
+        let after = tr;
+        entry.val.forEach((elem, i) => { const sr = makeSubRow(elem, i, after); after = sr; subRows.push(sr); });
+      } else {
+        const inp = makeValInput(entry);
+        tdVal.appendChild(inp);
+        inputRefs[key] = {
+          setVal:  (v) => { entry.val = v; inp.value = v; },
+          setType: (t) => { if (entry.type === t) return; entry.type = t; typeSelect.value = t; renderVal(); }
+        };
+      }
+    }
+
+    typeSelect.addEventListener('change', () => {
+      if (typeSelect.value === 'list' && !Array.isArray(entry.val)) entry.val = [];
+      entry.type = typeSelect.value;
+      renderVal();
+    });
+
+    renderVal();
+
+    if (entry.type === 'list') {
+      inputRefs[key] = { setVal: () => {}, setType: () => {} };
+    }
   }
 
   Object.entries(stateObj).forEach(([k, e]) => addRow(k, e));
@@ -627,25 +705,27 @@ function createSimValueTab(label, stateObj) {
   const addArea = document.createElement('div');
   addArea.className = 'sim-value-add';
   const keyInp = document.createElement('input');
-  keyInp.type = 'text'; keyInp.placeholder = 'key'; keyInp.className = 'sim-value-key-inp';
-  const addTypeSelect = makeTypeSelect({ type: 'f32' });
+  keyInp.type = keyInputType; keyInp.placeholder = keyLabel.toLowerCase(); keyInp.className = 'sim-value-key-inp';
+  const addTypeSelect = makeTypeSelect({ type: SIM_TYPES[0] });
   const valInp = document.createElement('input');
   valInp.type = 'number'; valInp.step = 'any'; valInp.placeholder = '0';
   valInp.className = 'sim-value-input';
   addTypeSelect.addEventListener('change', () => {
     const t = addTypeSelect.value;
+    valInp.style.display = t === 'list' ? 'none' : '';
     valInp.type = (t === 'symbol' || t === 'str') ? 'text' : 'number';
   });
   const addBtn = document.createElement('button');
   addBtn.textContent = '+ Add';
   addBtn.addEventListener('click', () => {
-    const k = keyInp.value.trim();
-    if (!k) return;
+    const raw = keyInputType === 'number' ? parseInt(keyInp.value) : keyInp.value.trim();
+    if (raw === '' || raw === null || (keyInputType === 'number' && isNaN(raw))) return;
+    const k = keyInputType === 'number' ? raw : raw;
     const t = addTypeSelect.value;
-    const v = (t === 'symbol' || t === 'str') ? (valInp.value || '') : (parseFloat(valInp.value) || 0);
+    const v = t === 'list' ? [] : (t === 'symbol' || t === 'str') ? (valInp.value || '') : (parseFloat(valInp.value) || 0);
     const entry = { val: v, type: t };
     stateObj[k] = entry;
-    if (inputRefs[k]) inputRefs[k].setVal(v);
+    if (inputRefs[k]) { inputRefs[k].setVal(v); inputRefs[k].setType(t); }
     else addRow(k, entry);
     keyInp.value = ''; valInp.value = '';
   });
@@ -661,9 +741,18 @@ function createSimValueTab(label, stateObj) {
   editorTabs.push(tab);
   switchEditorTab(id);
 
-  return (key, val) => {
-    if (!stateObj[key]) { stateObj[key] = { val, type: 'f64' }; addRow(key, stateObj[key]); }
-    else { stateObj[key].val = val; if (inputRefs[key]) inputRefs[key].setVal(val); }
+  return (key, val, type) => {
+    if (!stateObj[key]) {
+      stateObj[key] = { val, type: type || defaultType };
+      addRow(key, stateObj[key]);
+    } else {
+      stateObj[key].val = val;
+      if (type !== undefined) stateObj[key].type = type;
+      if (inputRefs[key]) {
+        inputRefs[key].setVal(val);
+        if (type !== undefined) inputRefs[key].setType(type);
+      }
+    }
   };
 }
 
@@ -1223,6 +1312,11 @@ document.querySelectorAll('.sim-dropdown-item').forEach(item => {
       createSimValueTab('BMS', window.bmsState);
     } else if (type === 'config') {
       confValRefresh = createSimValueTab('Config', window.configState);
+    } else if (type === 'eeprom') {
+      eepromRefresh = createSimValueTab('EEPROM', window.eepromState,
+        { types: ['i32', 'f32'], defaultType: 'i32', keyLabel: 'Addr', keyType: 'number' });
+    } else if (type === 'gnss') {
+      createSimValueTab('GNSS', window.gnssState);
     } else {
       createGpioTab(type);
     }
