@@ -1,270 +1,36 @@
 // ------------------------------------------------------------
-// GPIO simulation
+// GPIO / ADC simulation state
 // ------------------------------------------------------------
-const GPIO_BLDC_PINS = [
-  'pin-rx', 'pin-tx', 'pin-swdio', 'pin-swclk',
-  'pin-hall1', 'pin-hall2', 'pin-hall3',
-  'pin-adc1', 'pin-adc2', 'pin-adc3', 'pin-adc4',
-  'pin-ppm', 'pin-hw-1', 'pin-hw-2'
-];
+const gpioInputVal  = {}; // set by sim-gpio-write, read by gpio-read
+const gpioOutputVal = {}; // set by gpio-write, read by sim-gpio-read
+const adcSimVal     = {}; // set by sim-adc-set, read by sim-adc-get
 
-const gpioState = {}; // pin -> { mode, value, timeSeries, inputCtrl, seqText, ... }
+window.gpioSetMode  = function(pin, mode) {
+  const isOut = mode === 'pin-mode-out' || mode === 'pin-mode-od' ||
+                mode === 'pin-mode-od-pu' || mode === 'pin-mode-od-pd';
+  if (isOut) { if (gpioOutputVal[pin] === undefined) gpioOutputVal[pin] = 0; }
+  else        { if (gpioInputVal[pin]  === undefined) gpioInputVal[pin]  = 0; }
+};
+window.gpioWrite    = function(pin, value)  { gpioOutputVal[pin] = value; };
+window.gpioRead     = function(pin)         { return gpioInputVal[pin]  !== undefined ? gpioInputVal[pin]  : 0; };
+window.simGpioWrite = function(pin, val)    { gpioInputVal[pin]  = val; };
+window.simGpioRead  = function(pin)         { return gpioOutputVal[pin] !== undefined ? gpioOutputVal[pin] : 0; };
+window.simAdcSet    = function(pin, val)    { adcSimVal[pin] = val; };
+window.simAdcGet    = function(pin)         { return adcSimVal[pin]     !== undefined ? adcSimVal[pin]     : 0.0; };
 
-function gpioModeClass(m) {
-  if (!m) return '';
-  if (m==='pin-mode-out'||m==='pin-mode-od'||m==='pin-mode-od-pu'||m==='pin-mode-od-pd') return 'gpio-mode-out';
-  if (m==='pin-mode-in' ||m==='pin-mode-in-pu'||m==='pin-mode-in-pd') return 'gpio-mode-in';
-  if (m==='pin-mode-analog') return 'gpio-mode-analog';
-  return '';
-}
-function gpioIsOutput(m) { return m==='pin-mode-out'||m==='pin-mode-od'||m==='pin-mode-od-pu'||m==='pin-mode-od-pd'; }
-function gpioIsInput(m)  { return m==='pin-mode-in' ||m==='pin-mode-in-pu'||m==='pin-mode-in-pd'; }
+function createInspectTab() {
+  const existing = editorTabs.find(t => t.isSim && t.simLabel === 'GPIO');
+  if (existing) { switchEditorTab(existing.id); return; }
 
-function parseGpioSeq(text) {
-  return text.split('\n').map(l => l.trim()).filter(Boolean).map(l => {
-    const [a, b] = l.split(/\s+/);
-    return { v: parseInt(a) || 0, d: parseInt(b) || 500 };
-  });
-}
-
-function refreshGpioLeds(pin) {
-  const state = gpioState[pin];
-  if (!state) return;
-  editorTabs.forEach(tab => {
-    if (!tab.isSim || !tab.gpioRows || !tab.gpioRows[pin]) return;
-    const row = tab.gpioRows[pin];
-    row.ledEl.classList.toggle('on', !!state.value);
-    if (row.seqToggleBtn) row.seqToggleBtn.textContent = state.value ? '1' : '0';
-  });
-}
-
-let simRunning = false;
-let simLooping = false;
-
-function stepGpioSeq(pin) {
-  const state = gpioState[pin];
-  if (!state || !state.playing) return;
-  const { v, d } = state.parsedSeq[state.seqIndex];
-  state.value = v;
-  refreshGpioLeds(pin);
-  state.seqIndex++;
-  if (state.seqIndex >= state.parsedSeq.length) {
-    if (simLooping) {
-      state.seqIndex = 0;
-    } else {
-      state.seqTimeout = setTimeout(() => {
-        state.playing = false;
-        if (!Object.values(gpioState).some(s => s.playing)) {
-          simRunning = false;
-          updateRunSimBtn();
-        }
-      }, d);
-      return;
-    }
-  }
-  state.seqTimeout = setTimeout(() => stepGpioSeq(pin), d);
-}
-
-function stopGpioSeq(pin) {
-  const state = gpioState[pin];
-  if (!state) return;
-  clearTimeout(state.seqTimeout);
-  state.playing = false;
-  state.seqIndex = 0;
-}
-
-function startAllSims() {
-  const seqs = Object.entries(gpioState).filter(([, s]) =>
-    s.inputCtrl === 'sequence' && s.seqText && parseGpioSeq(s.seqText).length > 0);
-  if (seqs.length === 0) { simRunning = false; updateRunSimBtn(); return; }
-  // Pass 1: apply step 0 for all sequences synchronously so they start phase-aligned.
-  seqs.forEach(([pin, state]) => {
-    state.parsedSeq = parseGpioSeq(state.seqText);
-    state.playing = true;
-    state.value = state.parsedSeq[0].v;
-    refreshGpioLeds(pin);
-  });
-  // Pass 2: schedule step 1 for all in the same JS turn.
-  seqs.forEach(([pin, state]) => {
-    const { d } = state.parsedSeq[0];
-    state.seqIndex = 1;
-    if (state.seqIndex >= state.parsedSeq.length) {
-      if (simLooping) {
-        state.seqIndex = 0;
-        state.seqTimeout = setTimeout(() => stepGpioSeq(pin), d);
-      } else {
-        state.seqTimeout = setTimeout(() => {
-          state.playing = false;
-          if (!Object.values(gpioState).some(s => s.playing)) {
-            simRunning = false;
-            updateRunSimBtn();
-          }
-        }, d);
-      }
-    } else {
-      state.seqTimeout = setTimeout(() => stepGpioSeq(pin), d);
-    }
-  });
-}
-
-function stopAllSims() {
-  Object.keys(gpioState).forEach(pin => stopGpioSeq(pin));
-}
-
-function updateRunSimBtn() {
-  const btn = document.getElementById('btn-run-sim');
-  if (!btn) return;
-  btn.textContent = simRunning ? '■ Stop Sim' : '▶ Run Sim';
-  btn.classList.toggle('sim-running', simRunning);
-}
-
-function drawGpioTrace(pin, canvas) {
-  const state = gpioState[pin];
-  if (!state || !state.timeSeries.length) return;
-  const w = canvas.offsetWidth;
-  if (w === 0) return;
-  if (canvas.width !== w) canvas.width = w;
-  if (canvas.height !== 16) canvas.height = 16;
-  const ctx = canvas.getContext('2d');
-  ctx.fillStyle = '#0a0a0a';
-  ctx.fillRect(0, 0, w, 16);
-
-  const windowMs = 2000;
-  const now = performance.now();
-  const tMin = now - windowMs;
-  const series = state.timeSeries;
-
-  let initV = 0;
-  for (const s of series) { if (s.t <= tMin) initV = s.v; }
-
-  ctx.strokeStyle = '#4ec9b0';
-  ctx.lineWidth = 1.5;
-  ctx.beginPath();
-  const yHi = 2.5, yLo = 13.5;
-  let cy = initV ? yHi : yLo;
-  ctx.moveTo(0, cy);
-  for (const { t, v } of series) {
-    if (t < tMin) continue;
-    const x = ((t - tMin) / windowMs) * w;
-    const ny = v ? yHi : yLo;
-    if (ny !== cy) { ctx.lineTo(x, cy); ctx.lineTo(x, ny); cy = ny; }
-    else ctx.lineTo(x, cy);
-  }
-  ctx.lineTo(w, cy);
-  ctx.stroke();
-}
-
-function buildGpioCtrlCell(pin, cell) {
-  cell.innerHTML = '';
-  const state = gpioState[pin];
-  if (!state || !state.mode) return {};
-
-  if (gpioIsOutput(state.mode)) {
-    const canvas = document.createElement('canvas');
-    canvas.className = 'gpio-trace-canvas';
-    cell.appendChild(canvas);
-    return { canvasEl: canvas };
-  }
-
-  if (gpioIsInput(state.mode)) {
-    const sel = document.createElement('select');
-    sel.className = 'gpio-input-mode-select';
-    ['toggle', 'sequence'].forEach(m => {
-      const o = document.createElement('option');
-      o.value = m; o.textContent = m;
-      if (m === (state.inputCtrl || 'toggle')) o.selected = true;
-      sel.appendChild(o);
-    });
-
-    const toggleWrap = document.createElement('span');
-    const toggleBtn = document.createElement('button');
-    toggleBtn.className = 'gpio-toggle-btn';
-    toggleBtn.textContent = state.value ? '1' : '0';
-    toggleBtn.addEventListener('click', () => {
-      state.value ^= 1;
-      toggleBtn.textContent = state.value ? '1' : '0';
-      refreshGpioLeds(pin);
-    });
-    toggleWrap.appendChild(toggleBtn);
-
-    const seqWrap = document.createElement('div');
-    const ta = document.createElement('textarea');
-    ta.className = 'gpio-seq-textarea';
-    ta.value = state.seqText || '0 500\n1 500';
-    ta.rows = 3;
-    ta.spellcheck = false;
-    ta.addEventListener('input', () => { state.seqText = ta.value; });
-    seqWrap.appendChild(ta);
-
-    const showCtrl = (mode) => {
-      state.inputCtrl = mode;
-      toggleWrap.style.display = mode === 'toggle' ? 'inline' : 'none';
-      seqWrap.style.display   = mode === 'sequence' ? 'block'  : 'none';
-    };
-    showCtrl(state.inputCtrl || 'toggle');
-    sel.addEventListener('change', () => showCtrl(sel.value));
-
-    cell.appendChild(sel);
-    cell.appendChild(toggleWrap);
-    cell.appendChild(seqWrap);
-    return { seqToggleBtn: toggleBtn };
-  }
-
-  return {};
-}
-
-function addGpioRow(pin, tab) {
-  if (!gpioState[pin]) {
-    gpioState[pin] = {
-      mode: null, value: 0,
-      inputCtrl: 'toggle', seqText: '0 500\n1 500',
-      parsedSeq: [], looping: true, playing: false,
-      seqIndex: 0, seqTimeout: null, timeSeries: [],
-    };
-  }
-  const state = gpioState[pin];
-
-  const tr = document.createElement('tr');
-  if (!state.mode) tr.className = 'gpio-unconfigured';
-
-  const tdPin = document.createElement('td');
-  tdPin.className = 'gpio-pin-name';
-  tdPin.textContent = pin;
-  tr.appendChild(tdPin);
-
-  const tdMode = document.createElement('td');
-  const badge = document.createElement('span');
-  badge.className = 'gpio-mode-badge' + (state.mode ? ' ' + gpioModeClass(state.mode) : '');
-  badge.textContent = state.mode ? state.mode.replace('pin-mode-', '') : '—';
-  tdMode.appendChild(badge);
-  tr.appendChild(tdMode);
-
-  const tdLed = document.createElement('td');
-  const led = document.createElement('span');
-  led.className = 'gpio-led' + (state.value ? ' on' : '');
-  tdLed.appendChild(led);
-  tr.appendChild(tdLed);
-
-  const tdCtrl = document.createElement('td');
-  tdCtrl.className = 'gpio-ctrl-cell';
-  const ctrlRefs = buildGpioCtrlCell(pin, tdCtrl);
-  tr.appendChild(tdCtrl);
-
-  tab.tbody.appendChild(tr);
-  tab.gpioRows[pin] = { rowEl: tr, modeEl: badge, ledEl: led, ctrlCell: tdCtrl, ...ctrlRefs };
-}
-
-function createGpioTab(type) {
   editorTabSeq++;
   const id = 'et' + editorTabSeq;
-  const label = type === 'bldc' ? 'GPIO BLDC' : 'GPIO Express';
 
   const btn = document.createElement('button');
   btn.className = 'tab-btn';
   btn.dataset.tab = id;
   btn.addEventListener('click', () => switchEditorTab(id));
   const labelEl = document.createElement('span');
-  labelEl.textContent = label;
+  labelEl.textContent = 'GPIO';
   const closeEl = document.createElement('span');
   closeEl.className = 'tab-close';
   closeEl.textContent = '⊗';
@@ -274,82 +40,140 @@ function createGpioTab(type) {
   document.getElementById('editor-tab-bar').insertBefore(btn, document.getElementById('btn-new-editor-tab'));
 
   const pane = document.createElement('div');
-  pane.className = 'sim-pane';
+  pane.className = 'sim-pane sim-value-pane';
 
-  const table = document.createElement('table');
-  table.className = 'gpio-table';
-  const thead = document.createElement('thead');
-  const hrow = document.createElement('tr');
-  ['Pin', 'Mode', '●', 'Control'].forEach((h, i) => {
-    const th = document.createElement('th');
-    th.textContent = h;
-    if (i === 3) th.style.width = '99%';
-    hrow.appendChild(th);
+  function makeSection(title, colHeaders) {
+    const wrap = document.createElement('div');
+    wrap.style.marginBottom = '16px';
+    const hdr = document.createElement('div');
+    hdr.className = 'inspect-section-hdr';
+    hdr.textContent = title;
+    wrap.appendChild(hdr);
+    const tbl = document.createElement('table');
+    tbl.className = 'sim-value-table';
+    const thead = document.createElement('thead');
+    const hrow = document.createElement('tr');
+    colHeaders.forEach(h => {
+      const th = document.createElement('th'); th.textContent = h; hrow.appendChild(th);
+    });
+    thead.appendChild(hrow);
+    tbl.appendChild(thead);
+    const tbody = document.createElement('tbody');
+    tbl.appendChild(tbody);
+    wrap.appendChild(tbl);
+    pane.appendChild(wrap);
+    return tbody;
+  }
+
+  const gpioTbody = makeSection('GPIO', ['Pin', 'Input', 'Output']);
+  const adcTbody  = makeSection('ADC',  ['Pin', 'Value']);
+
+  const gpioRows = {}; // pin -> { inputEl, outputEl }
+  const adcRows  = {}; // pin -> { valEl }
+
+  function addGpioRow(pin) {
+    if (gpioRows[pin]) return;
+    const tr = document.createElement('tr');
+    const tdPin = document.createElement('td');
+    tdPin.className = 'sim-value-key';
+    tdPin.textContent = pin;
+    tr.appendChild(tdPin);
+
+    const tdIn = document.createElement('td');
+    const inputEl = document.createElement('input');
+    inputEl.type = 'number'; inputEl.className = 'sim-value-input';
+    inputEl.value = gpioInputVal[pin] !== undefined ? gpioInputVal[pin] : 0;
+    inputEl.addEventListener('change', () => { window.simGpioWrite(pin, Number(inputEl.value)); });
+    tdIn.appendChild(inputEl);
+    tr.appendChild(tdIn);
+
+    const tdOut = document.createElement('td');
+    tdOut.style.color = '#888';
+    const outputEl = document.createElement('span');
+    outputEl.textContent = gpioOutputVal[pin] !== undefined ? gpioOutputVal[pin] : '—';
+    tdOut.appendChild(outputEl);
+    tr.appendChild(tdOut);
+
+    gpioTbody.appendChild(tr);
+    gpioRows[pin] = { inputEl, outputEl };
+  }
+
+  function addAdcRow(pin) {
+    if (adcRows[pin]) return;
+    const tr = document.createElement('tr');
+    const tdPin = document.createElement('td');
+    tdPin.className = 'sim-value-key';
+    tdPin.textContent = pin;
+    tr.appendChild(tdPin);
+
+    const tdVal = document.createElement('td');
+    const valEl = document.createElement('input');
+    valEl.type = 'number'; valEl.step = 'any'; valEl.className = 'sim-value-input';
+    valEl.value = adcSimVal[pin] !== undefined ? adcSimVal[pin] : 0;
+    valEl.addEventListener('change', () => { window.simAdcSet(pin, Number(valEl.value)); });
+    tdVal.appendChild(valEl);
+    tr.appendChild(tdVal);
+
+    adcTbody.appendChild(tr);
+    adcRows[pin] = { valEl };
+  }
+
+  function makeAddRow(tbody, placeholder, onAdd) {
+    const tr = document.createElement('tr');
+    const tdPin = document.createElement('td');
+    const pinInp = document.createElement('input');
+    pinInp.type = 'text'; pinInp.placeholder = placeholder;
+    pinInp.className = 'sim-value-key-inp'; pinInp.style.width = '100%';
+    tdPin.appendChild(pinInp);
+    tr.appendChild(tdPin);
+    const tdBtn = document.createElement('td');
+    tdBtn.colSpan = 99;
+    const addBtn = document.createElement('button');
+    addBtn.textContent = '+ Add';
+    addBtn.className = 'sim-add-btn';
+    addBtn.addEventListener('click', () => {
+      const pin = pinInp.value.trim();
+      if (!pin) return;
+      onAdd(pin);
+      pinInp.value = '';
+    });
+    tdBtn.appendChild(addBtn);
+    tr.appendChild(tdBtn);
+    tbody.appendChild(tr);
+  }
+
+  makeAddRow(gpioTbody, 'pin or number', pin => {
+    window.simGpioWrite(pin, 0);
+    addGpioRow(pin);
   });
-  thead.appendChild(hrow);
-  table.appendChild(thead);
-  const tbody = document.createElement('tbody');
-  table.appendChild(tbody);
-  pane.appendChild(table);
+  makeAddRow(adcTbody, 'pin or number', pin => {
+    window.simAdcSet(pin, 0.0);
+    addAdcRow(pin);
+  });
+
+  function refresh() {
+    Object.keys(gpioInputVal).forEach(addGpioRow);
+    Object.keys(gpioOutputVal).forEach(addGpioRow);
+    Object.keys(adcSimVal).forEach(addAdcRow);
+    Object.entries(gpioRows).forEach(([pin, row]) => {
+      if (document.activeElement !== row.inputEl)
+        row.inputEl.value = gpioInputVal[pin] !== undefined ? gpioInputVal[pin] : 0;
+      row.outputEl.textContent = gpioOutputVal[pin] !== undefined ? gpioOutputVal[pin] : '—';
+    });
+    Object.entries(adcRows).forEach(([pin, row]) => {
+      if (document.activeElement !== row.valEl)
+        row.valEl.value = adcSimVal[pin] !== undefined ? adcSimVal[pin] : 0;
+    });
+  }
+
   document.getElementById('editor-tab-contents').appendChild(pane);
-
-  const tab = {
-    id, btn, pane, cm: null, labelEl,
-    filename: null, baseUrl: null,
-    isSim: true, gpioType: type, tbody, gpioRows: {}
-  };
+  const tab = { id, btn, pane, cm: null, labelEl, filename: null, baseUrl: null, isSim: true, simLabel: 'GPIO' };
   editorTabs.push(tab);
-  if (type === 'bldc') GPIO_BLDC_PINS.forEach(pin => addGpioRow(pin, tab));
   switchEditorTab(id);
-  return tab;
+
+  setInterval(() => { if (btn.classList.contains('active')) refresh(); }, 500);
+  refresh();
 }
-
-window.gpioSetMode = function(pin, mode) {
-  if (!gpioState[pin]) {
-    gpioState[pin] = {
-      mode: null, value: 0, inputCtrl: 'toggle', seqText: '0 500\n1 500',
-      parsedSeq: [], looping: true, playing: false,
-      seqIndex: 0, seqTimeout: null, timeSeries: [],
-    };
-  }
-  const state = gpioState[pin];
-  const changed = state.mode !== mode;
-  state.mode = mode;
-  if (changed) state.timeSeries = [];
-
-  editorTabs.forEach(tab => {
-    if (!tab.isSim || !tab.gpioRows) return;
-    if (tab.gpioType === 'express' && !tab.gpioRows[pin]) {
-      addGpioRow(pin, tab);
-      return;
-    }
-    if (!changed) return;
-    const row = tab.gpioRows[pin];
-    if (!row) return;
-    row.rowEl.className = '';
-    row.modeEl.className = 'gpio-mode-badge ' + gpioModeClass(mode);
-    row.modeEl.textContent = mode.replace('pin-mode-', '');
-    const newRefs = buildGpioCtrlCell(pin, row.ctrlCell);
-    Object.assign(row, newRefs);
-  });
-};
-
-window.gpioWrite = function(pin, value) {
-  const state = gpioState[pin];
-  if (!state) return;
-  state.value = value;
-  const series = state.timeSeries;
-  const last = series[series.length - 1];
-  if (!last || last.v !== value) {
-    series.push({ t: performance.now(), v: value });
-    if (series.length > 500) series.shift();
-  }
-  refreshGpioLeds(pin);
-};
-
-window.gpioRead = function(pin) {
-  return gpioState[pin] ? gpioState[pin].value : 0;
-};
 
 // ------------------------------------------------------------
 // BMS and Config simulation state
@@ -544,6 +368,8 @@ window.setConfVal = (key, val) => {
 };
 
 function createSimValueTab(label, stateObj, opts) {
+  const existing = editorTabs.find(t => t.isSim && t.simLabel === label);
+  if (existing) { switchEditorTab(existing.id); return existing._refresh; }
   opts = opts || {};
   const SIM_TYPES    = opts.types          || ['i', 'u', 'i32', 'u32', 'f32', 'f64', 'symbol', 'str', 'list'];
   const defaultType  = opts.defaultType    || 'f64';
@@ -737,11 +563,11 @@ function createSimValueTab(label, stateObj, opts) {
 
   document.getElementById('editor-tab-contents').appendChild(pane);
 
-  const tab = { id, btn, pane, cm: null, labelEl, filename: null, baseUrl: null, isSim: true };
+  const tab = { id, btn, pane, cm: null, labelEl, filename: null, baseUrl: null, isSim: true, simLabel: label };
   editorTabs.push(tab);
   switchEditorTab(id);
 
-  return (key, val, type) => {
+  const refresh = (key, val, type) => {
     if (!stateObj[key]) {
       stateObj[key] = { val, type: type || defaultType };
       addRow(key, stateObj[key]);
@@ -754,6 +580,8 @@ function createSimValueTab(label, stateObj, opts) {
       }
     }
   };
+  tab._refresh = refresh;
+  return refresh;
 }
 
 // ------------------------------------------------------------
@@ -1317,26 +1145,13 @@ document.querySelectorAll('.sim-dropdown-item').forEach(item => {
         { types: ['i32', 'f32'], defaultType: 'i32', keyLabel: 'Addr', keyType: 'number' });
     } else if (type === 'gnss') {
       createSimValueTab('GNSS', window.gnssState);
-    } else {
-      createGpioTab(type);
+    } else if (type === 'gpio') {
+      createInspectTab();
     }
     simDropdown.classList.remove('open');
   });
 });
 
-const runSimBtn  = document.getElementById('btn-run-sim');
-const simLoopChk = document.getElementById('sim-loop-chk');
-simLoopChk.addEventListener('change', () => { simLooping = simLoopChk.checked; });
-runSimBtn.addEventListener('click', () => {
-  if (simRunning) {
-    stopAllSims();
-    simRunning = false;
-  } else {
-    simRunning = true;
-    startAllSims();
-  }
-  updateRunSimBtn();
-});
 
 const busyLed    = document.getElementById('busy-led');
 const statusText = document.getElementById('status-text');
@@ -1747,14 +1562,6 @@ LispBM().then(lbm => {
     if (rtsTabBtn.classList.contains('active')) refreshRTS();
   }, 500);
 
-  setInterval(() => {
-    editorTabs.forEach(tab => {
-      if (!tab.isSim || !tab.gpioRows) return;
-      Object.entries(tab.gpioRows).forEach(([pin, row]) => {
-        if (row.canvasEl) drawGpioTrace(pin, row.canvasEl);
-      });
-    });
-  }, 50);
 
   window.canvasPutImage = function(canvasId, rgbaPtr, w, h, x, y) {
     const tab = canvasTabs[canvasId];
