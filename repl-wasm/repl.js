@@ -1835,12 +1835,12 @@ LispBM().then(lbm => {
     }, [xs, ...yArrays], pane);
   };
 
-  fetch('libs/index.json')
+  fetch('libs/index.json?v=' + Date.now())
     .then(r => r.json())
     .then(files => {
       try { lbm.FS.mkdir('/libs'); } catch(e) {}
       const fetches = files.map(f =>
-        fetch('libs/' + f)
+        fetch('libs/' + f + '?v=' + Date.now())
           .then(r => r.arrayBuffer())
           .then(buf => lbm.FS.writeFile('/libs/' + f, new Uint8Array(buf)))
       );
