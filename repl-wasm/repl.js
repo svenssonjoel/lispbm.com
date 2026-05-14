@@ -1691,10 +1691,23 @@ LispBM().then(lbm => {
     fsUploadZipBtn.style.cssText = 'background:#3a3a3a;border:1px solid #555;color:#d4d4d4;padding:1px 8px;font-size:11px;';
     fsUploadZipBtn.addEventListener('click', () => fsUploadZipInput.click());
 
+    const fsMkdirBtn = document.createElement('button');
+    fsMkdirBtn.textContent = 'New Dir';
+    fsMkdirBtn.style.cssText = 'background:#3a3a3a;border:1px solid #555;color:#d4d4d4;padding:1px 8px;font-size:11px;';
+    fsMkdirBtn.addEventListener('click', () => {
+      const name = prompt('Directory name:');
+      if (!name || !name.trim()) return;
+      const full = (fsBrowserPath === '/' ? '' : fsBrowserPath) + '/' + name.trim();
+      try { lbm.FS.mkdir(full); } catch(e) {}
+      fsBrowserPath = full;
+      refreshFsBrowser();
+    });
+
     fsHeader.appendChild(fsTitle);
     fsHeader.appendChild(fsPath);
     fsHeader.appendChild(fsUploadBtn);
     fsHeader.appendChild(fsUploadZipBtn);
+    fsHeader.appendChild(fsMkdirBtn);
     rtsFsDiv.appendChild(fsHeader);
 
     let entries;
