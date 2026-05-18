@@ -882,9 +882,12 @@ aboutPane.innerHTML = `
   <tr><td>wasm-add-plot-multi</td><td>(wasm-add-plot-multi tab-id '(buf ...) "title")</td><td>Add a multi-series plot from a list of float32 buffers to tab-id; returns plot ID</td></tr>
   <tr><td>wasm-add-plot-xy</td><td>(wasm-add-plot-xy tab-id xbuf ybuf "title")</td><td>Add an XY scatter/line plot from two float32 buffers to tab-id; returns plot ID</td></tr>
   <tr><td>wasm-add-button</td><td>(wasm-add-button tab-id '(("label" "press-code" ["release-code"]) ...))</td><td>Add a horizontal row of buttons to tab-id; press-code runs on mousedown, release-code on mouseup/mouseleave; returns button-group ID</td></tr>
+  <tr><td>wasm-add-keyboard-control</td><td>(wasm-add-keyboard-control tab-id "label")</td><td>Add a keyboard capture toggle button to tab-id; click to activate/deactivate, Ctrl+Escape always releases; returns kb-id</td></tr>
+  <tr><td>wasm-keyboard-control-bind</td><td>(wasm-keyboard-control-bind kb-id "key" "press-code" ["release-code"])</td><td>Bind a key to press/release code strings for the given kb-id; key format: <code>"[ctrl-][shift-][alt-]key"</code> e.g. <code>"ArrowUp"</code>, <code>"ctrl-a"</code>, <code>"shift-ArrowLeft"</code></td></tr>
 </table>
 <p style="color:#555;font-size:11px;">Example: <code>(def tab (wasm-create-tab "My Plot"))</code> &nbsp; <code>(wasm-add-plot tab buf "signal")</code></p>
 <p style="color:#555;font-size:11px;">Button example: <code>(wasm-add-button tab '(("Go" "(setq running t)" "(setq running nil)") ("Stop" "(setq running nil)")))</code></p>
+<p style="color:#555;font-size:11px;">Keyboard example: <code>(def kb (wasm-add-keyboard-control tab "Keyboard"))</code> &nbsp; <code>(wasm-keyboard-control-bind kb "ArrowUp" "(go-up)" "(stop-up)")</code></p>
 
 <h2>Import</h2>
 <table class="about-table">
@@ -1011,6 +1014,9 @@ function openDocPage(url) {
 let canvasTabSeq = 0;
 const canvasTabs = {};
 
+let kbControlSeq = 0;
+const kbControls = {};
+
 window.createTab = function(title) {
   tabSeq++;
   const tid   = tabSeq;
@@ -1031,6 +1037,7 @@ window.createTab = function(title) {
     Object.keys(canvasTabs).forEach(k => { if (canvasTabs[k].tid === tid) delete canvasTabs[k]; });
     Object.keys(plotTabs).forEach(k => { if (plotTabs[k].tid === tid) delete plotTabs[k]; });
     Object.keys(buttonGroups).forEach(k => { if (buttonGroups[k].tid === tid) delete buttonGroups[k]; });
+    Object.keys(kbControls).forEach(k => { if (kbControls[k].tid === tid) { kbControls[k].sink.remove(); delete kbControls[k]; } });
     closeTab(tabId);
     delete tabs[tid];
   });
@@ -1101,10 +1108,16 @@ window.addCanvasToTab = function(tabNumId, w, h) {
     if (n === 1) opt.selected = true;
     scaleSelect.appendChild(opt);
   });
+  const canvasBox = document.createElement('div');
+  canvasBox.style.cssText = `width:${w}px;height:${h}px;overflow:visible;`;
+  canvasBox.appendChild(canvas);
+
   scaleSelect.addEventListener('change', () => {
     const s = parseInt(scaleSelect.value);
     canvas.style.transformOrigin = 'top left';
     canvas.style.transform = s === 1 ? '' : `scale(${s})`;
+    canvasBox.style.width  = (w * s) + 'px';
+    canvasBox.style.height = (h * s) + 'px';
   });
 
   toolbar.appendChild(saveBtn);
@@ -1112,7 +1125,7 @@ window.addCanvasToTab = function(tabNumId, w, h) {
   toolbar.appendChild(scaleLabel);
   toolbar.appendChild(scaleSelect);
   wrapper.appendChild(toolbar);
-  wrapper.appendChild(canvas);
+  wrapper.appendChild(canvasBox);
   tab.pane.appendChild(wrapper);
 
   canvasTabs[cid] = { canvas, ctx, tid: tabNumId };
@@ -1155,6 +1168,88 @@ window.addButtonToTab = function(tabNumId, buttonsJson) {
   tab.pane.appendChild(row);
   buttonGroups[gid] = { gid, row, tid: tabNumId };
   return gid;
+};
+
+window.addKeyboardControl = function(tabNumId, label) {
+  const tab = tabs[tabNumId];
+  if (!tab) return -1;
+  kbControlSeq++;
+  const kid = kbControlSeq;
+  const bindings = {};
+
+  const sink = document.createElement('div');
+  sink.tabIndex = 0;
+  sink.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;top:0;left:0;';
+  document.body.appendChild(sink);
+
+  let active = false;
+
+  const deactivate = () => {
+    active = false;
+    btn.style.background = '';
+    btn.style.color = '';
+    sink.blur();
+  };
+
+  const activate = () => {
+    active = true;
+    btn.style.background = '#2d6a2d';
+    btn.style.color = '#fff';
+    sink.focus();
+  };
+
+  const btn = document.createElement('button');
+  btn.textContent = label;
+  btn.addEventListener('click', () => {
+    if (active) deactivate(); else activate();
+  });
+
+  sink.addEventListener('blur', () => {
+    if (!active) return;
+    setTimeout(() => {
+      if (document.activeElement !== btn) deactivate();
+    }, 0);
+  });
+
+  const eventKey = e => {
+    const parts = [];
+    if (e.ctrlKey)  parts.push('ctrl');
+    if (e.shiftKey) parts.push('shift');
+    if (e.altKey)   parts.push('alt');
+    parts.push(e.key);
+    return parts.join('-');
+  };
+
+  sink.addEventListener('keydown', e => {
+    if (e.ctrlKey && e.key === 'Escape') { e.preventDefault(); deactivate(); return; }
+    const b = bindings[eventKey(e)];
+    if (b && b.press && !e.repeat) {
+      e.preventDefault();
+      if (typeof window.lbmEval === 'function') window.lbmEval(b.press);
+    }
+  });
+
+  sink.addEventListener('keyup', e => {
+    const b = bindings[eventKey(e)];
+    if (b && b.release) {
+      e.preventDefault();
+      if (typeof window.lbmEval === 'function') window.lbmEval(b.release);
+    }
+  });
+
+  const row = document.createElement('div');
+  row.style.cssText = 'padding:4px 0;';
+  row.appendChild(btn);
+  tab.pane.appendChild(row);
+
+  kbControls[kid] = { kid, bindings, sink, btn, tid: tabNumId };
+  return kid;
+};
+
+window.keyboardControlBind = function(kid, key, pressCode, releaseCode) {
+  const kb = kbControls[kid];
+  if (!kb) return;
+  kb.bindings[key] = { press: pressCode || '', release: releaseCode || '' };
 };
 
 window.canvasClear = function(canvasId, color) {
@@ -1981,6 +2076,7 @@ LispBM().then(lbm => {
     Object.keys(canvasTabs).forEach(k => delete canvasTabs[k]);
     Object.keys(plotTabs).forEach(k => delete plotTabs[k]);
     Object.keys(buttonGroups).forEach(k => delete buttonGroups[k]);
+    Object.keys(kbControls).forEach(k => { kbControls[k].sink.remove(); delete kbControls[k]; });
     const ok = lbm.ccall('lbm_wasm_reset', 'number', [], []);
     if (ok) {
       appendOutput('--- LispBM runtime reset ---\n');

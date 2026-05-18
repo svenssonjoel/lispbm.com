@@ -1,7 +1,18 @@
 (def tab (wasm-create-tab "my drawing"))
 (def canvas (wasm-add-canvas tab 320 240))
 (def img (img-buffer 'rgb888 320 240))
-(img-clear img 0x000000)                                                      
+(img-clear img 0x000000) 
+
+(define speed 1.0)
+(define increment 0.01)
+
+(defun do-up () (setq speed (+ speed increment)))
+(defun do-down () (setq speed (- speed increment)))
+
+
+(define kb (wasm-add-keyboard-control tab "Keyboard"))
+(wasm-keyboard-control-bind kb "ArrowUp"   "(do-up)"   "")
+(wasm-keyboard-control-bind kb "ArrowDown" "(do-down)"  "")
 
 ; Nodes and edges of a 3d cube
 (def nodes '((-1 -1 -1) (-1 -1 1) (-1 1 -1) (-1 1 1) (1 -1 -1) (1 -1 1) (1 1 -1) (1 1 1)))
@@ -49,7 +60,7 @@
 
 (loopwhile t {
         (draw-edges)
-        (rotate-cube 0.1 0.05)
+        (rotate-cube (* 0.1 speed) (* 0.05 speed))
         (disp-render img 0 0 '())   
         (img-clear img)   
         (sleep 0.04)
