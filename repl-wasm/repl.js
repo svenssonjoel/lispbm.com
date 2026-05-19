@@ -1848,15 +1848,18 @@ LispBM().then(lbm => {
   function memfsUnzipInto(zipData, destDir) {
     const unzipped = fflate.unzipSync(new Uint8Array(zipData));
     Object.entries(unzipped).forEach(([relPath, data]) => {
+      const isDir = relPath.endsWith('/');
       const parts = relPath.split('/').filter(Boolean);
       if (!parts.length) return;
       let cur = destDir === '/' ? '' : destDir;
-      parts.slice(0, -1).forEach(part => {
+      parts.slice(0, isDir ? parts.length : -1).forEach(part => {
         cur = cur + '/' + part;
         try { lbm.FS.mkdir(cur); } catch(e) {}
       });
-      const filename = parts[parts.length - 1];
-      lbm.FS.writeFile(cur + '/' + filename, data);
+      if (!isDir) {
+        const filename = parts[parts.length - 1];
+        lbm.FS.writeFile(cur + '/' + filename, data);
+      }
     });
   }
 
@@ -2126,9 +2129,10 @@ LispBM().then(lbm => {
         try { lbm.FS.mkdir(dest); } catch(e) {}
         memfsUnzipInto(e.target.result, dest);
         appendOutput('Unzipped "' + file.name + '" into ' + dest + '\n');
-        refreshFsBrowser();
       } catch(err) {
         appendOutput('Error unzipping "' + file.name + '": ' + err.message + '\n');
+      } finally {
+        refreshFsBrowser();
       }
     };
     reader.readAsArrayBuffer(file);
