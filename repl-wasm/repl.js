@@ -1931,6 +1931,7 @@ LispBM().then(lbm => {
           const tab = createEditorTab(name);
           tab.cm.setValue(content);
           tab.filename = name;
+          tab.baseUrl = 'memfs://' + fullPath;
         });
       }
       row.appendChild(nameEl);
@@ -2204,6 +2205,7 @@ LispBM().then(lbm => {
         const name = path.split('/').pop();
         activeEditor.filename = name;
         activeEditor.labelEl.textContent = name;
+        activeEditor.baseUrl = 'memfs://' + path;
         refreshFsBrowser();
       } catch(e) { appendOutput('Error saving ' + path + ': ' + e.message + '\n'); }
     });
