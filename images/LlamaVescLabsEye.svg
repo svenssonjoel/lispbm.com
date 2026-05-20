@@ -9,6 +9,9 @@
    id="svg1699"
    sodipodi:docname="LlamaVescLabsEye.svg"
    inkscape:version="1.2.2 (b0a8486541, 2022-12-01)"
+   inkscape:export-filename="LlamaVescLabsEye.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -24,14 +27,14 @@
    inkscape:deskcolor="#d1d1d1"
    showgrid="false"
    inkscape:zoom="1.2596154"
-   inkscape:cx="520"
-   inkscape:cy="325.89313"
+   inkscape:cx="519.99999"
+   inkscape:cy="326.68702"
    inkscape:window-width="1854"
    inkscape:window-height="1011"
    inkscape:window-x="66"
    inkscape:window-y="32"
    inkscape:window-maximized="1"
-   inkscape:current-layer="svg1699" />
+   inkscape:current-layer="Layer3" />
     <g
    transform="matrix(-0.0023029,-0.999997,0.999997,-0.0023029,150.086,882.553)"
    id="g1438">
@@ -444,14 +447,14 @@
    id="path1650" />
         </g>
         <g
-   transform="matrix(-3.00841e-06,0.167055,-0.167055,-3.00841e-06,456.173,232.623)"
+   transform="matrix(-3.00841e-6,0.167055,-0.167055,-3.00841e-6,448.46876,223.70699)"
    id="g1656">
             <use
    xlink:href="#_Image3"
    x="0"
    y="0"
-   width="1064px"
-   height="321px"
+   width="1064"
+   height="321"
    id="use1654" />
         </g>
     </g>
