@@ -88,6 +88,33 @@ def search_repos(query, headers, max_pages=2):
     return results
 
 
+def search_uses_repos(headers):
+    """Find repos that embed lispbm source by searching for a unique internal
+    identifier. lbm_dec_as_i32 is defined in lispbm's lbm_types.h and is
+    unlikely to appear in any unrelated codebase."""
+    seen, results = set(), []
+    for page in range(1, 5):  # 4 pages × 100 = 400 results max
+        data = gh_get(
+            f"{GITHUB_API}/search/code",
+            headers,
+            params={"q": "lbm_dec_as_i32", "per_page": 100, "page": page},
+        )
+        if not data:
+            break
+        items = data.get("items", [])
+        for item in items:
+            repo = item["repository"]
+            fn = repo["full_name"]
+            if fn not in seen:
+                seen.add(fn)
+                results.append(repo)
+        print(f"  uses search page {page}: {len(items)} hits, {len(seen)} unique repos so far", file=sys.stderr)
+        if len(items) < 100:
+            break
+        time.sleep(7)  # code search: 10 req/min authenticated
+    return results
+
+
 def is_driveby(fork, upstream=None, headers=None):
     """True if the fork was never meaningfully touched after creation.
 
@@ -186,6 +213,15 @@ def build_graph(token, max_depth, check_prs=False):
             ensure_user(owner)
             edges.append({"source": owner, "target": fn, "type": "mention"})
 
+    print("Searching for repos that use lispbm …", file=sys.stderr)
+    for repo in search_uses_repos(hdrs):
+        fn    = repo["full_name"]
+        owner = repo["owner"]["login"]
+        if fn not in nodes:
+            nodes[fn] = make_node(repo, "uses")
+            ensure_user(owner)
+            edges.append({"source": owner, "target": fn, "type": "uses"})
+
     print(f"  → {len(nodes)} nodes, {len(edges)} edges", file=sys.stderr)
     return list(nodes.values()), edges, origin
 
@@ -226,6 +262,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   .link-user_link { stroke: #a371f7; }
   .link-fork      { stroke: #58a6ff; }
   .link-mention   { stroke: #3fb950; stroke-dasharray: 5 3; }
+  .link-uses      { stroke: #f97583; stroke-dasharray: 3 3; }
 
   .node circle { cursor: pointer; }
   .node circle:hover { stroke: #fff !important; stroke-width: 2.5px !important; }
@@ -262,6 +299,7 @@ HTML_TEMPLATE = r"""<!DOCTYPE html>
   <div class="leg"><div class="leg-dot" style="background:#a371f7"></div>User</div>
   <div class="leg"><div class="leg-dot" style="background:#58a6ff"></div>Fork</div>
   <div class="leg"><div class="leg-dot" style="background:#3fb950"></div>Related repo</div>
+  <div class="leg"><div class="leg-dot" style="background:#f97583"></div>Uses lispbm</div>
   <div class="leg" style="margin-top:4px">
     <svg width="26" height="10"><line x1="0" y1="5" x2="26" y2="5" stroke="#58a6ff" stroke-opacity=".7" stroke-width="1.5"></line></svg>
     fork edge
@@ -278,7 +316,7 @@ D3_INLINE
 <script>
 const graphData = GRAPH_DATA;
 
-const COLOR = { origin: "#f0c040", user: "#a371f7", fork: "#58a6ff", related: "#3fb950" };
+const COLOR = { origin: "#f0c040", user: "#a371f7", fork: "#58a6ff", related: "#3fb950", uses: "#f97583" };
 const radius = d => d.type === "user" ? 9 : Math.max(7, Math.sqrt((d.stars || 0) + 1) * 2.8);
 
 const svg   = d3.select("#graph");
@@ -324,7 +362,7 @@ const link = root.append("g").attr("class", "links")
   .join("line")
     .attr("class", d => `link link-${d.type}`)
     .attr("stroke-width", 1.3)
-    .attr("marker-end", d => d.type === "user_link" ? null : `url(#arrow-${d.type})`);
+    .attr("marker-end", d => ["user_link", "uses"].includes(d.type) ? null : `url(#arrow-${d.type})`);
 
 // Nodes
 const nodeG = root.append("g").attr("class", "nodes")
