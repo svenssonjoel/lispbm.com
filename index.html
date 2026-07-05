@@ -131,59 +131,54 @@
       padding: 60px 20px 20px;
   }
 
-  .hero img {
-      max-width: 220px;
-      height: auto;
-      margin-bottom: 10px;
-  }
-
   .hero h1 {
       font-size: 3em;
-      margin: 10px 0 0;
+      margin: 0;
       color: #333;
   }
 
-  .hero .tagline {
-      max-width: 640px;
-      margin: 20px auto 0;
-      color: #444;
-      font-size: 1.15em;
-      line-height: 1.6;
+  .hero-row {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 50px;
+      margin: 40px 0;
   }
 
-  .nav-cards {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      max-width: 900px;
-      margin: 40px auto;
-      padding: 0 20px;
+  .hero-row img {
+      max-width: 220px;
+      height: auto;
+      margin: 0;
   }
 
-  .nav-card {
-      display: block;
-      background: white;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-      padding: 28px 16px;
-      text-align: center;
-      text-decoration: none;
-      color: #333;
-      font-size: 1.15em;
-      font-weight: bold;
-      transition: transform 0.15s, box-shadow 0.15s;
+  .hub-nav-vertical {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 18px;
+      text-align: left;
+      margin: 0;
   }
 
-  .nav-card:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 6px 14px rgba(0,0,0,0.15);
-      color: #007bff;
+  .hub-nav-vertical a,
+  .hub-nav-vertical .current {
+      margin: 0;
   }
 
-  .try-it {
-      max-width: 640px;
-      margin: 0 auto 40px;
-      text-align: center;
+  .hub-nav-vertical a:hover {
+      transform-origin: left center;
+  }
+
+  @media (max-width: 560px) {
+      .hero-row {
+          flex-direction: column;
+          gap: 30px;
+      }
+
+      .hub-nav-vertical {
+          align-items: center;
+          text-align: center;
+      }
   }
 
   .footer-links {
@@ -208,17 +203,6 @@
       margin: 20px auto 0;
   }
 
-  @media (max-width: 700px) {
-      .nav-cards {
-          grid-template-columns: repeat(2, 1fr);
-      }
-  }
-
-  @media (max-width: 420px) {
-      .nav-cards {
-          grid-template-columns: 1fr;
-      }
-  }
 </style>
 
 <body class="with-background">
@@ -227,20 +211,18 @@
   <div class="banner"></div>
 
   <div class="hero">
-    <img src="images/lispbm_llama_small.png" alt="LispBM mascot, Lispy the Llama">
     <h1>LispBM</h1>
-    <p class="tagline">A Lisp/Scheme-like language for microcontrollers, with Erlang-inspired concurrency and message passing. Runs on STM32, NRF52, ESP32, X86, Linux and Windows.</p>
   </div>
 
-  <nav class="nav-cards" aria-label="Main navigation">
-    <a class="nav-card" href="about.html">About</a>
-    <a class="nav-card" href="getting-started.html">Getting Started</a>
-    <a class="nav-card" href="documentation.html">Documentation</a>
-    <a class="nav-card" href="community.html">Community</a>
-  </nav>
-
-  <div class="try-it highlight">
-    <strong>Try LispBM right now!</strong> Run LispBM directly in your browser with the <a href="repl-wasm/index.html">WebAssembly REPL</a> — no installation needed.
+  <div class="hero-row">
+    <img src="images/lispbm_llama_small.png" alt="LispBM mascot, Lispy the Llama">
+    <nav class="hub-nav hub-nav-primary hub-nav-vertical" aria-label="Main navigation">
+      <a href="about.html">About</a>
+      <a href="getting-started.html">Getting Started</a>
+      <a href="documentation.html">Documentation</a>
+      <a href="community.html">Community</a>
+      <a href="repl-wasm/index.html">Try it now (WebAssembly)</a>
+    </nav>
   </div>
 
   <div class="footer-links">

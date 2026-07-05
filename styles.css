@@ -213,6 +213,40 @@ section h2 {
     margin-top: 0;
 }
 
+/* Plain-text site navigation - used for the homepage's main links and for
+   cross-linking between hub pages (About / Getting Started / Documentation /
+   Community) */
+.hub-nav {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.hub-nav a,
+.hub-nav .current {
+    display: inline-block;
+    margin: 0 16px;
+    color: #0056b3;
+    text-decoration: none;
+}
+
+.hub-nav a {
+    transition: transform 0.15s ease;
+}
+
+.hub-nav a:hover {
+    transform: scale(1.1);
+}
+
+.hub-nav .current {
+    color: #333;
+    font-weight: bold;
+}
+
+.hub-nav-primary {
+    font-size: 1.3em;
+    margin: 40px 0;
+}
+
 .highlight {
     background: #e7f3ff;
     border-left: 4px solid #007bff;
