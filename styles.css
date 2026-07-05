@@ -181,13 +181,14 @@ embed {
     max-width: 100%;
 }
 
-/* Boxed sections styling */
+/* Sections no longer get their own box - a single .content-wrapper
+   spans behind all of a page's sections instead (see below). */
 section {
-    background: white;
-    padding: 30px;
     margin-bottom: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+section:last-child {
+    margin-bottom: 0;
 }
 
 section h1,
@@ -196,4 +197,26 @@ section h2 {
     border-bottom: 2px solid #007bff;
     padding-bottom: 10px;
     margin-top: 0;
+}
+
+/* Single box wrapping all of a subpage's content/sections */
+.content-wrapper {
+    background: white;
+    padding: 30px;
+    margin: 30px 0;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.content-wrapper h1:first-child,
+.content-wrapper h2:first-child {
+    margin-top: 0;
+}
+
+.highlight {
+    background: #e7f3ff;
+    border-left: 4px solid #007bff;
+    padding: 15px 20px;
+    margin: 20px 0;
+    border-radius: 4px;
 }

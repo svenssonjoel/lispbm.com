@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM community: contributors, project gallery, the GitHub ecosystem graph, and how to get involved on GitHub and Discord.">
+  <meta name="keywords" content="lispbm community, lispbm contributors, lispbm gallery, lispbm discord, lispbm github, lisp microcontroller community">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LispBM Community</title>
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/community.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM Community">
+  <meta property="og:description" content="Meet the LispBM contributors, browse the community gallery, and find out how to get involved.">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/community.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM Community">
+  <meta name="twitter:description" content="Meet the LispBM contributors, browse the community gallery, and find out how to get involved.">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./ico/favicon.ico">
+  <link rel="icon" href="./ico/favicon.ico">
+  <link rel="manifest" href="./ico/site.webmanifest">
+
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="LispBM Feed" href="https://www.lispbm.com/feed.xml">
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<body class="with-background">
+
+<div class="container">
+  <div class="banner"></div>
+  <a href="index.html" class="back-link">← Back to Main Site</a>
+
+  <h1 class="main-title">LispBM Community</h1>
+
+  <div class="content-wrapper">
+  <section id="contributors">
+    <h2>Contributors</h2>
+    <p>LispBM is made possible by an amazing community of developers who contribute their time, expertise, and passion. You can <a href="contributors.html">meet our contributors</a> to see the people behind the project.</p>
+
+    <p>There are lots of interesting things to code on in and around the LispBM runtime system. I would love to interact with people who are interested in high-level programming languages on microcontrollers (or elsewhere) so please do not be shy to make contact. Together we can make great stuff happen ;)</p>
+
+    <div class="highlight">
+      <strong>For detailed contribution information and to see how you can help</strong>, visit our <a href="contributors.html">Contributors page</a>.
+    </div>
+  </section>
+
+  <section id="gallery">
+    <h2>LispBM Gallery</h2>
+    <div class="highlight">
+      <strong>Have you done something cool with LispBM?</strong> Send us a picture for our LispBM Gallery! You can <a href="gallery.html">view the full gallery</a> to see all the amazing projects from our community.
+    </div>
+
+    <div id="homepageDataSourceNotice" style="display: none; background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 10px; border-radius: 5px; margin: 15px 0; text-align: left;">
+      <strong>Notice:</strong> Using fallback data - CSV file could not be loaded for homepage gallery.
+    </div>
+
+    <div style="margin-top: 20px;">
+      <a href="gallery.html" style="display: inline-block; text-decoration: none;">
+        <img id="randomCollageImage" src="" alt="Random collage image" style="max-width: 300px; max-height: 200px; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); cursor: pointer; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'" loading="lazy"/>
+      </a>
+      <p id="imageAttribution" style="color: #888; font-size: 0.8em; font-style: italic; margin-top: 8px;"></p>
+    </div>
+  </section>
+
+  <section id="ecosystem">
+    <h2>Ecosystem</h2>
+    <p>Explore the <a href="lispbm_graph.html">LispBM GitHub ecosystem graph</a> — an interactive map of forks and related repositories.</p>
+  </section>
+
+  <section id="get-involved">
+    <h2>Get Involved</h2>
+    <ul>
+      <li><a href="https://github.com/svenssonjoel/lispBM">GitHub</a> — source code, issues, and pull requests.</li>
+      <li><a href="https://discord.gg/KgD4WcnFjv">Discord</a> — chat with the community.</li>
+    </ul>
+  </section>
+  </div>
+
+</div>
+
+<script src="gallery-common.js"></script>
+<script>
+// Function to display a random image with attribution
+function displayRandomImage() {
+  const randomIndex = Math.floor(Math.random() * galleryImages.length);
+  const randomImageObj = galleryImages[randomIndex];
+
+  document.getElementById('randomCollageImage').src = randomImageObj.src;
+
+  const formattedAttribution = formatAttribution(randomImageObj.attribution);
+  document.getElementById('imageAttribution').innerHTML = `Credit: ${formattedAttribution}`;
+}
+
+// Initialize random image display when page loads
+async function initRandomImage() {
+  await loadGalleryData('homepageDataSourceNotice');
+  displayRandomImage();
+}
+
+window.addEventListener('load', initRandomImage);
+</script>
+
+</body>
+</html>

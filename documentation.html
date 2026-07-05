@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM documentation: reference manual, C API docs, cheatsheet, editor support, implementation articles, test reports, and performance benchmarks.">
+  <meta name="keywords" content="lispbm documentation, lispbm reference manual, lispbm cheatsheet, lispbm implementation, lispbm testing, lispbm performance, lisp microcontroller docs">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LispBM Documentation</title>
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/documentation.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM Documentation">
+  <meta property="og:description" content="Reference manual, C API docs, cheatsheet, editor support, implementation articles, test reports, and performance benchmarks for LispBM.">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/documentation.html">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="LispBM">
+
+  <!-- Twitter Card Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="LispBM Documentation">
+  <meta name="twitter:description" content="Reference manual, C API docs, cheatsheet, editor support, implementation articles, test reports, and performance benchmarks for LispBM.">
+  <meta name="twitter:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="./ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/vnd.microsoft.icon" href="./ico/favicon.ico">
+  <link rel="icon" type="image/x-icon" href="./ico/favicon.ico">
+  <link rel="icon" href="./ico/favicon.ico">
+  <link rel="manifest" href="./ico/site.webmanifest">
+
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="LispBM Feed" href="https://www.lispbm.com/feed.xml">
+
+  <link rel="stylesheet" href="styles.css">
+
+</head>
+
+<style type="text/css">
+  .image-comparison {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+      flex-wrap: wrap;
+  }
+
+  .image-comparison figure {
+      flex: 1;
+      margin: 0;
+      text-align: center;
+      min-width: 300px;
+  }
+
+  .image-comparison img {
+      width: 100%;
+      height: auto;
+      border-radius: 5px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  .image-comparison figcaption {
+      margin-top: 10px;
+      font-style: italic;
+      color: #666;
+      font-size: 0.9em;
+  }
+</style>
+
+<body class="with-background">
+
+<div class="container">
+  <div class="banner"></div>
+  <a href="index.html" class="back-link">← Back to Main Site</a>
+
+  <h1 class="main-title">LispBM Documentation</h1>
+
+  <div class="content-wrapper">
+  <section id="documentation">
+    <h2>Reference</h2>
+    <ul>
+      <li><a href="./lispbm-reference-manual/html/">Searchable reference manual</a>.</li>
+      <li><a href="./cdocs/html/index.html">Implementation C code documents</a>.</li>
+      <li><a href="./cheatsheet.md">LispBM Language Cheatsheet</a> and <a href="./to-pdf.sh">to-pdf.sh script</a> that can be used to build a PDF from your modified cheatsheet.</li>
+      <li><a href="./cheatsheet.pdf">LispBM Language Cheatsheet (PDF)</a>.</li>
+      <li>There are <a href="https://youtube.com/playlist?list=PLtf-3TaqZoDOQqZcB9Yj-R1zS2DWDZ9q9">video demonstrations on YouTube</a>.</li>
+    </ul>
+
+    <div class="highlight">
+      <strong>Search the Documentation:</strong> Check out our <a href="./lispbm-reference-manual/html/">searchable reference manual</a>.
+    </div>
+  </section>
+
+  <section id="editor-support">
+    <h2>Editor Support</h2>
+    <ul>
+      <li><a href="https://vesc-project.com/vesc-tool">vesc-tool</a></li>
+      <li><a href="https://marketplace.visualstudio.com/items?itemName=rasmus-soderhielm.lispbm-language-support">vscode support</a></li>
+      <li><a href="https://github.com/cortex/zed-lispbm">Zed</a></li>
+      <li><a href="https://github.com/cortex/tree-sitter-lispbm">Tree-sitter grammar</a></li>
+    </ul>
+  </section>
+
+  <section id="presentations">
+    <h2>Presentations</h2>
+    <ul>
+      <li><a href="LBM_DEC_8.pdf">Chalmers FP-Talk December 2023</a> - a video can be found on <a href="https://youtu.be/YAhUIaLu5po?feature=shared">YouTube</a></li>
+      <li><a href="fp-talk-2025.pdf">Chalmers FP-Talk May 2025 presentation</a></li>
+    </ul>
+  </section>
+
+  <section id="language-implementation">
+    <h2>Language Implementation</h2>
+    <p>Texts about language development, implementation techniques, and the technical details behind LispBM.</p>
+    <ul>
+      <li><a href="./quasiquotation-comparison.html">LispBM vs Guile 3: Quasiquotation Comparison</a></li>
+      <li><a href="./pages/lispbm-evaluator/index.html"> Defunctionalizing a Continuation-Passing Style Evaluator </a></li>
+      <li><a href="./pages/lispbm-compilation-1"> Towards a bytecode compiler for lispBM </a></li>
+      <li><a href="./pages/lispbm-register-machine/index.html"> Evaluation of expressions using a register machine </a> (Edited June 23, 2020: BugFix!)</li>
+      <li><a href="./pages/lispbm-memory-allocation/index.html"> An attempt to get a better grip on the memory usage </a></li>
+      <li><a href="./pages/lispbm-towards-concurrency-2/index.html"> Spawn and Wait: Concurrency in lispBM part 2 </a></li>
+      <li><a href="./pages/lispbm-towards-concurrency/index.html"> Concurrency in lispBM part 1 </a></li>
+      <li><a href="./pages/lispbm-quasiquotation/index.html"> Quasiquotation in lispBM </a>  (Edited June 10, 2020: BugFix)</li>
+      <li><a href="./pages/lispbm-short-circuit-logic/index.html"> Boolean operators with short-circuit behavior </a></li>
+      <li><a href="./pages/lispbm-recursion-to-iteration/index.html"> Turning Recursion into Iteration using an Explicit Stack </a></li>
+      <li><a href="./pages/lispbm-esp32-repl/index.html"> Implementation of a lispBM REPL for the ESP32 MCU </a></li>
+      <li><a href="./pages/lispbm-zephyros-repl/index.html"> Implementing a lispBM REPL in Zephyr OS </a></li>
+      <li><a href="./pages/lispbm-compressed-code/index.html"> Compression and parsing of compressed source code </a></li>
+      <li><a href="./pages/lispbm-garbage-collector/index.html"> Garbage collection in lispBM </a></li>
+      <li><a href="./pages/lispbm-chibios-repl/index.html"> Implementing a lispBM REPL in ChibiOs </a></li>
+      <li><a href="./pages/lispbm-fundamentals-and-extensions/index.html"> Fundamental operations and extensions in lispBM </a></li>
+      <li><a href="./pages/lispbm-parsing-expressions/index.html"> Parsing of lispBM expressions </a></li>
+      <li><a href="./pages/lispbm-boxed-values/index.html"> A quick look at boxed values in lispBM </a></li>
+      <li><a href="./pages/lispbm-evaluation-function/index.html"> More in-depth walkthrough of the lispBM evaluation function </a></li>
+      <li><a href="./pages/lispbm-current-status/index.html">Introduction to LispBM for microcontrollers</a></li>
+    </ul>
+  </section>
+
+  <section id="testlogs">
+    <h2>Testing of LispBM</h2>
+
+    <p>The table below contains test reports for the recent numbered
+      releases of LispBM.  The test reports apply to the tagged states
+      with the same numbering on GitHub.  The tagged versions of LBM,
+      shown in the table below, have been run through the full test suite
+      and static analysis process. Versions not in this list have not been
+      as rigorously tested.  If you want to use LispBM for something
+      serious, please use the most recent tagged version from the table
+      below and keep in mind that testing is never exhaustive and in no
+      way a guarantee of correctness or suitability for any given
+      purpose. <strong>A thorough safety and reliability analysis should be
+      performed on the software system where LispBM is integrated as a
+      whole</strong>.
+    </p>
+
+    <p>We are committed to rigorous testing to make LispBM suitable as a
+      scripting language for <em>any</em> application. These test results provide
+      traceability and document known issues for each version.  Improving
+      and developing new testing approaches is an ongoing effort and
+      collaboration is most appreciated.</p>
+
+    <p>Please report bugs via the issues tracker on <a href="https://github.com/svenssonjoel/lispBM/issues">GitHub</a>.</p>
+
+    <div class="highlight">
+      <strong>Want to see detailed test coverage?</strong> View the <a href="./testlogs/html/version_0.37.0/coverage/coverage.html">latest test coverage report (v0.37.0)</a>.
+    </div>
+
+    <!-- REMEMBER TO UPDATE THE LINK TO THE LATEST TEST COVERAGE WHEN ADDING NEW VERSION TAGS -->
+
+    <table>
+        <thead>
+            <tr>
+                <th>Testlog</th>
+                <th>Tagged version</th>
+                <th>Changelog</th>
+                <th>Notes</th>
+            </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><a href="./testlogs/html/version_0.37.0/index.html">0.37.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.37.0"> tag 0.37.0 </a> </td>
+            <td><a href="./releases/release-0.37.0.html">changelog</a></td>
+            <td>Image issue involving symbol names resolved.</td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.36.0/index.html">0.36.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.36.0"> tag 0.36.0 </a> </td>
+            <td><a href="./releases/release-0.36.0.html">changelog</a></td>
+            <td>Reader refactoring and bugfixes in various parts.</td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.35.0/index.html">0.35.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.35.0"> tag 0.35.0 </a> </td>
+            <td><a href="./releases/release-0.35.0.html">changelog</a></td>
+            <td>Performance optimizations, bugfixes and testing framework changes.</td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.34.1/index.html">0.34.1</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.34.1"> tag 0.34.1 </a> </td>
+            <td><a href="./releases/release-0.34.1.html">changelog</a></td>
+            <td>Same as 0.34.0 but with bugfixes in the testing framework and tests.</td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.34.0/index.html">0.34.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.34.0"> tag 0.34.0 </a> </td>
+            <td><a href="./releases/release-0.34.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.33.0/index.html">0.33.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.33.0"> tag 0.33.0 </a> </td>
+            <td><a href="./releases/release-0.33.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.32.0/index.html">0.32.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.32.0"> tag 0.32.0 </a> </td>
+            <td><a href="./releases/release-0.32.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.31.0/index.html">0.31.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.31.0"> tag 0.31.0 </a> </td>
+            <td><a href="./releases/release-0.31.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.30.0/index.html">0.30.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.30.0"> tag 0.30.0 </a> </td>
+            <td><a href="./releases/release-0.30.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.29.0/index.html">0.29.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.29.0"> tag 0.29.0 </a> </td>
+            <td><a href="./releases/release-0.29.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.28.0/index.html">0.28.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.28.0"> tag 0.28.0 </a> </td>
+            <td><a href="./releases/release-0.28.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.27.0/index.html">0.27.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.27.0"> tag 0.27.0 </a> </td>
+            <td><a href="./releases/release-0.27.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.26.0/index.html">0.26.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.26.0"> tag 0.26.0 </a> </td>
+            <td><a href="./releases/release-0.26.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.25.0/index.html">0.25.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.25.0"> tag 0.25.0 </a></td>
+            <td><a href="./releases/release-0.25.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.24.0/index.html">0.24.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.24.0"> tag 0.24.0 </a></td>
+            <td><a href="./releases/release-0.24.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td><a href="./testlogs/html/version_0.23.0/index.html">0.23.0</a></td>
+            <td><a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.23.0"> tag 0.23.0 </a></td>
+            <td><a href="./releases/release-0.23.0.html">changelog</a></td>
+            <td></td>
+          </tr>
+        </tbody>
+    </table>
+
+    <p>For a complete list of all release changelogs, visit the <a href="./releases/index.html">releases directory</a>.</p>
+
+    <p><strong>NOTE:</strong> The scan-build directory and Infer result file
+      <code>infer-x.y.z.txt</code> are empty if no issues are found.</p>
+    <br>
+    <p>We expand on our testing from time to time but currently apply the following testing methods:</p>
+    <ul>
+      <li> Unit tests. </li>
+      <li> Static analysis using <a href="https://clang-analyzer.llvm.org/scan-build.html"> CLANG scan-build </a>. </li>
+      <li> Static analysis using <a href="https://github.com/facebook/infer"> Infer </a>. </li>
+      <li> Static analysis using <a href="https://cppcheck.sourceforge.io/"> cppcheck </a>. </li>
+      <li> Work in progress - Property based testing using <a href="https://www.cse.chalmers.se/~rjmh/QuickCheck/manual.html"> Haskell QuickCheck </a>. </li>
+      <li> Test coverage is checked with gcov and <a href="https://gcovr.com/en/stable/">gcovr coverage tool</a>. </li>
+    </ul>
+
+    <p>Leading up to version 0.33.0, focus was on improving test coverage. As can be seen from the images below, test coverage has
+    increased significantly and in version 0.33.0 coverage reached 97.4% of functions and 91.7% of lines. There are still improvements needed for
+    branch coverage. Many of the uncovered branches are extremely hard to trigger and in a correctly set-up integration of LispBM
+    it may be impossible to trigger these error conditions. The plan for future testing is to slowly increase coverage with tests
+    designed to trigger even more unlikely edge cases, but overly defensive programming practices (such as conditions that cannot arise in a
+    correctly configured LispBM system) will be removed.</p>
+
+    <div class="image-comparison">
+      <figure>
+        <img src="./images/coverage_0.32.0.jpg" alt="LispBM testing coverage version 0.32.0" loading="lazy" />
+        <figcaption>Test coverage for version 0.32.0</figcaption>
+      </figure>
+      <figure>
+        <img src="./images/coverage_0.33.0.jpg" alt="LispBM testing coverage version 0.33.0" loading="lazy" />
+        <figcaption>Test coverage for version 0.33.0</figcaption>
+      </figure>
+    </div>
+
+  </section>
+
+  <section id="performance">
+    <h2>LispBM Performance Evolution</h2>
+
+    <p>The performance of the LispBM implementation continuously evolves as we introduce new features and engage in optimization efforts. We work to enhance its efficiency for microcontrollers, such as the STM32F4 running at 168MHz.</p>
+
+    <p>Below, you can find performance charts illustrating LispBM&#8217;s performance on a set of benchmarks:</p>
+
+    <div style="display: flex; flex-direction: column; gap: 30px; margin: 20px 0;">
+      <figure style="margin: 0; text-align: center;">
+        <img src="./images/frame_176.png" alt="LispBM performance benchmarks chart showing execution times"
+             loading="lazy"
+             onclick="openVideoModal()"
+             style="width: 100%; height: auto; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); cursor: pointer; transition: transform 0.2s, opacity 0.2s;"
+             onmouseover="this.style.transform='scale(1.02)'; this.style.opacity='0.9'"
+             onmouseout="this.style.transform='scale(1)'; this.style.opacity='1'" />
+        <figcaption style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;">Performance benchmarks with linear scale (click to view animation)</figcaption>
+      </figure>
+      <figure style="margin: 0; text-align: center;">
+        <img src="./images/benchresults_log.png" alt="LispBM performance benchmarks chart with logarithmic scale" loading="lazy" style="width: 100%; height: auto; border-radius: 5px; box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);" />
+        <figcaption style="margin-top: 10px; font-style: italic; color: #666; font-size: 0.9em;">Performance benchmarks with logarithmic scale</figcaption>
+      </figure>
+    </div>
+
+    <!-- Video Modal -->
+    <div id="videoModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.9); overflow: auto;" onclick="closeVideoModal()">
+      <div style="position: relative; width: 90%; max-width: 1200px; margin: 50px auto;">
+        <span style="position: absolute; top: -40px; right: 0; color: #f1f1f1; font-size: 40px; font-weight: bold; cursor: pointer;" onclick="closeVideoModal()">&times;</span>
+        <video id="modalVideo" controls autoplay style="width: 100%; height: auto; border-radius: 5px;">
+          <source src="./lbm_performance_history.mp4" type="video/mp4">
+          Your browser does not support the video tag.
+        </video>
+        <p style="color: #f1f1f1; text-align: center; margin-top: 15px; font-size: 1.1em;">LispBM Performance History Over Time</p>
+      </div>
+    </div>
+
+    <p>If you&#8217;re interested in the technical details and benchmarks, you can explore our benchmark code <a href="https://github.com/svenssonjoel/lispBM/tree/master/benchmarks">here</a></p>
+  </section>
+  </div>
+
+</div>
+
+<script>
+// Video modal functions
+function openVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  modal.style.display = 'block';
+  video.play();
+}
+
+function closeVideoModal() {
+  const modal = document.getElementById('videoModal');
+  const video = document.getElementById('modalVideo');
+  modal.style.display = 'none';
+  video.pause();
+  video.currentTime = 0;
+}
+
+// Close modal with Escape key
+document.addEventListener('keydown', function(event) {
+  if (event.key === 'Escape') {
+    closeVideoModal();
+  }
+});
+</script>
+
+</body>
+</html>
