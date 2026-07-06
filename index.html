@@ -120,21 +120,18 @@
   </script>
 
   <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=VT323&display=swap" rel="stylesheet">
 
 </head>
 
 <style type="text/css">
   /* Homepage-specific styles */
 
-  .hero {
-      text-align: center;
-      padding: 60px 20px 20px;
-  }
-
-  .hero h1 {
-      font-size: 3em;
-      margin: 0;
-      color: #333;
+  body {
+      font-family: 'VT323', monospace;
+      font-size: 20px;
   }
 
   .hero-row {
@@ -142,13 +139,25 @@
       align-items: center;
       justify-content: center;
       gap: 50px;
-      margin: 40px 0;
+      margin: 80px 0 40px;
   }
 
-  .hero-row img {
+  .llama-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .llama-block img {
       max-width: 220px;
       height: auto;
       margin: 0;
+  }
+
+  .llama-block h1 {
+      font-size: 1.4em;
+      margin: -10px 0 0;
+      color: #333;
   }
 
   .hub-nav-vertical {
@@ -210,12 +219,11 @@
 <div class="container">
   <div class="banner"></div>
 
-  <div class="hero">
-    <h1>LispBM</h1>
-  </div>
-
   <div class="hero-row">
-    <img src="images/lispbm_llama_small.png" alt="LispBM mascot, Lispy the Llama">
+    <div class="llama-block">
+      <img src="images/lispbm_llama_small.png" alt="LispBM mascot, Lispy the Llama">
+      <h1>LispBM</h1>
+    </div>
     <nav class="hub-nav hub-nav-primary hub-nav-vertical" aria-label="Main navigation">
       <a href="about.html">About</a>
       <a href="getting-started.html">Getting Started</a>
