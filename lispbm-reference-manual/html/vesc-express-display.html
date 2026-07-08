@@ -60,16 +60,31 @@
 <div data-pagefind-filter="Platform">VESC</div>
 <div data-pagefind-filter="Document">Vesc Express Display</div>
 
-<h1 id="documentation-for-display-drivers">Documentation for display drivers</h1>
+<h1 id="documentation-for-display-drivers">Documentation for display
+drivers</h1>
 <h1 id="introduction">Introduction</h1>
-<p>Drivers for a specific display is loaded with the associated <code>disp-load-x</code> function, where x is the name of the driver. Each disp-load function takes arguments specific to the display. These are explained below.</p>
-<p>Each display driver provides a "rendering", "clearing" and "reset" function that is connected to the LispBM extensions <code>disp-render</code>, <code>disp-clear</code> and <code>disp-reset</code> upon loading. The render, clear and reset functions are the display dependent interface that are implemented per display.</p>
-<h1 id="adding-new-panels-with-esp_lcd">Adding new panels with esp_lcd</h1>
-<p>New display drivers should use the <code>esp_lcd</code> component-based flow (see <code>disp_axs15231.c</code> for a complete example). In this project, adding a panel consists of two parts: the low-level display driver and the LispBM loader extension.</p>
+<p>Drivers for a specific display is loaded with the associated
+<code>disp-load-x</code> function, where x is the name of the driver.
+Each disp-load function takes arguments specific to the display. These
+are explained below.</p>
+<p>Each display driver provides a "rendering", "clearing" and "reset"
+function that is connected to the LispBM extensions
+<code>disp-render</code>, <code>disp-clear</code> and
+<code>disp-reset</code> upon loading. The render, clear and reset
+functions are the display dependent interface that are implemented per
+display.</p>
+<h1 id="adding-new-panels-with-esp_lcd">Adding new panels with
+esp_lcd</h1>
+<p>New display drivers should use the <code>esp_lcd</code>
+component-based flow (see <code>disp_axs15231.c</code> for a complete
+example). In this project, adding a panel consists of two parts: the
+low-level display driver and the LispBM loader extension.</p>
 <h2 id="1-add-dependency">1. Add dependency</h2>
-<p>If your panel has a dedicated esp_lcd component, add it to <code>main/idf_component.yml</code>.</p>
+<p>If your panel has a dedicated esp_lcd component, add it to
+<code>main/idf_component.yml</code>.</p>
 <p>Example:</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true"></a><span class="fu">espressif/esp_lcd_axs15231b</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;^1.0.1&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre
+class="sourceCode yaml"><code class="sourceCode yaml"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">espressif/esp_lcd_axs15231b</span><span class="kw">:</span><span class="at"> </span><span class="st">&quot;^1.0.1&quot;</span></span></code></pre></div>
 <h2 id="2-create-display-driver-file">2. Create display driver file</h2>
 <p>Create a new <code>disp_&lt;panel&gt;.c/.h</code> and implement:</p>
 <ul>
@@ -79,23 +94,34 @@
 <li><code>disp_&lt;panel&gt;_reset(...)</code></li>
 </ul>
 <p>Inside <code>init</code> use the esp_lcd sequence:</p>
-<ol>
-<li>Configure and initialize the bus (<code>spi_bus_initialize(...)</code> for SPI/QSPI).</li>
-<li>Create panel IO (<code>esp_lcd_new_panel_io_spi(...)</code> or other IO backend).</li>
-<li>Configure panel device settings (<code>esp_lcd_panel_dev_config_t</code>).</li>
-<li>Create panel handle (<code>esp_lcd_new_panel_&lt;controller&gt;(...)</code>).</li>
-<li>Call <code>esp_lcd_panel_reset(...)</code> and <code>esp_lcd_panel_init(...)</code>.</li>
+<ol type="1">
+<li>Configure and initialize the bus
+(<code>spi_bus_initialize(...)</code> for SPI/QSPI).</li>
+<li>Create panel IO (<code>esp_lcd_new_panel_io_spi(...)</code> or other
+IO backend).</li>
+<li>Configure panel device settings
+(<code>esp_lcd_panel_dev_config_t</code>).</li>
+<li>Create panel handle
+(<code>esp_lcd_new_panel_&lt;controller&gt;(...)</code>).</li>
+<li>Call <code>esp_lcd_panel_reset(...)</code> and
+<code>esp_lcd_panel_init(...)</code>.</li>
 </ol>
-<p>Use <code>esp_lcd_panel_draw_bitmap(...)</code> in render/clear routines.</p>
-<h2 id="3-register-lispbm-load-function">3. Register LispBM load function</h2>
+<p>Use <code>esp_lcd_panel_draw_bitmap(...)</code> in render/clear
+routines.</p>
+<h2 id="3-register-lispbm-load-function">3. Register LispBM load
+function</h2>
 <p>In <code>lispif_disp_extensions.c</code>:</p>
-<ol>
-<li>Add <code>ext_disp_load_&lt;panel&gt;(...)</code> argument parsing and validation.</li>
+<ol type="1">
+<li>Add <code>ext_disp_load_&lt;panel&gt;(...)</code> argument parsing
+and validation.</li>
 <li>Call your <code>disp_&lt;panel&gt;_init(...)</code>.</li>
-<li>Connect callbacks with <code>lbm_display_extensions_set_callbacks(...)</code>.</li>
-<li>Register loader name with <code>lbm_add_extension("disp-load-&lt;panel&gt;", ...)</code>.</li>
+<li>Connect callbacks with
+<code>lbm_display_extensions_set_callbacks(...)</code>.</li>
+<li>Register loader name with
+<code>lbm_add_extension("disp-load-&lt;panel&gt;", ...)</code>.</li>
 </ol>
-<p>After this, LispBM can switch to the panel at runtime with <code>disp-load-&lt;panel&gt;</code>.</p>
+<p>After this, LispBM can switch to the panel at runtime with
+<code>disp-load-&lt;panel&gt;</code>.</p>
 <h1 id="displays">Displays</h1>
 <h2 id="sh8501b">sh8501b</h2>
 <ul>
@@ -103,110 +129,179 @@
 <li>Colors: 16Bit</li>
 <li>Interface: SPI</li>
 </ul>
-<p>Compatible with all image formats supported by the graphics library.</p>
+<p>Compatible with all image formats supported by the graphics
+library.</p>
 <h3 id="disp-load-sh8501b">disp-load-sh8501b</h3>
-<div class="sourceCode" id="cb2"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true"></a>(disp-load-sh8501b gpio-sd0 gpio-clk gpio-cs gpio-reset spi-mhz)</span></code></pre></div>
-<p>Loads the sh8501b driver. The driver uses hardware-SPI at rate <code>spi-mhz</code> on the <code>gpio-sd0</code> and <code>gpio-clk</code> GPIO pins.</p>
-<p>Example using GPIO pins 6,5,7 and 8 for sd0,clk,cs and reset running the SPI clock at 40MHz:</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true"></a>(disp-load-sh8501b <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">40</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>(disp-load-sh8501b gpio-sd0 gpio-clk gpio-cs gpio-reset spi-mhz)</span></code></pre></div>
+<p>Loads the sh8501b driver. The driver uses hardware-SPI at rate
+<code>spi-mhz</code> on the <code>gpio-sd0</code> and
+<code>gpio-clk</code> GPIO pins.</p>
+<p>Example using GPIO pins 6,5,7 and 8 for sd0,clk,cs and reset running
+the SPI clock at 40MHz:</p>
+<div class="sourceCode" id="cb3"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>(disp-load-sh8501b <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">40</span>)</span></code></pre></div>
 <h2 id="sh8601">sh8601</h2>
 <ul>
 <li>Resolution: 170 * 320</li>
 <li>Colors: 16Bit</li>
 <li>Interface: SPI</li>
 </ul>
-<p>Compatible with all image formats supported by the graphics library.</p>
+<p>Compatible with all image formats supported by the graphics
+library.</p>
 <h3 id="disp-load-sh8601">disp-load-sh8601</h3>
-<div class="sourceCode" id="cb4"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true"></a>(disp-load-sh8601 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
-<p>Loads the sh8601 driver. The driver uses hardware-SPI at rate <code>spi-mhz</code> on the <code>gpio-sd0</code> and <code>gpio-clk</code> GPIO pins.</p>
-<p>Example using GPIO pins 6,5,7 and 8 for sd0,clk,cs and reset running the SPI clock at 40MHz and DC on GPIO 9:</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true"></a>(disp-load-sh8601 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">40</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>(disp-load-sh8601 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
+<p>Loads the sh8601 driver. The driver uses hardware-SPI at rate
+<code>spi-mhz</code> on the <code>gpio-sd0</code> and
+<code>gpio-clk</code> GPIO pins.</p>
+<p>Example using GPIO pins 6,5,7 and 8 for sd0,clk,cs and reset running
+the SPI clock at 40MHz and DC on GPIO 9:</p>
+<div class="sourceCode" id="cb5"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>(disp-load-sh8601 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">9</span> <span class="dv">40</span>)</span></code></pre></div>
 <h2 id="ili9341">ili9341</h2>
 <ul>
 <li>Resolution: 320 * 240</li>
 <li>Colors: 16Bit</li>
 <li>Interface: SPI</li>
 </ul>
-<p>Compatible with all image formats supported by the graphics library.</p>
+<p>Compatible with all image formats supported by the graphics
+library.</p>
 <h3 id="disp-load-ili9341">disp-load-ili9341</h3>
-<div class="sourceCode" id="cb6"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true"></a>(disp-load-ili9341 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
-<p>Loads the ili9341 driver. The driver uses hardware-SPI at rate <code>spi-mhz</code> on the <code>gpio-sd0</code> and <code>gpio-clk</code> GPIO pins. In addition, the ili9341 uses a data/command signal to discern between commands and data. The data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
-<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc. The SPI clock is set to 40MHz.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true"></a>(disp-load-ili9341 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>(disp-load-ili9341 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
+<p>Loads the ili9341 driver. The driver uses hardware-SPI at rate
+<code>spi-mhz</code> on the <code>gpio-sd0</code> and
+<code>gpio-clk</code> GPIO pins. In addition, the ili9341 uses a
+data/command signal to discern between commands and data. The
+data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
+<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc.
+The SPI clock is set to 40MHz.</p>
+<div class="sourceCode" id="cb7"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>(disp-load-ili9341 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
 <h2 id="ssd1306">ssd1306</h2>
 <ul>
 <li>Resolution: 128 * 64</li>
 <li>Colors: B/W (1bpp)</li>
 <li>Interface: I2C</li>
 </ul>
-<p>Can display images of <code>indexed2</code> format and is limited to displaying only full screen images starting at position (0, 0).</p>
+<p>Can display images of <code>indexed2</code> format and is limited to
+displaying only full screen images starting at position (0, 0).</p>
 <h3 id="disp-load-ssd1306">disp-load-ssd1306</h3>
-<div class="sourceCode" id="cb8"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true"></a>(disp-load-ssd1306 gpio-sda gpio-scl i2c-hz)</span></code></pre></div>
-<p>Load the ssd1306 driver. The ssd1306 talks I2C over the GPIOs <code>gpio-sda</code> (serial data) and <code>gpio-scl</code> (clock).</p>
+<div class="sourceCode" id="cb8"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>(disp-load-ssd1306 gpio-sda gpio-scl i2c-hz)</span></code></pre></div>
+<p>Load the ssd1306 driver. The ssd1306 talks I2C over the GPIOs
+<code>gpio-sda</code> (serial data) and <code>gpio-scl</code>
+(clock).</p>
 <p>Example using GPIO pins 7 and 6 for serial data and clock.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true"></a>(disp-load-ssd1306 <span class="dv">7</span> <span class="dv">6</span> <span class="dv">700000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>(disp-load-ssd1306 <span class="dv">7</span> <span class="dv">6</span> <span class="dv">700000</span>)</span></code></pre></div>
 <h2 id="st7789">st7789</h2>
 <ul>
 <li>Resolution: up to 320 * 240</li>
 <li>Colors: 16Bit</li>
 <li>Interface: SPI</li>
 </ul>
-<p>Compatible with all image formats supported by the graphics library.</p>
+<p>Compatible with all image formats supported by the graphics
+library.</p>
 <h3 id="disp-load-st7789">disp-load-st7789</h3>
-<div class="sourceCode" id="cb10"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true"></a>(disp-load-st7789 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
-<p>Loads the st7789 driver. The driver uses hardware-SPI at rate <code>spi-mhz</code> on the <code>gpio-sd0</code> and <code>gpio-clk</code> GPIO pins. In addition, the st7789 uses a data/command signal to discern between commands and data. The data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
-<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc. The SPI clock is set to 40MHz.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true"></a>(disp-load-st7789 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
-<p><strong>Note</strong> Many st7789-based displays do not have the full resolution that the driver supports in the panel. Some of them also have an offset where the panel starts. The panel size and offset has to be taken into account when using disp-render.</p>
+<div class="sourceCode" id="cb10"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>(disp-load-st7789 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
+<p>Loads the st7789 driver. The driver uses hardware-SPI at rate
+<code>spi-mhz</code> on the <code>gpio-sd0</code> and
+<code>gpio-clk</code> GPIO pins. In addition, the st7789 uses a
+data/command signal to discern between commands and data. The
+data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
+<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc.
+The SPI clock is set to 40MHz.</p>
+<div class="sourceCode" id="cb11"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>(disp-load-st7789 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
+<p><strong>Note</strong> Many st7789-based displays do not have the full
+resolution that the driver supports in the panel. Some of them also have
+an offset where the panel starts. The panel size and offset has to be
+taken into account when using disp-render.</p>
 <h2 id="st7735">st7735</h2>
 <ul>
 <li>Resolution: up to 162 * 132</li>
 <li>Colors: 16Bit</li>
 <li>Interface: SPI</li>
 </ul>
-<p>Compatible with all image formats supported by the graphics library.</p>
+<p>Compatible with all image formats supported by the graphics
+library.</p>
 <h3 id="disp-load-st7735">disp-load-st7735</h3>
-<div class="sourceCode" id="cb12"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true"></a>(disp-load-st7735 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
-<p>Loads the st7735 driver. The driver uses hardware-SPI at rate <code>spi-mhz</code> on the <code>gpio-sd0</code> and <code>gpio-clk</code> GPIO pins. In addition, the st7789 uses a data/command signal to discern between commands and data. The data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
-<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc. The SPI clock is set to 40MHz.</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true"></a>(disp-load-st7789 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
-<p><strong>Note</strong> Many st7735-based displays do not have the full resolution that the driver supports in the panel. Some of them also have an offset where the panel starts. The panel size and offset has to be taken into account when using disp-render.</p>
+<div class="sourceCode" id="cb12"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>(disp-load-st7735 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
+<p>Loads the st7735 driver. The driver uses hardware-SPI at rate
+<code>spi-mhz</code> on the <code>gpio-sd0</code> and
+<code>gpio-clk</code> GPIO pins. In addition, the st7789 uses a
+data/command signal to discern between commands and data. The
+data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
+<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc.
+The SPI clock is set to 40MHz.</p>
+<div class="sourceCode" id="cb13"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>(disp-load-st7789 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
+<p><strong>Note</strong> Many st7735-based displays do not have the full
+resolution that the driver supports in the panel. Some of them also have
+an offset where the panel starts. The panel size and offset has to be
+taken into account when using disp-render.</p>
 <h2 id="ili9488">ili9488</h2>
 <ul>
 <li>Resolution: 480 ** 320</li>
 <li>Colors: 24Bit</li>
 <li>Interface: SPI</li>
 </ul>
-<p>Compatible with all image formats supported by the graphics library.</p>
+<p>Compatible with all image formats supported by the graphics
+library.</p>
 <h3 id="disp-load-ili9488">disp-load-ili9488</h3>
-<div class="sourceCode" id="cb14"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true"></a>(disp-load-ili9488 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
-<p>Loads the ili9488 driver. The driver uses hardware-SPI at rate <code>spi-mhz</code> on the <code>gpio-sd0</code> and <code>gpio-clk</code> GPIO pins. In addition, the ili9488 uses a data/command signal to discern between commands and data. The data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
-<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc. The SPI clock is set to 40MHz.</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true"></a>(disp-load-ili9488 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>(disp-load-ili9488 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
+<p>Loads the ili9488 driver. The driver uses hardware-SPI at rate
+<code>spi-mhz</code> on the <code>gpio-sd0</code> and
+<code>gpio-clk</code> GPIO pins. In addition, the ili9488 uses a
+data/command signal to discern between commands and data. The
+data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
+<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc.
+The SPI clock is set to 40MHz.</p>
+<div class="sourceCode" id="cb15"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>(disp-load-ili9488 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
 <h2 id="ssd1351">ssd1351</h2>
 <ul>
 <li>Resolution: 128 * 128</li>
 <li>Colors: 16Bit</li>
 <li>Interface: SPI</li>
 </ul>
-<p>Compatible with all image formats supported by the graphics library.</p>
+<p>Compatible with all image formats supported by the graphics
+library.</p>
 <h3 id="disp-load-ssd1351">disp-load-ssd1351</h3>
-<div class="sourceCode" id="cb16"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true"></a>(disp-load-ssd1351 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
-<p>Loads the ssd1351 driver. The driver uses hardware-SPI at rate <code>spi-mhz</code> on the <code>gpio-sd0</code> and <code>gpio-clk</code> GPIO pins. In addition, the ssd1351 uses a data/command signal to discern between commands and data. The data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
-<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc. The SPI clock is set to 40MHz.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true"></a>(disp-load-ssd1351 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>(disp-load-ssd1351 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
+<p>Loads the ssd1351 driver. The driver uses hardware-SPI at rate
+<code>spi-mhz</code> on the <code>gpio-sd0</code> and
+<code>gpio-clk</code> GPIO pins. In addition, the ssd1351 uses a
+data/command signal to discern between commands and data. The
+data/command signal is mapped to GPIO <code>gpio-cs</code>.</p>
+<p>Example using GPIO pins 6,5,19,18 and 7 for sd0,clk,cs,reset and dc.
+The SPI clock is set to 40MHz.</p>
+<div class="sourceCode" id="cb17"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>(disp-load-ssd1351 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> <span class="dv">18</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
 <h2 id="icna3306">icna3306</h2>
 <ul>
 <li>Resolution: 194 * 368</li>
 <li>Colors: 16Bit</li>
 <li>Interface: SPI</li>
 </ul>
-<p>Compatible with all image formats supported by the graphics library.</p>
+<p>Compatible with all image formats supported by the graphics
+library.</p>
 <h3 id="disp-load-icna3306">disp-load-icna3306</h3>
-<div class="sourceCode" id="cb18"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true"></a>(disp-load-icna3306 gpio-sd0 gpio-clk gpio-cs gpio-reset spi-mhz)</span></code></pre></div>
-<p>Loads the icna3306 driver. The driver uses hardware-SPI at rate <code>spi-mhz</code> on the <code>gpio-sd0</code> and <code>gpio-clk</code> GPIO pins.</p>
-<p>Example using GPIO pins 6,5,7 and 8 for sd0,clk,cs and reset running the SPI clock at 40MHz:</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true"></a>(disp-load-icna3306 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">40</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb18"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>(disp-load-icna3306 gpio-sd0 gpio-clk gpio-cs gpio-reset spi-mhz)</span></code></pre></div>
+<p>Loads the icna3306 driver. The driver uses hardware-SPI at rate
+<code>spi-mhz</code> on the <code>gpio-sd0</code> and
+<code>gpio-clk</code> GPIO pins.</p>
+<p>Example using GPIO pins 6,5,7 and 8 for sd0,clk,cs and reset running
+the SPI clock at 40MHz:</p>
+<div class="sourceCode" id="cb19"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>(disp-load-icna3306 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">7</span> <span class="dv">8</span> <span class="dv">40</span>)</span></code></pre></div>
 <h2 id="axs15231">axs15231</h2>
 <ul>
 <li>Resolution: 320 * 480</li>
@@ -214,20 +309,49 @@
 <li>Interface: QSPI (SD0, SD1, SD2, SD3, CLK, CS)</li>
 </ul>
 <h3 id="disp-load-axs15231">disp-load-axs15231</h3>
-<div class="sourceCode" id="cb20"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true"></a>(disp-load-axs15231 gpio-sd0 gpio-sd1 gpio-sd2 gpio-sd3 gpio-clk gpio-cs gpio-reset spi-mhz)</span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>(disp-load-axs15231 gpio-sd0 gpio-sd1 gpio-sd2 gpio-sd3 gpio-clk gpio-cs gpio-reset spi-mhz)</span></code></pre></div>
 <p>Loads the axs15231 driver using esp_lcd with QSPI panel IO.</p>
-<p>For best performance and stability on this panel, prefer rendering images in <code>rgb565</code> format. The esp_lcd pipeline for this panel is configured as 16-bit (<code>bits_per_pixel = 16</code>), so non-<code>rgb565</code> image formats require extra per-pixel conversion before transfer.</p>
+<p>For best performance and stability on this panel, prefer rendering
+images in <code>rgb565</code> format. The esp_lcd pipeline for this
+panel is configured as 16-bit (<code>bits_per_pixel = 16</code>), so
+non-<code>rgb565</code> image formats require extra per-pixel conversion
+before transfer.</p>
 <ul>
-<li><code>gpio-reset</code> can be set to <code>-1</code> if reset is not connected.</li>
+<li><code>gpio-reset</code> can be set to <code>-1</code> if reset is
+not connected.</li>
 <li><code>spi-mhz</code> must be in range <code>1..80</code>.</li>
 </ul>
 <p>Example using GPIO pins 21,48,40,39,47,45, reset=-1, and 40MHz:</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode clj"><code class="sourceCode clojure"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true"></a>(disp-load-axs15231 <span class="dv">21</span> <span class="dv">48</span> <span class="dv">40</span> <span class="dv">39</span> <span class="dv">47</span> <span class="dv">45</span> <span class="dv">-1</span> <span class="dv">40</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>(disp-load-axs15231 <span class="dv">21</span> <span class="dv">48</span> <span class="dv">40</span> <span class="dv">39</span> <span class="dv">47</span> <span class="dv">45</span> -<span class="dv">1</span> <span class="dv">40</span>)</span></code></pre></div>
 <p>After loading this driver, these helper extensions are available:</p>
 <ul>
-<li><code>ext-disp-cmd</code> - send a raw display command with optional parameters.</li>
-<li><code>ext-disp-orientation</code> - set rotation (<code>0</code>, <code>1</code>, <code>2</code>, <code>3</code>).</li>
+<li><code>ext-disp-cmd</code> - send a raw display command with optional
+parameters.</li>
+<li><code>ext-disp-orientation</code> - set rotation (<code>0</code>,
+<code>1</code>, <code>2</code>, <code>3</code>).</li>
 </ul>
+<h2 id="gc9a01">gc9a01</h2>
+<ul>
+<li>Resolution: 240 * 240</li>
+<li>Colors: 16Bit</li>
+<li>Interface: SPI</li>
+</ul>
+<p>Compatible with all image formats supported by the graphics
+library.</p>
+<h3 id="disp-load-gc9a01">disp-load-gc9a01</h3>
+<div class="sourceCode" id="cb22"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>(disp-load-gc9a01 gpio-sd0 gpio-clk gpio-cs gpio-reset gpio-dc spi-mhz)</span></code></pre></div>
+<p>Loads the gc9a01 driver using <code>hwspi</code> over SPI.</p>
+<ul>
+<li><code>gpio-reset</code> can be set to <code>-1</code> if reset is
+not connected.</li>
+<li><code>spi-mhz</code> must be in range <code>1..40</code>.</li>
+</ul>
+<p>Example:</p>
+<div class="sourceCode" id="cb23"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a>(disp-load-gc9a01 <span class="dv">6</span> <span class="dv">5</span> <span class="dv">19</span> -<span class="dv">1</span> <span class="dv">7</span> <span class="dv">40</span>)</span></code></pre></div>
 </div> <!-- Close pagefind-body -->
 </div> <!-- Close container -->
 

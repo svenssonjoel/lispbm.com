@@ -3,4 +3,5 @@
 \#*#
 
 # Reference manual source directory
-lispbm-reference-manual/src/
+lispbm-reference-manual/src/*.html
+lispbm-reference-manual/src/*.md
