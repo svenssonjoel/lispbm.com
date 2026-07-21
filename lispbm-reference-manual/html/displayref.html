@@ -1386,7 +1386,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb99-1"><a hre
 <hr />
 <h3 id="img-color">img-color</h3>
 <p>img-color is used to create more complex color objects for use
-together with disp-render.</p>
+together with disp-render. Regular colors can optionally include alpha
+from 0 (transparent) to 255 (opaque), with 255 as the default.</p>
 <ul>
 <li><strong>gradient_x</strong>: vertical gradients from color1 to
 color2.</li>
@@ -1408,64 +1409,49 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb100-1"><a hr
 <td>
 
 <div class="sourceCode" id="cb101"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">67</span> <span class="dv">79</span> <span class="dv">76</span> <span class="dv">17</span> <span class="dv">187</span> <span class="dv">170</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb101-1"><a href="#cb101-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">67</span> <span class="dv">79</span> <span class="dv">76</span> <span class="dv">17</span> <span class="dv">187</span> <span class="dv">170</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
 <div class="sourceCode" id="cb102"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>(img-color <span class="at">&#39;gradient_x</span> color1 color2 <span class="dv">10</span> <span class="dv">0</span> <span class="at">&#39;repeat</span>)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb102-1"><a href="#cb102-1" aria-hidden="true" tabindex="-1"></a>(img-color <span class="at">&#39;regular</span> <span class="bn">0xAABB11</span> <span class="dv">128</span>)</span></code></pre></div>
 </td>
 <td>
 
 <div class="sourceCode" id="cb103"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">67</span> <span class="dv">79</span> <span class="dv">76</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">10</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb103-1"><a href="#cb103-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">67</span> <span class="dv">79</span> <span class="dv">76</span> <span class="dv">17</span> <span class="dv">187</span> <span class="dv">170</span> <span class="dv">0</span> <span class="dv">128</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">128</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
 <div class="sourceCode" id="cb104"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>(img-color <span class="at">&#39;gradient_x_pre</span> color1 color2)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb104-1"><a href="#cb104-1" aria-hidden="true" tabindex="-1"></a>(img-color <span class="at">&#39;gradient_x</span> color1 color2 <span class="dv">10</span> <span class="dv">0</span> <span class="at">&#39;repeat</span>)</span></code></pre></div>
 </td>
 <td>
 
 <div class="sourceCode" id="cb105"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">67</span> <span class="dv">79</span> <span class="dv">76</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">152</span> <span class="dv">5</span> <span class="dv">224</span> <span class="dv">231</span>]</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb105-1"><a href="#cb105-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">67</span> <span class="dv">79</span> <span class="dv">76</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">10</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">1</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
 </td>
-</tr>
-</table>
-
-<table>
-<tr>
-<td> Example </td> <td> Image </td> <td> Result </td>
 </tr>
 <tr>
 <td>
 
 <div class="sourceCode" id="cb106"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>(define fptr (fopen <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>))</span>
-<span id="cb106-2"><a href="#cb106-2" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> fptr))</span>
-<span id="cb106-3"><a href="#cb106-3" aria-hidden="true" tabindex="-1"></a>(fclose fptr)</span>
-<span id="cb106-4"><a href="#cb106-4" aria-hidden="true" tabindex="-1"></a>(define c (img-color <span class="at">&#39;gradient_x</span> color1 color2 <span class="dv">100</span> <span class="dv">0</span> <span class="at">&#39;repeat</span>))</span>
-<span id="cb106-5"><a href="#cb106-5" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
-<span id="cb106-6"><a href="#cb106-6" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
-<span id="cb106-7"><a href="#cb106-7" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">100</span> <span class="dv">0</span> (<span class="kw">list</span> (img-color <span class="at">&#39;regular</span> <span class="dv">0</span>) c))</span></code></pre></div>
-</td>
-<td>
-
-<img src=./images/disp-img46.png >
-
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb106-1"><a href="#cb106-1" aria-hidden="true" tabindex="-1"></a>(img-color <span class="at">&#39;gradient_x_pre</span> color1 color2)</span></code></pre></div>
 </td>
 <td>
 
 <div class="sourceCode" id="cb107"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb107-1"><a href="#cb107-1" aria-hidden="true" tabindex="-1"></a>[<span class="dv">0</span> <span class="dv">67</span> <span class="dv">79</span> <span class="dv">76</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">3</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">240</span> <span class="dv">61</span> <span class="dv">236</span> <span class="dv">229</span> <span class="dv">255</span> <span class="dv">0</span> <span class="dv">0</span> <span class="dv">0</span>]</span></code></pre></div>
 </td>
 </tr>
 </table>
 
+<p>Alpha blends colors in RGB buffers. For indexed buffers, alpha 0
+skips the pixel and any non-zero value writes the color index.</p>
 <table>
 <tr>
 <td> Example </td> <td> Image </td> <td> Result </td>
@@ -1474,17 +1460,17 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb107-1"><a hr
 <td>
 
 <div class="sourceCode" id="cb108"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>(define fptr (fopen <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>))</span>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb108-1"><a href="#cb108-1" aria-hidden="true" tabindex="-1"></a>(define fptr (f-open <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>))</span>
 <span id="cb108-2"><a href="#cb108-2" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> fptr))</span>
-<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>(fclose fptr)</span>
-<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>(define c (img-color <span class="at">&#39;gradient_y</span> color1 color2 <span class="dv">100</span> <span class="dv">0</span> <span class="at">&#39;mirrored</span>))</span>
+<span id="cb108-3"><a href="#cb108-3" aria-hidden="true" tabindex="-1"></a>(f-close fptr)</span>
+<span id="cb108-4"><a href="#cb108-4" aria-hidden="true" tabindex="-1"></a>(define c (img-color <span class="at">&#39;gradient_x</span> color1 color2 <span class="dv">100</span> <span class="dv">0</span> <span class="at">&#39;repeat</span>))</span>
 <span id="cb108-5"><a href="#cb108-5" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
 <span id="cb108-6"><a href="#cb108-6" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
 <span id="cb108-7"><a href="#cb108-7" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">100</span> <span class="dv">0</span> (<span class="kw">list</span> (img-color <span class="at">&#39;regular</span> <span class="dv">0</span>) c))</span></code></pre></div>
 </td>
 <td>
 
-<img src=./images/disp-img47.png >
+<img src=./images/disp-img46.png >
 
 </td>
 <td>
@@ -1495,11 +1481,41 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb109-1"><a hr
 </tr>
 </table>
 
+<table>
+<tr>
+<td> Example </td> <td> Image </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb110"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>(define fptr (f-open <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>))</span>
+<span id="cb110-2"><a href="#cb110-2" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> fptr))</span>
+<span id="cb110-3"><a href="#cb110-3" aria-hidden="true" tabindex="-1"></a>(f-close fptr)</span>
+<span id="cb110-4"><a href="#cb110-4" aria-hidden="true" tabindex="-1"></a>(define c (img-color <span class="at">&#39;gradient_y</span> color1 color2 <span class="dv">100</span> <span class="dv">0</span> <span class="at">&#39;mirrored</span>))</span>
+<span id="cb110-5"><a href="#cb110-5" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
+<span id="cb110-6"><a href="#cb110-6" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
+<span id="cb110-7"><a href="#cb110-7" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">100</span> <span class="dv">0</span> (<span class="kw">list</span> (img-color <span class="at">&#39;regular</span> <span class="dv">0</span>) c))</span></code></pre></div>
+</td>
+<td>
+
+<img src=./images/disp-img47.png >
+
+</td>
+<td>
+
+<div class="sourceCode" id="cb111"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
 <hr />
 <h3 id="img-color-set">img-color-set</h3>
 <p>With <code>img-color-set</code>you can set properties of a color. The
 form of a img-color-set expression is
-<code>(img-color-set color prop value)</code></p>
+<code>(img-color-set color prop value)</code> The <code>alpha</code>
+property is available for every color type and is clamped to 0..255.</p>
 <table>
 <thead>
 <tr class="header">
@@ -1571,20 +1587,8 @@ form of a img-color-set expression is
 <tr>
 <td>
 
-<div class="sourceCode" id="cb110"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb110-1"><a href="#cb110-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;repeat-type</span> <span class="at">&#39;mirrored</span>)</span></code></pre></div>
-</td>
-<td>
-
-<div class="sourceCode" id="cb111"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb111-1"><a href="#cb111-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
-</td>
-</tr>
-<tr>
-<td>
-
 <div class="sourceCode" id="cb112"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;color-0</span> <span class="dv">16711935</span>)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb112-1"><a href="#cb112-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;repeat-type</span> <span class="at">&#39;mirrored</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -1596,7 +1600,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb113-1"><a hr
 <td>
 
 <div class="sourceCode" id="cb114"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;color-1</span> <span class="dv">65280</span>)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;color-0</span> <span class="dv">16711935</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -1608,7 +1612,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb115-1"><a hr
 <td>
 
 <div class="sourceCode" id="cb116"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;width</span> <span class="dv">10</span>)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb116-1"><a href="#cb116-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;color-1</span> <span class="dv">65280</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -1620,12 +1624,36 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb117-1"><a hr
 <td>
 
 <div class="sourceCode" id="cb118"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;offset</span> <span class="dv">1</span>)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;width</span> <span class="dv">10</span>)</span></code></pre></div>
 </td>
 <td>
 
 <div class="sourceCode" id="cb119"><pre
 class="sourceCode clj"><code class="sourceCode clojure"><span id="cb119-1"><a href="#cb119-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb120"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;offset</span> <span class="dv">1</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb121"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb122"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>(img-color-set my-color <span class="at">&#39;alpha</span> <span class="dv">128</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb123"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -1634,7 +1662,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb119-1"><a hr
 <h3 id="img-color-get">img-color-get</h3>
 <p>With <code>img-color-get</code> you can access properties of a color.
 The form of an img-color-get expression is
-<code>(img-color-get color prop)</code></p>
+<code>(img-color-get color prop)</code> Use the <code>alpha</code>
+property to read the current opacity.</p>
 <table>
 <thead>
 <tr class="header">
@@ -1702,61 +1731,73 @@ The form of an img-color-get expression is
 <tr>
 <td>
 
-<div class="sourceCode" id="cb120"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb120-1"><a href="#cb120-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;repeat-type</span>)</span></code></pre></div>
-</td>
-<td>
-
-<div class="sourceCode" id="cb121"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb121-1"><a href="#cb121-1" aria-hidden="true" tabindex="-1"></a>mirrored</span></code></pre></div>
-</td>
-</tr>
-<tr>
-<td>
-
-<div class="sourceCode" id="cb122"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;color-0</span>)</span></code></pre></div>
-</td>
-<td>
-
-<div class="sourceCode" id="cb123"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb123-1"><a href="#cb123-1" aria-hidden="true" tabindex="-1"></a><span class="dv">16711935</span>u32</span></code></pre></div>
-</td>
-</tr>
-<tr>
-<td>
-
 <div class="sourceCode" id="cb124"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;color-1</span>)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb124-1"><a href="#cb124-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;repeat-type</span>)</span></code></pre></div>
 </td>
 <td>
 
 <div class="sourceCode" id="cb125"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a><span class="dv">65280</span>u32</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb125-1"><a href="#cb125-1" aria-hidden="true" tabindex="-1"></a>mirrored</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
 <div class="sourceCode" id="cb126"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;width</span>)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb126-1"><a href="#cb126-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;color-0</span>)</span></code></pre></div>
 </td>
 <td>
 
 <div class="sourceCode" id="cb127"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>i32</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="dv">16711935</span>u32</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
 <div class="sourceCode" id="cb128"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;offset</span>)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;color-1</span>)</span></code></pre></div>
 </td>
 <td>
 
 <div class="sourceCode" id="cb129"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>i32</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb129-1"><a href="#cb129-1" aria-hidden="true" tabindex="-1"></a><span class="dv">65280</span>u32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb130"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;width</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb131"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a><span class="dv">10</span>i32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb132"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;offset</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb133"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="dv">1</span>i32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb134"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>(img-color-get my-color <span class="at">&#39;alpha</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb135"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="dv">128</span>u32</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -1795,25 +1836,25 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb129-1"><a hr
 <tr>
 <td>
 
-<div class="sourceCode" id="cb130"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb130-1"><a href="#cb130-1" aria-hidden="true" tabindex="-1"></a>(img-color-setpre my-color-pre <span class="dv">10</span> <span class="dv">16777215</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>(img-color-setpre my-color-pre <span class="dv">10</span> <span class="dv">16777215</span>)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb131"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb131-1"><a href="#cb131-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb132"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>(img-color-setpre my-color-pre <span class="dv">11</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>(img-color-setpre my-color-pre <span class="dv">11</span> <span class="dv">0</span>)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb133"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -1825,18 +1866,18 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb133-1"><a hr
 <tr>
 <td>
 
-<div class="sourceCode" id="cb134"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a>(define fptr (fopen <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>))</span>
-<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> fptr))</span>
-<span id="cb134-3"><a href="#cb134-3" aria-hidden="true" tabindex="-1"></a>(fclose fptr)</span>
-<span id="cb134-4"><a href="#cb134-4" aria-hidden="true" tabindex="-1"></a>(define c (img-color <span class="at">&#39;gradient_x_pre</span> color1 color2 <span class="dv">100</span> <span class="dv">0</span> <span class="at">&#39;repeat</span>))</span>
-<span id="cb134-5"><a href="#cb134-5" aria-hidden="true" tabindex="-1"></a>(loopfor i <span class="dv">0</span> (<span class="kw">&lt;</span> i <span class="dv">512</span>) (<span class="kw">+</span> i <span class="dv">2</span>)</span>
-<span id="cb134-6"><a href="#cb134-6" aria-hidden="true" tabindex="-1"></a>         (progn </span>
-<span id="cb134-7"><a href="#cb134-7" aria-hidden="true" tabindex="-1"></a>             (img-color-setpre c i <span class="dv">16777215</span>)</span>
-<span id="cb134-8"><a href="#cb134-8" aria-hidden="true" tabindex="-1"></a>             (img-color-setpre c (<span class="kw">+</span> i <span class="dv">1</span>) <span class="dv">0</span>)))</span>
-<span id="cb134-9"><a href="#cb134-9" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
-<span id="cb134-10"><a href="#cb134-10" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
-<span id="cb134-11"><a href="#cb134-11" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">100</span> <span class="dv">0</span> (<span class="kw">list</span> (img-color <span class="at">&#39;regular</span> <span class="dv">0</span>) c))</span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>(define fptr (f-open <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>))</span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> fptr))</span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>(f-close fptr)</span>
+<span id="cb140-4"><a href="#cb140-4" aria-hidden="true" tabindex="-1"></a>(define c (img-color <span class="at">&#39;gradient_x_pre</span> color1 color2 <span class="dv">100</span> <span class="dv">0</span> <span class="at">&#39;repeat</span>))</span>
+<span id="cb140-5"><a href="#cb140-5" aria-hidden="true" tabindex="-1"></a>(loopfor i <span class="dv">0</span> (<span class="kw">&lt;</span> i <span class="dv">512</span>) (<span class="kw">+</span> i <span class="dv">2</span>)</span>
+<span id="cb140-6"><a href="#cb140-6" aria-hidden="true" tabindex="-1"></a>         (progn </span>
+<span id="cb140-7"><a href="#cb140-7" aria-hidden="true" tabindex="-1"></a>             (img-color-setpre c i <span class="dv">16777215</span>)</span>
+<span id="cb140-8"><a href="#cb140-8" aria-hidden="true" tabindex="-1"></a>             (img-color-setpre c (<span class="kw">+</span> i <span class="dv">1</span>) <span class="dv">0</span>)))</span>
+<span id="cb140-9"><a href="#cb140-9" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
+<span id="cb140-10"><a href="#cb140-10" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
+<span id="cb140-11"><a href="#cb140-11" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">100</span> <span class="dv">0</span> (<span class="kw">list</span> (img-color <span class="at">&#39;regular</span> <span class="dv">0</span>) c))</span></code></pre></div>
 </td>
 <td>
 
@@ -1845,8 +1886,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb134-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb135"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb135-1"><a href="#cb135-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb141"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -1858,20 +1899,20 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb135-1"><a hr
 <tr>
 <td>
 
-<div class="sourceCode" id="cb136"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>(define fptr (fopen <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>))</span>
-<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> fptr))</span>
-<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a>(fclose fptr)</span>
-<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a>(define c (img-color <span class="at">&#39;gradient_y_pre</span> color1 color2 <span class="dv">200</span> <span class="dv">0</span> <span class="at">&#39;repeat</span>))</span>
-<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a>(loopfor i <span class="dv">0</span> (<span class="kw">&lt;</span> i <span class="dv">200</span>) (<span class="kw">+</span> i <span class="dv">10</span>)</span>
-<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a>         (progn </span>
-<span id="cb136-7"><a href="#cb136-7" aria-hidden="true" tabindex="-1"></a>             (var band-color (<span class="kw">if</span> (<span class="kw">=</span> (<span class="kw">mod</span> (<span class="kw">/</span> i <span class="dv">10</span>) <span class="dv">2</span>) <span class="dv">0</span>) color1 color2))</span>
-<span id="cb136-8"><a href="#cb136-8" aria-hidden="true" tabindex="-1"></a>             (loopfor j <span class="dv">0</span> (<span class="kw">&lt;</span> j <span class="dv">10</span>) (<span class="kw">+</span> j <span class="dv">1</span>)</span>
-<span id="cb136-9"><a href="#cb136-9" aria-hidden="true" tabindex="-1"></a>                      (progn </span>
-<span id="cb136-10"><a href="#cb136-10" aria-hidden="true" tabindex="-1"></a>                          (img-color-setpre c (<span class="kw">+</span> i j) band-color)))))</span>
-<span id="cb136-11"><a href="#cb136-11" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
-<span id="cb136-12"><a href="#cb136-12" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
-<span id="cb136-13"><a href="#cb136-13" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">100</span> <span class="dv">0</span> (<span class="kw">list</span> (img-color <span class="at">&#39;regular</span> <span class="dv">0</span>) c))</span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>(define fptr (f-open <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>))</span>
+<span id="cb142-2"><a href="#cb142-2" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> fptr))</span>
+<span id="cb142-3"><a href="#cb142-3" aria-hidden="true" tabindex="-1"></a>(f-close fptr)</span>
+<span id="cb142-4"><a href="#cb142-4" aria-hidden="true" tabindex="-1"></a>(define c (img-color <span class="at">&#39;gradient_y_pre</span> color1 color2 <span class="dv">200</span> <span class="dv">0</span> <span class="at">&#39;repeat</span>))</span>
+<span id="cb142-5"><a href="#cb142-5" aria-hidden="true" tabindex="-1"></a>(loopfor i <span class="dv">0</span> (<span class="kw">&lt;</span> i <span class="dv">200</span>) (<span class="kw">+</span> i <span class="dv">10</span>)</span>
+<span id="cb142-6"><a href="#cb142-6" aria-hidden="true" tabindex="-1"></a>         (progn </span>
+<span id="cb142-7"><a href="#cb142-7" aria-hidden="true" tabindex="-1"></a>             (var band-color (<span class="kw">if</span> (<span class="kw">=</span> (<span class="kw">mod</span> (<span class="kw">/</span> i <span class="dv">10</span>) <span class="dv">2</span>) <span class="dv">0</span>) color1 color2))</span>
+<span id="cb142-8"><a href="#cb142-8" aria-hidden="true" tabindex="-1"></a>             (loopfor j <span class="dv">0</span> (<span class="kw">&lt;</span> j <span class="dv">10</span>) (<span class="kw">+</span> j <span class="dv">1</span>)</span>
+<span id="cb142-9"><a href="#cb142-9" aria-hidden="true" tabindex="-1"></a>                      (progn </span>
+<span id="cb142-10"><a href="#cb142-10" aria-hidden="true" tabindex="-1"></a>                          (img-color-setpre c (<span class="kw">+</span> i j) band-color)))))</span>
+<span id="cb142-11"><a href="#cb142-11" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
+<span id="cb142-12"><a href="#cb142-12" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
+<span id="cb142-13"><a href="#cb142-13" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">100</span> <span class="dv">0</span> (<span class="kw">list</span> (img-color <span class="at">&#39;regular</span> <span class="dv">0</span>) c))</span></code></pre></div>
 </td>
 <td>
 
@@ -1880,8 +1921,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb136-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb137"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb143"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -1916,37 +1957,37 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb137-1"><a hr
 <tr>
 <td>
 
-<div class="sourceCode" id="cb138"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb138-1"><a href="#cb138-1" aria-hidden="true" tabindex="-1"></a>(img-color-getpre my-color-pre <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb144"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>(img-color-getpre my-color-pre <span class="dv">10</span>)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb139"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="dv">16777215</span>u32</span></code></pre></div>
-</td>
-</tr>
-<tr>
-<td>
-
-<div class="sourceCode" id="cb140"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a>(img-color-getpre my-color-pre <span class="dv">11</span>)</span></code></pre></div>
-</td>
-<td>
-
-<div class="sourceCode" id="cb141"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>u32</span></code></pre></div>
+<div class="sourceCode" id="cb145"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="dv">16777215</span>u32</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb142"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>(img-color-getpre my-color-pre <span class="dv">12</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>(img-color-getpre my-color-pre <span class="dv">11</span>)</span></code></pre></div>
 </td>
 <td>
 
-<div class="sourceCode" id="cb143"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="dv">16121865</span>u32</span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>u32</span></code></pre></div>
+</td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb148"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>(img-color-getpre my-color-pre <span class="dv">12</span>)</span></code></pre></div>
+</td>
+<td>
+
+<div class="sourceCode" id="cb149"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="dv">16121865</span>u32</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2014,8 +2055,8 @@ and distance between dashes.</td>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb144"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb144-1"><a href="#cb144-1" aria-hidden="true" tabindex="-1"></a>(img-line my-img <span class="dv">0</span> <span class="dv">0</span> <span class="dv">320</span> <span class="dv">200</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>(img-line my-img <span class="dv">0</span> <span class="dv">0</span> <span class="dv">320</span> <span class="dv">200</span> <span class="dv">1</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -2024,15 +2065,15 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb144-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb145"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb151"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb146"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>(img-line my-img <span class="dv">0</span> <span class="dv">200</span> <span class="dv">320</span> <span class="dv">0</span> <span class="dv">1</span> &#39;(thickness <span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb152"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>(img-line my-img <span class="dv">0</span> <span class="dv">200</span> <span class="dv">320</span> <span class="dv">0</span> <span class="dv">1</span> &#39;(thickness <span class="dv">5</span>))</span></code></pre></div>
 </td>
 <td>
 
@@ -2041,15 +2082,15 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb146-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb147"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb153"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb148"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>(img-line my-img <span class="dv">0</span> <span class="dv">0</span> <span class="dv">320</span> <span class="dv">200</span> <span class="dv">1</span> &#39;(dotted <span class="dv">4</span> <span class="dv">20</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>(img-line my-img <span class="dv">0</span> <span class="dv">0</span> <span class="dv">320</span> <span class="dv">200</span> <span class="dv">1</span> &#39;(dotted <span class="dv">4</span> <span class="dv">20</span>))</span></code></pre></div>
 </td>
 <td>
 
@@ -2058,8 +2099,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb148-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb149"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb149-1"><a href="#cb149-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2131,8 +2172,8 @@ and distance between dashes.</td>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb150"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a>(img-rectangle my-img <span class="dv">10</span> <span class="dv">10</span> <span class="dv">120</span> <span class="dv">180</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>(img-rectangle my-img <span class="dv">10</span> <span class="dv">10</span> <span class="dv">120</span> <span class="dv">180</span> <span class="dv">1</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -2141,15 +2182,15 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb150-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb151"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb151-1"><a href="#cb151-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb157"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb152"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a>(img-rectangle my-img <span class="dv">10</span> <span class="dv">10</span> <span class="dv">120</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(filled))</span></code></pre></div>
+<div class="sourceCode" id="cb158"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>(img-rectangle my-img <span class="dv">10</span> <span class="dv">10</span> <span class="dv">120</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(filled))</span></code></pre></div>
 </td>
 <td>
 
@@ -2158,15 +2199,15 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb152-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb153"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb159"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb154"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a>(img-rectangle my-img <span class="dv">10</span> <span class="dv">10</span> <span class="dv">120</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(rounded <span class="dv">45</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb160"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>(img-rectangle my-img <span class="dv">10</span> <span class="dv">10</span> <span class="dv">120</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(rounded <span class="dv">45</span>))</span></code></pre></div>
 </td>
 <td>
 
@@ -2175,8 +2216,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb154-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb155"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb161"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2214,8 +2255,8 @@ expression is <code>(img-setpix image x y color)</code>.</p>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb156"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb156-1"><a href="#cb156-1" aria-hidden="true" tabindex="-1"></a>(img-setpix my-img <span class="dv">10</span> <span class="dv">10</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb162"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>(img-setpix my-img <span class="dv">10</span> <span class="dv">10</span> <span class="dv">1</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -2224,8 +2265,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb156-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb157"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb163"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2260,8 +2301,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb157-1"><a hr
 <tr>
 <td>
 
-<div class="sourceCode" id="cb158"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a>(img-getpix my-img <span class="dv">10</span> <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>(img-getpix my-img <span class="dv">10</span> <span class="dv">10</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -2270,8 +2311,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb158-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb159"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>u32</span></code></pre></div>
+<div class="sourceCode" id="cb165"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="dv">0</span>u32</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2315,8 +2356,8 @@ depending on platform</td>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb160"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a>(img-text my-img <span class="dv">40</span> <span class="dv">40</span> <span class="dv">1</span> <span class="dv">0</span> font <span class="st">&quot;LispBM&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb166"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a>(img-text my-img <span class="dv">40</span> <span class="dv">40</span> <span class="dv">1</span> <span class="dv">0</span> font <span class="st">&quot;LispBM&quot;</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -2325,15 +2366,15 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb160-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb161"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb167"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb162"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb162-1"><a href="#cb162-1" aria-hidden="true" tabindex="-1"></a>(img-text my-img <span class="dv">40</span> <span class="dv">120</span> <span class="dv">1</span> <span class="dv">0</span> font <span class="st">&quot;LispBM&quot;</span> <span class="at">&#39;up</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb168"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a>(img-text my-img <span class="dv">40</span> <span class="dv">120</span> <span class="dv">1</span> <span class="dv">0</span> font <span class="st">&quot;LispBM&quot;</span> <span class="at">&#39;up</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -2342,15 +2383,15 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb162-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb163"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb163-1"><a href="#cb163-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb169"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb164"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb164-1"><a href="#cb164-1" aria-hidden="true" tabindex="-1"></a>(img-text my-img <span class="dv">40</span> <span class="dv">40</span> <span class="dv">1</span> <span class="dv">0</span> font <span class="st">&quot;LispBM&quot;</span> <span class="at">&#39;down</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb170"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>(img-text my-img <span class="dv">40</span> <span class="dv">40</span> <span class="dv">1</span> <span class="dv">0</span> font <span class="st">&quot;LispBM&quot;</span> <span class="at">&#39;down</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -2359,8 +2400,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb164-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb165"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb165-1"><a href="#cb165-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb171"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2432,8 +2473,8 @@ and distance between dashes.</td>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb166"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb166-1"><a href="#cb166-1" aria-hidden="true" tabindex="-1"></a>(img-triangle my-img <span class="dv">30</span> <span class="dv">60</span> <span class="dv">160</span> <span class="dv">120</span> <span class="dv">10</span> <span class="dv">180</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb172"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a>(img-triangle my-img <span class="dv">30</span> <span class="dv">60</span> <span class="dv">160</span> <span class="dv">120</span> <span class="dv">10</span> <span class="dv">180</span> <span class="dv">1</span>)</span></code></pre></div>
 </td>
 <td>
 
@@ -2442,15 +2483,15 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb166-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb167"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb167-1"><a href="#cb167-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb173"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb168"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb168-1"><a href="#cb168-1" aria-hidden="true" tabindex="-1"></a>(img-triangle my-img <span class="dv">30</span> <span class="dv">60</span> <span class="dv">160</span> <span class="dv">120</span> <span class="dv">10</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(thickness <span class="dv">5</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb174"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a>(img-triangle my-img <span class="dv">30</span> <span class="dv">60</span> <span class="dv">160</span> <span class="dv">120</span> <span class="dv">10</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(thickness <span class="dv">5</span>))</span></code></pre></div>
 </td>
 <td>
 
@@ -2459,15 +2500,15 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb168-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb169"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb169-1"><a href="#cb169-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb175"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb170"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb170-1"><a href="#cb170-1" aria-hidden="true" tabindex="-1"></a>(img-triangle my-img <span class="dv">30</span> <span class="dv">60</span> <span class="dv">160</span> <span class="dv">120</span> <span class="dv">10</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(filled))</span></code></pre></div>
+<div class="sourceCode" id="cb176"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a>(img-triangle my-img <span class="dv">30</span> <span class="dv">60</span> <span class="dv">160</span> <span class="dv">120</span> <span class="dv">10</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(filled))</span></code></pre></div>
 </td>
 <td>
 
@@ -2476,15 +2517,15 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb170-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb171"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb171-1"><a href="#cb171-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb177-1"><a href="#cb177-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb172"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb172-1"><a href="#cb172-1" aria-hidden="true" tabindex="-1"></a>(img-triangle my-img <span class="dv">30</span> <span class="dv">60</span> <span class="dv">160</span> <span class="dv">120</span> <span class="dv">10</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(dotted <span class="dv">14</span> <span class="dv">14</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a>(img-triangle my-img <span class="dv">30</span> <span class="dv">60</span> <span class="dv">160</span> <span class="dv">120</span> <span class="dv">10</span> <span class="dv">180</span> <span class="dv">1</span> &#39;(dotted <span class="dv">14</span> <span class="dv">14</span>))</span></code></pre></div>
 </td>
 <td>
 
@@ -2493,8 +2534,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb172-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb173"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb173-1"><a href="#cb173-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2515,27 +2556,27 @@ display documentation</a>.</p>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb174"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb174-1"><a href="#cb174-1" aria-hidden="true" tabindex="-1"></a>(define w <span class="dv">320</span>)</span>
-<span id="cb174-2"><a href="#cb174-2" aria-hidden="true" tabindex="-1"></a>(define h <span class="dv">200</span>)</span>
-<span id="cb174-3"><a href="#cb174-3" aria-hidden="true" tabindex="-1"></a>(define corners (<span class="kw">list</span> (<span class="kw">cons</span> <span class="dv">10</span> (<span class="kw">-</span> h <span class="dv">10</span>)) (<span class="kw">cons</span> (<span class="kw">-</span> w <span class="dv">10</span>) (<span class="kw">-</span> h <span class="dv">10</span>)) (<span class="kw">cons</span> (<span class="kw">/</span> w <span class="dv">2</span>) <span class="dv">10</span>)))</span>
-<span id="cb174-4"><a href="#cb174-4" aria-hidden="true" tabindex="-1"></a>(define s-img (img-buffer <span class="at">&#39;indexed2</span> w h))</span>
-<span id="cb174-5"><a href="#cb174-5" aria-hidden="true" tabindex="-1"></a>(defun point (p)</span>
-<span id="cb174-6"><a href="#cb174-6" aria-hidden="true" tabindex="-1"></a>  (img-setpix s-img (car p) (cdr p) <span class="dv">1</span>))</span>
-<span id="cb174-7"><a href="#cb174-7" aria-hidden="true" tabindex="-1"></a>(defun mid-point (p1 p2)</span>
-<span id="cb174-8"><a href="#cb174-8" aria-hidden="true" tabindex="-1"></a>  (progn </span>
-<span id="cb174-9"><a href="#cb174-9" aria-hidden="true" tabindex="-1"></a>      (<span class="kw">let</span> ((x (<span class="kw">/</span> (<span class="kw">+</span> (car p1) (car p2)) <span class="dv">2</span>))</span>
-<span id="cb174-10"><a href="#cb174-10" aria-hidden="true" tabindex="-1"></a>            (y (<span class="kw">/</span> (<span class="kw">+</span> (cdr p1) (cdr p2)) <span class="dv">2</span>)))</span>
-<span id="cb174-11"><a href="#cb174-11" aria-hidden="true" tabindex="-1"></a>           (<span class="kw">cons</span> x y))))</span>
-<span id="cb174-12"><a href="#cb174-12" aria-hidden="true" tabindex="-1"></a>(defun sierp (n corners p)</span>
-<span id="cb174-13"><a href="#cb174-13" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">if</span> (<span class="kw">=</span> n <span class="dv">0</span>) <span class="va">nil</span> (<span class="kw">let</span> ((i (<span class="kw">mod</span> (<span class="kw">rand</span>) <span class="dv">3</span>))</span>
-<span id="cb174-14"><a href="#cb174-14" aria-hidden="true" tabindex="-1"></a>                        (target (ix corners i))</span>
-<span id="cb174-15"><a href="#cb174-15" aria-hidden="true" tabindex="-1"></a>                        (mid (mid-point p target)))</span>
-<span id="cb174-16"><a href="#cb174-16" aria-hidden="true" tabindex="-1"></a>                       (progn </span>
-<span id="cb174-17"><a href="#cb174-17" aria-hidden="true" tabindex="-1"></a>                           (point mid)</span>
-<span id="cb174-18"><a href="#cb174-18" aria-hidden="true" tabindex="-1"></a>                           (sierp (<span class="kw">-</span> n <span class="dv">1</span>) corners mid)))))</span>
-<span id="cb174-19"><a href="#cb174-19" aria-hidden="true" tabindex="-1"></a>(sierp <span class="dv">25000</span> corners (car corners))</span>
-<span id="cb174-20"><a href="#cb174-20" aria-hidden="true" tabindex="-1"></a>(disp-render s-img <span class="dv">0</span> <span class="dv">0</span> &#39;(<span class="dv">0</span> <span class="dv">16777215</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb180"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a>(define w <span class="dv">320</span>)</span>
+<span id="cb180-2"><a href="#cb180-2" aria-hidden="true" tabindex="-1"></a>(define h <span class="dv">200</span>)</span>
+<span id="cb180-3"><a href="#cb180-3" aria-hidden="true" tabindex="-1"></a>(define corners (<span class="kw">list</span> (<span class="kw">cons</span> <span class="dv">10</span> (<span class="kw">-</span> h <span class="dv">10</span>)) (<span class="kw">cons</span> (<span class="kw">-</span> w <span class="dv">10</span>) (<span class="kw">-</span> h <span class="dv">10</span>)) (<span class="kw">cons</span> (<span class="kw">/</span> w <span class="dv">2</span>) <span class="dv">10</span>)))</span>
+<span id="cb180-4"><a href="#cb180-4" aria-hidden="true" tabindex="-1"></a>(define s-img (img-buffer <span class="at">&#39;indexed2</span> w h))</span>
+<span id="cb180-5"><a href="#cb180-5" aria-hidden="true" tabindex="-1"></a>(defun point (p)</span>
+<span id="cb180-6"><a href="#cb180-6" aria-hidden="true" tabindex="-1"></a>  (img-setpix s-img (car p) (cdr p) <span class="dv">1</span>))</span>
+<span id="cb180-7"><a href="#cb180-7" aria-hidden="true" tabindex="-1"></a>(defun mid-point (p1 p2)</span>
+<span id="cb180-8"><a href="#cb180-8" aria-hidden="true" tabindex="-1"></a>  (progn </span>
+<span id="cb180-9"><a href="#cb180-9" aria-hidden="true" tabindex="-1"></a>      (<span class="kw">let</span> ((x (<span class="kw">/</span> (<span class="kw">+</span> (car p1) (car p2)) <span class="dv">2</span>))</span>
+<span id="cb180-10"><a href="#cb180-10" aria-hidden="true" tabindex="-1"></a>            (y (<span class="kw">/</span> (<span class="kw">+</span> (cdr p1) (cdr p2)) <span class="dv">2</span>)))</span>
+<span id="cb180-11"><a href="#cb180-11" aria-hidden="true" tabindex="-1"></a>           (<span class="kw">cons</span> x y))))</span>
+<span id="cb180-12"><a href="#cb180-12" aria-hidden="true" tabindex="-1"></a>(defun sierp (n corners p)</span>
+<span id="cb180-13"><a href="#cb180-13" aria-hidden="true" tabindex="-1"></a>  (<span class="kw">if</span> (<span class="kw">=</span> n <span class="dv">0</span>) <span class="va">nil</span> (<span class="kw">let</span> ((i (<span class="kw">mod</span> (<span class="kw">rand</span>) <span class="dv">3</span>))</span>
+<span id="cb180-14"><a href="#cb180-14" aria-hidden="true" tabindex="-1"></a>                        (target (ix corners i))</span>
+<span id="cb180-15"><a href="#cb180-15" aria-hidden="true" tabindex="-1"></a>                        (mid (mid-point p target)))</span>
+<span id="cb180-16"><a href="#cb180-16" aria-hidden="true" tabindex="-1"></a>                       (progn </span>
+<span id="cb180-17"><a href="#cb180-17" aria-hidden="true" tabindex="-1"></a>                           (point mid)</span>
+<span id="cb180-18"><a href="#cb180-18" aria-hidden="true" tabindex="-1"></a>                           (sierp (<span class="kw">-</span> n <span class="dv">1</span>) corners mid)))))</span>
+<span id="cb180-19"><a href="#cb180-19" aria-hidden="true" tabindex="-1"></a>(sierp <span class="dv">25000</span> corners (car corners))</span>
+<span id="cb180-20"><a href="#cb180-20" aria-hidden="true" tabindex="-1"></a>(disp-render s-img <span class="dv">0</span> <span class="dv">0</span> &#39;(<span class="dv">0</span> <span class="dv">16777215</span>))</span></code></pre></div>
 </td>
 <td>
 
@@ -2544,8 +2585,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb174-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb175"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb175-1"><a href="#cb175-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2559,11 +2600,11 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb175-1"><a hr
 <tr>
 <td>
 
-<div class="sourceCode" id="cb176"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb176-1"><a href="#cb176-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">import</span> <span class="st">&quot;images/lama2.bin&quot;</span> <span class="at">&#39;pic</span>)</span>
-<span id="cb176-2"><a href="#cb176-2" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
-<span id="cb176-3"><a href="#cb176-3" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
-<span id="cb176-4"><a href="#cb176-4" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">0</span> <span class="dv">0</span> &#39;(<span class="dv">0</span> <span class="dv">16711680</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a>(<span class="kw">import</span> <span class="st">&quot;images/lama2.bin&quot;</span> <span class="at">&#39;pic</span>)</span>
+<span id="cb182-2"><a href="#cb182-2" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
+<span id="cb182-3"><a href="#cb182-3" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
+<span id="cb182-4"><a href="#cb182-4" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">0</span> <span class="dv">0</span> &#39;(<span class="dv">0</span> <span class="dv">16711680</span>))</span></code></pre></div>
 </td>
 <td>
 
@@ -2572,8 +2613,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb176-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb177"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb177-1"><a href="#cb177-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb183-1"><a href="#cb183-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2590,11 +2631,11 @@ follows.</p>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb178"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb178-1"><a href="#cb178-1" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> (fopen <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>)))</span>
-<span id="cb178-2"><a href="#cb178-2" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
-<span id="cb178-3"><a href="#cb178-3" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
-<span id="cb178-4"><a href="#cb178-4" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">100</span> <span class="dv">0</span> &#39;(<span class="dv">0</span> <span class="dv">16711680</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb184-1"><a href="#cb184-1" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> (f-open <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>)))</span>
+<span id="cb184-2"><a href="#cb184-2" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">320</span> <span class="dv">200</span>))</span>
+<span id="cb184-3"><a href="#cb184-3" aria-hidden="true" tabindex="-1"></a>(img-blit img pic <span class="dv">10</span> <span class="dv">10</span> -<span class="dv">1</span> &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
+<span id="cb184-4"><a href="#cb184-4" aria-hidden="true" tabindex="-1"></a>(disp-render img <span class="dv">100</span> <span class="dv">0</span> &#39;(<span class="dv">0</span> <span class="dv">16711680</span>))</span></code></pre></div>
 </td>
 <td>
 
@@ -2603,22 +2644,22 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb178-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb179"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb179-1"><a href="#cb179-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb185"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb185-1"><a href="#cb185-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 <tr>
 <td>
 
-<div class="sourceCode" id="cb180"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb180-1"><a href="#cb180-1" aria-hidden="true" tabindex="-1"></a>(disp-clear)</span>
-<span id="cb180-2"><a href="#cb180-2" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> (fopen <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>)))</span>
-<span id="cb180-3"><a href="#cb180-3" aria-hidden="true" tabindex="-1"></a>(define img128x128 (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">128</span> <span class="dv">128</span>))</span>
-<span id="cb180-4"><a href="#cb180-4" aria-hidden="true" tabindex="-1"></a>(img-blit img128x128 pic <span class="dv">0</span> <span class="dv">0</span> -<span class="dv">1</span> &#39;(scale <span class="fl">0.500000</span>f32) &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
-<span id="cb180-5"><a href="#cb180-5" aria-hidden="true" tabindex="-1"></a>(disp-render img128x128 <span class="dv">10</span> <span class="dv">10</span> &#39;(<span class="dv">0</span> <span class="dv">16711680</span>))</span>
-<span id="cb180-6"><a href="#cb180-6" aria-hidden="true" tabindex="-1"></a>(img-clear img128x128)</span>
-<span id="cb180-7"><a href="#cb180-7" aria-hidden="true" tabindex="-1"></a>(img-blit img128x128 pic <span class="dv">0</span> <span class="dv">0</span> -<span class="dv">1</span> &#39;(scale <span class="fl">0.500000</span>f32) &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> -<span class="dv">45</span>))</span>
-<span id="cb180-8"><a href="#cb180-8" aria-hidden="true" tabindex="-1"></a>(disp-render img128x128 <span class="dv">148</span> <span class="dv">10</span> &#39;(<span class="dv">0</span> <span class="dv">65280</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb186-1"><a href="#cb186-1" aria-hidden="true" tabindex="-1"></a>(disp-clear)</span>
+<span id="cb186-2"><a href="#cb186-2" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> (f-open <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>)))</span>
+<span id="cb186-3"><a href="#cb186-3" aria-hidden="true" tabindex="-1"></a>(define img128x128 (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">128</span> <span class="dv">128</span>))</span>
+<span id="cb186-4"><a href="#cb186-4" aria-hidden="true" tabindex="-1"></a>(img-blit img128x128 pic <span class="dv">0</span> <span class="dv">0</span> -<span class="dv">1</span> &#39;(scale <span class="fl">0.500000</span>f32) &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> <span class="dv">45</span>))</span>
+<span id="cb186-5"><a href="#cb186-5" aria-hidden="true" tabindex="-1"></a>(disp-render img128x128 <span class="dv">10</span> <span class="dv">10</span> &#39;(<span class="dv">0</span> <span class="dv">16711680</span>))</span>
+<span id="cb186-6"><a href="#cb186-6" aria-hidden="true" tabindex="-1"></a>(img-clear img128x128)</span>
+<span id="cb186-7"><a href="#cb186-7" aria-hidden="true" tabindex="-1"></a>(img-blit img128x128 pic <span class="dv">0</span> <span class="dv">0</span> -<span class="dv">1</span> &#39;(scale <span class="fl">0.500000</span>f32) &#39;(rotate <span class="dv">128</span> <span class="dv">128</span> -<span class="dv">45</span>))</span>
+<span id="cb186-8"><a href="#cb186-8" aria-hidden="true" tabindex="-1"></a>(disp-render img128x128 <span class="dv">148</span> <span class="dv">10</span> &#39;(<span class="dv">0</span> <span class="dv">65280</span>))</span></code></pre></div>
 </td>
 <td>
 
@@ -2627,8 +2668,8 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb180-1"><a hr
 </td>
 <td>
 
-<div class="sourceCode" id="cb181"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb181-1"><a href="#cb181-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb187-1"><a href="#cb187-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -2640,16 +2681,16 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb181-1"><a hr
 <tr>
 <td>
 
-<div class="sourceCode" id="cb182"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb182-1"><a href="#cb182-1" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> (fopen <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>)))</span>
-<span id="cb182-2"><a href="#cb182-2" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">128</span> <span class="dv">128</span>))</span>
-<span id="cb182-3"><a href="#cb182-3" aria-hidden="true" tabindex="-1"></a>(define m (<span class="kw">/</span> <span class="fl">360.000000</span>f32 <span class="fl">100.000000</span>f32))</span>
-<span id="cb182-4"><a href="#cb182-4" aria-hidden="true" tabindex="-1"></a>(disp-clear)</span>
-<span id="cb182-5"><a href="#cb182-5" aria-hidden="true" tabindex="-1"></a>(loopfor i <span class="dv">0</span> (<span class="kw">&lt;</span> i <span class="dv">100</span>) (<span class="kw">+</span> i <span class="dv">1</span>)</span>
-<span id="cb182-6"><a href="#cb182-6" aria-hidden="true" tabindex="-1"></a>         (progn </span>
-<span id="cb182-7"><a href="#cb182-7" aria-hidden="true" tabindex="-1"></a>             (var rot (<span class="kw">list</span> <span class="at">&#39;rotate</span> <span class="dv">128</span> <span class="dv">128</span> (<span class="kw">*</span> i m)))</span>
-<span id="cb182-8"><a href="#cb182-8" aria-hidden="true" tabindex="-1"></a>             (img-blit img pic <span class="dv">0</span> <span class="dv">0</span> -<span class="dv">1</span> &#39;(scale <span class="fl">0.500000</span>f32) rot)</span>
-<span id="cb182-9"><a href="#cb182-9" aria-hidden="true" tabindex="-1"></a>             (disp-render img <span class="dv">10</span> <span class="dv">10</span> &#39;(<span class="dv">0</span> <span class="dv">16711680</span>))))</span></code></pre></div>
+<div class="sourceCode" id="cb188"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb188-1"><a href="#cb188-1" aria-hidden="true" tabindex="-1"></a>(define pic (<span class="kw">load-file</span> (f-open <span class="st">&quot;images/lama2.bin&quot;</span> <span class="st">&quot;r&quot;</span>)))</span>
+<span id="cb188-2"><a href="#cb188-2" aria-hidden="true" tabindex="-1"></a>(define img (img-buffer <span class="at">&#39;indexed2</span> <span class="dv">128</span> <span class="dv">128</span>))</span>
+<span id="cb188-3"><a href="#cb188-3" aria-hidden="true" tabindex="-1"></a>(define m (<span class="kw">/</span> <span class="fl">360.000000</span>f32 <span class="fl">100.000000</span>f32))</span>
+<span id="cb188-4"><a href="#cb188-4" aria-hidden="true" tabindex="-1"></a>(disp-clear)</span>
+<span id="cb188-5"><a href="#cb188-5" aria-hidden="true" tabindex="-1"></a>(loopfor i <span class="dv">0</span> (<span class="kw">&lt;</span> i <span class="dv">100</span>) (<span class="kw">+</span> i <span class="dv">1</span>)</span>
+<span id="cb188-6"><a href="#cb188-6" aria-hidden="true" tabindex="-1"></a>         (progn </span>
+<span id="cb188-7"><a href="#cb188-7" aria-hidden="true" tabindex="-1"></a>             (var rot (<span class="kw">list</span> <span class="at">&#39;rotate</span> <span class="dv">128</span> <span class="dv">128</span> (<span class="kw">*</span> i m)))</span>
+<span id="cb188-8"><a href="#cb188-8" aria-hidden="true" tabindex="-1"></a>             (img-blit img pic <span class="dv">0</span> <span class="dv">0</span> -<span class="dv">1</span> &#39;(scale <span class="fl">0.500000</span>f32) rot)</span>
+<span id="cb188-9"><a href="#cb188-9" aria-hidden="true" tabindex="-1"></a>             (disp-render img <span class="dv">10</span> <span class="dv">10</span> &#39;(<span class="dv">0</span> <span class="dv">16711680</span>))))</span></code></pre></div>
 </td>
 <td>
 
@@ -2660,7 +2701,70 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb182-1"><a hr
 </table>
 
 <hr />
-<p>This document was generated by LispBM version 0.36.0</p>
+<h3 id="example-overlapping-shapes-with-alpha">Example: Overlapping
+shapes with alpha</h3>
+<p>Colors with an alpha value blend with the image buffer contents
+instead of overwriting them. Only has an effect in RGB buffers.</p>
+<table>
+<tr>
+<td> Example </td> <td> Image </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb189"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb189-1"><a href="#cb189-1" aria-hidden="true" tabindex="-1"></a>(img-clear img-rgb888 <span class="dv">1052696</span>)</span>
+<span id="cb189-2"><a href="#cb189-2" aria-hidden="true" tabindex="-1"></a>(define alpha-red (img-color <span class="at">&#39;regular</span> <span class="dv">14696496</span> <span class="dv">160</span>))</span>
+<span id="cb189-3"><a href="#cb189-3" aria-hidden="true" tabindex="-1"></a>(define alpha-blue (img-color <span class="at">&#39;regular</span> <span class="dv">3178720</span> <span class="dv">160</span>))</span>
+<span id="cb189-4"><a href="#cb189-4" aria-hidden="true" tabindex="-1"></a>(img-circle img-rgb888 <span class="dv">70</span> <span class="dv">75</span> <span class="dv">50</span> alpha-red &#39;(filled))</span>
+<span id="cb189-5"><a href="#cb189-5" aria-hidden="true" tabindex="-1"></a>(img-circle img-rgb888 <span class="dv">120</span> <span class="dv">75</span> <span class="dv">50</span> alpha-blue &#39;(filled))</span>
+<span id="cb189-6"><a href="#cb189-6" aria-hidden="true" tabindex="-1"></a>(disp-render img-rgb888 <span class="dv">0</span> <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<img src=./images/disp-img69.png >
+
+</td>
+<td>
+
+<div class="sourceCode" id="cb190"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb190-1"><a href="#cb190-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<table>
+<tr>
+<td> Example </td> <td> Image </td> <td> Result </td>
+</tr>
+<tr>
+<td>
+
+<div class="sourceCode" id="cb191"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb191-1"><a href="#cb191-1" aria-hidden="true" tabindex="-1"></a>(img-clear img-rgb888 <span class="dv">1052696</span>)</span>
+<span id="cb191-2"><a href="#cb191-2" aria-hidden="true" tabindex="-1"></a>(define alpha-red (img-color <span class="at">&#39;regular</span> <span class="dv">14696496</span> <span class="dv">160</span>))</span>
+<span id="cb191-3"><a href="#cb191-3" aria-hidden="true" tabindex="-1"></a>(define alpha-green (img-color <span class="at">&#39;regular</span> <span class="dv">3194976</span> <span class="dv">160</span>))</span>
+<span id="cb191-4"><a href="#cb191-4" aria-hidden="true" tabindex="-1"></a>(define alpha-blue (img-color <span class="at">&#39;regular</span> <span class="dv">3178720</span> <span class="dv">160</span>))</span>
+<span id="cb191-5"><a href="#cb191-5" aria-hidden="true" tabindex="-1"></a>(img-triangle img-rgb888 <span class="dv">30</span> <span class="dv">15</span> <span class="dv">150</span> <span class="dv">15</span> <span class="dv">30</span> <span class="dv">135</span> alpha-red &#39;(filled))</span>
+<span id="cb191-6"><a href="#cb191-6" aria-hidden="true" tabindex="-1"></a>(img-triangle img-rgb888 <span class="dv">55</span> <span class="dv">40</span> <span class="dv">175</span> <span class="dv">40</span> <span class="dv">55</span> <span class="dv">160</span> alpha-green &#39;(filled))</span>
+<span id="cb191-7"><a href="#cb191-7" aria-hidden="true" tabindex="-1"></a>(img-triangle img-rgb888 <span class="dv">80</span> <span class="dv">65</span> <span class="dv">200</span> <span class="dv">65</span> <span class="dv">80</span> <span class="dv">185</span> alpha-blue &#39;(filled))</span>
+<span id="cb191-8"><a href="#cb191-8" aria-hidden="true" tabindex="-1"></a>(disp-render img-rgb888 <span class="dv">0</span> <span class="dv">0</span>)</span></code></pre></div>
+</td>
+<td>
+
+<img src=./images/disp-img70.png >
+
+</td>
+<td>
+
+<div class="sourceCode" id="cb192"><pre
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb192-1"><a href="#cb192-1" aria-hidden="true" tabindex="-1"></a>t</span></code></pre></div>
+</td>
+</tr>
+</table>
+
+<hr />
+<p>This document was generated by LispBM version 0.38.0</p>
 </div> <!-- Close pagefind-body -->
 </div> <!-- Close container -->
 

@@ -131,7 +131,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb5-1"><a href
 <td>
 
 <div class="sourceCode" id="cb6"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>((num-free <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;mem-num-free&quot;</span> ((para (<span class="st">&quot;`mem-num-free` returns the number of free words in the LBM memory.&quot;</span> <span class="st">&quot;This is the memory where arrays and strings are stored.&quot;</span>)) (code ((mem-num-free))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (program closure (c) (<span class="kw">list</span> (q</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>((num-free <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;mem-num-free&quot;</span> ((para (<span class="st">&quot;`mem-num-free` returns the number of free words in the LBM memory.&quot;</span> <span class="st">&quot;This is the memory where arrays and strings are stored.&quot;</span>)) (code ((mem-num-free))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (render-program-disp-gif-tabl</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -143,7 +143,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb7-1"><a href
 <td>
 
 <div class="sourceCode" id="cb8"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>((longest-free <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;mem-longest-free&quot;</span> ((para (<span class="st">&quot;`mem-longest-free` returns the length in words of the longest&quot;</span> <span class="st">&quot;consecutive sequence of free words in the LBM memory.&quot;</span>)) (code ((mem-num-free))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (defun macro (<span class="kw">name</span> args body</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>((longest-free <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;mem-longest-free&quot;</span> ((para (<span class="st">&quot;`mem-longest-free` returns the length in words of the longest&quot;</span> <span class="st">&quot;consecutive sequence of free words in the LBM memory.&quot;</span>)) (code ((mem-num-free))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (gif-count . <span class="dv">0</span>) (para closur</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -155,7 +155,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb9-1"><a href
 <td>
 
 <div class="sourceCode" id="cb10"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>((memory-size <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;mem-size&quot;</span> ((para (<span class="st">&quot;`mem-size` returns the size of the LBM memory.&quot;</span>)) (code ((mem-size))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (ind-spaces closure (n) (str-replicate n <span class="dv">32</span>b) <span class="va">nil</span>))</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>((memory-size <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;mem-size&quot;</span> ((para (<span class="st">&quot;`mem-size` returns the size of the LBM memory.&quot;</span>)) (code ((mem-size))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (defun macro (<span class="kw">name</span> args body) (me-defun <span class="kw">name</span> args body)) (s+ closure (s ss) (<span class="kw">cons</span> s ss) <span class="va">nil</span>))</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -191,7 +191,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb15-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb16"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>((gc-stack <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;set-gc-stack-size&quot;</span> ((para (<span class="st">&quot;With `set-gc-stack-size` you can change the size of the stack used for heap traversal&quot;</span> <span class="st">&quot;by the garbage collector.&quot;</span>)) (code ((set-gc-stack-size <span class="dv">100</span>))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (set-pic-prefix closure (s</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>((gc-stack <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;set-gc-stack-size&quot;</span> ((para (<span class="st">&quot;With `set-gc-stack-size` you can change the size of the stack used for heap traversal&quot;</span> <span class="st">&quot;by the garbage collector.&quot;</span>)) (code ((set-gc-stack-size <span class="dv">100</span>))) <span class="va">nil</span>)) <span class="kw">newline</span> hline))</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -203,7 +203,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb17-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb18"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>((gc-is-always-gc <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;is-always-gc&quot;</span> ((para (<span class="st">&quot;The `is-always-gc` predicate is true if LBM is built with the LBM_ALWAYS_GC debug flag.&quot;</span>)) (code ((is-always-gc))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (render-program-disp-table closure (rend c) (progn (rend <span class="st">&quot;&lt;</span></span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>((gc-is-always-gc <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;is-always-gc&quot;</span> ((para (<span class="st">&quot;The `is-always-gc` predicate is true if LBM is built with the LBM_ALWAYS_GC debug flag.&quot;</span>)) (code ((is-always-gc))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (ind-spaces closure (n) (str-replicate n <span class="dv">32</span>b) <span class="va">nil</span>) (code-ra</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -251,7 +251,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb25-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb26"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>((render-dot closure (filename code) (<span class="kw">let</span> ((dot-str (to-dot code)) (name-dot (str-merge <span class="st">&quot;./images/&quot;</span> filename <span class="st">&quot;.dot&quot;</span>)) (name-png (str-merge <span class="st">&quot;./images/&quot;</span> filename <span class="st">&quot;.png&quot;</span>)) (fp-dot (f-open name-dot <span class="st">&quot;w&quot;</span>)) (fp-png (f-open name-png <span class="st">&quot;w&quot;</span>))) (progn (f-write fp-dot d</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>((render-it closure (rend ss) (match ss (<span class="va">nil</span> (rend <span class="st">&quot;</span><span class="sc">\n</span><span class="st">&quot;</span>)) ((section (? i) (? x) (? xs)) (progn (match i (<span class="dv">1</span> (rend (str-merge <span class="st">&quot;# &quot;</span> x <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>))) (<span class="dv">2</span> (rend (str-merge <span class="st">&quot;## &quot;</span> x <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>))) (<span class="dv">3</span> (rend (str-merge <span class="st">&quot;### &quot;</span> x <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>))) (<span class="dv">4</span> (rend (str-merge <span class="st">&quot;#### &quot;</span> x <span class="st">&quot;</span><span class="sc">\n\n</span><span class="st">&quot;</span>))</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -263,7 +263,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb27-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb28"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>((environment-drop <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;env-drop&quot;</span> ((para (<span class="st">&quot;drop a binding from an environment.&quot;</span>)) (code ((env-drop (quote a) (quote ((a . <span class="dv">10</span>) (b . <span class="dv">20</span>) (c . <span class="dv">30</span>)))))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (section closure (i <span class="kw">str</span> strings) (<span class="kw">list</span> (quote section) i <span class="kw">str</span> strings) n</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>((environment-drop <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;env-drop&quot;</span> ((para (<span class="st">&quot;drop a binding from an environment.&quot;</span>)) (code ((env-drop (quote a) (quote ((a . <span class="dv">10</span>) (b . <span class="dv">20</span>) (c . <span class="dv">30</span>)))))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (<span class="kw">newline</span> closure <span class="va">nil</span> (quote <span class="kw">newline</span>) <span class="va">nil</span>) (render-code-png-pairs closur</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -275,7 +275,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb29-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb30"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>((hline closure <span class="va">nil</span> (quote hline) <span class="va">nil</span>))</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>((section closure (i <span class="kw">str</span> strings) (<span class="kw">list</span> (quote section) i <span class="kw">str</span> strings) <span class="va">nil</span>) (eval-animation closure (gif c frames) (progn (setq frame-i <span class="dv">0</span>) (setq frame-max frames) (call-cc (lambda (yeet) (progn (setq glob-yeet yeet) (eval-program c)))) (var cmd (str-merge </span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -287,7 +287,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb31-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb32"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>((local-environment-get <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;local-env-get&quot;</span> ((para (<span class="st">&quot;`local-env-get` can be used to reify, turn into value, the local environment.&quot;</span>)) (code ((local-env-get))) (program (((<span class="kw">let</span> ((a <span class="dv">50</span>)) (local-env-get))))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (disp-render-mac</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>((local-environment-get <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;local-env-get&quot;</span> ((para (<span class="st">&quot;`local-env-get` can be used to reify, turn into value, the local environment.&quot;</span>)) (code ((local-env-get))) (program (((<span class="kw">let</span> ((a <span class="dv">50</span>)) (local-env-get))))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (hline closure n</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -299,7 +299,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb33-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb34"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>((global-environment-size <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;global-env-size&quot;</span> ((para (<span class="st">&quot;Get the size (in number of bindings) of the global env.&quot;</span>)) (code ((global-env-size))) <span class="va">nil</span>)) <span class="kw">newline</span> hline))</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>((global-environment-size <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;global-env-size&quot;</span> ((para (<span class="st">&quot;Get the size (in number of bindings) of the global env.&quot;</span>)) (code ((global-env-size))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (render-code-png-table closure (rend img colors c) (progn (rend <span class="st">&quot;&lt;table&gt;</span><span class="sc">\n</span><span class="st">&quot;</span>) </span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -323,7 +323,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb37-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb38"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>((symbol-table-size <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;symtab-size&quot;</span> ((para (<span class="st">&quot;`symtab-size` returns the size of the symbol table in bytes.&quot;</span>)) (code ((symtab-size))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (pretty closure (toplevel ind c) (<span class="kw">if</span> (<span class="kw">and</span> toplevel (<span class="kw">list?</span> c)) (pretty-toplevel-list c)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a>((symbol-table-size <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;symtab-size&quot;</span> ((para (<span class="st">&quot;`symtab-size` returns the size of the symbol table in bytes.&quot;</span>)) (code ((symtab-size))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (is-read-eval-txt closure (x) (match x ((read-eval . _) t) (_ <span class="va">nil</span>)) <span class="va">nil</span>) (disp-render-</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -335,7 +335,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb39-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb40"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>((symbol-table-size-flash <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;symtab-size-flash&quot;</span> ((para (<span class="st">&quot;`symtab-size-flash` returns the size in bytes of the portion of the symbol table&quot;</span> <span class="st">&quot;that is stored in flash.&quot;</span>)) (code ((symtab-size-flash))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (render-program-disp-</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>((symbol-table-size-flash <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;symtab-size-flash&quot;</span> ((para (<span class="st">&quot;`symtab-size-flash` returns the size in bytes of the portion of the symbol table&quot;</span> <span class="st">&quot;that is stored in flash.&quot;</span>)) (code ((symtab-size-flash))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (pretty closure (topl</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -359,7 +359,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb43-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb44"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>((symbol-table-size-names-flash <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;symtab-size-names-flash&quot;</span> ((para (<span class="st">&quot;`symtab-size-names` returns the size in bytes of the string names stored in&quot;</span> <span class="st">&quot;the symbol table in flash.&quot;</span>)) (code ((symtab-size-names-flash))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (rende</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>((symbol-table-size-names-flash <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;symtab-size-names-flash&quot;</span> ((para (<span class="st">&quot;`symtab-size-names` returns the size in bytes of the string names stored in&quot;</span> <span class="st">&quot;the symbol table in flash.&quot;</span>)) (code ((symtab-size-names-flash))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (frame</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -407,7 +407,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb51-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb52"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>((arch <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;is-64bit&quot;</span> ((para (<span class="st">&quot;`is-64bit` returns true if a 64bit version of lbm is running.&quot;</span>)) (code ((is<span class="dv">-64</span>bit))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (render-program-disp-gif-pairs closure (rend cs) (match cs (<span class="va">nil</span> t) (((? x) ? xs) (<span class="kw">let</span> ((x-str (pretty (q</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>((arch <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;is-64bit&quot;</span> ((para (<span class="st">&quot;`is-64bit` returns true if a 64bit version of lbm is running.&quot;</span>)) (code ((is<span class="dv">-64</span>bit))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (str-merge closure <span class="va">nil</span> (str-join (rest-args)) <span class="va">nil</span>) (program-gif closure (c) (<span class="kw">list</span> (quote program-gif) c)</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -419,7 +419,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb53-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb54"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>((word <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;word-size&quot;</span> ((para (<span class="st">&quot;`word-size` returns 4 on 32bit LBM  and 8 on 64bits.&quot;</span>)) (code ((word-size))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (image closure (alt url) (<span class="kw">list</span> (quote image) alt url) <span class="va">nil</span>) (render-code-disp-table closure (rend c) (progn (ren</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>((word <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;word-size&quot;</span> ((para (<span class="st">&quot;`word-size` returns 4 on 32bit LBM  and 8 on 64bits.&quot;</span>)) (code ((word-size))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (render-program-disp-gif-pairs closure (rend cs) (match cs (<span class="va">nil</span> t) (((? x) ? xs) (<span class="kw">let</span> ((x-str (pretty (quote t)</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -491,7 +491,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb65-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb66"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>((render-manual closure <span class="va">nil</span> (<span class="kw">let</span> ((h (f-open <span class="st">&quot;runtimeref.md&quot;</span> <span class="st">&quot;w&quot;</span>)) (r (lambda (s) (f-write-str h s)))) (progn (gc) (var t0 (systime)) (render r manual) (<span class="kw">print</span> <span class="st">&quot;Runtime reference manual was generated in &quot;</span> (secs-since t0) <span class="st">&quot; seconds&quot;</span>))) <span class="va">nil</span>) (to-dot closure (</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb66-1"><a href="#cb66-1" aria-hidden="true" tabindex="-1"></a>((render-manual closure <span class="va">nil</span> (<span class="kw">let</span> ((h (f-open <span class="st">&quot;runtimeref.md&quot;</span> <span class="st">&quot;w&quot;</span>)) (r (lambda (s) (f-write-str h s)))) (progn (gc) (var t0 (systime)) (render r manual) (<span class="kw">print</span> <span class="st">&quot;Runtime reference manual was generated in &quot;</span> (secs-since t0) <span class="st">&quot; seconds&quot;</span>))) <span class="va">nil</span>) (render-program-d</span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -526,7 +526,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb69-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb70"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>((longest-free <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;mem-longest-free&quot;</span> ((para (<span class="st">&quot;`mem-longest-free` returns the length in words of the longest&quot;</span> <span class="st">&quot;consecutive sequence of free words in the LBM memory.&quot;</span>)) (code ((mem-num-free))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (defun macro (<span class="kw">name</span> args body</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb70-1"><a href="#cb70-1" aria-hidden="true" tabindex="-1"></a>((longest-free <span class="kw">newline</span> (section <span class="dv">3</span> <span class="st">&quot;mem-longest-free&quot;</span> ((para (<span class="st">&quot;`mem-longest-free` returns the length in words of the longest&quot;</span> <span class="st">&quot;consecutive sequence of free words in the LBM memory.&quot;</span>)) (code ((mem-num-free))) <span class="va">nil</span>)) <span class="kw">newline</span> hline) (gif-count . <span class="dv">0</span>) (para closur</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -685,7 +685,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb83-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb84"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="dv">120847</span></span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="dv">120768</span></span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -707,7 +707,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb85-1"><a hre
 <td>
 
 <div class="sourceCode" id="cb86"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="dv">120783</span></span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb86-1"><a href="#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="dv">120704</span></span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -927,7 +927,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb113-1"><a hr
 <td>
 
 <div class="sourceCode" id="cb114"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7272</span>u</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb114-1"><a href="#cb114-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7248</span>u</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -971,7 +971,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb117-1"><a hr
 <td>
 
 <div class="sourceCode" id="cb118"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7272</span>u</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb118-1"><a href="#cb118-1" aria-hidden="true" tabindex="-1"></a><span class="dv">7248</span>u</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -1015,7 +1015,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb121-1"><a hr
 <td>
 
 <div class="sourceCode" id="cb122"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="dv">14178</span></span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb122-1"><a href="#cb122-1" aria-hidden="true" tabindex="-1"></a><span class="dv">14414</span></span></code></pre></div>
 </td>
 </tr>
 <tr>
@@ -1086,7 +1086,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb131-1"><a hr
 <td>
 
 <div class="sourceCode" id="cb132"><pre
-class="sourceCode clj"><code class="sourceCode clojure"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span> <span class="dv">37</span> <span class="dv">0</span>)</span></code></pre></div>
+class="sourceCode clj"><code class="sourceCode clojure"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>(<span class="dv">0</span> <span class="dv">38</span> <span class="dv">0</span>)</span></code></pre></div>
 </td>
 </tr>
 </table>
@@ -1135,7 +1135,7 @@ class="sourceCode clj"><code class="sourceCode clojure"><span id="cb136-1"><a hr
 </table>
 
 <hr />
-<p>This document was generated by LispBM version 0.37.0</p>
+<p>This document was generated by LispBM version 0.38.0</p>
 </div> <!-- Close pagefind-body -->
 </div> <!-- Close container -->
 
