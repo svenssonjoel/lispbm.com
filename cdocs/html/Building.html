@@ -88,15 +88,13 @@ LBM_USE_GC_PTR_REV - Use the Deutch-Schorr-Waite pointer reversal GC algorithm. 
 <li>
 LBM_USE_DYN_FUNS - Add a library of functions to the dynamic loader. </li>
 <li>
-LBM_USE_DYN_MACROS - Add a library of macros to the dynamic loader. </li>
-<li>
-LBM_USE_DYN_DEFSTRUCT - Add the defstruct mechanism, requires LBM_USE_DYN_FUNS and LBM_USE_DYN_MACROS. </li>
+LBM_USE_DYN_MACROS - Add a library of macros to the dynamic loader. Together with LBM_USE_DYN_FUNS this also brings in the defstruct mechanism. </li>
 <li>
 LBM_USE_DYN_LOOPS - Add loop macros, requires LBM_USE_DYN_MACROS. </li>
 <li>
 LBM_USE_DYN_ARRAYS - Add additional array manipulation functions. Requires LBM_USE_DYN_MACROS and LBM_USE_DYN_LOOPS </li>
 <li>
-LBM_USE_DYN_TTF - Load the lisp part of the TTF font library dynamically. </li>
+LBM_USE_DYN_DEFSTRUCT - Enable the defstruct mechanism in the dynamic loader. </li>
 <li>
 LBM_USE_TIME_QUOTA - Use scheduler with time-based quotas instead of evaluator steps. </li>
 <li>
@@ -107,6 +105,16 @@ LBM_USE_ERROR_LINENO - Reports the line in <a class="el" href="eval__cps_8c.html
 LBM_USE_MACRO_REST_ARGS - allow macros to access a rest-args list just like lambda defined functions. </li>
 <li>
 LBM_USE_SHEBANG_COMMENTS - if #! starts the first row and column of text, that row is considered a comment. </li>
+<li>
+LBM_SINGLE_THREADED - Build for a single-threaded host, removing checks around message send/define that assume a paused evaluator thread. Used by the WASM build. </li>
+<li>
+LBM_USE_TTF_FREETYPE - Use FreeType as the TTF rendering backend instead of the built-in schrift renderer. (LBM_TTF_USE_FREETYPE is also accepted, for backwards compatibility.) </li>
+<li>
+LBM_WASM - Flag for building the WASM target of LispBM. </li>
+<li>
+CLEAN_UP_CLOSURES - Enables extra bookkeeping in <a class="el" href="eval__cps_8c.html">eval_cps.c</a> to clean up closure environments. </li>
+<li>
+DEBUG - Enables extra debug printouts, for example in the flat value code. </li>
 </ul>
 <p>The following preprocessor flags control code size optimizions on a per subsystem basis. </p><ul>
 <li>
@@ -148,55 +156,45 @@ LBM_OPT_STRING_EXTENSIONS_SIZE_AGGRESSIVE </li>
 <li>
 LBM_OPT_TTF_EXTENSIONS_SIZE </li>
 <li>
-<p class="startli">LBM_OPT_TTF_EXTENSIONS_SIZE_AGGRESSIVE</p>
+LBM_OPT_TTF_EXTENSIONS_SIZE_AGGRESSIVE </li>
+<li>
+LBM_OPT_CRYPTO_EXTENSIONS_SIZE </li>
+<li>
+LBM_OPT_CRYPTO_EXTENSIONS_SIZE_AGGRESSIVE </li>
+<li>
+LBM_OPT_ECC_EXTENSIONS_SIZE </li>
+<li>
+LBM_OPT_ECC_EXTENSIONS_SIZE_AGGRESSIVE </li>
+<li>
+LBM_OPT_DSP_EXTENSIONS_SIZE </li>
+<li>
+LBM_OPT_DSP_EXTENSIONS_SIZE_AGGRESSIVE </li>
+</ul>
 <h2>Build on Linux</h2>
-<p class="interli"></p>
-<p class="interli"></p>
-<p class="interli">Start by cloning the LispBM repository. Open a terminal and issue command</p>
-<p class="interli"></p>
+<p>Start by cloning the LispBM repository. Open a terminal and issue command</p>
 <div class="fragment"><div class="line">git clone https:<span class="comment">//github.com/svenssonjoel/lispBM.git</span></div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">You should now have a directory called lispBM. Go into it and into the <code>repl</code> subdirectory. </p>
-<p class="interli"></p>
+</div><!-- fragment --><p>You should now have a directory called lispBM. Go into it and into the <code>repl</code> subdirectory. </p>
 <div class="fragment"><div class="line">cd lispBM</div>
 <div class="line">cd repl</div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">Now, you have multiple choices on how to build the REPL. To build the 32bit version (which is most similar to what you will run on a microcontroller) issue the <code>make</code> command. </p>
-<p class="interli"></p>
+</div><!-- fragment --><p>Now, you have multiple choices on how to build the REPL. To build the 32bit version (which is most similar to what you will run on a microcontroller) issue the <code>make</code> command. </p>
 <div class="fragment"><div class="line">make</div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">If the make command above fails, it is most likely because there are some missing dependencies. </p>
-<p class="interli"></p>
-<p class="interli">Building the 32bit version of the repl requires 32bit libraries. If you are on an Ubuntu platform you get 32bit standard libraries by installing <code>gcc-multilib</code>. </p>
-<p class="interli"></p>
-<p class="interli">In addition to <code>gcc-multilib</code> the REPL requires libreadline andlibpng. You need to get the 32bit versions of these libraries. On Ubuntu you can run the following commands. </p>
-<p class="interli"></p>
+</div><!-- fragment --><p>If the make command above fails, it is most likely because there are some missing dependencies. </p>
+<p>Building the 32bit version of the repl requires 32bit libraries. If you are on an Ubuntu platform you get 32bit standard libraries by installing <code>gcc-multilib</code>. </p>
+<p>In addition to <code>gcc-multilib</code> the REPL requires libreadline andlibpng. You need to get the 32bit versions of these libraries. On Ubuntu you can run the following commands. </p>
 <div class="fragment"><div class="line">sudo apt install gcc-multilib libreadline-dev:i386 libpng-dev:i386</div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">If you were unable to install the 32bit dependencies with the command above, you may need to instruct the package manager that you are interested in 32bit packages as well.</p>
-<p class="interli"></p>
+</div><!-- fragment --><p>If you were unable to install the 32bit dependencies with the command above, you may need to instruct the package manager that you are interested in 32bit packages as well.</p>
 <div class="fragment"><div class="line">sudo dpkg --add-architecture i386</div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">Then retry the previous step to install the dependencies. </p>
-<p class="interli"></p>
-<p class="interli"></p>
-<p class="interli">If installing the dependencies finished successfully, <code>make</code> should now work and the repl executable should be built. </p>
-<p class="interli"></p>
-<p class="interli"></p>
-<p class="interli">Start the REPL and explore! </p>
-<p class="interli"></p>
+</div><!-- fragment --><p>Then retry the previous step to install the dependencies. </p>
+<p>If installing the dependencies finished successfully, <code>make</code> should now work and the repl executable should be built. </p>
+<p>Start the REPL and explore! </p>
 <div class="fragment"><div class="line">./repl</div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">You should now be greeted by the LispBM REPL in a way similar to what is shown below.</p>
-<p class="interli"></p>
+</div><!-- fragment --><p>You should now be greeted by the LispBM REPL in a way similar to what is shown below.</p>
 <div class="fragment"><div class="line">Lisp REPL started! (LBM Version: 0.27.1)</div>
 <div class="line">Type :quit to exit.</div>
 <div class="line">     :info for statistics.</div>
 <div class="line">     :load [filename] to load lisp source.</div>
 <div class="line">#</div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">Try to evaluate some expressions. Type <code>(+ 1 2)</code> and press enter. </p>
-<p class="interli"></p>
+</div><!-- fragment --><p>Try to evaluate some expressions. Type <code>(+ 1 2)</code> and press enter. </p>
 <div class="fragment"><div class="line">Lisp REPL started! (LBM Version: 0.27.1)</div>
 <div class="line">Type :quit to exit.</div>
 <div class="line">     :info for statistics.</div>
@@ -204,37 +202,20 @@ LBM_OPT_TTF_EXTENSIONS_SIZE </li>
 <div class="line"># (+ 1 2)</div>
 <div class="line">&gt; 3</div>
 <div class="line"># </div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">When you input code at the <code>#</code> prompt, LispBM answers on a new line starting with <code>&gt;</code>.</p>
-<p class="interli"></p>
-<p class="interli"></p>
-<p class="interli">Alternatively the REPL can be built as a 64bit binary. Building the 64bit binary requires 64bit versions of the readline and png libraries. </p>
-<p class="interli"></p>
-<p class="interli">On Ubuntu you get the dependcies by doing <code>sudo apt install libreadline-dev libpng-dev</code>. Then to build the executable you issue the following command.</p>
-<p class="interli"></p>
+</div><!-- fragment --><p>When you input code at the <code>#</code> prompt, LispBM answers on a new line starting with <code>&gt;</code>.</p>
+<p>Alternatively the REPL can be built as a 64bit binary. Building the 64bit binary requires 64bit versions of the readline and png libraries. </p>
+<p>On Ubuntu you get the dependcies by doing <code>sudo apt install libreadline-dev libpng-dev</code>. Then to build the executable you issue the following command.</p>
 <div class="fragment"><div class="line">make all64</div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">Lastly, the REPL can be build with <a href="https://www.libsdl.org/">SDL (Simple Directmedia Layer)</a> for graphical output. This is done by issueing the following command.</p>
-<p class="interli"></p>
+</div><!-- fragment --><p>Lastly, the REPL can be build with <a href="https://www.libsdl.org/">SDL (Simple Directmedia Layer)</a> for graphical output. This is done by issueing the following command.</p>
 <div class="fragment"><div class="line">make sdl64 </div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">Or for 32bit.</p>
-<p class="interli"></p>
-<p class="interli"></p>
-<p class="interli"><b>WARNING</b> if you are using UBUNTU 24.04(.0/.2) lts <b>DO NOT</b> "sudo atp install" the 32 bit sdl libraries. Doing so may render your system unusable as the apt solver is incorrectly deciding to uninstall key operating system packages. See <a href="https://bugs.launchpad.net/ubuntu/+source/libsdl2/+bug/2104920">bugreport </a>. Instead do the following: </p>
-<p class="interli"></p>
+</div><!-- fragment --><p>Or for 32bit.</p>
+<p><b>WARNING</b> if you are using UBUNTU 24.04(.0/.2) lts <b>DO NOT</b> "sudo atp install" the 32 bit sdl libraries. Doing so may render your system unusable as the apt solver is incorrectly deciding to uninstall key operating system packages. See <a href="https://bugs.launchpad.net/ubuntu/+source/libsdl2/+bug/2104920">bugreport </a>. Instead do the following: </p>
 <div class="fragment"><div class="line">sudo apt install aptitude</div>
 <div class="line">sudo aptitude install libsdl2-dev:i386</div>
 <div class="line">sudo aptitude install libsdl2-image-dev:i386</div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">Then to build 32bit LBM with sdl do: </p>
-<p class="interli"></p>
+</div><!-- fragment --><p>Then to build 32bit LBM with sdl do: </p>
 <div class="fragment"><div class="line">make sdl</div>
-</div><!-- fragment --><p class="interli"></p>
-<p class="interli">The REPL with SDL requires <code>libsdl2-dev</code> and <code>libsdl2-image-dev</code> libraries or the 32 bit versions (for 32bit repl binary) <code>libsdl2-dev:i386</code> and <code>libsdl2-image-dev:i386</code>.</p>
-<p class="endli"></p>
-</li>
-</ul>
+</div><!-- fragment --><p>The REPL with SDL requires <code>libsdl2-dev</code> and <code>libsdl2-image-dev</code> libraries or the 32 bit versions (for 32bit repl binary) <code>libsdl2-dev:i386</code> and <code>libsdl2-image-dev:i386</code>.</p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 <!-- start footer part -->

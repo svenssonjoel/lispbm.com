@@ -210,6 +210,8 @@ Data Structures</h2></td></tr>
 Macros</h2></td></tr>
 <tr class="memitem:a4a453f3a748e55cbdac6fcc79357cfef" id="r_a4a453f3a748e55cbdac6fcc79357cfef"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a8c8313d05785802938c6d8a2a7fa3e09">__attribute__</a> ((__noreturn__))</td></tr>
 <tr class="separator:a4a453f3a748e55cbdac6fcc79357cfef"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a884fc5979a84e6b84cf1b5c1da32bb2c" id="r_a884fc5979a84e6b84cf1b5c1da32bb2c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a8c8313d05785802938c6d8a2a7fa3e09">__attribute__</a>((cold, noinline, optimize(&quot;Os&quot;)))</td></tr>
+<tr class="separator:a884fc5979a84e6b84cf1b5c1da32bb2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a98c06ef29a07e35d45163ffa5521ba06" id="r_a98c06ef29a07e35d45163ffa5521ba06"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a98c06ef29a07e35d45163ffa5521ba06">S_TO_US</a>(X)&#160;&#160;&#160;(<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>)((X) * 1000000)</td></tr>
 <tr class="separator:a98c06ef29a07e35d45163ffa5521ba06"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a36bfa264d7e0230e1016f202709ee742" id="r_a36bfa264d7e0230e1016f202709ee742"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a36bfa264d7e0230e1016f202709ee742">DEC_CONTINUATION</a>(x)&#160;&#160;&#160;(((x) &amp; ~<a class="el" href="lbm__defines_8h.html#aff5b0a6186e511bb5c0905a8bb30885e">LBM_CONTINUATION_INTERNAL</a>) &gt;&gt; <a class="el" href="lbm__defines_8h.html#acc05acaedfb5742262b28d9bf30d735b">LBM_ADDRESS_SHIFT</a>)</td></tr>
@@ -322,7 +324,9 @@ Macros</h2></td></tr>
 <tr class="separator:a82999d735d6daf3ae16171041cbab233"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a559dcf33e27e0ffbc1b23615c8290f43" id="r_a559dcf33e27e0ffbc1b23615c8290f43"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a559dcf33e27e0ffbc1b23615c8290f43">LOOP_ENV_PREP</a>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a6cf058dc4a96b7840bde257c07da9523">CONTINUATION</a>(51)</td></tr>
 <tr class="separator:a559dcf33e27e0ffbc1b23615c8290f43"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8032d594dcf880a5e487fb2493ff1232" id="r_a8032d594dcf880a5e487fb2493ff1232"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a8032d594dcf880a5e487fb2493ff1232">NUM_CONTINUATIONS</a>&#160;&#160;&#160;52</td></tr>
+<tr class="memitem:a7be0bd95decb1f63df0de2b56aabbcec" id="r_a7be0bd95decb1f63df0de2b56aabbcec"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a7be0bd95decb1f63df0de2b56aabbcec">READ_NEXT_TOKEN_GRAB_ROW</a>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a6cf058dc4a96b7840bde257c07da9523">CONTINUATION</a>(52)</td></tr>
+<tr class="separator:a7be0bd95decb1f63df0de2b56aabbcec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8032d594dcf880a5e487fb2493ff1232" id="r_a8032d594dcf880a5e487fb2493ff1232"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a8032d594dcf880a5e487fb2493ff1232">NUM_CONTINUATIONS</a>&#160;&#160;&#160;53</td></tr>
 <tr class="separator:a8032d594dcf880a5e487fb2493ff1232"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0211a9adf519ddf904761614c52d27f9" id="r_a0211a9adf519ddf904761614c52d27f9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a0211a9adf519ddf904761614c52d27f9">FM_NEED_GC</a>&#160;&#160;&#160;-1</td></tr>
 <tr class="separator:a0211a9adf519ddf904761614c52d27f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -334,11 +338,11 @@ Macros</h2></td></tr>
 <tr class="separator:a07d89bf46b96367a5ec18b0639755207"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a460578612030b55e7b3782b96c4d2ae8" id="r_a460578612030b55e7b3782b96c4d2ae8"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a460578612030b55e7b3782b96c4d2ae8">FB_TYPE_ERROR</a>&#160;&#160;&#160;-1</td></tr>
 <tr class="separator:a460578612030b55e7b3782b96c4d2ae8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a560282e8666fa09496278643cbc1c683" id="r_a560282e8666fa09496278643cbc1c683"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a560282e8666fa09496278643cbc1c683">ERROR_AT_CTX</a>(err_val,  at)&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a5fb22d20dce43a92015c275801edc868">error_at_ctx</a>(err_val, at)</td></tr>
+<tr class="memitem:a560282e8666fa09496278643cbc1c683" id="r_a560282e8666fa09496278643cbc1c683"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a560282e8666fa09496278643cbc1c683">ERROR_AT_CTX</a>(err_val,  at)&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a5826852a639707aab04805f234437056">error_at_ctx</a>(err_val, at)</td></tr>
 <tr class="separator:a560282e8666fa09496278643cbc1c683"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0d8b7e0fcac5f3f2c954b78dc4b72a64" id="r_a0d8b7e0fcac5f3f2c954b78dc4b72a64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a0d8b7e0fcac5f3f2c954b78dc4b72a64">ERROR_CTX</a>(err_val)&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a7e6b2212e3c91e78a3f03528028804a5">error_ctx</a>(err_val)</td></tr>
+<tr class="memitem:a0d8b7e0fcac5f3f2c954b78dc4b72a64" id="r_a0d8b7e0fcac5f3f2c954b78dc4b72a64"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a0d8b7e0fcac5f3f2c954b78dc4b72a64">ERROR_CTX</a>(err_val)&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a016187b871513068a7832711d5b8bd27">error_ctx</a>(err_val)</td></tr>
 <tr class="separator:a0d8b7e0fcac5f3f2c954b78dc4b72a64"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a380a9d4faa14816c731e1f3c4c5922cd" id="r_a380a9d4faa14816c731e1f3c4c5922cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a380a9d4faa14816c731e1f3c4c5922cd">READ_ERROR_CTX</a>(row,  col)&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#addf9ea0dfd893465436e38eab77624fb">read_error_ctx</a>(row, col)</td></tr>
+<tr class="memitem:a380a9d4faa14816c731e1f3c4c5922cd" id="r_a380a9d4faa14816c731e1f3c4c5922cd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a380a9d4faa14816c731e1f3c4c5922cd">READ_ERROR_CTX</a>(row,  col)&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#aa3826d137c88503171fd79e338b71b4b">read_error_ctx</a>(row, col)</td></tr>
 <tr class="separator:a380a9d4faa14816c731e1f3c4c5922cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaa46bdbe33f7282bcfa03c80ccb936ae" id="r_aaa46bdbe33f7282bcfa03c80ccb936ae"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#aaa46bdbe33f7282bcfa03c80ccb936ae">WITH_GC</a>(y,  x)</td></tr>
 <tr class="separator:aaa46bdbe33f7282bcfa03c80ccb936ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -404,10 +408,10 @@ Functions</h2></td></tr>
 <tr class="separator:a631d2e1d1f960eae873c1fd2b42f43f0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7f46499e91478d5478bf9b2e350d8986" id="r_a7f46499e91478d5478bf9b2e350d8986"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a7f46499e91478d5478bf9b2e350d8986">gc</a> (void)</td></tr>
 <tr class="separator:a7f46499e91478d5478bf9b2e350d8986"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e6b2212e3c91e78a3f03528028804a5" id="r_a7e6b2212e3c91e78a3f03528028804a5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a7e6b2212e3c91e78a3f03528028804a5">error_ctx</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>)</td></tr>
-<tr class="separator:a7e6b2212e3c91e78a3f03528028804a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5fb22d20dce43a92015c275801edc868" id="r_a5fb22d20dce43a92015c275801edc868"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a5fb22d20dce43a92015c275801edc868">error_at_ctx</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> err_val, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> at)</td></tr>
-<tr class="separator:a5fb22d20dce43a92015c275801edc868"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a016187b871513068a7832711d5b8bd27" id="r_a016187b871513068a7832711d5b8bd27"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a016187b871513068a7832711d5b8bd27">error_ctx</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>)</td></tr>
+<tr class="separator:a016187b871513068a7832711d5b8bd27"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5826852a639707aab04805f234437056" id="r_a5826852a639707aab04805f234437056"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a5826852a639707aab04805f234437056">error_at_ctx</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> err_val, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> at)</td></tr>
+<tr class="separator:a5826852a639707aab04805f234437056"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec69c9c6b572199b0fba494bb93810b6" id="r_aec69c9c6b572199b0fba494bb93810b6"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#aec69c9c6b572199b0fba494bb93810b6">mailbox_add_mail</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> mail)</td></tr>
 <tr class="separator:aec69c9c6b572199b0fba494bb93810b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e3244779043b406a348b2236571fe8b" id="r_a0e3244779043b406a348b2236571fe8b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a0e3244779043b406a348b2236571fe8b">enqueue_ctx</a> (<a class="el" href="structeval__context__queue__t.html">eval_context_queue_t</a> *q, <a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
@@ -416,26 +420,26 @@ Functions</h2></td></tr>
 <tr class="separator:a24b5f65176da74cfa2c2f8d840df5694"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb1c8b396c2ed4ee0e3c2ac300c796b9" id="r_acb1c8b396c2ed4ee0e3c2ac300c796b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#acb1c8b396c2ed4ee0e3c2ac300c796b9">lbm_set_eval_step_quota</a> (uint32_t quota)</td></tr>
 <tr class="separator:acb1c8b396c2ed4ee0e3c2ac300c796b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae2e0d13a9a3d3a5e65c2bd4b41146f10" id="r_ae2e0d13a9a3d3a5e65c2bd4b41146f10"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ae2e0d13a9a3d3a5e65c2bd4b41146f10">usleep_nonsense</a> (uint32_t us)</td></tr>
-<tr class="separator:ae2e0d13a9a3d3a5e65c2bd4b41146f10"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d23fcb02b9584398ea4c74396e618ca" id="r_a2d23fcb02b9584398ea4c74396e618ca"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a2d23fcb02b9584398ea4c74396e618ca">dynamic_load_nonsense</a> (const char *sym, const char **code)</td></tr>
-<tr class="separator:a2d23fcb02b9584398ea4c74396e618ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa640df5e4d5dcd6436de287b74c5de13" id="r_aa640df5e4d5dcd6436de287b74c5de13"><td class="memItemLeft" align="right" valign="top">static int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#aa640df5e4d5dcd6436de287b74c5de13">printf_nonsense</a> (const char *fmt,...)</td></tr>
-<tr class="separator:aa640df5e4d5dcd6436de287b74c5de13"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a43fb6c584bdf3ad5e8d2b543bd428be8" id="r_a43fb6c584bdf3ad5e8d2b543bd428be8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a43fb6c584bdf3ad5e8d2b543bd428be8">ctx_done_nonsense</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
-<tr class="separator:a43fb6c584bdf3ad5e8d2b543bd428be8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a61be8d8f47f1451222fd3fd3f5984312" id="r_a61be8d8f47f1451222fd3fd3f5984312"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a61be8d8f47f1451222fd3fd3f5984312">critical_nonsense</a> (void)</td></tr>
-<tr class="separator:a61be8d8f47f1451222fd3fd3f5984312"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a45b3ce44ecc7218a558eadb53d05c160" id="r_a45b3ce44ecc7218a558eadb53d05c160"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a45b3ce44ecc7218a558eadb53d05c160">lbm_set_critical_error_callback</a> (void(*fptr)(void))</td></tr>
-<tr class="separator:a45b3ce44ecc7218a558eadb53d05c160"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9608f10f85bdaa5c7cfbe1f8ed9be3d3" id="r_a9608f10f85bdaa5c7cfbe1f8ed9be3d3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a9608f10f85bdaa5c7cfbe1f8ed9be3d3">lbm_set_usleep_callback</a> (void(*fptr)(uint32_t))</td></tr>
-<tr class="separator:a9608f10f85bdaa5c7cfbe1f8ed9be3d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5d59d7b208376735581c413e6c31bd41" id="r_a5d59d7b208376735581c413e6c31bd41"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a5d59d7b208376735581c413e6c31bd41">lbm_set_ctx_done_callback</a> (void(*fptr)(<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *))</td></tr>
-<tr class="separator:a5d59d7b208376735581c413e6c31bd41"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afc5304954d63a99ec7e4ad0ddc5658d8" id="r_afc5304954d63a99ec7e4ad0ddc5658d8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#afc5304954d63a99ec7e4ad0ddc5658d8">lbm_set_printf_callback</a> (int(*fptr)(const char *,...))</td></tr>
-<tr class="separator:afc5304954d63a99ec7e4ad0ddc5658d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3895d975f4604285b9070e70c94c2ed7" id="r_a3895d975f4604285b9070e70c94c2ed7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a3895d975f4604285b9070e70c94c2ed7">lbm_set_dynamic_load_callback</a> (bool(*fptr)(const char *, const char **))</td></tr>
-<tr class="separator:a3895d975f4604285b9070e70c94c2ed7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9977f46d1a23599ee6432445edc483b0" id="r_a9977f46d1a23599ee6432445edc483b0"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a9977f46d1a23599ee6432445edc483b0">usleep_nonsense</a> (uint32_t us)</td></tr>
+<tr class="separator:a9977f46d1a23599ee6432445edc483b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6dd158e32481959ba1f5e5e69a873437" id="r_a6dd158e32481959ba1f5e5e69a873437"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a6dd158e32481959ba1f5e5e69a873437">dynamic_load_nonsense</a> (const char *sym, const char **code)</td></tr>
+<tr class="separator:a6dd158e32481959ba1f5e5e69a873437"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9face5520b2b66f4efcf8dab087f3174" id="r_a9face5520b2b66f4efcf8dab087f3174"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a9face5520b2b66f4efcf8dab087f3174">printf_nonsense</a> (const char *fmt,...)</td></tr>
+<tr class="separator:a9face5520b2b66f4efcf8dab087f3174"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a462266458b7089e060d757b0515a943e" id="r_a462266458b7089e060d757b0515a943e"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a462266458b7089e060d757b0515a943e">ctx_done_nonsense</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
+<tr class="separator:a462266458b7089e060d757b0515a943e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac21477f0032809d399124929d0d05f3a" id="r_ac21477f0032809d399124929d0d05f3a"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ac21477f0032809d399124929d0d05f3a">critical_nonsense</a> (void)</td></tr>
+<tr class="separator:ac21477f0032809d399124929d0d05f3a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5fa8c6263d43e2041b8bfb1478ee44b6" id="r_a5fa8c6263d43e2041b8bfb1478ee44b6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a5fa8c6263d43e2041b8bfb1478ee44b6">lbm_set_critical_error_callback</a> (void(*fptr)(void))</td></tr>
+<tr class="separator:a5fa8c6263d43e2041b8bfb1478ee44b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a724349987de0d167fab3897ec9fcdf1b" id="r_a724349987de0d167fab3897ec9fcdf1b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a724349987de0d167fab3897ec9fcdf1b">lbm_set_usleep_callback</a> (void(*fptr)(uint32_t))</td></tr>
+<tr class="separator:a724349987de0d167fab3897ec9fcdf1b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a12602ca8015fd4d1f432bfa3cf6c2c5f" id="r_a12602ca8015fd4d1f432bfa3cf6c2c5f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a12602ca8015fd4d1f432bfa3cf6c2c5f">lbm_set_ctx_done_callback</a> (void(*fptr)(<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *))</td></tr>
+<tr class="separator:a12602ca8015fd4d1f432bfa3cf6c2c5f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a121ff3a930259345c493204c2160b917" id="r_a121ff3a930259345c493204c2160b917"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a121ff3a930259345c493204c2160b917">lbm_set_printf_callback</a> (int(*fptr)(const char *,...))</td></tr>
+<tr class="separator:a121ff3a930259345c493204c2160b917"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a15e1b26a6481f1f3815a8406241cdff5" id="r_a15e1b26a6481f1f3815a8406241cdff5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a15e1b26a6481f1f3815a8406241cdff5">lbm_set_dynamic_load_callback</a> (bool(*fptr)(const char *, const char **))</td></tr>
+<tr class="separator:a15e1b26a6481f1f3815a8406241cdff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7a796beddd4bf03d3d7fd7e55ed4846f" id="r_a7a796beddd4bf03d3d7fd7e55ed4846f"><td class="memItemLeft" align="right" valign="top">static unsigned int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a7a796beddd4bf03d3d7fd7e55ed4846f">lbm_event_queue_item_count</a> (void)</td></tr>
 <tr class="separator:a7a796beddd4bf03d3d7fd7e55ed4846f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2260e84a569ac8a7f1e0e8596a2a527b" id="r_a2260e84a569ac8a7f1e0e8596a2a527b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="lbm__types_8h.html#a0a6887c6ce9caa08cbb9a7e60d817865">lbm_cid</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a2260e84a569ac8a7f1e0e8596a2a527b">lbm_get_event_handler_pid</a> (void)</td></tr>
@@ -494,8 +498,6 @@ Functions</h2></td></tr>
 <tr class="separator:a3185e97cd4d52b6398a65fcee62cf09f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afa1b3804b77a66b077e45b3c55614732" id="r_afa1b3804b77a66b077e45b3c55614732"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#afa1b3804b77a66b077e45b3c55614732">allocate_binding</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> key, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> val, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> the_cdr)</td></tr>
 <tr class="separator:afa1b3804b77a66b077e45b3c55614732"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7d86129875c1639ccac103b02c8b77ac" id="r_a7d86129875c1639ccac103b02c8b77ac"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a7d86129875c1639ccac103b02c8b77ac">call_fundamental</a> (<a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> fundamental, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *args, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> arg_count, <a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
-<tr class="separator:a7d86129875c1639ccac103b02c8b77ac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a125d2750d2827bc2c58bcaacd36d66f7" id="r_a125d2750d2827bc2c58bcaacd36d66f7"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a125d2750d2827bc2c58bcaacd36d66f7">atomic_error</a> (void)</td></tr>
 <tr class="separator:a125d2750d2827bc2c58bcaacd36d66f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a82d0b459cff6aa03730a0fe8a69b0c10" id="r_a82d0b459cff6aa03730a0fe8a69b0c10"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a82d0b459cff6aa03730a0fe8a69b0c10">block_current_ctx</a> (uint32_t state, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> sleep_us, bool do_cont)</td></tr>
@@ -504,12 +506,14 @@ Functions</h2></td></tr>
 <tr class="separator:ae9b6c86f6c08e5da844b2d8b4ec44a79"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9741fc2dd6b6a9f436e537b919a39a2f" id="r_a9741fc2dd6b6a9f436e537b919a39a2f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="heap_8h.html#a199a56e7cda7ee37992087293f1d4f8b">lbm_flash_status</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a9741fc2dd6b6a9f436e537b919a39a2f">lbm_write_const_array_padded</a> (uint8_t *data, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> n, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> *res)</td></tr>
 <tr class="separator:a9741fc2dd6b6a9f436e537b919a39a2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a566c741c666ab465ed49187fa74b9f9f" id="r_a566c741c666ab465ed49187fa74b9f9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a566c741c666ab465ed49187fa74b9f9f">print_environments</a> (char *buf, unsigned int size)</td></tr>
-<tr class="separator:a566c741c666ab465ed49187fa74b9f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1d0aaf1172110a9e650b1ad9bb0b4ac3" id="r_a1d0aaf1172110a9e650b1ad9bb0b4ac3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a1d0aaf1172110a9e650b1ad9bb0b4ac3">print_error_value</a> (char *buf, uint32_t bufsize, char *pre, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> v, bool lookup)</td></tr>
-<tr class="separator:a1d0aaf1172110a9e650b1ad9bb0b4ac3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5c77cd196b1208291334a682ef8f74b" id="r_ae5c77cd196b1208291334a682ef8f74b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ae5c77cd196b1208291334a682ef8f74b">print_error_message</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> error, bool has_at, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> at, unsigned int row, unsigned int col, <a class="el" href="lbm__types_8h.html#a3551556c36781f00c9499f20cea7f67a">lbm_int</a> row0, <a class="el" href="lbm__types_8h.html#a3551556c36781f00c9499f20cea7f67a">lbm_int</a> row1, <a class="el" href="lbm__types_8h.html#a3551556c36781f00c9499f20cea7f67a">lbm_int</a> cid, char *name, bool trapped)</td></tr>
-<tr class="separator:ae5c77cd196b1208291334a682ef8f74b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2bfa42548b7a7b8716db861bf552cfc1" id="r_a2bfa42548b7a7b8716db861bf552cfc1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a2bfa42548b7a7b8716db861bf552cfc1">print_env_ll</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> e, char *buf, unsigned int size)</td></tr>
+<tr class="separator:a2bfa42548b7a7b8716db861bf552cfc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2896249d72091c0b00e326dae459971e" id="r_a2896249d72091c0b00e326dae459971e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a2896249d72091c0b00e326dae459971e">print_environments</a> (char *buf, unsigned int size)</td></tr>
+<tr class="separator:a2896249d72091c0b00e326dae459971e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a24db167ed4c227252782adf979dfd4ca" id="r_a24db167ed4c227252782adf979dfd4ca"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a24db167ed4c227252782adf979dfd4ca">print_error_value</a> (char *buf, uint32_t bufsize, char *pre, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> v, bool lookup)</td></tr>
+<tr class="separator:a24db167ed4c227252782adf979dfd4ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a751ebd7570562bb9dbfcb1cb1b51133b" id="r_a751ebd7570562bb9dbfcb1cb1b51133b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a751ebd7570562bb9dbfcb1cb1b51133b">print_error_message</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> error, bool has_at, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> at, unsigned int row, unsigned int col, <a class="el" href="lbm__types_8h.html#a3551556c36781f00c9499f20cea7f67a">lbm_int</a> row0, <a class="el" href="lbm__types_8h.html#a3551556c36781f00c9499f20cea7f67a">lbm_int</a> row1, <a class="el" href="lbm__types_8h.html#a3551556c36781f00c9499f20cea7f67a">lbm_int</a> cid, char *name, bool trapped)</td></tr>
+<tr class="separator:a751ebd7570562bb9dbfcb1cb1b51133b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afb5f24bbb6ee4d15e6e2640ef5b9e738" id="r_afb5f24bbb6ee4d15e6e2640ef5b9e738"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#afb5f24bbb6ee4d15e6e2640ef5b9e738">create_string_channel</a> (char *str, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *res, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> dep)</td></tr>
 <tr class="separator:afb5f24bbb6ee4d15e6e2640ef5b9e738"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5b7d77c015efa2ffa6ad4d62cb0d3ca8" id="r_a5b7d77c015efa2ffa6ad4d62cb0d3ca8"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a5b7d77c015efa2ffa6ad4d62cb0d3ca8">queue_iterator_nm</a> (<a class="el" href="structeval__context__queue__t.html">eval_context_queue_t</a> *q, <a class="el" href="eval__cps_8h.html#ac027b6619adcd4a0a10aea060e10e4df">ctx_fun</a> f, void *arg1, void *arg2)</td></tr>
@@ -530,14 +534,14 @@ Functions</h2></td></tr>
 <tr class="separator:ae4529d0888bf8a08ec8d6f83a9564bca"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac1ec6e4d5686b4f912a70be1c6f776af" id="r_ac1ec6e4d5686b4f912a70be1c6f776af"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ac1ec6e4d5686b4f912a70be1c6f776af">context_exists</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx, void *cid, void *b)</td></tr>
 <tr class="separator:ac1ec6e4d5686b4f912a70be1c6f776af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aff8c927101d538d0919a92d45d4eac7f" id="r_aff8c927101d538d0919a92d45d4eac7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#aff8c927101d538d0919a92d45d4eac7f">lbm_set_error_suspect</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> suspect)</td></tr>
-<tr class="separator:aff8c927101d538d0919a92d45d4eac7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abcf8b8499070422f69cbf9683c6e34c8" id="r_abcf8b8499070422f69cbf9683c6e34c8"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#abcf8b8499070422f69cbf9683c6e34c8">lbm_set_error_reason</a> (const char *error_str)</td></tr>
-<tr class="separator:abcf8b8499070422f69cbf9683c6e34c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7c77e50ef483b7af2eaa4e49115320e5" id="r_a7c77e50ef483b7af2eaa4e49115320e5"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a7c77e50ef483b7af2eaa4e49115320e5">error_ctx_base</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> err_val, bool has_at, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> at, unsigned int row, unsigned int column)</td></tr>
-<tr class="separator:a7c77e50ef483b7af2eaa4e49115320e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:addf9ea0dfd893465436e38eab77624fb" id="r_addf9ea0dfd893465436e38eab77624fb"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#addf9ea0dfd893465436e38eab77624fb">read_error_ctx</a> (unsigned int row, unsigned int column)</td></tr>
-<tr class="separator:addf9ea0dfd893465436e38eab77624fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aae0a3e918a732cd2a03e3993829f2746" id="r_aae0a3e918a732cd2a03e3993829f2746"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#aae0a3e918a732cd2a03e3993829f2746">lbm_set_error_suspect</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> suspect)</td></tr>
+<tr class="separator:aae0a3e918a732cd2a03e3993829f2746"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f37721e9ae227b8ac1f349b8a67bf32" id="r_a2f37721e9ae227b8ac1f349b8a67bf32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a2f37721e9ae227b8ac1f349b8a67bf32">lbm_set_error_reason</a> (const char *error_str)</td></tr>
+<tr class="separator:a2f37721e9ae227b8ac1f349b8a67bf32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add61995dcc87108f97650f3f61c80514" id="r_add61995dcc87108f97650f3f61c80514"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#add61995dcc87108f97650f3f61c80514">error_ctx_base</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> err_val, bool has_at, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> at, unsigned int row, unsigned int column)</td></tr>
+<tr class="separator:add61995dcc87108f97650f3f61c80514"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa3826d137c88503171fd79e338b71b4b" id="r_aa3826d137c88503171fd79e338b71b4b"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#aa3826d137c88503171fd79e338b71b4b">read_error_ctx</a> (unsigned int row, unsigned int column)</td></tr>
+<tr class="separator:aa3826d137c88503171fd79e338b71b4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a340aa464c4d0c73c56a2682de102ead9" id="r_a340aa464c4d0c73c56a2682de102ead9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a340aa464c4d0c73c56a2682de102ead9">lbm_critical_error</a> (void)</td></tr>
 <tr class="separator:a340aa464c4d0c73c56a2682de102ead9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adae50d011748b7b4e3820f3eee3beae1" id="r_adae50d011748b7b4e3820f3eee3beae1"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#adae50d011748b7b4e3820f3eee3beae1">ok_ctx</a> (void)</td></tr>
@@ -705,6 +709,8 @@ Functions</h2></td></tr>
 <tr class="separator:a2f65c5bb78c586c0088dc91ff6520812"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afbd5c351bbac88b30e8f37bf7074d3b5" id="r_afbd5c351bbac88b30e8f37bf7074d3b5"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#afbd5c351bbac88b30e8f37bf7074d3b5">apply_rotate</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *args, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> nargs, <a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
 <tr class="separator:afbd5c351bbac88b30e8f37bf7074d3b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a741b0a513cb3a2c36646ecc5230f5b52" id="r_a741b0a513cb3a2c36646ecc5230f5b52"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a741b0a513cb3a2c36646ecc5230f5b52">call_fptr</a> (<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>(*fptr)(<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>), <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *args, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> arg_count, <a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
+<tr class="separator:a741b0a513cb3a2c36646ecc5230f5b52"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a24263d98ef0e82a96ddf222762a468ef" id="r_a24263d98ef0e82a96ddf222762a468ef"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a24263d98ef0e82a96ddf222762a468ef">application</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx, <a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *fun_args, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a> arg_count)</td></tr>
 <tr class="separator:a24263d98ef0e82a96ddf222762a468ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f0ad03e88b49382d589a8fe456f51f9" id="r_a4f0ad03e88b49382d589a8fe456f51f9"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a4f0ad03e88b49382d589a8fe456f51f9">cont_closure_application_args</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
@@ -743,6 +749,8 @@ Functions</h2></td></tr>
 <tr class="separator:a93218e294798e0a3723a990f5cc1f5bc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bed8ed28d2ed5ffc28e609c477b3046" id="r_a2bed8ed28d2ed5ffc28e609c477b3046"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a2bed8ed28d2ed5ffc28e609c477b3046">cont_merge_layer</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
 <tr class="separator:a2bed8ed28d2ed5ffc28e609c477b3046"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acdd3efa7dd03a49f00c069904b10b2cd" id="r_acdd3efa7dd03a49f00c069904b10b2cd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#acdd3efa7dd03a49f00c069904b10b2cd">error_on_invalid_read_result</a> (<a class="el" href="lbm__channel_8h.html#a626a49bb68281ff070092d656077028a">lbm_char_channel_t</a> *str, <a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
+<tr class="separator:acdd3efa7dd03a49f00c069904b10b2cd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a073647bbdf69770725d21e65e7f3b85f" id="r_a073647bbdf69770725d21e65e7f3b85f"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a073647bbdf69770725d21e65e7f3b85f">read_finish</a> (<a class="el" href="lbm__channel_8h.html#a626a49bb68281ff070092d656077028a">lbm_char_channel_t</a> *str, <a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
 <tr class="separator:a073647bbdf69770725d21e65e7f3b85f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac2a333ec12f4c978d94afef0d639502b" id="r_ac2a333ec12f4c978d94afef0d639502b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ac2a333ec12f4c978d94afef0d639502b">cont_read_next_token</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
@@ -755,6 +763,8 @@ Functions</h2></td></tr>
 <tr class="separator:a6f02de81092a23182da2ab4efdadfa51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a585a936b6eff0c7b94f3fbb509ada68b" id="r_a585a936b6eff0c7b94f3fbb509ada68b"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a585a936b6eff0c7b94f3fbb509ada68b">cont_read_append_array</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
 <tr class="separator:a585a936b6eff0c7b94f3fbb509ada68b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7641cc811105bfcc3f9aa0388479ebd" id="r_af7641cc811105bfcc3f9aa0388479ebd"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#af7641cc811105bfcc3f9aa0388479ebd">cont_read_next_token_grab_row</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
+<tr class="separator:af7641cc811105bfcc3f9aa0388479ebd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae4309aba93f5ad9e594b859fe065a612" id="r_ae4309aba93f5ad9e594b859fe065a612"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ae4309aba93f5ad9e594b859fe065a612">cont_read_append_continue</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
 <tr class="separator:ae4309aba93f5ad9e594b859fe065a612"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a890599388a2938c394e387ebc8a5a7fc" id="r_a890599388a2938c394e387ebc8a5a7fc"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a890599388a2938c394e387ebc8a5a7fc">cont_read_eval_continue</a> (<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *ctx)</td></tr>
@@ -910,23 +920,23 @@ Variables</h2></td></tr>
 <tr class="separator:a5fd4259293cad836a00550b23a0d075b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa5ebb05e24889387e8d6faa97310b05a" id="r_aa5ebb05e24889387e8d6faa97310b05a"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#aa5ebb05e24889387e8d6faa97310b05a">eval_steps_quota</a> = <a class="el" href="eval__cps_8c.html#aaf1d475372f2badf5419611e0bc106d7">EVAL_STEPS_QUOTA</a></td></tr>
 <tr class="separator:aa5ebb05e24889387e8d6faa97310b05a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab46a15b004b692117873daf49130805d" id="r_ab46a15b004b692117873daf49130805d"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ab46a15b004b692117873daf49130805d">eval_cps_run_state</a> = <a class="el" href="eval__cps_8h.html#adfffa6dc072b6426475b3a7a8a915ea2">EVAL_CPS_STATE_DEAD</a></td></tr>
-<tr class="separator:ab46a15b004b692117873daf49130805d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a282c18ec21257198c58d64c7450d6226" id="r_a282c18ec21257198c58d64c7450d6226"><td class="memItemLeft" align="right" valign="top">static volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a282c18ec21257198c58d64c7450d6226">eval_cps_run_state</a> = <a class="el" href="eval__cps_8h.html#adfffa6dc072b6426475b3a7a8a915ea2">EVAL_CPS_STATE_DEAD</a></td></tr>
+<tr class="separator:a282c18ec21257198c58d64c7450d6226"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac32404f0263dd3c4978907e6c89c6507" id="r_ac32404f0263dd3c4978907e6c89c6507"><td class="memItemLeft" align="right" valign="top">static volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ac32404f0263dd3c4978907e6c89c6507">eval_cps_next_state</a> = <a class="el" href="eval__cps_8h.html#aef483a53e5a2fe46c02d2641c22a97e6">EVAL_CPS_STATE_NONE</a></td></tr>
 <tr class="separator:ac32404f0263dd3c4978907e6c89c6507"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0d94145ab813f071f163f1ddb2af2527" id="r_a0d94145ab813f071f163f1ddb2af2527"><td class="memItemLeft" align="right" valign="top">static volatile uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a0d94145ab813f071f163f1ddb2af2527">eval_cps_next_state_arg</a> = 0</td></tr>
 <tr class="separator:a0d94145ab813f071f163f1ddb2af2527"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4d4c497db0a1bfc8a26fbb642091d1e7" id="r_a4d4c497db0a1bfc8a26fbb642091d1e7"><td class="memItemLeft" align="right" valign="top">static volatile bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a4d4c497db0a1bfc8a26fbb642091d1e7">eval_cps_state_changed</a> = false</td></tr>
 <tr class="separator:a4d4c497db0a1bfc8a26fbb642091d1e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a35631ee53c4d735e1338f6d9c5db5ccc" id="r_a35631ee53c4d735e1338f6d9c5db5ccc"><td class="memItemLeft" align="right" valign="top">static void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a35631ee53c4d735e1338f6d9c5db5ccc">critical_error_callback</a> )(void) = <a class="el" href="eval__cps_8c.html#a61be8d8f47f1451222fd3fd3f5984312">critical_nonsense</a></td></tr>
+<tr class="memitem:a35631ee53c4d735e1338f6d9c5db5ccc" id="r_a35631ee53c4d735e1338f6d9c5db5ccc"><td class="memItemLeft" align="right" valign="top">static void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a35631ee53c4d735e1338f6d9c5db5ccc">critical_error_callback</a> )(void) = <a class="el" href="eval__cps_8c.html#ac21477f0032809d399124929d0d05f3a">critical_nonsense</a></td></tr>
 <tr class="separator:a35631ee53c4d735e1338f6d9c5db5ccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af1ff482185506f07bf813887f7b7493a" id="r_af1ff482185506f07bf813887f7b7493a"><td class="memItemLeft" align="right" valign="top">static void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#af1ff482185506f07bf813887f7b7493a">usleep_callback</a> )(uint32_t) = <a class="el" href="eval__cps_8c.html#ae2e0d13a9a3d3a5e65c2bd4b41146f10">usleep_nonsense</a></td></tr>
+<tr class="memitem:af1ff482185506f07bf813887f7b7493a" id="r_af1ff482185506f07bf813887f7b7493a"><td class="memItemLeft" align="right" valign="top">static void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#af1ff482185506f07bf813887f7b7493a">usleep_callback</a> )(uint32_t) = <a class="el" href="eval__cps_8c.html#a9977f46d1a23599ee6432445edc483b0">usleep_nonsense</a></td></tr>
 <tr class="separator:af1ff482185506f07bf813887f7b7493a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a751a0bc67ae1aa61bd80f741eba96d26" id="r_a751a0bc67ae1aa61bd80f741eba96d26"><td class="memItemLeft" align="right" valign="top">static void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a751a0bc67ae1aa61bd80f741eba96d26">ctx_done_callback</a> )(<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *) = <a class="el" href="eval__cps_8c.html#a43fb6c584bdf3ad5e8d2b543bd428be8">ctx_done_nonsense</a></td></tr>
+<tr class="memitem:a751a0bc67ae1aa61bd80f741eba96d26" id="r_a751a0bc67ae1aa61bd80f741eba96d26"><td class="memItemLeft" align="right" valign="top">static void(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a751a0bc67ae1aa61bd80f741eba96d26">ctx_done_callback</a> )(<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *) = <a class="el" href="eval__cps_8c.html#a462266458b7089e060d757b0515a943e">ctx_done_nonsense</a></td></tr>
 <tr class="separator:a751a0bc67ae1aa61bd80f741eba96d26"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab753f3302fd24321487ac85a1b2ce662" id="r_ab753f3302fd24321487ac85a1b2ce662"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ab753f3302fd24321487ac85a1b2ce662">lbm_printf_callback</a> )(const char *,...) = <a class="el" href="eval__cps_8c.html#aa640df5e4d5dcd6436de287b74c5de13">printf_nonsense</a></td></tr>
+<tr class="memitem:ab753f3302fd24321487ac85a1b2ce662" id="r_ab753f3302fd24321487ac85a1b2ce662"><td class="memItemLeft" align="right" valign="top">int(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ab753f3302fd24321487ac85a1b2ce662">lbm_printf_callback</a> )(const char *,...) = <a class="el" href="eval__cps_8c.html#a9face5520b2b66f4efcf8dab087f3174">printf_nonsense</a></td></tr>
 <tr class="separator:ab753f3302fd24321487ac85a1b2ce662"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae56ee28e8eadbe12bee84c7d74177c51" id="r_ae56ee28e8eadbe12bee84c7d74177c51"><td class="memItemLeft" align="right" valign="top">static bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ae56ee28e8eadbe12bee84c7d74177c51">dynamic_load_callback</a> )(const char *, const char **) = <a class="el" href="eval__cps_8c.html#a2d23fcb02b9584398ea4c74396e618ca">dynamic_load_nonsense</a></td></tr>
+<tr class="memitem:ae56ee28e8eadbe12bee84c7d74177c51" id="r_ae56ee28e8eadbe12bee84c7d74177c51"><td class="memItemLeft" align="right" valign="top">static bool(*&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#ae56ee28e8eadbe12bee84c7d74177c51">dynamic_load_callback</a> )(const char *, const char **) = <a class="el" href="eval__cps_8c.html#a6dd158e32481959ba1f5e5e69a873437">dynamic_load_nonsense</a></td></tr>
 <tr class="separator:ae56ee28e8eadbe12bee84c7d74177c51"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0fd5926659eef19604f7078a8c1f7c9c" id="r_a0fd5926659eef19604f7078a8c1f7c9c"><td class="memItemLeft" align="right" valign="top">static volatile <a class="el" href="structlbm__event__t.html">lbm_event_t</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="eval__cps_8c.html#a0fd5926659eef19604f7078a8c1f7c9c">lbm_events</a> = NULL</td></tr>
 <tr class="separator:a0fd5926659eef19604f7078a8c1f7c9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -1181,8 +1191,8 @@ Variables</h2></td></tr>
 <div class="line">      c = _cell-&gt;<a class="code hl_variable" href="structlbm__cons__t.html#a8e72359f6181e953216c4498937f24dc">cdr</a>;                           \</div>
 <div class="line">    }                                           \</div>
 <div class="line">  } <span class="keywordflow">while</span> (0)</div>
-<div class="ttc" id="aheap_8h_html_aa234f31e427cd7092de75acbdc8529bd"><div class="ttname"><a href="heap_8h.html#aa234f31e427cd7092de75acbdc8529bd">lbm_is_ptr</a></div><div class="ttdeci">static bool lbm_is_ptr(lbm_value x)</div><div class="ttdef"><b>Definition</b> heap.h:842</div></div>
-<div class="ttc" id="aheap_8h_html_aad0c9bcc8e4dec51932417a01da9c1db"><div class="ttname"><a href="heap_8h.html#aad0c9bcc8e4dec51932417a01da9c1db">lbm_ref_cell</a></div><div class="ttdeci">static lbm_cons_t * lbm_ref_cell(lbm_value addr)</div><div class="ttdef"><b>Definition</b> heap.h:1024</div></div>
+<div class="ttc" id="aheap_8h_html_aa234f31e427cd7092de75acbdc8529bd"><div class="ttname"><a href="heap_8h.html#aa234f31e427cd7092de75acbdc8529bd">lbm_is_ptr</a></div><div class="ttdeci">static bool lbm_is_ptr(lbm_value x)</div><div class="ttdef"><b>Definition</b> heap.h:850</div></div>
+<div class="ttc" id="aheap_8h_html_aad0c9bcc8e4dec51932417a01da9c1db"><div class="ttname"><a href="heap_8h.html#aad0c9bcc8e4dec51932417a01da9c1db">lbm_ref_cell</a></div><div class="ttdeci">static lbm_cons_t * lbm_ref_cell(lbm_value addr)</div><div class="ttdef"><b>Definition</b> heap.h:1044</div></div>
 <div class="ttc" id="astructlbm__cons__t_html"><div class="ttname"><a href="structlbm__cons__t.html">lbm_cons_t</a></div><div class="ttdef"><b>Definition</b> heap.h:204</div></div>
 <div class="ttc" id="astructlbm__cons__t_html_a8e72359f6181e953216c4498937f24dc"><div class="ttname"><a href="structlbm__cons__t.html#a8e72359f6181e953216c4498937f24dc">lbm_cons_t::cdr</a></div><div class="ttdeci">lbm_value cdr</div><div class="ttdef"><b>Definition</b> heap.h:206</div></div>
 </div><!-- fragment -->
@@ -1209,7 +1219,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a5fb22d20dce43a92015c275801edc868">error_at_ctx</a>(err_val, at)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a5826852a639707aab04805f234437056">error_at_ctx</a>(err_val, at)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1227,7 +1237,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">err_val</td><td>)</td>
-          <td>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a7e6b2212e3c91e78a3f03528028804a5">error_ctx</a>(err_val)</td>
+          <td>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a016187b871513068a7832711d5b8bd27">error_ctx</a>(err_val)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1768,7 +1778,7 @@ Variables</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define NUM_CONTINUATIONS&#160;&#160;&#160;52</td>
+          <td class="memname">#define NUM_CONTINUATIONS&#160;&#160;&#160;53</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1992,7 +2002,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#addf9ea0dfd893465436e38eab77624fb">read_error_ctx</a>(row, col)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#aa3826d137c88503171fd79e338b71b4b">read_error_ctx</a>(row, col)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2035,6 +2045,20 @@ Variables</h2></td></tr>
       <table class="memname">
         <tr>
           <td class="memname">#define READ_NEXT_TOKEN&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a6cf058dc4a96b7840bde257c07da9523">CONTINUATION</a>(15)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7be0bd95decb1f63df0de2b56aabbcec" name="a7be0bd95decb1f63df0de2b56aabbcec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7be0bd95decb1f63df0de2b56aabbcec">&#9670;&#160;</a></span>READ_NEXT_TOKEN_GRAB_ROW</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define READ_NEXT_TOKEN_GRAB_ROW&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a6cf058dc4a96b7840bde257c07da9523">CONTINUATION</a>(52)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2199,6 +2223,20 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="a884fc5979a84e6b84cf1b5c1da32bb2c" name="a884fc5979a84e6b84cf1b5c1da32bb2c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a884fc5979a84e6b84cf1b5c1da32bb2c">&#9670;&#160;</a></span>sizeopt</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define sizeopt&#160;&#160;&#160;<a class="el" href="eval__cps_8c.html#a8c8313d05785802938c6d8a2a7fa3e09">__attribute__</a>((cold, noinline, optimize(&quot;Os&quot;)))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a989107da440c8503c5e54a88191e35f4" name="a989107da440c8503c5e54a88191e35f4"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a989107da440c8503c5e54a88191e35f4">&#9670;&#160;</a></span>TERMINATE</h2>
 
@@ -2261,7 +2299,7 @@ Variables</h2></td></tr>
 <div class="line">    }                                           \</div>
 <div class="line">    <span class="comment">/* continue executing statements below */</span>   \</div>
 <div class="line">  }</div>
-<div class="ttc" id="aheap_8h_html_a6368e3c83c73fb236b954730f4192113"><div class="ttname"><a href="heap_8h.html#a6368e3c83c73fb236b954730f4192113">lbm_is_symbol_merror</a></div><div class="ttdeci">static bool lbm_is_symbol_merror(lbm_value exp)</div><div class="ttdef"><b>Definition</b> heap.h:986</div></div>
+<div class="ttc" id="aheap_8h_html_a6368e3c83c73fb236b954730f4192113"><div class="ttname"><a href="heap_8h.html#a6368e3c83c73fb236b954730f4192113">lbm_is_symbol_merror</a></div><div class="ttdeci">static bool lbm_is_symbol_merror(lbm_value exp)</div><div class="ttdef"><b>Definition</b> heap.h:1006</div></div>
 <div class="ttc" id="albm__defines_8h_html_a3441ee2fafa26763a45e4cc868fbae75"><div class="ttname"><a href="lbm__defines_8h.html#a3441ee2fafa26763a45e4cc868fbae75">ENC_SYM_MERROR</a></div><div class="ttdeci">#define ENC_SYM_MERROR</div><div class="ttdef"><b>Definition</b> lbm_defines.h:421</div></div>
 </div><!-- fragment -->
 </div>
@@ -3774,8 +3812,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7d86129875c1639ccac103b02c8b77ac" name="a7d86129875c1639ccac103b02c8b77ac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d86129875c1639ccac103b02c8b77ac">&#9670;&#160;</a></span>call_fundamental()</h2>
+<a id="a741b0a513cb3a2c36646ecc5230f5b52" name="a741b0a513cb3a2c36646ecc5230f5b52"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a741b0a513cb3a2c36646ecc5230f5b52">&#9670;&#160;</a></span>call_fptr()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -3784,10 +3822,10 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void call_fundamental </td>
+          <td class="memname">static void call_fptr </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>&#160;</td>
-          <td class="paramname"><em>fundamental</em>, </td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>(*)(<a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a> *, <a class="el" href="lbm__types_8h.html#aa20eb9d84135f30cbfc8c016f0654f7b">lbm_uint</a>)&#160;</td>
+          <td class="paramname"><em>fptr</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
@@ -4956,6 +4994,32 @@ Variables</h2></td></tr>
 
 </div>
 </div>
+<a id="af7641cc811105bfcc3f9aa0388479ebd" name="af7641cc811105bfcc3f9aa0388479ebd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7641cc811105bfcc3f9aa0388479ebd">&#9670;&#160;</a></span>cont_read_next_token_grab_row()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void cont_read_next_token_grab_row </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="a6f02de81092a23182da2ab4efdadfa51" name="a6f02de81092a23182da2ab4efdadfa51"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a6f02de81092a23182da2ab4efdadfa51">&#9670;&#160;</a></span>cont_read_start_array()</h2>
 
@@ -5336,8 +5400,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a61be8d8f47f1451222fd3fd3f5984312" name="a61be8d8f47f1451222fd3fd3f5984312"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a61be8d8f47f1451222fd3fd3f5984312">&#9670;&#160;</a></span>critical_nonsense()</h2>
+<a id="ac21477f0032809d399124929d0d05f3a" name="ac21477f0032809d399124929d0d05f3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac21477f0032809d399124929d0d05f3a">&#9670;&#160;</a></span>critical_nonsense()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5346,7 +5410,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void critical_nonsense </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void critical_nonsense </td>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
@@ -5362,8 +5426,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a43fb6c584bdf3ad5e8d2b543bd428be8" name="a43fb6c584bdf3ad5e8d2b543bd428be8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a43fb6c584bdf3ad5e8d2b543bd428be8">&#9670;&#160;</a></span>ctx_done_nonsense()</h2>
+<a id="a462266458b7089e060d757b0515a943e" name="a462266458b7089e060d757b0515a943e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a462266458b7089e060d757b0515a943e">&#9670;&#160;</a></span>ctx_done_nonsense()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5372,7 +5436,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void ctx_done_nonsense </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void ctx_done_nonsense </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *&#160;</td>
           <td class="paramname"><em>ctx</em></td><td>)</td>
@@ -5414,8 +5478,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a2d23fcb02b9584398ea4c74396e618ca" name="a2d23fcb02b9584398ea4c74396e618ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d23fcb02b9584398ea4c74396e618ca">&#9670;&#160;</a></span>dynamic_load_nonsense()</h2>
+<a id="a6dd158e32481959ba1f5e5e69a873437" name="a6dd158e32481959ba1f5e5e69a873437"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6dd158e32481959ba1f5e5e69a873437">&#9670;&#160;</a></span>dynamic_load_nonsense()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5424,7 +5488,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static bool dynamic_load_nonsense </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> bool dynamic_load_nonsense </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>sym</em>, </td>
@@ -5522,8 +5586,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a5fb22d20dce43a92015c275801edc868" name="a5fb22d20dce43a92015c275801edc868"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fb22d20dce43a92015c275801edc868">&#9670;&#160;</a></span>error_at_ctx()</h2>
+<a id="a5826852a639707aab04805f234437056" name="a5826852a639707aab04805f234437056"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5826852a639707aab04805f234437056">&#9670;&#160;</a></span>error_at_ctx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5532,7 +5596,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void error_at_ctx </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void error_at_ctx </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
           <td class="paramname"><em>err_val</em>, </td>
@@ -5558,8 +5622,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7e6b2212e3c91e78a3f03528028804a5" name="a7e6b2212e3c91e78a3f03528028804a5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7e6b2212e3c91e78a3f03528028804a5">&#9670;&#160;</a></span>error_ctx()</h2>
+<a id="a016187b871513068a7832711d5b8bd27" name="a016187b871513068a7832711d5b8bd27"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a016187b871513068a7832711d5b8bd27">&#9670;&#160;</a></span>error_ctx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5568,7 +5632,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void error_ctx </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void error_ctx </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
           <td class="paramname"><em>err_val</em></td><td>)</td>
@@ -5584,8 +5648,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a7c77e50ef483b7af2eaa4e49115320e5" name="a7c77e50ef483b7af2eaa4e49115320e5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7c77e50ef483b7af2eaa4e49115320e5">&#9670;&#160;</a></span>error_ctx_base()</h2>
+<a id="add61995dcc87108f97650f3f61c80514" name="add61995dcc87108f97650f3f61c80514"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#add61995dcc87108f97650f3f61c80514">&#9670;&#160;</a></span>error_ctx_base()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -5594,7 +5658,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void error_ctx_base </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void error_ctx_base </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
           <td class="paramname"><em>err_val</em>, </td>
@@ -5622,6 +5686,42 @@ Variables</h2></td></tr>
           <td></td>
           <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>column</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="acdd3efa7dd03a49f00c069904b10b2cd" name="acdd3efa7dd03a49f00c069904b10b2cd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdd3efa7dd03a49f00c069904b10b2cd">&#9670;&#160;</a></span>error_on_invalid_read_result()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static void error_on_invalid_read_result </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lbm__channel_8h.html#a626a49bb68281ff070092d656077028a">lbm_char_channel_t</a> *&#160;</td>
+          <td class="paramname"><em>str</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *&#160;</td>
+          <td class="paramname"><em>ctx</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -7700,14 +7800,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a45b3ce44ecc7218a558eadb53d05c160" name="a45b3ce44ecc7218a558eadb53d05c160"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a45b3ce44ecc7218a558eadb53d05c160">&#9670;&#160;</a></span>lbm_set_critical_error_callback()</h2>
+<a id="a5fa8c6263d43e2041b8bfb1478ee44b6" name="a5fa8c6263d43e2041b8bfb1478ee44b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fa8c6263d43e2041b8bfb1478ee44b6">&#9670;&#160;</a></span>lbm_set_critical_error_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void lbm_set_critical_error_callback </td>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void lbm_set_critical_error_callback </td>
           <td>(</td>
           <td class="paramtype">void(*)(void)&#160;</td>
           <td class="paramname"><em>fptr</em></td><td>)</td>
@@ -7719,14 +7819,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a5d59d7b208376735581c413e6c31bd41" name="a5d59d7b208376735581c413e6c31bd41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5d59d7b208376735581c413e6c31bd41">&#9670;&#160;</a></span>lbm_set_ctx_done_callback()</h2>
+<a id="a12602ca8015fd4d1f432bfa3cf6c2c5f" name="a12602ca8015fd4d1f432bfa3cf6c2c5f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a12602ca8015fd4d1f432bfa3cf6c2c5f">&#9670;&#160;</a></span>lbm_set_ctx_done_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void lbm_set_ctx_done_callback </td>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void lbm_set_ctx_done_callback </td>
           <td>(</td>
           <td class="paramtype">void(*)(<a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *)&#160;</td>
           <td class="paramname"><em>fptr</em></td><td>)</td>
@@ -7744,14 +7844,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a3895d975f4604285b9070e70c94c2ed7" name="a3895d975f4604285b9070e70c94c2ed7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3895d975f4604285b9070e70c94c2ed7">&#9670;&#160;</a></span>lbm_set_dynamic_load_callback()</h2>
+<a id="a15e1b26a6481f1f3815a8406241cdff5" name="a15e1b26a6481f1f3815a8406241cdff5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a15e1b26a6481f1f3815a8406241cdff5">&#9670;&#160;</a></span>lbm_set_dynamic_load_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void lbm_set_dynamic_load_callback </td>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void lbm_set_dynamic_load_callback </td>
           <td>(</td>
           <td class="paramtype">bool(*)(const char *, const char **)&#160;</td>
           <td class="paramname"><em>fptr</em></td><td>)</td>
@@ -7763,14 +7863,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="abcf8b8499070422f69cbf9683c6e34c8" name="abcf8b8499070422f69cbf9683c6e34c8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abcf8b8499070422f69cbf9683c6e34c8">&#9670;&#160;</a></span>lbm_set_error_reason()</h2>
+<a id="a2f37721e9ae227b8ac1f349b8a67bf32" name="a2f37721e9ae227b8ac1f349b8a67bf32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f37721e9ae227b8ac1f349b8a67bf32">&#9670;&#160;</a></span>lbm_set_error_reason()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void lbm_set_error_reason </td>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void lbm_set_error_reason </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>error_str</em></td><td>)</td>
@@ -7788,14 +7888,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aff8c927101d538d0919a92d45d4eac7f" name="aff8c927101d538d0919a92d45d4eac7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aff8c927101d538d0919a92d45d4eac7f">&#9670;&#160;</a></span>lbm_set_error_suspect()</h2>
+<a id="aae0a3e918a732cd2a03e3993829f2746" name="aae0a3e918a732cd2a03e3993829f2746"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aae0a3e918a732cd2a03e3993829f2746">&#9670;&#160;</a></span>lbm_set_error_suspect()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void lbm_set_error_suspect </td>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void lbm_set_error_suspect </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
           <td class="paramname"><em>suspect</em></td><td>)</td>
@@ -7884,14 +7984,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="afc5304954d63a99ec7e4ad0ddc5658d8" name="afc5304954d63a99ec7e4ad0ddc5658d8"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc5304954d63a99ec7e4ad0ddc5658d8">&#9670;&#160;</a></span>lbm_set_printf_callback()</h2>
+<a id="a121ff3a930259345c493204c2160b917" name="a121ff3a930259345c493204c2160b917"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a121ff3a930259345c493204c2160b917">&#9670;&#160;</a></span>lbm_set_printf_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void lbm_set_printf_callback </td>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void lbm_set_printf_callback </td>
           <td>(</td>
           <td class="paramtype">int(*)(const char *,...)&#160;</td>
           <td class="paramname"><em>prnt</em></td><td>)</td>
@@ -7909,14 +8009,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a9608f10f85bdaa5c7cfbe1f8ed9be3d3" name="a9608f10f85bdaa5c7cfbe1f8ed9be3d3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9608f10f85bdaa5c7cfbe1f8ed9be3d3">&#9670;&#160;</a></span>lbm_set_usleep_callback()</h2>
+<a id="a724349987de0d167fab3897ec9fcdf1b" name="a724349987de0d167fab3897ec9fcdf1b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a724349987de0d167fab3897ec9fcdf1b">&#9670;&#160;</a></span>lbm_set_usleep_callback()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void lbm_set_usleep_callback </td>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void lbm_set_usleep_callback </td>
           <td>(</td>
           <td class="paramtype">void(*)(uint32_t)&#160;</td>
           <td class="paramname"><em>fptr</em></td><td>)</td>
@@ -8538,14 +8638,48 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a566c741c666ab465ed49187fa74b9f9f" name="a566c741c666ab465ed49187fa74b9f9f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a566c741c666ab465ed49187fa74b9f9f">&#9670;&#160;</a></span>print_environments()</h2>
+<a id="a2bfa42548b7a7b8716db861bf552cfc1" name="a2bfa42548b7a7b8716db861bf552cfc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2bfa42548b7a7b8716db861bf552cfc1">&#9670;&#160;</a></span>print_env_ll()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void print_environments </td>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void print_env_ll </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
+          <td class="paramname"><em>e</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char *&#160;</td>
+          <td class="paramname"><em>buf</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned int&#160;</td>
+          <td class="paramname"><em>size</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a2896249d72091c0b00e326dae459971e" name="a2896249d72091c0b00e326dae459971e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2896249d72091c0b00e326dae459971e">&#9670;&#160;</a></span>print_environments()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void print_environments </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>buf</em>, </td>
@@ -8566,8 +8700,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ae5c77cd196b1208291334a682ef8f74b" name="ae5c77cd196b1208291334a682ef8f74b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae5c77cd196b1208291334a682ef8f74b">&#9670;&#160;</a></span>print_error_message()</h2>
+<a id="a751ebd7570562bb9dbfcb1cb1b51133b" name="a751ebd7570562bb9dbfcb1cb1b51133b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a751ebd7570562bb9dbfcb1cb1b51133b">&#9670;&#160;</a></span>print_error_message()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8576,7 +8710,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void print_error_message </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void print_error_message </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="lbm__types_8h.html#aff516ca015a2565197543383355a7a06">lbm_value</a>&#160;</td>
           <td class="paramname"><em>error</em>, </td>
@@ -8650,14 +8784,14 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="a1d0aaf1172110a9e650b1ad9bb0b4ac3" name="a1d0aaf1172110a9e650b1ad9bb0b4ac3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1d0aaf1172110a9e650b1ad9bb0b4ac3">&#9670;&#160;</a></span>print_error_value()</h2>
+<a id="a24db167ed4c227252782adf979dfd4ca" name="a24db167ed4c227252782adf979dfd4ca"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a24db167ed4c227252782adf979dfd4ca">&#9670;&#160;</a></span>print_error_value()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void print_error_value </td>
+          <td class="memname"><a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void print_error_value </td>
           <td>(</td>
           <td class="paramtype">char *&#160;</td>
           <td class="paramname"><em>buf</em>, </td>
@@ -8696,8 +8830,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aa640df5e4d5dcd6436de287b74c5de13" name="aa640df5e4d5dcd6436de287b74c5de13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa640df5e4d5dcd6436de287b74c5de13">&#9670;&#160;</a></span>printf_nonsense()</h2>
+<a id="a9face5520b2b66f4efcf8dab087f3174" name="a9face5520b2b66f4efcf8dab087f3174"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9face5520b2b66f4efcf8dab087f3174">&#9670;&#160;</a></span>printf_nonsense()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8706,7 +8840,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static int printf_nonsense </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> int printf_nonsense </td>
           <td>(</td>
           <td class="paramtype">const char *&#160;</td>
           <td class="paramname"><em>fmt</em>, </td>
@@ -8832,8 +8966,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="addf9ea0dfd893465436e38eab77624fb" name="addf9ea0dfd893465436e38eab77624fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#addf9ea0dfd893465436e38eab77624fb">&#9670;&#160;</a></span>read_error_ctx()</h2>
+<a id="aa3826d137c88503171fd79e338b71b4b" name="aa3826d137c88503171fd79e338b71b4b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa3826d137c88503171fd79e338b71b4b">&#9670;&#160;</a></span>read_error_ctx()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -8842,7 +8976,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void read_error_ctx </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> <a class="el" href="eval__cps_8c.html#a4a453f3a748e55cbdac6fcc79357cfef">noreturn</a> void read_error_ctx </td>
           <td>(</td>
           <td class="paramtype">unsigned int&#160;</td>
           <td class="paramname"><em>row</em>, </td>
@@ -9168,8 +9302,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ae2e0d13a9a3d3a5e65c2bd4b41146f10" name="ae2e0d13a9a3d3a5e65c2bd4b41146f10"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2e0d13a9a3d3a5e65c2bd4b41146f10">&#9670;&#160;</a></span>usleep_nonsense()</h2>
+<a id="a9977f46d1a23599ee6432445edc483b0" name="a9977f46d1a23599ee6432445edc483b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9977f46d1a23599ee6432445edc483b0">&#9670;&#160;</a></span>usleep_nonsense()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9178,7 +9312,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">static void usleep_nonsense </td>
+          <td class="memname">static <a class="el" href="eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c">sizeopt</a> void usleep_nonsense </td>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>us</em></td><td>)</td>
@@ -9415,7 +9549,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">void&#160;</td>
           <td class="paramname"></td><td>)</td>
-          <td> = <a class="el" href="eval__cps_8c.html#a61be8d8f47f1451222fd3fd3f5984312">critical_nonsense</a></td>
+          <td> = <a class="el" href="eval__cps_8c.html#ac21477f0032809d399124929d0d05f3a">critical_nonsense</a></td>
         </tr>
       </table>
   </td>
@@ -9463,7 +9597,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype"><a class="el" href="eval__cps_8h.html#a0561d2a8115e98821fe1074c9ba1235a">eval_context_t</a> *&#160;</td>
           <td class="paramname"></td><td>)</td>
-          <td> = <a class="el" href="eval__cps_8c.html#a43fb6c584bdf3ad5e8d2b543bd428be8">ctx_done_nonsense</a></td>
+          <td> = <a class="el" href="eval__cps_8c.html#a462266458b7089e060d757b0515a943e">ctx_done_nonsense</a></td>
         </tr>
       </table>
   </td>
@@ -9513,7 +9647,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> = <a class="el" href="eval__cps_8c.html#a2d23fcb02b9584398ea4c74396e618ca">dynamic_load_nonsense</a></td>
+          <td></td><td> = <a class="el" href="eval__cps_8c.html#a6dd158e32481959ba1f5e5e69a873437">dynamic_load_nonsense</a></td>
         </tr>
       </table>
   </td>
@@ -9591,8 +9725,8 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="ab46a15b004b692117873daf49130805d" name="ab46a15b004b692117873daf49130805d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab46a15b004b692117873daf49130805d">&#9670;&#160;</a></span>eval_cps_run_state</h2>
+<a id="a282c18ec21257198c58d64c7450d6226" name="a282c18ec21257198c58d64c7450d6226"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a282c18ec21257198c58d64c7450d6226">&#9670;&#160;</a></span>eval_cps_run_state</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -9601,7 +9735,7 @@ Variables</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">uint32_t eval_cps_run_state = <a class="el" href="eval__cps_8h.html#adfffa6dc072b6426475b3a7a8a915ea2">EVAL_CPS_STATE_DEAD</a></td>
+          <td class="memname">volatile uint32_t eval_cps_run_state = <a class="el" href="eval__cps_8h.html#adfffa6dc072b6426475b3a7a8a915ea2">EVAL_CPS_STATE_DEAD</a></td>
         </tr>
       </table>
   </td>
@@ -9748,28 +9882,28 @@ Variables</h2></td></tr>
 <div class="line">   <a class="code hl_function" href="eval__cps_8c.html#a9d80a3a9943b630071b6ac64cbcebc02">eval_call_cc_unsafe</a>,</div>
 <div class="line">   <a class="code hl_function" href="eval__cps_8c.html#a5b14bea64d818ae34cd7b673f3b04a80">eval_selfevaluating</a>, </div>
 <div class="line">  }</div>
-<div class="ttc" id="aeval__cps_8c_html_a0cd924a9bec3bfa6e21f48a16c81d72b"><div class="ttname"><a href="eval__cps_8c.html#a0cd924a9bec3bfa6e21f48a16c81d72b">eval_atomic</a></div><div class="ttdeci">static void eval_atomic(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1933</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a2682c84eceb6a3e81f38eb8c9471342f"><div class="ttname"><a href="eval__cps_8c.html#a2682c84eceb6a3e81f38eb8c9471342f">eval_and</a></div><div class="ttdeci">static void eval_and(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2398</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a344479066e8b04457a6e69a58ba12624"><div class="ttname"><a href="eval__cps_8c.html#a344479066e8b04457a6e69a58ba12624">eval_if</a></div><div class="ttdeci">static void eval_if(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2148</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a4b2e32e3f9a1cb03ff7f8089e1c8f248"><div class="ttname"><a href="eval__cps_8c.html#a4b2e32e3f9a1cb03ff7f8089e1c8f248">eval_progn</a></div><div class="ttdeci">static void eval_progn(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1911</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a4b6f18c88e9d66ba266b394e80515c87"><div class="ttname"><a href="eval__cps_8c.html#a4b6f18c88e9d66ba266b394e80515c87">eval_receive</a></div><div class="ttdeci">static void eval_receive(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2476</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a4e2da1a93837b1e62d1eb03c94e458f4"><div class="ttname"><a href="eval__cps_8c.html#a4e2da1a93837b1e62d1eb03c94e458f4">eval_loop</a></div><div class="ttdeci">static void eval_loop(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2347</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a4fa11484664f10a19e12ccca57614540"><div class="ttname"><a href="eval__cps_8c.html#a4fa11484664f10a19e12ccca57614540">eval_setq</a></div><div class="ttdeci">static void eval_setq(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2323</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a5b14bea64d818ae34cd7b673f3b04a80"><div class="ttname"><a href="eval__cps_8c.html#a5b14bea64d818ae34cd7b673f3b04a80">eval_selfevaluating</a></div><div class="ttdeci">static void eval_selfevaluating(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1905</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a5c7f121ba1de0f5b34fe9f839dcdf9b0"><div class="ttname"><a href="eval__cps_8c.html#a5c7f121ba1de0f5b34fe9f839dcdf9b0">eval_var</a></div><div class="ttdeci">static void eval_var(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2283</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a5ddfc146f384392f8c24bbb8213ad79d"><div class="ttname"><a href="eval__cps_8c.html#a5ddfc146f384392f8c24bbb8213ad79d">eval_move_to_flash</a></div><div class="ttdeci">static void eval_move_to_flash(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2336</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a6af906959e977d7bd440b24fe063073c"><div class="ttname"><a href="eval__cps_8c.html#a6af906959e977d7bd440b24fe063073c">eval_define</a></div><div class="ttdeci">static void eval_define(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1996</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a6e36514c8e9b13222df30d9ea5c1517d"><div class="ttname"><a href="eval__cps_8c.html#a6e36514c8e9b13222df30d9ea5c1517d">eval_lambda</a></div><div class="ttdeci">static void eval_lambda(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2100</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a8ef9fc48055d5e549c61c1e57a475417"><div class="ttname"><a href="eval__cps_8c.html#a8ef9fc48055d5e549c61c1e57a475417">eval_match</a></div><div class="ttdeci">static void eval_match(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2438</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a9181684a148c1859ab2fbe4e396e0a6b"><div class="ttname"><a href="eval__cps_8c.html#a9181684a148c1859ab2fbe4e396e0a6b">eval_or</a></div><div class="ttdeci">static void eval_or(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2412</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a9478e387b840259cb0f5f1ad36e6f34a"><div class="ttname"><a href="eval__cps_8c.html#a9478e387b840259cb0f5f1ad36e6f34a">eval_trap</a></div><div class="ttdeci">static void eval_trap(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2370</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a971229d9eed4003f7843355521a6f2c5"><div class="ttname"><a href="eval__cps_8c.html#a971229d9eed4003f7843355521a6f2c5">eval_cond</a></div><div class="ttdeci">static void eval_cond(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2159</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a98cbe9ea9f2bb1b772ec6bee51f8d7cd"><div class="ttname"><a href="eval__cps_8c.html#a98cbe9ea9f2bb1b772ec6bee51f8d7cd">eval_app_cont</a></div><div class="ttdeci">static void eval_app_cont(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2194</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a9c3dba4c40e418565f2b0223fac4eb7e"><div class="ttname"><a href="eval__cps_8c.html#a9c3dba4c40e418565f2b0223fac4eb7e">eval_let</a></div><div class="ttdeci">static void eval_let(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2387</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a9d80a3a9943b630071b6ac64cbcebc02"><div class="ttname"><a href="eval__cps_8c.html#a9d80a3a9943b630071b6ac64cbcebc02">eval_call_cc_unsafe</a></div><div class="ttdeci">static void eval_call_cc_unsafe(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1977</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a9edb8dcca9549e56c3a93ccd8e8681a2"><div class="ttname"><a href="eval__cps_8c.html#a9edb8dcca9549e56c3a93ccd8e8681a2">eval_callcc</a></div><div class="ttdeci">static void eval_callcc(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1941</div></div>
-<div class="ttc" id="aeval__cps_8c_html_ae65998fd434cf971c7709e27758b13f9"><div class="ttname"><a href="eval__cps_8c.html#ae65998fd434cf971c7709e27758b13f9">eval_quote</a></div><div class="ttdeci">static void eval_quote(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1899</div></div>
-<div class="ttc" id="aeval__cps_8c_html_af8f18e53598d49ff9746d6457933bd19"><div class="ttname"><a href="eval__cps_8c.html#af8f18e53598d49ff9746d6457933bd19">eval_receive_timeout</a></div><div class="ttdeci">static void eval_receive_timeout(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2458</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a0cd924a9bec3bfa6e21f48a16c81d72b"><div class="ttname"><a href="eval__cps_8c.html#a0cd924a9bec3bfa6e21f48a16c81d72b">eval_atomic</a></div><div class="ttdeci">static void eval_atomic(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1915</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a2682c84eceb6a3e81f38eb8c9471342f"><div class="ttname"><a href="eval__cps_8c.html#a2682c84eceb6a3e81f38eb8c9471342f">eval_and</a></div><div class="ttdeci">static void eval_and(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2314</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a344479066e8b04457a6e69a58ba12624"><div class="ttname"><a href="eval__cps_8c.html#a344479066e8b04457a6e69a58ba12624">eval_if</a></div><div class="ttdeci">static void eval_if(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2064</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a4b2e32e3f9a1cb03ff7f8089e1c8f248"><div class="ttname"><a href="eval__cps_8c.html#a4b2e32e3f9a1cb03ff7f8089e1c8f248">eval_progn</a></div><div class="ttdeci">static void eval_progn(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1893</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a4b6f18c88e9d66ba266b394e80515c87"><div class="ttname"><a href="eval__cps_8c.html#a4b6f18c88e9d66ba266b394e80515c87">eval_receive</a></div><div class="ttdeci">static void eval_receive(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2392</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a4e2da1a93837b1e62d1eb03c94e458f4"><div class="ttname"><a href="eval__cps_8c.html#a4e2da1a93837b1e62d1eb03c94e458f4">eval_loop</a></div><div class="ttdeci">static void eval_loop(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2263</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a4fa11484664f10a19e12ccca57614540"><div class="ttname"><a href="eval__cps_8c.html#a4fa11484664f10a19e12ccca57614540">eval_setq</a></div><div class="ttdeci">static void eval_setq(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2239</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a5b14bea64d818ae34cd7b673f3b04a80"><div class="ttname"><a href="eval__cps_8c.html#a5b14bea64d818ae34cd7b673f3b04a80">eval_selfevaluating</a></div><div class="ttdeci">static void eval_selfevaluating(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1887</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a5c7f121ba1de0f5b34fe9f839dcdf9b0"><div class="ttname"><a href="eval__cps_8c.html#a5c7f121ba1de0f5b34fe9f839dcdf9b0">eval_var</a></div><div class="ttdeci">static void eval_var(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2199</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a5ddfc146f384392f8c24bbb8213ad79d"><div class="ttname"><a href="eval__cps_8c.html#a5ddfc146f384392f8c24bbb8213ad79d">eval_move_to_flash</a></div><div class="ttdeci">static void eval_move_to_flash(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2252</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a6af906959e977d7bd440b24fe063073c"><div class="ttname"><a href="eval__cps_8c.html#a6af906959e977d7bd440b24fe063073c">eval_define</a></div><div class="ttdeci">static void eval_define(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1979</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a6e36514c8e9b13222df30d9ea5c1517d"><div class="ttname"><a href="eval__cps_8c.html#a6e36514c8e9b13222df30d9ea5c1517d">eval_lambda</a></div><div class="ttdeci">static void eval_lambda(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2017</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a8ef9fc48055d5e549c61c1e57a475417"><div class="ttname"><a href="eval__cps_8c.html#a8ef9fc48055d5e549c61c1e57a475417">eval_match</a></div><div class="ttdeci">static void eval_match(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2354</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a9181684a148c1859ab2fbe4e396e0a6b"><div class="ttname"><a href="eval__cps_8c.html#a9181684a148c1859ab2fbe4e396e0a6b">eval_or</a></div><div class="ttdeci">static void eval_or(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2328</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a9478e387b840259cb0f5f1ad36e6f34a"><div class="ttname"><a href="eval__cps_8c.html#a9478e387b840259cb0f5f1ad36e6f34a">eval_trap</a></div><div class="ttdeci">static void eval_trap(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2286</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a971229d9eed4003f7843355521a6f2c5"><div class="ttname"><a href="eval__cps_8c.html#a971229d9eed4003f7843355521a6f2c5">eval_cond</a></div><div class="ttdeci">static void eval_cond(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2075</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a98cbe9ea9f2bb1b772ec6bee51f8d7cd"><div class="ttname"><a href="eval__cps_8c.html#a98cbe9ea9f2bb1b772ec6bee51f8d7cd">eval_app_cont</a></div><div class="ttdeci">static void eval_app_cont(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2110</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a9c3dba4c40e418565f2b0223fac4eb7e"><div class="ttname"><a href="eval__cps_8c.html#a9c3dba4c40e418565f2b0223fac4eb7e">eval_let</a></div><div class="ttdeci">static void eval_let(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2303</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a9d80a3a9943b630071b6ac64cbcebc02"><div class="ttname"><a href="eval__cps_8c.html#a9d80a3a9943b630071b6ac64cbcebc02">eval_call_cc_unsafe</a></div><div class="ttdeci">static void eval_call_cc_unsafe(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1960</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a9edb8dcca9549e56c3a93ccd8e8681a2"><div class="ttname"><a href="eval__cps_8c.html#a9edb8dcca9549e56c3a93ccd8e8681a2">eval_callcc</a></div><div class="ttdeci">static void eval_callcc(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1923</div></div>
+<div class="ttc" id="aeval__cps_8c_html_ae65998fd434cf971c7709e27758b13f9"><div class="ttname"><a href="eval__cps_8c.html#ae65998fd434cf971c7709e27758b13f9">eval_quote</a></div><div class="ttdeci">static void eval_quote(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:1881</div></div>
+<div class="ttc" id="aeval__cps_8c_html_af8f18e53598d49ff9746d6457933bd19"><div class="ttname"><a href="eval__cps_8c.html#af8f18e53598d49ff9746d6457933bd19">eval_receive_timeout</a></div><div class="ttdeci">static void eval_receive_timeout(eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2374</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -9819,30 +9953,30 @@ Variables</h2></td></tr>
 <div class="line">   <a class="code hl_function" href="eval__cps_8c.html#afbd5c351bbac88b30e8f37bf7074d3b5">apply_rotate</a>,</div>
 <div class="line">   <a class="code hl_function" href="eval__cps_8c.html#a631d2e1d1f960eae873c1fd2b42f43f0">apply_apply</a>,</div>
 <div class="line">  }</div>
-<div class="ttc" id="aeval__cps_8c_html_a11a7f398cfbbfc5bdbc0e51059035f83"><div class="ttname"><a href="eval__cps_8c.html#a11a7f398cfbbfc5bdbc0e51059035f83">apply_eval</a></div><div class="ttdeci">static void apply_eval(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2998</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a1663a881bda1028e532277f4a14feecf"><div class="ttname"><a href="eval__cps_8c.html#a1663a881bda1028e532277f4a14feecf">apply_error</a></div><div class="ttdeci">static void apply_error(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3070</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a2a1c68902d9063e0aa9b12e6e9a506d8"><div class="ttname"><a href="eval__cps_8c.html#a2a1c68902d9063e0aa9b12e6e9a506d8">apply_wait</a></div><div class="ttdeci">static void apply_wait(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2982</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a2f65c5bb78c586c0088dc91ff6520812"><div class="ttname"><a href="eval__cps_8c.html#a2f65c5bb78c586c0088dc91ff6520812">apply_rest_args</a></div><div class="ttdeci">static void apply_rest_args(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3444</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a35d629773ae25dcdee28dfd7e8e2500d"><div class="ttname"><a href="eval__cps_8c.html#a35d629773ae25dcdee28dfd7e8e2500d">apply_flatten</a></div><div class="ttdeci">static void apply_flatten(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3189</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a3637c56b699b0baa3c05ba43d29e0702"><div class="ttname"><a href="eval__cps_8c.html#a3637c56b699b0baa3c05ba43d29e0702">apply_reverse</a></div><div class="ttdeci">static void apply_reverse(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3169</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a36804dbf6239e548798fea1e890d1bfc"><div class="ttname"><a href="eval__cps_8c.html#a36804dbf6239e548798fea1e890d1bfc">apply_sort</a></div><div class="ttdeci">static void apply_sort(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3365</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a3def1ccb311847e31948b9845cb22edf"><div class="ttname"><a href="eval__cps_8c.html#a3def1ccb311847e31948b9845cb22edf">apply_merge</a></div><div class="ttdeci">static void apply_merge(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3288</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a3e4c734adf526d752ed846b24152be84"><div class="ttname"><a href="eval__cps_8c.html#a3e4c734adf526d752ed846b24152be84">apply_ok</a></div><div class="ttdeci">static void apply_ok(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3060</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a481db3fa6edc7a352f4156b5183a7353"><div class="ttname"><a href="eval__cps_8c.html#a481db3fa6edc7a352f4156b5183a7353">apply_yield</a></div><div class="ttdeci">static void apply_yield(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2960</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a499d0e4b895dd467fd5a6b0f7ecd6ef9"><div class="ttname"><a href="eval__cps_8c.html#a499d0e4b895dd467fd5a6b0f7ecd6ef9">apply_spawn_trap</a></div><div class="ttdeci">static void apply_spawn_trap(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2956</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a4d95ebbcdb725a112b8c6e440835d2c3"><div class="ttname"><a href="eval__cps_8c.html#a4d95ebbcdb725a112b8c6e440835d2c3">apply_read</a></div><div class="ttdeci">static void apply_read(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2882</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a5a678e96c5f53e903ed0bc2989e17ee9"><div class="ttname"><a href="eval__cps_8c.html#a5a678e96c5f53e903ed0bc2989e17ee9">apply_unflatten</a></div><div class="ttdeci">static void apply_unflatten(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3212</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a631d2e1d1f960eae873c1fd2b42f43f0"><div class="ttname"><a href="eval__cps_8c.html#a631d2e1d1f960eae873c1fd2b42f43f0">apply_apply</a></div><div class="ttdeci">static void apply_apply(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:5779</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a864e8a4c0d31ad7388349f8d6b5e0a83"><div class="ttname"><a href="eval__cps_8c.html#a864e8a4c0d31ad7388349f8d6b5e0a83">apply_map</a></div><div class="ttdeci">static void apply_map(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3116</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a8d715f956fa016c36e66758bb8efe5c9"><div class="ttname"><a href="eval__cps_8c.html#a8d715f956fa016c36e66758bb8efe5c9">apply_kill</a></div><div class="ttdeci">static void apply_kill(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3233</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a99ac1af61b71e9fc62bf8cc63ae50297"><div class="ttname"><a href="eval__cps_8c.html#a99ac1af61b71e9fc62bf8cc63ae50297">apply_sleep</a></div><div class="ttdeci">static void apply_sleep(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2971</div></div>
-<div class="ttc" id="aeval__cps_8c_html_a9b543742f88e72bde052c57e23f6ef79"><div class="ttname"><a href="eval__cps_8c.html#a9b543742f88e72bde052c57e23f6ef79">apply_setvar</a></div><div class="ttdeci">static void apply_setvar(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2777</div></div>
-<div class="ttc" id="aeval__cps_8c_html_aa505838b6ebc0e8d52a8f0cb8376b4f5"><div class="ttname"><a href="eval__cps_8c.html#aa505838b6ebc0e8d52a8f0cb8376b4f5">apply_eval_program</a></div><div class="ttdeci">static void apply_eval_program(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3011</div></div>
-<div class="ttc" id="aeval__cps_8c_html_aaa90c477737b38cf188083ce1db48d48"><div class="ttname"><a href="eval__cps_8c.html#aaa90c477737b38cf188083ce1db48d48">apply_read_eval_program</a></div><div class="ttdeci">static void apply_read_eval_program(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2878</div></div>
-<div class="ttc" id="aeval__cps_8c_html_ac0973ce279e3aa237028d83369b31485"><div class="ttname"><a href="eval__cps_8c.html#ac0973ce279e3aa237028d83369b31485">apply_spawn</a></div><div class="ttdeci">static void apply_spawn(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2952</div></div>
-<div class="ttc" id="aeval__cps_8c_html_acd65c626e45f08700079afc2117afa4d"><div class="ttname"><a href="eval__cps_8c.html#acd65c626e45f08700079afc2117afa4d">apply_send</a></div><div class="ttdeci">static void apply_send(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3041</div></div>
-<div class="ttc" id="aeval__cps_8c_html_af71fdde22951a9a33a64a5a88bac1e56"><div class="ttname"><a href="eval__cps_8c.html#af71fdde22951a9a33a64a5a88bac1e56">apply_read_program</a></div><div class="ttdeci">static void apply_read_program(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2874</div></div>
-<div class="ttc" id="aeval__cps_8c_html_afbd5c351bbac88b30e8f37bf7074d3b5"><div class="ttname"><a href="eval__cps_8c.html#afbd5c351bbac88b30e8f37bf7074d3b5">apply_rotate</a></div><div class="ttdeci">static void apply_rotate(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3460</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a11a7f398cfbbfc5bdbc0e51059035f83"><div class="ttname"><a href="eval__cps_8c.html#a11a7f398cfbbfc5bdbc0e51059035f83">apply_eval</a></div><div class="ttdeci">static void apply_eval(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2939</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a1663a881bda1028e532277f4a14feecf"><div class="ttname"><a href="eval__cps_8c.html#a1663a881bda1028e532277f4a14feecf">apply_error</a></div><div class="ttdeci">static void apply_error(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3011</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a2a1c68902d9063e0aa9b12e6e9a506d8"><div class="ttname"><a href="eval__cps_8c.html#a2a1c68902d9063e0aa9b12e6e9a506d8">apply_wait</a></div><div class="ttdeci">static void apply_wait(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2923</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a2f65c5bb78c586c0088dc91ff6520812"><div class="ttname"><a href="eval__cps_8c.html#a2f65c5bb78c586c0088dc91ff6520812">apply_rest_args</a></div><div class="ttdeci">static void apply_rest_args(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3383</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a35d629773ae25dcdee28dfd7e8e2500d"><div class="ttname"><a href="eval__cps_8c.html#a35d629773ae25dcdee28dfd7e8e2500d">apply_flatten</a></div><div class="ttdeci">static void apply_flatten(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3130</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a3637c56b699b0baa3c05ba43d29e0702"><div class="ttname"><a href="eval__cps_8c.html#a3637c56b699b0baa3c05ba43d29e0702">apply_reverse</a></div><div class="ttdeci">static void apply_reverse(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3110</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a36804dbf6239e548798fea1e890d1bfc"><div class="ttname"><a href="eval__cps_8c.html#a36804dbf6239e548798fea1e890d1bfc">apply_sort</a></div><div class="ttdeci">static void apply_sort(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3304</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a3def1ccb311847e31948b9845cb22edf"><div class="ttname"><a href="eval__cps_8c.html#a3def1ccb311847e31948b9845cb22edf">apply_merge</a></div><div class="ttdeci">static void apply_merge(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3227</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a3e4c734adf526d752ed846b24152be84"><div class="ttname"><a href="eval__cps_8c.html#a3e4c734adf526d752ed846b24152be84">apply_ok</a></div><div class="ttdeci">static void apply_ok(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3001</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a481db3fa6edc7a352f4156b5183a7353"><div class="ttname"><a href="eval__cps_8c.html#a481db3fa6edc7a352f4156b5183a7353">apply_yield</a></div><div class="ttdeci">static void apply_yield(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2901</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a499d0e4b895dd467fd5a6b0f7ecd6ef9"><div class="ttname"><a href="eval__cps_8c.html#a499d0e4b895dd467fd5a6b0f7ecd6ef9">apply_spawn_trap</a></div><div class="ttdeci">static void apply_spawn_trap(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2897</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a4d95ebbcdb725a112b8c6e440835d2c3"><div class="ttname"><a href="eval__cps_8c.html#a4d95ebbcdb725a112b8c6e440835d2c3">apply_read</a></div><div class="ttdeci">static void apply_read(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2820</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a5a678e96c5f53e903ed0bc2989e17ee9"><div class="ttname"><a href="eval__cps_8c.html#a5a678e96c5f53e903ed0bc2989e17ee9">apply_unflatten</a></div><div class="ttdeci">static void apply_unflatten(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3153</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a631d2e1d1f960eae873c1fd2b42f43f0"><div class="ttname"><a href="eval__cps_8c.html#a631d2e1d1f960eae873c1fd2b42f43f0">apply_apply</a></div><div class="ttdeci">static void apply_apply(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:5704</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a864e8a4c0d31ad7388349f8d6b5e0a83"><div class="ttname"><a href="eval__cps_8c.html#a864e8a4c0d31ad7388349f8d6b5e0a83">apply_map</a></div><div class="ttdeci">static void apply_map(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3057</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a8d715f956fa016c36e66758bb8efe5c9"><div class="ttname"><a href="eval__cps_8c.html#a8d715f956fa016c36e66758bb8efe5c9">apply_kill</a></div><div class="ttdeci">static void apply_kill(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3174</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a99ac1af61b71e9fc62bf8cc63ae50297"><div class="ttname"><a href="eval__cps_8c.html#a99ac1af61b71e9fc62bf8cc63ae50297">apply_sleep</a></div><div class="ttdeci">static void apply_sleep(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2912</div></div>
+<div class="ttc" id="aeval__cps_8c_html_a9b543742f88e72bde052c57e23f6ef79"><div class="ttname"><a href="eval__cps_8c.html#a9b543742f88e72bde052c57e23f6ef79">apply_setvar</a></div><div class="ttdeci">static void apply_setvar(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2693</div></div>
+<div class="ttc" id="aeval__cps_8c_html_aa505838b6ebc0e8d52a8f0cb8376b4f5"><div class="ttname"><a href="eval__cps_8c.html#aa505838b6ebc0e8d52a8f0cb8376b4f5">apply_eval_program</a></div><div class="ttdeci">static void apply_eval_program(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2952</div></div>
+<div class="ttc" id="aeval__cps_8c_html_aaa90c477737b38cf188083ce1db48d48"><div class="ttname"><a href="eval__cps_8c.html#aaa90c477737b38cf188083ce1db48d48">apply_read_eval_program</a></div><div class="ttdeci">static void apply_read_eval_program(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2816</div></div>
+<div class="ttc" id="aeval__cps_8c_html_ac0973ce279e3aa237028d83369b31485"><div class="ttname"><a href="eval__cps_8c.html#ac0973ce279e3aa237028d83369b31485">apply_spawn</a></div><div class="ttdeci">static void apply_spawn(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2893</div></div>
+<div class="ttc" id="aeval__cps_8c_html_acd65c626e45f08700079afc2117afa4d"><div class="ttname"><a href="eval__cps_8c.html#acd65c626e45f08700079afc2117afa4d">apply_send</a></div><div class="ttdeci">static void apply_send(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2982</div></div>
+<div class="ttc" id="aeval__cps_8c_html_af71fdde22951a9a33a64a5a88bac1e56"><div class="ttname"><a href="eval__cps_8c.html#af71fdde22951a9a33a64a5a88bac1e56">apply_read_program</a></div><div class="ttdeci">static void apply_read_program(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:2812</div></div>
+<div class="ttc" id="aeval__cps_8c_html_afbd5c351bbac88b30e8f37bf7074d3b5"><div class="ttname"><a href="eval__cps_8c.html#afbd5c351bbac88b30e8f37bf7074d3b5">apply_rotate</a></div><div class="ttdeci">static void apply_rotate(lbm_value *args, lbm_uint nargs, eval_context_t *ctx)</div><div class="ttdef"><b>Definition</b> eval_cps.c:3399</div></div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -10391,7 +10525,7 @@ Variables</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td> = <a class="el" href="eval__cps_8c.html#aa640df5e4d5dcd6436de287b74c5de13">printf_nonsense</a></td>
+          <td></td><td> = <a class="el" href="eval__cps_8c.html#a9face5520b2b66f4efcf8dab087f3174">printf_nonsense</a></td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -10526,7 +10660,7 @@ Variables</h2></td></tr>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"></td><td>)</td>
-          <td> = <a class="el" href="eval__cps_8c.html#ae2e0d13a9a3d3a5e65c2bd4b41146f10">usleep_nonsense</a></td>
+          <td> = <a class="el" href="eval__cps_8c.html#a9977f46d1a23599ee6432445edc483b0">usleep_nonsense</a></td>
         </tr>
       </table>
   </td>

@@ -24,10 +24,10 @@ var searchData=
   ['setq_21',['SETQ',['../eval__cps_8c.html#afc33a53c274028e2b78e4cfdec138a9f',1,'eval_cps.c']]],
   ['sharing_5ftable_22',['SHARING_TABLE',['../lbm__image_8c.html#a02f04622504835b295c20e23fdd1e00a',1,'lbm_image.c']]],
   ['sharing_5ftable_5fentry_5fsize_23',['SHARING_TABLE_ENTRY_SIZE',['../lbm__image_8c.html#a23f8342395c1e7c4992f8ff8c39c7376',1,'lbm_image.c']]],
-  ['sharing_5ftable_5ffalse_24',['SHARING_TABLE_FALSE',['../lbm__image_8c.html#abaee63fa3df673b65bb8fb3b85fd9324',1,'lbm_image.c']]],
-  ['sharing_5ftable_5fflattened_5ffield_25',['SHARING_TABLE_FLATTENED_FIELD',['../lbm__image_8c.html#a29cc26492f3430b127b75ad0830ef70c',1,'lbm_image.c']]],
-  ['sharing_5ftable_5fsized_5ffield_26',['SHARING_TABLE_SIZED_FIELD',['../lbm__image_8c.html#a0a0537df7959d245cd64d7ff5f45cc77',1,'lbm_image.c']]],
-  ['sharing_5ftable_5ftrue_27',['SHARING_TABLE_TRUE',['../lbm__image_8c.html#afa7d1112620f29dcba4752fbe2ce8468',1,'lbm_image.c']]],
+  ['sharing_5ftable_5fflattened_5ffield_24',['SHARING_TABLE_FLATTENED_FIELD',['../lbm__image_8c.html#a29cc26492f3430b127b75ad0830ef70c',1,'lbm_image.c']]],
+  ['sharing_5ftable_5fsized_5ffield_25',['SHARING_TABLE_SIZED_FIELD',['../lbm__image_8c.html#a0a0537df7959d245cd64d7ff5f45cc77',1,'lbm_image.c']]],
+  ['sharing_5ftable_5ftrue_26',['SHARING_TABLE_TRUE',['../lbm__image_8c.html#afa7d1112620f29dcba4752fbe2ce8468',1,'lbm_image.c']]],
+  ['sizeopt_27',['sizeopt',['../eval__cps_8c.html#a884fc5979a84e6b84cf1b5c1da32bb2c',1,'eval_cps.c']]],
   ['skip_28',['SKIP',['../lbm__memory_8c.html#a688a4adbb87520a2b68681bd6bfb199e',1,'lbm_memory.c']]],
   ['special_5fforms_5fbit_29',['SPECIAL_FORMS_BIT',['../lbm__defines_8h.html#aefad0cb40375dff7f47eed007bf1a2f9',1,'lbm_defines.h']]],
   ['special_5fforms_5fend_30',['SPECIAL_FORMS_END',['../lbm__defines_8h.html#af64fd4d39400b1364078198ef0b4efb6',1,'lbm_defines.h']]],
@@ -234,5 +234,6 @@ var searchData=
   ['symbol_5fkind_5fextension_231',['SYMBOL_KIND_EXTENSION',['../lbm__defines_8h.html#a47ec214b4b80eea680123b12437c78c3',1,'lbm_defines.h']]],
   ['symbol_5fkind_5ffundamental_232',['SYMBOL_KIND_FUNDAMENTAL',['../lbm__defines_8h.html#a0bf61e4f797f3fe1af45c4ecd0d0ef3e',1,'lbm_defines.h']]],
   ['symbol_5fkind_5fspecial_233',['SYMBOL_KIND_SPECIAL',['../lbm__defines_8h.html#af8f790f7b018773fbc5acb59e403f0e2',1,'lbm_defines.h']]],
-  ['symbol_5flink_5fentry_234',['SYMBOL_LINK_ENTRY',['../lbm__image_8c.html#a19dda47ab1147c9fe7c42be8f1b8f78c',1,'lbm_image.c']]]
+  ['symbol_5flink_5fentry_234',['SYMBOL_LINK_ENTRY',['../lbm__image_8c.html#a19dda47ab1147c9fe7c42be8f1b8f78c',1,'lbm_image.c']]],
+  ['symbol_5fname_5fentry_235',['SYMBOL_NAME_ENTRY',['../lbm__image_8c.html#ab7d9c103e7429f6bf52c573c45868ffa',1,'lbm_image.c']]]
 ];
