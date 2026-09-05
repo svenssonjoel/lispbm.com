@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="description" content="LispBM version 0.39.0 release notes and changelog">
+  <meta name="keywords" content="lispbm, lisp, release, version 0.39.0, changelog">
+  <meta name="author" content="Bo Joel Svensson">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>LispBM 0.39.0 Release</title>
+
+  <!-- SEO Meta Tags -->
+  <link rel="canonical" href="https://www.lispbm.com/releases/release-0.39.0.html">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph Meta Tags -->
+  <meta property="og:title" content="LispBM 0.39.0 Release">
+  <meta property="og:description" content="Release notes and changelog for LispBM version 0.39.0">
+  <meta property="og:image" content="https://www.lispbm.com/images/lispbm_llama_small.png">
+  <meta property="og:url" content="https://www.lispbm.com/releases/release-0.39.0.html">
+  <meta property="og:type" content="article">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../ico/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../ico/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="../ico/favicon-16x16.png">
+  <link rel="shortcut icon" href="../ico/favicon.ico">
+
+  <link rel="stylesheet" href="../styles.css">
+</head>
+
+<body>
+  <div id="wrapper">
+    <div id="header">
+      <h1>LispBM 0.39.0</h1>
+    </div>
+
+    <div id="content">
+      <p><strong>Released:</strong> Sep 5 2026</p>
+
+      <p>
+        <a href="https://github.com/svenssonjoel/lispBM/releases/tag/0.39.0" target="_blank" rel="noopener noreferrer">
+          View on GitHub →
+        </a>
+      </p>
+
+      <h2>Changelog</h2>
+      <ul>
+      <li>Garbage collector fix: switches to ptr-rev garbage collection
+ when the explicit stack version runs out of stack. Combines
+ ptr-rev correctness and stack version efficiency.
+</li>
+      <li>Fix to generic pointer reversal traversal to correctly follow
+ channel dependencies. Also, to correctly error out if someone
+ tries to store a channel into an Image.
+</li>
+      <li>Format safety check in str-from-n to rule out segfault if abused.
+</li>
+      <li>Send can now deliver messages to named threads by name rather than
+ ID.
+</li>
+      <li>Fix in defrag_mem: It did additional and pointless compactions.
+</li>
+      <li>Reset atomic state if the RTS resets.
+</li>
+      <li>Fix in lbm_allocate_const_raw and write_raw to correctly track
+ size.
+</li>
+      <li>Fix off by one error in lbm_memory_shrink.
+</li>
+      <li>Fix in read-eval-program that could make locals forever
+ bound in closures created by the read program.
+</li>
+      </ul>
+
+      <hr>
+
+      <p>
+        <a href="https://www.lispbm.com/">← Back to LispBM Home</a> |
+        <a href="https://github.com/svenssonjoel/lispBM">GitHub Repository</a>
+      </p>
+    </div>
+
+    <div id="footer">
+      <p>&copy; 2026 Bo Joel Svensson</p>
+    </div>
+  </div>
+</body>
+</html>
