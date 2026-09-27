@@ -71,9 +71,24 @@
     <priority>0.8</priority>
   </url>
 
+  <!-- Reference Manual -->
+  <url>
+    <loc>https://www.lispbm.com/lispbm-reference-manual/html/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- C API Documentation -->
   <url>
     <loc>https://www.lispbm.com/cdocs/html/index.html</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+
+  <!-- GitHub Ecosystem Graph -->
+  <url>
+    <loc>https://www.lispbm.com/lispbm_graph.html</loc>
+    <lastmod>2026-09-27</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
