@@ -199,6 +199,41 @@
 
   <!-- Release Pages -->
   <url>
+    <loc>https://www.lispbm.com/releases/release-0.41.0.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lispbm.com/releases/release-0.40.0.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lispbm.com/releases/release-0.39.0.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lispbm.com/releases/release-0.38.0.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lispbm.com/releases/release-0.37.0.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lispbm.com/releases/release-0.36.0.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.lispbm.com/releases/release-0.35.0.html</loc>
+    <changefreq>yearly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://www.lispbm.com/releases/release-0.34.1.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.7</priority>
